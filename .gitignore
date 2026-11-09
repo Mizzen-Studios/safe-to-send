@@ -4,3 +4,5 @@ dist/
 !.env.example
 firebase-debug.log
 *.local
+
+.firebase/

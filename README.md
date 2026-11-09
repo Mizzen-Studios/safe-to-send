@@ -2,6 +2,10 @@
 
 A private-first helper for stressful UK official letters. New work begun 9 November 2026 for #BuildHybridAI. **Week-one spike, not a finished product. Synthetic letters only.**
 
+**Live cloud-disabled spike:** https://safe-to-send-2026.web.app
+
+Hosting verified against all three build files byte-for-byte, with no page errors or external requests in the tested synthetic preview. [Deployment evidence](docs/evidence/hosting-verification.json). Billing remains disabled with no linked billing account. This is not a successful Nano inference result.
+
 ## Run in under five minutes
 
 Node 24.12+ (verified with Node 24.22.1; required by current Firebase SDK). No account, card, API key or model download needed for the local preview.

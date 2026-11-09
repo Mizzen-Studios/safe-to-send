@@ -1,0 +1,54 @@
+{
+  "checkedAt": "2026-11-09T22:18:34.882Z",
+  "origin": "https://safe-to-send-2026.web.app",
+  "parity": [
+    {
+      "file": "index.html",
+      "status": 200,
+      "match": true,
+      "sha256": "75a7e567a0d5b7f8c4a60471139b82f04bd41d8ba0882a6a1ce91a84436e3984",
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    },
+    {
+      "file": "assets/index-BDwhnsDg.css",
+      "status": 200,
+      "match": true,
+      "sha256": "82f39a2fb2369139534ce6abfb6033ec96ad57b88471a38126947c0f8c494d5c",
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    },
+    {
+      "file": "assets/index-C7Z95Uwu.js",
+      "status": 200,
+      "match": true,
+      "sha256": "af8a94c80c8377c11c34b9b4d494e35f3fc8a6e14deb0dd1ede10871e5766f18",
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    }
+  ],
+  "errors": [],
+  "requests": [
+    {
+      "url": "https://safe-to-send-2026.web.app/",
+      "method": "GET"
+    },
+    {
+      "url": "https://safe-to-send-2026.web.app/assets/index-C7Z95Uwu.js",
+      "method": "GET"
+    },
+    {
+      "url": "https://safe-to-send-2026.web.app/assets/index-BDwhnsDg.css",
+      "method": "GET"
+    }
+  ],
+  "capability": {
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.0 Safari/537.36",
+    "platform": "Linux x86_64",
+    "secureContext": true,
+    "languageModel": false,
+    "availability": "unavailable",
+    "checkedAt": "2026-11-09T22:18:34.685Z"
+  },
+  "status": "Nano is unavailable on this device. Cloud sending is refused. Local regex preview still works.",
+  "reviewPlaceholder": true,
+  "overflow": false,
+  "cloudRequests": []
+}
