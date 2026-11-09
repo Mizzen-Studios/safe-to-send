@@ -1,0 +1,9 @@
+{
+  "checkedAt": "2026-11-09T22:16:35.442Z",
+  "result": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)",
+  "fetchCalls": [],
+  "missingLanguageModel": {
+    "error": "Error: Supported browser LanguageModel API required; no SDK initialization or fallback.",
+    "fetchCalls": []
+  }
+}

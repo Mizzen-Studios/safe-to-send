@@ -1,0 +1,19 @@
+{
+  "checkedAt": "2026-11-09T22:13:31.480Z",
+  "capability": {
+    "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+    "platform": "Linux x86_64",
+    "secureContext": true,
+    "languageModel": true,
+    "availability": "unavailable",
+    "checkedAt": "2026-11-09T22:13:30.518Z"
+  },
+  "pageErrors": [],
+  "reviewHasPlaceholder": true,
+  "cloudRequests": [],
+  "horizontalOverflow": false,
+  "narrowViewport": {
+    "width": 390,
+    "height": 844
+  }
+}
