@@ -1,3 +1,5 @@
 import {it,expect,vi,afterEach} from 'vitest';import {createNano} from '../src/nano';
 afterEach(()=>vi.unstubAllGlobals());
 it('refuses non-browser SDK initialization before any network path exists',()=>{const fetch=vi.fn();vi.stubGlobal('fetch',fetch);expect(()=>createNano({apiKey:'synthetic',projectId:'synthetic',appId:'synthetic'})).toThrow('Supported browser');expect(fetch).not.toHaveBeenCalled();});
+it('refuses browser with missing LanguageModel before any SDK cloud route',()=>{const fetch=vi.fn();vi.stubGlobal('window',{});vi.stubGlobal('document',{});vi.stubGlobal('isSecureContext',true);vi.stubGlobal('LanguageModel',undefined);vi.stubGlobal('fetch',fetch);expect(()=>createNano({apiKey:'synthetic',projectId:'synthetic',appId:'synthetic'})).toThrow('Supported browser');expect(fetch).not.toHaveBeenCalled();});
+it('refuses malformed LanguageModel methods',()=>{vi.stubGlobal('window',{});vi.stubGlobal('document',{});vi.stubGlobal('isSecureContext',true);vi.stubGlobal('LanguageModel',{availability(){}});expect(()=>createNano({apiKey:'synthetic',projectId:'synthetic',appId:'synthetic'})).toThrow('Supported browser');});
