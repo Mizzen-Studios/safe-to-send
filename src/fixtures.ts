@@ -1,0 +1,12 @@
+import {locate,type Span} from './privacy';
+export type Letter={id:string;source:string;text:string;truth:Span[]};
+const data:[string,string,string,[string,string][]][]=[
+ ['hmrc','HMRC','Dear Maya Fiction,\n21 Imaginary Lane, ZZ1 1ZZ\nNI AB123456C. UTR 1234567890.\nYour tax return needs a correction. Please reply by 30 November 2026.',[['Maya Fiction','NAME'],['21 Imaginary Lane','ADDRESS'],['ZZ1 1ZZ','POSTCODE'],['AB123456C','NI'],['UTR 1234567890','REFERENCE']]],
+ ['dwp','DWP','Dear Oliver Sample,\n7 Pretend Road, ZZ2 2ZZ\nReference DWP-XY98765. Date of birth 04/05/1980.\nWe need evidence of your housing costs within 14 days.',[['Oliver Sample','NAME'],['7 Pretend Road','ADDRESS'],['ZZ2 2ZZ','POSTCODE'],['DWP-XY98765','REFERENCE'],['04/05/1980','DATE']]],
+ ['nhs','NHS','Dear Amira Invented,\nNHS number 999 000 0018.\nYour appointment is 21 November 2026. Call 07700 900123 if you cannot attend. Email amira@example.invalid.',[['Amira Invented','NAME'],['999 000 0018','NHS'],['07700 900123','PHONE'],['amira@example.invalid','EMAIL']]],
+ ['council','Council','Dear Theo Makebelieve,\n18 Nowhere Close, ZZ3 3ZZ\nAccount 11223344.\nYour council tax payment is overdue. Please contact us before 25/11/2026 to discuss a payment plan.',[['Theo Makebelieve','NAME'],['18 Nowhere Close','ADDRESS'],['ZZ3 3ZZ','POSTCODE'],['11223344','ACCOUNT']]],
+ ['landlord','Landlord','Dear Ava Synthetic,\nFlat 4, 2 Example Street, ZZ4 4ZZ\nPlease pay the outstanding rent to sort code 12-34-56, account 87654321. Contact ava@example.invalid or 07700 900456 to discuss the balance.',[['Ava Synthetic','NAME'],['Flat 4, 2 Example Street','ADDRESS'],['ZZ4 4ZZ','POSTCODE'],['12-34-56','SORT_CODE'],['87654321','ACCOUNT'],['ava@example.invalid','EMAIL'],['07700 900456','PHONE']]]
+];
+export const letters:Letter[]=data.map(([id,source,text,truth])=>({id,source,text:'SYNTHETIC LETTER — invented for testing, not a real notice\n\n'+text,truth:locate('SYNTHETIC LETTER — invented for testing, not a real notice\n\n'+text,truth.map(([text,kind])=>({text,kind})))}));
+/** Character-level PII coverage: a partial span earns only the covered characters. */
+export function score(text:string,truth:Span[],predicted:Span[]){const a=new Set<number>(),b=new Set<number>();for(const s of truth)for(let i=s.start;i<s.end;i++)a.add(i);for(const s of predicted)for(let i=s.start;i<s.end;i++)b.add(i);const tp=[...a].filter(i=>b.has(i)).length;return {tp,actual:a.size,predicted:b.size,recall:a.size?tp/a.size:1,precision:b.size?tp/b.size:0};}

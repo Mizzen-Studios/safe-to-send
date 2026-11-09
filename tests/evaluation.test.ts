@@ -1,0 +1,2 @@
+import {it,expect} from 'vitest';import {letters,score} from '../src/fixtures';import {regexSpans} from '../src/regex';
+it('reports reproducible five-letter regex baseline, not Nano results',()=>{let tp=0,actual=0,predicted=0;for(const l of letters){const s=score(l.text,l.truth,regexSpans(l.text));tp+=s.tp;actual+=s.actual;predicted+=s.predicted;console.log(l.id,JSON.stringify(s));expect(l.text).toContain('SYNTHETIC');}console.log('REGEX_AGGREGATE',JSON.stringify({tp,actual,predicted,recall:tp/actual,precision:tp/predicted}));expect(letters).toHaveLength(5);});
