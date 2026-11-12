@@ -23,7 +23,7 @@ let browser;try{
  await page.locator('#local-answer').focus();await page.keyboard.press('Enter');await page.locator('#draft').waitFor();assert.match(await page.locator('#journey h2').textContent(),/On this device/);assert.equal(await page.evaluate(()=>globalThis.__mockSends||0),0);
  const approve=async()=>{await page.locator('#synthetic-confirm').check();await page.locator('#review-confirm').check();await page.locator('#approve').click();};
  await approve();await page.locator('#cloud-explain').click();await page.locator('#verify-local').waitFor();assert.equal(await page.evaluate(()=>globalThis.__mockSends),1);
- await page.locator('#verify-local').focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('Local check: mismatch'));
+ await page.locator('#verify-local').focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('Local checks: mismatch'));
  assert.match(await page.locator('#claim-checks').textContent(),/action 1: mismatch/);assert.match(await page.locator('#claim-checks').textContent(),/action 2: unknown/);assert.match(await page.locator('#verification-status').textContent(),/not a truth guarantee/);
  for(const width of [390,768,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);}
  await page.evaluate(()=>globalThis.__failVerify=true);await page.locator('#verify-local').click();await page.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('unavailable or invalid'));assert.equal(await page.evaluate(()=>globalThis.__mockSends),1);
