@@ -9,6 +9,17 @@ const image=canvas.toDataURL('image/png');const prompt='Read the code in the pro
 function validate(raw){const parsed=JSON.parse(raw);if(Object.keys(parsed).length!==1||parsed.code!=='BLUE-472')throw Error('Schema/fixture mismatch: '+raw);return parsed;}
 function monitor(m){m.addEventListener('downloadprogress',e=>log('downloadprogress',{loaded:e.loaded,total:e.total}));}
 async function run(name,fn){window.probe.stages[name]={status:'RUNNING'};try{const start=performance.now();const result=await fn();window.probe.stages[name]={status:'PASS',durationMs:performance.now()-start,result};log(name,window.probe.stages[name]);}catch(e){window.probe.stages[name]={status:'FAIL',name:e.name,error:e.message};log(name,window.probe.stages[name]);}}
+document.querySelector('#text').onclick=()=>run('text',async()=>{
+ if(typeof globalThis.LanguageModel?.create!=='function')throw Error('LanguageModel missing; no substitute');
+ log('text-user-activation',{isActive:navigator.userActivation.isActive});
+ const session=await LanguageModel.create({expectedInputs:[{type:'text',languages:['en']}],expectedOutputs:options.expectedOutputs,monitor});
+ try{const raw=await session.prompt('Reply with the single word READY.');return {raw};}finally{session.destroy();}
+});
+window.sampleAvailability=async()=>{
+ const sample={at:new Date().toISOString()};
+ if(globalThis.LanguageModel){for(const [name,input] of [['text',{expectedInputs:[{type:'text',languages:['en']}],expectedOutputs:options.expectedOutputs}],['image',options]]){try{sample[name]=await LanguageModel.availability(input);}catch(e){sample[name]={name:e.name,error:e.message};}}}
+ log('eligibility-sample',sample);return sample;
+};
 document.querySelector('#direct').onclick=()=>run('direct',async()=>{
  if(typeof globalThis.LanguageModel?.create!=='function')throw Error('LanguageModel missing; no substitute');
  // create() is invoked in the real user-click handler, before any await.

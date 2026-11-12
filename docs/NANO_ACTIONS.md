@@ -58,3 +58,35 @@ Windows inventory: 4 AMD EPYC logical CPUs, 17,174,360,064 bytes RAM, 235,732,29
 [Run 43313425316](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43313425316), source b2675db, reached actual headed Chrome 157 on both standard runners. Both reported text/image availability unavailable. Direct image/schema creation failed with NotSupportedError: service is not running; Firebase ONLY_ON_DEVICE returned AI/api-not-enabled. No download events or model output occurred. Setup fixes worked; this is now a real API/service rejection, not proof of the underlying cause. Linux had 93 GB free and Windows 235 GB; no cleanup was needed.
 
 [Reviewed hardware and result summary](evidence/nano-free-runner-result.json). Screenshots/videos remain in the run artifacts (7-day retention) and the ignored local artifact directory. These are failure-diagnostic recordings, not successful Nano demo footage. Accuracy, latency and two-key model catch rate remain unmeasured. A focused eligibility/service diagnostic is next; no paid machine or eligibility spoofing is authorized.
+
+## Focused service/eligibility diagnostic (prepared, not dispatched)
+
+Source inspection on 12 November identified a concrete **probe interference risk**: pinned Playwright 1.65.0 launches Chrome with both `--disable-component-update` and `--disable-background-networking` by default. Previous result.json recorded only our two feature flags, not the full effective command line. This can suppress browser-managed component delivery; it is **not yet proven to be the cause** of run 43313425316. The next probe omits only those two defaults, records the effective command line, and requires Chromium sandboxing (no no-sandbox fallback). This restores normal browser component delivery, not hardware eligibility.
+
+No extra CPU/backend override is justified: Chrome 157 source enables OnDeviceModelCpuBackend and CPU image input by default. IsCpuCapable requires a 64-bit build, >=15000 MiB physical RAM and >=4 processors (field-trial parameters can differ). Both reported inventories exceed those source defaults: Linux 15983.047 MiB and Windows 16378.746 MiB, four logical processors. GPU absence alone therefore does not prove ineligibility. Official documentation requires >=16 GB RAM and >=4 cores for CPU, >=22 GB profile-volume space, supported desktop OS, and an unmetered connection. Audio requires GPU; this probe does not use audio. No inspected official source/document declares all VMs unsupported. CPU inventory does not prove network, policy, component distribution or effective feature eligibility.
+
+### Exact next action (parent review/integration/dispatch only)
+
+Review this branch's diff, integrate its commit, then manually dispatch the existing nano-probe.yml once against the integrated ref. No workflow resource/runner/timeout changes are needed: same ordinary ubuntu-latest/windows-latest, maximum 25 minutes each. **This child has not dispatched or pushed.**
+
+The probe now:
+- Captures sanitized read-only chrome://on-device-internals (Broker State plus shadow-DOM Event Logs), chrome://policy, chrome://gpu and chrome://components before/after registration and after each completed stage. It never changes policy, presses Tools controls, resets crashes, forces assets or overrides eligibility. Raw diagnostic-page videos are deleted; only the synthetic inference page is retained as video.
+- Samples genuine text/image availability every 15 seconds for at most three minutes, stopping early when text becomes downloadable/downloading/available. This is a bounded observation window, not a guarantee: component updater source has a normal one-minute initial delay; performance metric evaluation can be scheduled at three minutes, and distribution may take longer.
+- Clicks a separate **text-only** create + prompt (six-minute cap), then direct image/schema (three minutes), then SDK ONLY_ON_DEVICE image/schema (three minutes). A timeout stops subsequent operations rather than overlapping them. A text PASS means actual text create/prompt resolved, not image/schema support or accuracy. Existing image/schema success classification still requires both actual direct and SDK validated fixture results.
+- Keeps page HTTP egress blocked and no real Firebase credentials. Browser-managed model delivery may use normal network. No HAR, tracing, profile, tokens, netlog or raw stderr upload. Sanitizes URL paths/query, local paths, emails and credential-shaped fields. Hardware evidence remains unchanged. WebUI content is from a fresh unsigned-in profile; these scrubbers are not a guarantee for arbitrary user profiles.
+
+Review result.json effectiveArgs first (component suppression/no-sandbox must be absent), then diagnostics-initial.json vs diagnostics-after-registration-wait.json, exact Broker use-case Unavailable Reason / manifest criteria / asset error, existing policies, GPU feature status, registrationSamples, text stage and download progress. SDK api-not-enabled is a wrapper symptom, not an independent root cause. If service remains unavailable, report the exact captured Broker requirement/error; do not retry unchanged or claim virtualisation alone caused it. If diagnostics are missing, report that capture failure rather than infer a reason.
+
+### Official/source references
+
+- https://developer.chrome.com/docs/ai/get-started (CPU requirements, download, Broker State troubleshooting)
+- https://developer.chrome.com/docs/ai/prompt-api (current API use; no additional CPU fallback flag required)
+- https://developer.chrome.com/docs/ai/debug-built-in-model (Event Logs)
+- https://github.com/microsoft/playwright/blob/v1.65.0/packages/playwright-core/src/server/chromium/chromiumSwitches.ts (exact defaults)
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/services/on_device_model/public/cpp/cpu.cc (physical RAM, processors, 64-bit eligibility)
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/services/on_device_model/public/cpp/features.cc (CPU backend enabled by default)
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/components/optimization_guide/core/model_execution/performance_class.cc (CPU fallback/image support; scheduled evaluation)
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/components/component_updater/configurator_impl.cc (normal initial delay)
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/components/optimization_guide/core/model_execution/on_device.md (broker -> asset-provider registration -> component update -> service lifecycle)
+
+Local validation: node --check on all changed JS, node --test scripts/nano-ci/check-diagnostics.mjs (sanitization/read-only capture tests), probe bundle and full npm run build. These are tooling checks, not Nano execution evidence; local ARM64 cannot reproduce the genuine x64 Stable runner service. New runner outcome remains NOT_RUN until parent dispatch and evidence review.
