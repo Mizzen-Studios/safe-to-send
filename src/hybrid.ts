@@ -47,27 +47,29 @@ export function parseVerification(json:string,original:string,claims:Claim[]):Ve
  const status:Verdict=checks.some(c=>c.status==='mismatch')?'mismatch':checks.some(c=>c.status==='unsupported')?'unsupported':!checks.length||checks.some(c=>c.status==='unknown')?'unknown':'supported';
  return {status,checks};
 }
-function current(gate:PrivacyGate,revision:number){if(gate.currentRevision!==revision)throw Error('Letter changed; local response discarded');}
+const operations=new WeakMap<PrivacyGate,number>();
+function begin(gate:PrivacyGate){const operation=(operations.get(gate)??0)+1;operations.set(gate,operation);return operation;}
+function current(gate:PrivacyGate,revision:number,operation:number){if(gate.currentRevision!==revision||operations.get(gate)!==operation)throw Error('Letter changed or newer operation started; local response discarded');}
 /** Local-only model answer is returned redacted for safe rendering; raw model text is not exposed. */
 export async function runLocalAnswer(gate:PrivacyGate,nano:LocalNano|null):Promise<LocalResult<Journey>>{
- const revision=gate.currentRevision;
+ const revision=gate.currentRevision,operation=begin(gate);
  if(!nano)return {status:'unavailable',revision,reason:'On-device model unavailable; no fallback.'};
  try{
  const original=gate.text,spans=gate.highlights;
  if(!spans.length||!['review','approved','done'].includes(gate.phase))throw Error('Reviewed redactions required');
- const j=parseJourney(await nano.answer(original));current(gate,revision);
+ const j=parseJourney(await nano.answer(original));current(gate,revision,operation);
  if(JSON.stringify(j).includes(JSON.stringify(original).slice(1,-1)))throw Error('Whole original echo refused');
  for(const d of j.deadlines)if(!original.includes(d.evidence))throw Error('Invalid local evidence');
  const mapping=redact(original,spans).mapping;
  const safe=(value:string)=>{for(const [token,raw]of Object.entries(mapping).sort((a,b)=>b[1].length-a[1].length))value=value.split(raw).join(token);return value;};
  const result={explanation:safe(j.explanation),draft:safe(j.draft),actions:j.actions.map(safe),deadlines:j.deadlines.map(d=>({...d,evidence:safe(d.evidence),action:safe(d.action)}))};
  return {status:'complete',revision,result};
- }catch{current(gate,revision);return {status:'unavailable',revision,reason:'Local answer unavailable or invalid; no fallback.'};}
+ }catch{current(gate,revision,operation);return {status:'unavailable',revision,reason:'Local answer unavailable or invalid; no fallback.'};}
 }
 /** Two keys: approved redacted cloud answer + separate ONLY_ON_DEVICE evidence check.
  * Input journey must still be redacted. No cloud provider/transport is accepted here. */
 export async function runTwoKey(gate:PrivacyGate,nano:LocalNano|null,redactedJourney:Journey):Promise<LocalResult<Verification>>{
- const revision=gate.currentRevision;
+ const revision=gate.currentRevision,operation=begin(gate);
  if(!nano)return {status:'unavailable',revision,reason:'On-device verifier unavailable; no fallback.'};
  const binding=reviewedJourney(gate);
  const supplied=JSON.stringify(parseJourney(JSON.stringify(redactedJourney)));
@@ -77,6 +79,6 @@ export async function runTwoKey(gate:PrivacyGate,nano:LocalNano|null,redactedJou
  const restoreText=(s:string)=>restore(s,mapping);
  const privateJourney={explanation:restoreText(j.explanation),draft:restoreText(j.draft),actions:j.actions.map(restoreText),deadlines:j.deadlines.map(d=>({...d,evidence:restoreText(d.evidence),action:restoreText(d.action)}))};
  const claims=claimsFromJourney(privateJourney);
- try{const json=await nano.verify(original,claims);current(gate,revision);return {status:'complete',revision,result:parseVerification(json,original,claims)};}
- catch{current(gate,revision);return {status:'unavailable',revision,reason:'Local verification unavailable or invalid; no fallback.'};}
+ try{const json=await nano.verify(original,claims);current(gate,revision,operation);return {status:'complete',revision,result:parseVerification(json,original,claims)};}
+ catch{current(gate,revision,operation);return {status:'unavailable',revision,reason:'Local verification unavailable or invalid; no fallback.'};}
 }

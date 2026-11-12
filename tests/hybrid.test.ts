@@ -26,3 +26,13 @@ it('two-key binds unchanged accepted answer, reports mismatch, strips evidence, 
 it('local unavailable/error never egresses or echoes provider errors or original',async()=>{const g=manual(),fetch=vi.spyOn(globalThis,'fetch');expect((await runLocalAnswer(g,null)).status).toBe('unavailable');expect((await runTwoKey(g,null,j)).status).toBe('unavailable');const nano={answer:vi.fn(async()=>{throw Error(raw)}),verify:vi.fn()};const result=await runLocalAnswer(g,nano);expect(result.status).toBe('unavailable');expect(JSON.stringify(result)).not.toContain('Rowan');expect(fetch).not.toHaveBeenCalled();fetch.mockRestore();});
 it('local answer redacts known private values and discards stale results',async()=>{const g=manual();const nano={answer:vi.fn(async()=>JSON.stringify({...j,explanation:'Hello Rowan Invented'})),verify:vi.fn()};const result=await runLocalAnswer(g,nano);expect(JSON.stringify(result)).not.toContain('Rowan Invented');let finish!:(s:string)=>void;const p=runLocalAnswer(g,{...nano,answer:()=>new Promise(r=>finish=r)});g.load('replacement');finish(JSON.stringify(j));await expect(p).rejects.toThrow('changed');});
 it('accepted answer snapshots cannot be mutated to authorize changed verification',async()=>{const g=await answered();const x=reviewedJourney(g);x.redacted.actions[0]='forged';expect(reviewedJourney(g).redacted.actions[0]).toBe('Pay £25');});
+
+it('newer local operation invalidates an earlier response even for an unchanged source revision',async()=>{
+ const g=manual();let finish!:(s:string)=>void;const old=runLocalAnswer(g,{answer:()=>new Promise(r=>finish=r),verify:vi.fn()});await runLocalAnswer(g,null);finish(JSON.stringify(j));await expect(old).rejects.toThrow('newer operation');
+});
+it('source edits discard an in-flight two-key response',async()=>{
+ const g=await answered();let finish!:(s:string)=>void;const pending=runTwoKey(g,{answer:vi.fn(),verify:()=>new Promise(r=>finish=r)},j);g.load('new synthetic letter');finish('{"checks":[]}');await expect(pending).rejects.toThrow('changed');
+});
+it('unknown/unsupported are explicit outcomes, and unrelated dates/amount evidence cannot be called supported',()=>{
+ const claims=claimsFromJourney(j);const checks=claims.map(c=>({id:c.id,status:'supported',evidence:[{start:0,end:4,quote:'Dear'}]}));expect(parseVerification(JSON.stringify({checks}),raw,claims).status).toBe('unknown');checks.forEach(c=>c.status='unsupported');expect(parseVerification(JSON.stringify({checks}),raw,claims).status).toBe('unsupported');checks.forEach(c=>c.status='unknown');expect(parseVerification(JSON.stringify({checks}),raw,claims).status).toBe('unknown');
+});

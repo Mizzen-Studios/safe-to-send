@@ -18,7 +18,7 @@ export function replyEnvelope(letter:string,roles:LetterRoles=inferRoles(letter)
 export function validateDraftRoles(draft:string,letter:string,roles:LetterRoles=inferRoles(letter)){
  const r=validateRoles(letter,roles);
  const greeting=draft.match(/^\s*Dear\s+([^\n,]+)[,\n]/i)?.[1];
- if(greeting&&/\[[A-Z_]+_\d+\]/.test(greeting)&&greeting!==r.sender)throw Error('Draft addressee is not the confirmed sender');
- const signature=draft.match(/(?:Kind regards|Yours sincerely|Yours faithfully|Regards|Sincerely),?\s*\n\s*(\[[A-Z_]+_\d+\])/i)?.[1];
- if(signature&&signature!==r.recipient)throw Error('Draft signature is not the confirmed recipient');
+ if(greeting&&greeting.toLowerCase()!=='sender'&&greeting!==r.sender)throw Error('Draft addressee is not the confirmed sender');
+ const signature=draft.match(/(?:Kind regards|Yours sincerely|Yours faithfully|Regards|Sincerely),?\s*\n[ \t]*([^\n]+)/i)?.[1].trim();
+ if(signature&&signature!=='Your name'&&signature!==r.recipient)throw Error('Draft signature is not the confirmed recipient');
 }
