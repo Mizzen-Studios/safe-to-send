@@ -30,3 +30,19 @@ Run from the repository root:
     node scripts/nano-ci/build.mjs
 
 A local ARM64 host cannot validate official x64 Chrome Stable runner eligibility. The Actions run remains NOT_RUN until its run URL and downloaded artifacts are reviewed.
+
+## First dispatch: 43308803064 (12 November 2026)
+
+Run: https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43308803064
+
+Linux failed **before browser launch**: Chrome Stable 157.0.8103.78 installed successfully, but Playwright 1.58.2 rejected its recording-codec install with `ERROR: Playwright does not support ffmpeg on ubuntu26.04-x64`. This is a probe tooling defect, **not a Nano eligibility rejection**. Inventory: x64 Ubuntu26 image 20261111.196.1, four Xeon Platinum 8573C logical CPUs, total RAM 16,758,398,976 bytes, free profile-volume disk 93,145,341,952 bytes, no GPU line from lspci. No image/schema inference ran on Linux; no browser screenshot/video could exist.
+
+Fix: pin isolated driver to Playwright 1.65.0, whose platform and ffmpeg download tables explicitly include ubuntu26.04-x64. No runner label/cost change or platform override.
+
+The original dispatch flags were `--enable-features=PromptAPIForGeminiNano,PromptAPIForGeminiNanoMultimodalInput` and `--prompt-api-for-gemini-nano-multimodal-input`; preserve them when interpreting its evidence. They were not validated feature names. Chrome 157 source instead maps chrome://flags `prompt-api` and `prompt-api-multimodal-input` to `blink::features::kAIPromptAPI` and `blink::features::kAIPromptAPIMultimodalInput` via FEATURE_WITH_PARAMS_VALUE_TYPE / FEATURE_VALUE_TYPE (base FeatureList, not a raw switch named after the flag). The corrected explicit equivalent is `--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput`. runtime_enabled_features.json5 also lists both exact names as stable on desktop; this is not a hardware bypass or a model replacement.
+
+Version-specific evidence:
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/chrome/browser/about_flags.cc
+- https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/third_party/blink/renderer/platform/runtime_enabled_features.json5
+
+The fix is pending parent review/integration and a separate dispatch. These changes alone do not establish any successful Nano execution.
