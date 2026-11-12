@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-12T18:41:20.191Z",
-  "sourceCommit": "9d1ff9cf030b47e9b8c6033d3cc5cab3c84e96ce",
+  "checkedAt": "2026-11-12T21:20:29.887Z",
+  "sourceCommit": "dfb47cf81fb6ef4672e8b6afc406dbdd83e8db58",
   "classification": "LOCAL_SYNTHETIC_QA_NOT_INFERENCE",
   "browser": "145.0.7632.0",
   "appBuild": "local dist served with unchanged firebase.json headers; not deployed",

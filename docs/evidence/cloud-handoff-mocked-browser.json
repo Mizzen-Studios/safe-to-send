@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-11-12T18:41:16.705Z",
-  "sourceCommit": "9d1ff9cf030b47e9b8c6033d3cc5cab3c84e96ce",
+  "checkedAt": "2026-11-12T21:20:32.305Z",
+  "sourceCommit": "dfb47cf81fb6ef4672e8b6afc406dbdd83e8db58",
   "classification": "REAL_BROWSER_REAL_SDK_SERIALIZATION_MOCK_APPCHECK_MOCK_PROVIDER_NOT_INFERENCE",
   "browser": "145.0.7632.0",
-  "productionReleaseSwitch": "true for supplied synthetic fixtures only; App Check/provider are mocked in this suite",
+  "productionReleaseSwitch": "true for reviewed synthetic input; App Check/provider are mocked in this suite",
   "origins": [
     "https://safe-to-send-2026.web.app",
     "https://safe-to-send-cloud-2026.web.app"
@@ -25,15 +25,15 @@
       "origin": "https://firebasevertexai.googleapis.com",
       "path": "/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
       "method": "POST",
-      "bodyUtf8Bytes": 1766,
-      "bodySha256": "eb5b96be837bdfe923043b79b2fb25d278802f57c41ff217bb20d906afaa72ae"
+      "bodyUtf8Bytes": 2065,
+      "bodySha256": "e295212e41943c3d9dcf5972527d1b0f1edfd8e12d16687932174b858aa7426c"
     },
     {
       "origin": "https://firebasevertexai.googleapis.com",
       "path": "/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
       "method": "POST",
-      "bodyUtf8Bytes": 1766,
-      "bodySha256": "eb5b96be837bdfe923043b79b2fb25d278802f57c41ff217bb20d906afaa72ae"
+      "bodyUtf8Bytes": 2065,
+      "bodySha256": "e295212e41943c3d9dcf5972527d1b0f1edfd8e12d16687932174b858aa7426c"
     }
   ],
   "nanoInference": "NOT_RUN",
