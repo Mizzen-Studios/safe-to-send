@@ -20,16 +20,26 @@ npm run dev
 
 Open http://localhost:5192. `npm run build` typechecks and builds the static site; `npm run eval` reports the five-letter regex baseline. Dependencies and lockfile are pinned. Apache-2.0 licensed; prior MIT attribution is preserved in [NOTICE](NOTICE).
 
-## Current milestone: reviewed synthetic journey
+## Current milestone: isolated approved-redacted cloud handoff
+
+Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging, App Check Enterprise before AI Logic, ONLY_IN_CLOUD structured adapter, and SDK HTTP-body capture are implemented. **Production source remains locked** for parent review/deployment/testing. Raw connect-src remains data:; only the exact broker may be framed. [Integration](docs/CLOUD_HANDOFF.md).
+
+- **85 tests**, typecheck and dual static build. Mocks explicitly labelled.
+- [Two-origin browser evidence](docs/evidence/cloud-handoff-mocked-browser.json): real Chromium and pinned Firebase SDK serialization with **mock App Check/provider**. Approval, explicit send, redacted-only body, UTF-8/SHA parity against mocked network, local restoration, inert HTML output, stale cancellation and absent-attestation refusal pass. Not real inference/attestation or deployed DevTools proof.
+- Parent [private SDK harness](docs/evidence/real-cloud-sdk-private-harness.json): **real cloud inference, not deployed app E2E**, gemini-3.5-flash-lite, in_cloud, 5589 ms sample. Unconstrained output was malformed and invented [NAME_2]; product now constrains responseSchema and rejects unknown placeholders. Semantic correctness is not guaranteed.
+- [Valid-key/no-App-Check control](docs/evidence/appcheck-negative-control.json): **401 invalid App Check token**. The older no-client-key 403 in the SDK harness is NOT the correct App Check control.
+- [Parent infrastructure snapshot](docs/evidence/cloud-infra-receipt.json): billing disabled/unlinked, telemetry NONE, enforced App Check, Enterprise provider. Its successfulCloudInference=false predates the successful harness. [Fresh Nano check](docs/evidence/nano-capability-nov12.json): absent/unavailable, no inference/accuracy/latency result.
+
+### Local reviewed synthetic journey
 
 Choose **Try the synthetic review journey (no AI)**, inspect/edit redactions, check the review confirmation, approve the exact redacted application JSON, then generate a labelled local example. All five supplied fixtures have deterministic explanation/deadline/action/draft templates. Relative dates stay unresolved; a council “before” date is not presented as inclusive. Source or redaction edits invalidate approval and clear results. Draft editing and local download work without cloud. This demonstrates workflow, **not Nano detection or Gemini inference**.
 
-- `npm test`: 44 tests (including SDK mocks explicitly labelled as mocks).
+- Earlier milestone: 44 tests. Current suite: 85 tests, including labelled mocks.
 - `npm run build`: TypeScript + Vite production build.
 - `node scripts/verify-reviewed-journey.mjs`: isolated Chromium, built files with unchanged Hosting headers at port 5192. Requires separately available Playwright and Chromium; used existing workspace Playwright, no paid services. Set `CHROMIUM_PATH` if needed.
 - [Browser evidence](docs/evidence/reviewed-journey-browser.json): 390/768/1440px, mandatory approval, local restoration, source/redaction invalidation, five fixtures, keyboard approval and edited draft download. No page exceptions or external browser requests. Deliberate CSP egress probe is blocked; expected CSP console errors and a harmless missing favicon 404 are retained. This is local QA, not deployment or real-device inference proof.
 - [GitHub license evidence](docs/evidence/github-license.json): GitHub repository API and license endpoint detect **Apache-2.0**, and an isolated public browser confirmed the rendered [Apache-2.0 license link](docs/evidence/github-about-license.json) ([capture](docs/evidence/github-about-license.png)), after pushing the standard LICENSE. Prior MIT permission notice remains in NOTICE.
-- [Boundary design / remaining gates](docs/REVIEWED_JOURNEY.md). Cloud remains compile-time locked; App Check preflight mock tests do not establish server-side enforcement.
+- [Boundary design / remaining gates](docs/REVIEWED_JOURNEY.md). Cloud remains source-locked. Client mocks do not prove enforcement; parent negative-control evidence is separate.
 
 ## November 9 spike verdict: PARTIAL — real-device gate blocked
 
@@ -80,23 +90,23 @@ These figures expose why regex alone cannot authorize cloud sending: it misses n
                               | version-bound approval
                               v
                     [Redacted text + placeholders]
-                              | future ONLY_IN_CLOUD
+                              | isolated approved-redacted broker / ONLY_IN_CLOUD
                               v
                     [Explanation / dates / draft]
-                              | future cloud response
+                              | un-restored cloud response
                               v
                     [Local placeholder restore]
 ```
 
 **Implemented:** pure state machine, generation-bound approval, stale-response rejection, download/detection errors fail closed, UK regex union, strict matching/overlap merging, reserved-placeholder collision rejection, unknown-placeholder rejection, single-pass local restore, synthetic selection, regex preview, device check, Nano image/text runner, basic Nano review/add/remove/approve UI. Storage is in-memory for this spike.
 
-**Still not enabled / not implemented:** live cloud model or request, production App Check, separate-origin redacted handoff, byte-exact wire ledger, real-inference explanations, IndexedDB history, reminders, 30+ corpus. Structured journey and local draft download now work with explicitly synthetic templates. A gated cloud SDK adapter exists in source but is not reachable for inference. No cloud request means the visible privacy ledger correctly says **0 cloud requests**. There is no fake cloud success.
+**Implemented but source-locked:** isolated handoff, Enterprise App Check preflight, structured ONLY_IN_CLOUD generation and SDK HTTP-body ledger. Separate explicit synthetic-fixture cloud action says annotations, NOT Nano; local templates are never labelled AI. Ledger counts attempts and captured bodies separately. No capture after failed/cancelled handoff does not establish zero network. **Not proven/implemented:** deployed cloud app E2E/DevTools parity, real Nano, IndexedDB history, reminders, 30+ corpus.
 
 The gate's injected transport receives only the immutable redacted JSON string captured at approval, never the original source, image, mapping, or instance. Tests cover empty/unavailable/unreviewed states, detector failure, stale detection, changed review, duplicate sends, stale responses, failed transport and placeholder collisions. This is a boundary invariant, **not a proof that every personal detail was found**. A missed PII span could survive redaction; human review and evaluation reduce, but cannot eliminate, that risk. Requiring Nano does not mean Nano is perfectly accurate.
 
 ### Exact ledger gate
 
-The pure gate records the exact **application payload string** plus UTF-8 byte length, time, requested model, attempted/succeeded/failed state, and what remains local. Firebase serializes this again into its own HTTP request. These are not interchangeable. Before cloud release, the ledger must capture the actual serialized SDK HTTP body, byte-for-byte, and compare it with DevTools Network. Model-reported identity should be recorded separately from requested model if available. Do not advertise the current ledger as wire-exact.
+Application payload and SDK body are distinct. Isolated broker temporarily hooks only the exact AI Logic generateContent POST BODY, validates SDK shape/exact approved payload before dispatch, and records body string, UTF-8 bytes, SHA-256, time and requested model. Tokens/headers/unrelated requests are never inspected/copied. Raw origin revalidates body/payload/bytes/hash on a correlated reply. Cancel/timeout may lose a report after dispatch. These are not compression/TLS bytes or remote-processing proof. **Independent deployed DevTools parity remains unproven.** [Details](docs/CLOUD_HANDOFF.md).
 
 ## Feature-ordered plan
 
@@ -112,9 +122,9 @@ The pure gate records the exact **application payload string** plus UTF-8 byte l
 
 Parent provisioned Firebase project `safe-to-send-2026` on Spark, billing disabled. Static Firebase Hosting only. Deployment is parent-owned and requires release review; this milestone does not deploy or change resources. No Functions, Storage, domain/DNS, paid APIs, Live API or grounding. No billing upgrade/card.
 
-Cloud model candidate is **gemini-3.5-flash-lite**, matching current Firebase hybrid docs. Free-tier availability and project enablement must be independently verified before any cloud call. Gemini Developer API only, never a paid backend. Set up reCAPTCHA Enterprise App Check within free quota and **enforce** it for AI Logic before enabling cloud. No debug token in production. This research build deliberately initializes neither App Check nor cloud inference.
+Cloud model candidate is **gemini-3.5-flash-lite**, matching current Firebase hybrid docs. Free-tier availability and project enablement must be independently verified before any cloud call. Gemini Developer API only, never a paid backend. Set up reCAPTCHA Enterprise App Check within free quota and **enforce** it for AI Logic before enabling cloud. No debug token in production. Source lock prevents initialization. After reviewed source release, only the broker initializes Enterprise App Check before AI Logic.
 
-No analytics, third-party fonts, external assets, error reporting or raw-content logging. Browser-local export is synthetic research JSON only. HTTPS Hosting has CSP, no-referrer, nosniff and disabled camera/microphone/geolocation. CSP should be changed only with a reviewed endpoint allowlist once the cloud privacy gates pass.
+No analytics, third-party fonts, external assets, error reporting or raw-content logging. Browser-local export is synthetic research JSON only. HTTPS Hosting has CSP, no-referrer, nosniff and disabled camera/microphone/geolocation. Raw connect-src stays data:; frame-src adds only broker. Broker alone has narrow AI Logic/App Check/recaptcha endpoints, requiring parent real-attestation testing.
 
 ## Sources
 
@@ -148,6 +158,10 @@ The original scope included regex preview, basic Nano review/add/remove/approve,
 
 ### Post-start implementation (12 November 2026)
 
-This milestone adds mandatory checked review of an immutable redacted payload, structured explanation/deadline/action/draft parsing and local restoration, revision-bound result invalidation, a clearly labelled synthetic journey, a disabled cloud SDK adapter with App Check preflight, and additional tests plus browser negative-egress evidence. These are new implementation features, not successful Nano or cloud inference results. License metadata is now Apache-2.0, retaining the original MIT notice.
+The earlier post-start milestone added mandatory checked review of an immutable redacted payload, structured explanation/deadline/action/draft parsing and local restoration, revision-bound result invalidation, a clearly labelled synthetic journey, a disabled cloud SDK adapter with App Check preflight, and additional tests plus browser negative-egress evidence. These are new implementation features, not successful Nano or cloud inference results. License metadata is now Apache-2.0, retaining the original MIT notice.
 
 The browser SDK also has the missing-adapter edge if LanguageModel is absent, not just Node. Explicit secure-browser + API method guards and network-blocking CSP are required. Result inferenceSource is asserted ON_DEVICE, but this post-response assertion is detection, not upload prevention.
+
+### Subsequent post-start handoff implementation (12 November)
+
+New substantial changes: dual-origin isolation, single-use revision/nonce/request protocol, immutable approved-byte send, cancellation, Enterprise broker setup, schema-constrained SDK generation, HTTP-body validation/capture, SHA ledger, 41 additional tests and mocked two-origin browser QA. This is implementation, not Nano/deployed app inference proof. Original dates, Apache-2.0 LICENSE and prior MIT NOTICE remain unchanged. Parent real SDK harness/control evidence is disclosed separately above.

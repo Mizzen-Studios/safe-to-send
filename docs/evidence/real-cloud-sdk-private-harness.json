@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-11-12T18:24:27.361Z",
+  "kind": "Private real firebase/ai browser SDK verification, not deployed product journey",
+  "model": "gemini-3.5-flash-lite",
+  "requests": [
+    {
+      "url": "https://firebasevertexai.googleapis.com/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "OPTIONS",
+      "appCheckHeaderPresent": false,
+      "utf8Bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "https://firebasevertexai.googleapis.com/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "POST",
+      "appCheckHeaderPresent": true,
+      "body": "{\"generationConfig\":{\"responseMimeType\":\"application/json\",\"maxOutputTokens\":1024},\"safetySettings\":[],\"contents\":[{\"role\":\"user\",\"parts\":[{\"text\":\"{\\\"instruction\\\":\\\"Explain this explicitly synthetic UK letter in plain English. Return JSON with explanation, actions and draft strings. Preserve all bracketed placeholders. No legal claims.\\\",\\\"letter\\\":\\\"SYNTHETIC LETTER. Dear [NAME_1], please send evidence of your housing costs within 14 days. Reference [REFERENCE_2].\\\"}\"}]}]}",
+      "utf8Bytes": 480,
+      "sha256": "1f524f70818904a054e3f4931e4329c65f2bd88ef17ed576450fd47e408abe6c"
+    },
+    {
+      "url": "https://firebasevertexai.googleapis.com/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "OPTIONS",
+      "appCheckHeaderPresent": false,
+      "utf8Bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "url": "https://firebasevertexai.googleapis.com/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "POST",
+      "appCheckHeaderPresent": false,
+      "body": "{\"generationConfig\":{\"responseMimeType\":\"application/json\",\"maxOutputTokens\":1024},\"safetySettings\":[],\"contents\":[{\"role\":\"user\",\"parts\":[{\"text\":\"{\\\"instruction\\\":\\\"Explain this explicitly synthetic UK letter in plain English. Return JSON with explanation, actions and draft strings. Preserve all bracketed placeholders. No legal claims.\\\",\\\"letter\\\":\\\"SYNTHETIC LETTER. Dear [NAME_1], please send evidence of your housing costs within 14 days. Reference [REFERENCE_2].\\\"}\"}]}]}",
+      "utf8Bytes": 480,
+      "sha256": "1f524f70818904a054e3f4931e4329c65f2bd88ef17ed576450fd47e408abe6c"
+    }
+  ],
+  "result": {
+    "appCheck": true,
+    "model": "gemini-3.5-flash-lite",
+    "inferenceSource": "in_cloud",
+    "latencyMs": 5589.399999976158,
+    "response": [
+      {
+        "explanation": "You need to send proof of your housing costs to the sender within 14 days, making sure to include the reference number provided.",
+        "actions": "Gather proof of your housing costs and send it to the sender within 14 days, quoting reference [REFERENCE_2].",
+        "draft": "Dear [NAME_2], please find enclosed my evidence of housing costs for reference [REFERENCE_2]. Yours sincerely, [NAME_1]."
+      }
+    ],
+    "payload": "{\"instruction\":\"Explain this explicitly synthetic UK letter in plain English. Return JSON with explanation, actions and draft strings. Preserve all bracketed placeholders. No legal claims.\",\"letter\":\"SYNTHETIC LETTER. Dear [NAME_1], please send evidence of your housing costs within 14 days. Reference [REFERENCE_2].\"}"
+  },
+  "appCheckObtained": true,
+  "negativeControl": {
+    "status": 403,
+    "message": "Method doesn't allow unregistered callers (callers without established identity). Please use API Key or other form of API consumer identity to call this API.",
+    "withoutAppCheck": true
+  }
+}

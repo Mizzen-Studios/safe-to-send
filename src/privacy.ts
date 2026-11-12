@@ -23,6 +23,7 @@ export type Ledger={time:string;model:string;applicationPayload:string;utf8Bytes
 /** No SDK or network dependency. Only redacted JSON can reach the transport. */
 export class PrivacyGate{
  phase:Phase='empty';reason='';private raw='';private spans:Span[]=[];private revision=0;private approved=-1;private ready=false;private map:Record<string,string>={};private approvedPayload='';readonly ledger:Ledger[]=[];
+ get currentRevision(){return this.revision;}
  get text(){return this.raw;}get highlights(){return this.spans.map(s=>({...s}));}
  load(text:string){this.revision++;this.raw=text;this.spans=[];this.ready=false;this.approved=-1;this.map={};this.phase=text?'blocked':'empty';this.reason='Run on-device detection before sending.';}
  deviceUnavailable(reason:string){this.ready=false;this.revision++;this.approved=-1;this.phase='blocked';this.reason=reason;}

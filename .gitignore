@@ -7,3 +7,5 @@ firebase-debug.log
 
 .firebase/
 .openclaw/tmp/
+
+dist-cloud/

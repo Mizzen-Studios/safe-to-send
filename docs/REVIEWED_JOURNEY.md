@@ -1,3 +1,11 @@
+# Latest: isolated handoff milestone
+
+The baseline report below is historical. Its 44-test count and not-implemented handoff/ledger statements describe earlier November 12 source, NOT current source.
+
+Current implementation/review/build steps: [CLOUD_HANDOFF.md](CLOUD_HANDOFF.md). Current suite: 85 tests, dual static builds and mocked two-origin real-browser/real-SDK QA. Release stays false pending parent review, real Enterprise browser attestation and deployed app/DevTools parity. Parent private SDK harness achieved real cloud inference; separate valid-key/no-token control returned 401. See README for evidence boundaries. Nano is unavailable/unproven. No raw-origin Google connect permission was added.
+
+# Historical baseline report (before isolated handoff)
+
 # Reviewed-letter journey — November 12 milestone
 
 ## Implemented scope

@@ -1,0 +1,43 @@
+{
+  "checkedAt": "2026-11-12T18:25:24.791Z",
+  "sourceCommit": "cdcdaec08f2123a3a63b668807a894bc1b919717",
+  "classification": "REAL_BROWSER_REAL_SDK_SERIALIZATION_MOCK_APPCHECK_MOCK_PROVIDER_NOT_INFERENCE",
+  "browser": "145.0.7632.0",
+  "productionReleaseSwitch": "false; test-only in-memory Vite transform, no production source unlock",
+  "origins": [
+    "https://safe-to-send-2026.web.app",
+    "https://safe-to-send-cloud-2026.web.app"
+  ],
+  "mandatoryApproval": true,
+  "noIframeBeforeExplicitCloudSend": true,
+  "redactedOnlyBody": true,
+  "htmlResponseNotExecuted": true,
+  "localRestoration": true,
+  "bodyLedgerEqualsMockedNetworkBody": true,
+  "sha256AndUtf8Parity": true,
+  "staleSourceEditDestroysIframe": true,
+  "missingAttestationPreventsSDKRequest": true,
+  "rawConnectProbe": "blocked",
+  "unexpectedRequests": [],
+  "pageErrors": [],
+  "requests": [
+    {
+      "origin": "https://firebasevertexai.googleapis.com",
+      "path": "/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "POST",
+      "bodyUtf8Bytes": 1766,
+      "bodySha256": "eb5b96be837bdfe923043b79b2fb25d278802f57c41ff217bb20d906afaa72ae"
+    },
+    {
+      "origin": "https://firebasevertexai.googleapis.com",
+      "path": "/v1beta/projects/safe-to-send-2026/models/gemini-3.5-flash-lite:generateContent",
+      "method": "POST",
+      "bodyUtf8Bytes": 1766,
+      "bodySha256": "eb5b96be837bdfe923043b79b2fb25d278802f57c41ff217bb20d906afaa72ae"
+    }
+  ],
+  "nanoInference": "NOT_RUN",
+  "cloudInference": "NOT_RUN — mocked provider",
+  "appCheckServerEnforcement": "NOT_TESTED — mock",
+  "deployedDevToolsParity": "NOT_TESTED"
+}

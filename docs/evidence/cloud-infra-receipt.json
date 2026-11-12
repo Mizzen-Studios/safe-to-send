@@ -1,0 +1,31 @@
+{
+  "checkedAt": "2026-11-12T18:20:38Z",
+  "project": "safe-to-send-2026",
+  "projectNumber": "794092402064",
+  "cloudOrigin": "https://safe-to-send-cloud-2026.web.app",
+  "brokerAppId": "1:794092402064:web:4e263548738bdb75a8af15",
+  "billingEnabled": false,
+  "billingLinked": false,
+  "apiEnablement": [
+    "firebaseappcheck.googleapis.com",
+    "firebasevertexai.googleapis.com",
+    "generativelanguage.googleapis.com",
+    "recaptchaenterprise.googleapis.com"
+  ],
+  "appCheckService": "firebaseml.googleapis.com",
+  "appCheckEnforcement": "ENFORCED",
+  "enforcementUpdateTime": "2026-11-12T18:19:25.615535Z",
+  "recaptcha": {
+    "provider": "Enterprise SCORE",
+    "allowedDomains": [
+      "safe-to-send-cloud-2026.web.app",
+      "safe-to-send-cloud-2026.firebaseapp.com"
+    ],
+    "tokenTtl": "3600s"
+  },
+  "telemetryMode": "NONE",
+  "privateDebugRegistered": true,
+  "geminiApiKeyCreated": false,
+  "successfulCloudInference": false,
+  "successfulNanoInference": false
+}

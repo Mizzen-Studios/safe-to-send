@@ -6,7 +6,7 @@ import {resolve,extname} from 'node:path';
 import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 const config=JSON.parse(await readFile('firebase.json','utf8'));
-const headers=Object.fromEntries(config.hosting.headers[0].headers.map(h=>[h.key,h.value]));
+const headers=Object.fromEntries((Array.isArray(config.hosting)?config.hosting.find(h=>h.target==="raw"):config.hosting).headers[0].headers.map(h=>[h.key,h.value]));
 const server=createServer(async(req,res)=>{
  try{let path=resolve('dist','.'+new URL(req.url,'http://localhost').pathname);if(!path.startsWith(resolve('dist')+'/'))path=resolve('dist/index.html');
  const body=await readFile(path);res.writeHead(200,{...headers,'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(path)]??'application/octet-stream'});res.end(body);
@@ -60,6 +60,6 @@ try{
  const probe=await page.evaluate(async()=>{try{await fetch('https://example.invalid/negative-egress-probe',{method:'POST',body:'SYNTHETIC_ONLY'});return 'unexpected success';}catch{return 'blocked';}});assert.equal(probe,'blocked');
  await page.waitForFunction(()=>globalThis.__violations.some(x=>x.directive==='connect-src'));
  assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
- const evidence={checkedAt:new Date().toISOString(),sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),classification:'LOCAL_SYNTHETIC_QA_NOT_INFERENCE',browser:await browser.version(),appBuild:'local dist served with unchanged firebase.json headers; not deployed',viewports:results,fixtures:fixtureResults,redactionEditInvalidates:true,missingLanguageModel:{initializationRefused:true,appFetchAttempts},externalBrowserRequests:external,cspProbe:{result:probe,violations:await page.evaluate(()=>globalThis.__violations)},pageErrors:errors,consoleErrors,nanoInference:'NOT_RUN — unavailable VM; missing API deliberately forced for guard test',cloudInference:'NOT_RUN — hard-locked; no App Check or cloud configured',ledger:'Application payload only; no SDK HTTP body exists'};
+ const evidence={checkedAt:new Date().toISOString(),sourceCommit:execFileSync('git',['rev-parse','HEAD'],{encoding:'utf8'}).trim(),classification:'LOCAL_SYNTHETIC_QA_NOT_INFERENCE',browser:await browser.version(),appBuild:'local dist served with unchanged firebase.json headers; not deployed',viewports:results,fixtures:fixtureResults,redactionEditInvalidates:true,missingLanguageModel:{initializationRefused:true,appFetchAttempts},externalBrowserRequests:external,cspProbe:{result:probe,violations:await page.evaluate(()=>globalThis.__violations)},pageErrors:errors,consoleErrors,nanoInference:'NOT_RUN — unavailable VM; missing API deliberately forced for guard test',cloudInference:'NOT_RUN — hard-locked; no App Check or cloud configured',ledger:'No cloud handoff in this local-template run; isolated SDK wire ledger is separately tested'};
  await writeFile('docs/evidence/reviewed-journey-browser.json',JSON.stringify(evidence,null,2)+'\n');console.log(JSON.stringify(evidence,null,2));
 }finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}

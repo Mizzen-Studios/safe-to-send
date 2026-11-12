@@ -1,0 +1,7 @@
+{
+  "checkedAt": "2026-11-12T18:25:01.080Z",
+  "status": 401,
+  "message": "Firebase App Check token is invalid.",
+  "validClientKeyIncluded": true,
+  "appCheckTokenIncluded": false
+}

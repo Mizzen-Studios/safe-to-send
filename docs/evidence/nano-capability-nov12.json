@@ -1,0 +1,23 @@
+{
+  "checkedAt": "2026-11-12T18:21:42.465Z",
+  "checks": [
+    {
+      "browser": "bundled",
+      "secureContext": true,
+      "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/145.0.7632.0 Safari/537.36",
+      "languageModel": "undefined",
+      "availability": "API_ABSENT"
+    },
+    {
+      "browser": "system-chromium",
+      "secureContext": true,
+      "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.0.0 Safari/537.36",
+      "languageModel": "function",
+      "availability": "unavailable"
+    }
+  ],
+  "inference": "NOT_RUN",
+  "accuracy": "NOT_RUN",
+  "latency": "NOT_RUN",
+  "reason": "No available on-device model in checked browser; no raw-cloud fallback."
+}
