@@ -1,4 +1,4 @@
-import {captureDiagnostics,sanitize} from './diagnostics.mjs';
+import {captureDiagnostics,sanitize,readEffectiveArgs} from './diagnostics.mjs';
 import {chromium} from './.driver/node_modules/playwright/index.mjs';
 import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
@@ -21,7 +21,7 @@ try{
  page.on('console',m=>{result.console.push({type:m.type(),text:sanitize(m.text())});console.log(sanitize(m.text()));});page.on('pageerror',e=>result.errors.push(e.message));
  const cdp=await context.newCDPSession(page);result.chrome=await cdp.send('Browser.getVersion');await cdp.detach();
  const browserCDP=await context.browser().newBrowserCDPSession();
- result.effectiveArgs=(await browserCDP.send('Browser.getBrowserCommandLine')).arguments.map(sanitize);
+ const commandLine=await readEffectiveArgs(context,browserCDP);result.commandLineSource=commandLine.source;result.commandLineCdpError=commandLine.cdpError;result.effectiveArgs=commandLine.arguments.map(sanitize);
  if(result.effectiveArgs.some(x=>ignoreDefaultArgs.includes(x)||x==='--no-sandbox'))throw Error('Forbidden component suppression or disabled sandbox remains in effective launch');
  result.gpu=await browserCDP.send('SystemInfo.getInfo').then(x=>({gpu:x.gpu})).catch(e=>({error:e.message}));await browserCDP.detach();
  await page.goto('http://127.0.0.1:5193');await page.waitForFunction(()=>window.probe?.ready,{},{timeout:60000});

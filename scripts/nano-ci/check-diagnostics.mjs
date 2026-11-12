@@ -12,3 +12,10 @@ test('read-only capture persists sanitized output, deletes raw WebUI video',asyn
  const context={newPage:async()=>({goto:async()=>{},waitForTimeout:async()=>{},locator:()=>({waitFor:async()=>{}}),getByRole:()=>({count:async()=>1,click:async()=>{clicks++;}}),evaluate:async()=> 'Broker unavailable token=CANARY /home/runner/profile',video:()=>({delete:async()=>{deleted++;}}),close:async()=>{closed++;}})};
  try{const records=await captureDiagnostics(context,out,'test');assert.equal(records.length,4);assert.equal(closed,4);assert.equal(deleted,4);assert.equal(clicks,2);assert(!(await readFile(resolve(out,'diagnostics-test.json'),'utf8')).includes('CANARY'));}finally{await rm(out,{recursive:true});}
 });
+
+test('command inspection falls back without changing automation flags',async()=>{
+ const {readEffectiveArgs}=await import('./diagnostics.mjs');let closed=false,deleted=false;
+ const context={newPage:async()=>({goto:async()=>{},locator:()=>({textContent:async()=> 'chrome --enable-features=AIPromptAPI --no-sandbox'}),close:async()=>{closed=true;},video:()=>({delete:async()=>{deleted=true;}})})};
+ const result=await readEffectiveArgs(context,{send:async()=>{throw Error('enable-automation not set');}});
+ assert.equal(result.source,'chrome://version');assert(result.arguments.includes('--no-sandbox'));assert(closed&&deleted);
+});

@@ -36,3 +36,16 @@ export async function captureDiagnostics(context,out,label){
  await writeFile(resolve(out,'diagnostics-'+label+'.json'),JSON.stringify(records,null,2));
  return records;
 }
+
+export async function readEffectiveArgs(context,cdp){
+ try{return {source:'CDP',arguments:(await cdp.send('Browser.getBrowserCommandLine')).arguments};}
+ catch(e){
+  let tab;
+  try{
+   tab=await context.newPage();await tab.goto('chrome://version/',{waitUntil:'domcontentloaded',timeout:15000});
+   const command=await tab.locator('#command_line').textContent({timeout:5000});
+   if(!command?.trim())throw Error('Chrome version command line unavailable');
+   return {source:'chrome://version',arguments:command.match(/--[^\s]+/g)??[],cdpError:sanitize(e.message)};
+  }finally{const video=tab?.video();await tab?.close().catch(()=>{});await video?.delete().catch(()=>{});}
+ }
+}
