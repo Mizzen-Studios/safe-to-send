@@ -96,3 +96,53 @@ Local validation: node --check on all changed JS, node --test scripts/nano-ci/ch
 [Run 43315346553](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43315346553), b7f459d, successfully launched sandboxed headed Chrome on both standard runners, without component-update/background-network suppression. Thirteen samples over 180 seconds remained unavailable for text/image. Genuine text-only and image/schema creation failed with service not running; device-only Firebase returned api-not-enabled. No download or inference output occurred. The model manifest component is not proof of downloaded weights. Software GPU observations do not establish causation.
 
 [Sanitized per-platform receipt](evidence/nano-sandboxed-service-result.json). Broker State/Event Logs were inaccessible because Chrome disables internal debug pages by default; the exact rejection reason remains unknown. A focused repair will enable diagnostic pages in the isolated profile and verify that actual broker content was captured before another run. No eligibility override or paid resource is authorized.
+
+## Debug-page capture repair after run 43315346553
+
+That run completed actual sandboxed headed Chrome 157 on both OSes, but its
+on-device-internals artifact was only Chrome's **internal debugging pages disabled**
+message. It did not inspect the broker. This repair changes only visibility in the
+fresh isolated probe profile: visit chrome://chrome-urls/, click exactly
+**Enable internal debugging pages**, and wait for **Disable internal debugging
+pages**. If already enabled, do not click/toggle it off. No launch/default flags,
+field trials, optimization settings, eligibility, policy, model tools, use-case
+checkboxes, downloads or resets are changed.
+
+The existing diagnostics-<stage>.json files now store independent captures:
+- brokerState.text: populated Broker Properties plus Manifest Criteria,
+  Assets / Error and Use Cases / Unavailable Reason.
+- eventLogs.text and eventLogs.rowCount: Event Logs table including Source
+  Location and Log Message. Zero rows means the live table was empty, not a logged
+  rejection. These two captures cannot overwrite one another.
+
+Each panel has status CAPTURED and inspected=true only after its visible live
+content is asserted. Broker capture also requires a populated property cell,
+not merely static headings. A missing/disabled page, missing tab, unpopulated
+broker shell or missing content marker records PAGE_UNAVAILABLE with a sanitized
+error and inspected=false. Top-level brokerInspected refers only to Broker State;
+top-level status requires both panels. If enabling fails, neither panel is marked
+inspected. Inspect the exact broker requirement/error and event messages before
+attributing the unavailable service to any cause. A capture failure is not an
+eligibility result. Diagnostic tabs (including chrome-urls) are closed and their
+raw videos deleted as before.
+
+Selectors checked against Chrome 157.0.8103.78 source:
+- components/webui/chrome_urls/resources/app.html.ts and app.ts (exact enable/disable labels).
+- chrome/browser/resources/on_device_internals/app.html.ts, broker_state.html.ts
+  and event_log.html.ts (panel elements, property cells, event headers).
+
+Local tooling exercise: actual headed ARM64 Chromium 156.0.8078.79 under Xvfb,
+fresh isolated profile, confirmed enabled/clicked=true then already-enabled/
+clicked=false, real Event Logs capture with zero rows. This local build exposed
+an unpopulated Broker State shell: the new assertion correctly reported
+PAGE_UNAVAILABLE / brokerInspected=false rather than claiming inspection.
+Local browser required no-sandbox (not a change to the runner probe); therefore
+this is **selector/toggle testing only, not Nano, sandbox, runner eligibility or
+inference proof**. Genuine Chrome 157 runner broker rejection remains unobserved
+until parent integrates and separately authorizes a run. This child did not push,
+dispatch or modify main.
+
+Focused regression command: node --test scripts/nano-ci/check-diagnostics.mjs
+(7 tests covering sanitization, separate captures, allowlisted clicks, idempotent
+ enable, blocked-page metadata, empty broker shell, incomplete event content and
+ command inspection fallback).
