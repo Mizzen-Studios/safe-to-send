@@ -1,12 +1,12 @@
 import {chromium} from './.driver/node_modules/playwright/index.mjs';
 import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
-import {resolve,extname} from 'node:path';
+import {resolve,extname,relative,isAbsolute} from 'node:path';
 const base=resolve('scripts/nano-ci'),out=resolve(base,'artifacts');await mkdir(out,{recursive:true});
 const result={at:new Date().toISOString(),classification:'NOT_RUN',headless:false,channel:'chrome',flags:['--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput'],errors:[],blockedPageRequests:[],console:[]};
 // Browser-managed model downloads are distinct from page-origin connections.
 // CSP + request routing deny ALL non-local page HTTP, including SDK fallback.
-const server=createServer(async(req,res)=>{try{const path=new URL(req.url,'http://127.0.0.1').pathname;const file=resolve(base,'site','.'+(path==='/'?'/index.html':path));if(!file.startsWith(resolve(base,'site')+'/'))throw Error('path');const body=await readFile(file);res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(file)]??'application/octet-stream','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"});res.end(body);}catch{res.writeHead(404);res.end();}});
+const server=createServer(async(req,res)=>{try{const path=new URL(req.url,'http://127.0.0.1').pathname;const file=resolve(base,'site','.'+(path==='/'?'/index.html':path));const rel=relative(resolve(base,'site'),file);if(rel.startsWith('..')||isAbsolute(rel))throw Error('path');const body=await readFile(file);res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(file)]??'application/octet-stream','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"});res.end(body);}catch{res.writeHead(404);res.end();}});
 await new Promise(r=>server.listen(5193,'127.0.0.1',r));
 let context,page,timer;
 const persist=async()=>{if(page&&!page.isClosed()){try{result.page=await page.evaluate(()=>window.probe);await page.screenshot({path:resolve(out,'screen.png')});}catch(e){result.errors.push(e.message);}}await writeFile(resolve(out,'result.json'),JSON.stringify(result,null,2));};
@@ -28,4 +28,6 @@ try{
  result.classification=['direct','sdk'].every(s=>result.page.stages[s]?.status==='PASS')?'REAL_ON_DEVICE_IMAGE_SCHEMA_PASS':'FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF';
 }catch(e){result.errors.push(e.message);result.classification='LAUNCH_OR_RUNTIME_BLOCKED';}
 finally{clearInterval(timer);await persist();try{await context?.close();}catch(e){result.errors.push('close: '+e.message);}server.close();await writeFile(resolve(out,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));}
-if(result.classification!=='REAL_ON_DEVICE_IMAGE_SCHEMA_PASS')process.exitCode=1;
+// Force exit after flushed artifacts: SDK/background browser handles must not
+// keep a completed or failed probe alive until the job timeout.
+process.exit(result.classification==='REAL_ON_DEVICE_IMAGE_SCHEMA_PASS'?0:1);
