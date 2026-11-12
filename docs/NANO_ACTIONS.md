@@ -146,3 +146,7 @@ Focused regression command: node --test scripts/nano-ci/check-diagnostics.mjs
 (7 tests covering sanitization, separate captures, allowlisted clicks, idempotent
  enable, blocked-page metadata, empty broker shell, incomplete event content and
  command inspection fallback).
+
+## Final inspected free-runner outcome
+
+Run 43317358518 enabled debug pages successfully, but Broker State stayed unpopulated and Event Logs contained zero rows on both OS. Genuine sandboxed headed text/image create still failed with service not running; no download/inference occurred. Exact rejection reason remains unknown. [Final sanitized receipt](evidence/nano-final-free-runner-result.json). Unchanged retries are stopped; request an existing authorized remote desktop rather than claiming general VM incompatibility or buying capacity. See [machine requirements and operator-owned recording plan](DEVICE_TESTING_AND_RECORDING.md).

@@ -1,0 +1,463 @@
+{
+  "runUrl": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43317358518",
+  "headSha": "261f077ba8b65bfb108435c696faba26414f5161",
+  "status": "completed",
+  "conclusion": "failure",
+  "platforms": {
+    "linux": {
+      "chrome": "Chrome/157.0.8103.78",
+      "headless": false,
+      "launch": {
+        "ignoreDefaultArgs": [
+          "--disable-component-update",
+          "--disable-background-networking"
+        ],
+        "chromiumSandbox": true,
+        "registrationBudgetMs": 180000
+      },
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "registrationSampleCount": 13,
+      "registrationSamples": [
+        {
+          "at": "2026-11-12T22:11:03.202Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:11:18.211Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:11:33.217Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:11:48.220Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:03.222Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:18.233Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:33.240Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:48.247Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:03.253Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:18.258Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:33.261Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:48.271Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:14:03.206Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        }
+      ],
+      "stages": {
+        "text": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "direct": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "sdk": {
+          "status": "FAIL",
+          "name": "FirebaseError",
+          "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+        }
+      },
+      "modelOutputs": [],
+      "downloadProgressEventCount": 0,
+      "errors": [],
+      "blockedPageRequests": [],
+      "brokerDiagnostics": [
+        {
+          "file": "diagnostics-after-direct.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-registration-wait.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-sdk.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-text.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-initial.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "enabled",
+            "clicked": true
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        }
+      ],
+      "assetObservation": {
+        "manifest": "Optimization Guide On DeviceModels Manifest 1.20261018.2, Up-to-date",
+        "nanoModelComponentListed": false,
+        "assetErrorDetails": "NOT_AVAILABLE; broker properties absent",
+        "componentsText": "Components Components ( 21 ) No components are installed Actor Safety Lists - Version: 9.8200.9609 Status - Updated Check for update Uninstall Amount Extraction Heuristic Regexes - Version: 4 Status - Updated Check for update Uninstall Captcha Providers - Version: 8.5419.4434 Status - Updated Check for update Uninstall Certificate Error Assistant - Version: 7 Status - Updated Check for update Uninstall CRLSet - Version: 10900 Status - Updated Check for update Uninstall Crowd Deny - Version: 2026.11.12.125 Status - Updated Check for update Uninstall File Type Policies - Version: 159.0.8152.0 Status - Updated Check for update Uninstall Hyphenation - Version: 120.0.6050.0 Status - Updated Check for update Uninstall MEI Preload - Version: 1.1.0.3 Status - Updated Check for update Uninstall OnDeviceHeadSuggest - Version: 20251024.824731831.14 Status - Updated Check for update Uninstall Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-date Check for update Uninstall PKI Metadata - Version: 1834 Status - Updated Check for update Uninstall Privacy Sandbox Attestations - Version: 2025.6.16.0 Status - Updated Check for update Uninstall Related Website Sets - Version: 2025.7.24.0 Status - Updated Check for update Uninstall Safety Tips - Version: 3092 Status - Updated Check for update Uninstall Subresource Filter Rules - Version: 9.73.1 Status - Updated Check for update Uninstall Trust Token Key Commitments - Version: 2026.10.12.1 Status - Updated Check for update Uninstall WASM TTS Engine - Version: 20261029.1 Status - Updated Check for update Uninstall Widevine Content Decryption Module - Version: 4.10.3112.0 Status - Up-to-date Check for update Uninstall Zxcvbn Data Dictionaries - Version: 3 Status - Updated Check for update Uninstall"
+      },
+      "policyObservation": "BuiltInAIAPIsEnabled and GenAILocalFoundationalModelSettings: Not set.",
+      "gpuObservation": "Software-only WebGPU/WebNN; not established as rejection reason",
+      "hardware": {
+        "at": "2026-11-12T22:10:28.745Z",
+        "os": "linux",
+        "release": "7.0.0-1019-azure",
+        "arch": "x64",
+        "cpu": [
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz"
+        ],
+        "logicalCpus": 4,
+        "totalRamBytes": 16758403072,
+        "freeRamBytes": 15553290240,
+        "diskAvailableBytes": 93729873920,
+        "gpu": [],
+        "runnerImage": "ubuntu26",
+        "runnerImageVersion": "20261101.186.1"
+      }
+    },
+    "win32": {
+      "chrome": "Chrome/157.0.8103.79",
+      "headless": false,
+      "launch": {
+        "ignoreDefaultArgs": [
+          "--disable-component-update",
+          "--disable-background-networking"
+        ],
+        "chromiumSandbox": true,
+        "registrationBudgetMs": 180000
+      },
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "registrationSampleCount": 13,
+      "registrationSamples": [
+        {
+          "at": "2026-11-12T22:12:04.308Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:19.316Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:34.322Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:12:49.332Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:04.346Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:19.352Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:34.360Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:13:49.365Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:14:04.370Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:14:19.375Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:14:34.380Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:14:49.386Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        },
+        {
+          "at": "2026-11-12T22:15:04.319Z",
+          "text": "unavailable",
+          "image": "unavailable"
+        }
+      ],
+      "stages": {
+        "text": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "direct": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "sdk": {
+          "status": "FAIL",
+          "name": "FirebaseError",
+          "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+        }
+      },
+      "modelOutputs": [],
+      "downloadProgressEventCount": 0,
+      "errors": [],
+      "blockedPageRequests": [],
+      "brokerDiagnostics": [
+        {
+          "file": "diagnostics-after-direct.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\u001b[22m\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-registration-wait.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\u001b[22m\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-sdk.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\u001b[22m\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-after-text.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "already-enabled",
+            "clicked": false
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\u001b[22m\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        },
+        {
+          "file": "diagnostics-initial.json",
+          "status": "PAGE_UNAVAILABLE",
+          "debugPages": {
+            "status": "enabled",
+            "clicked": true
+          },
+          "brokerState": {
+            "status": "PAGE_UNAVAILABLE",
+            "inspected": false,
+            "error": "locator.waitFor: Timeout 5000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('on-device-internals-broker-state').locator('td.property-name').first() to be visible\u001b[22m\n"
+          },
+          "eventLogs": {
+            "status": "CAPTURED",
+            "inspected": true,
+            "text": "Event Logs Time Source Location Log Message",
+            "rowCount": 0
+          }
+        }
+      ],
+      "assetObservation": {
+        "manifest": "Optimization Guide On DeviceModels Manifest 1.20261018.2, Up-to-date",
+        "nanoModelComponentListed": false,
+        "assetErrorDetails": "NOT_AVAILABLE; broker properties absent",
+        "componentsText": "Components Components ( 22 ) No components are installed Actor Safety Lists - Version: 9.8200.9609 Status - Updated Check for update Uninstall Amount Extraction Heuristic Regexes - Version: 4 Status - Updated Check for update Uninstall Captcha Providers - Version: 0.0.0.0 Status - Update Check for update Uninstall Certificate Error Assistant - Version: 7 Status - Updated Check for update Uninstall Chrome Improved Recovery - Version: 0.0.0.0 Status - Up-to-date Check for update Uninstall CRLSet - Version: 10900 Status - Updated Check for update Uninstall Crowd Deny - Version: 0.0.0.0 Status - Updating Check for update Uninstall File Type Policies - Version: 159.0.8152.0 Status - Updated Check for update Uninstall Hyphenation - Version: 120.0.6050.0 Status - Updated Check for update Uninstall MEI Preload - Version: 1.0.7.1652906823 Status - Update Check for update Uninstall OnDeviceHeadSuggest - Version: 20251024.824731831.14 Status - Updated Check for update Uninstall Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-date Check for update Uninstall PKI Metadata - Version: 0.0.0.0 Status - Update Check for update Uninstall Privacy Sandbox Attestations - Version: 0.0.0.0 Status - Update Check for update Uninstall Related Website Sets - Version: 0.0.0.0 Status - Update Check for update Uninstall Safety Tips - Version: 0.0.0.0 Status - Update Check for update Uninstall Subresource Filter Rules - Version: 9.73.1 Status - Updated Check for update Uninstall Trust Token Key Commitments - Version: 2026.10.12.1 Status - Updated Check for update Uninstall WASM TTS Engine - Version: 0.0.0.0 Status - Update Check for update Uninstall Widevine Content Decryption Module - Version: 4.10.3112.0 Status - Up-to-date Check for update Uninstall Zxcvbn Data Dictionaries - Version: 3 Status - Updated Check for update Uninstall"
+      },
+      "policyObservation": "BuiltInAIAPIsEnabled and GenAILocalFoundationalModelSettings: Not set.",
+      "gpuObservation": "Software-only WebGPU/WebNN; not established as rejection reason",
+      "hardware": {
+        "at": "2026-11-12T22:11:02.886Z",
+        "os": "win32",
+        "release": "10.0.26100",
+        "arch": "x64",
+        "cpu": [
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+          "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz"
+        ],
+        "logicalCpus": 4,
+        "totalRamBytes": 17174360064,
+        "freeRamBytes": 14167269376,
+        "diskAvailableBytes": 157494542336,
+        "gpu": "{\r\n    \"Name\":  \"Microsoft Hyper-V Video\",\r\n    \"AdapterRAM\":  null,\r\n    \"DriverVersion\":  \"10.0.26100.1150\"\r\n}\r\n",
+        "runnerImage": "win25-vs2026",
+        "runnerImageVersion": "20261103.298.1"
+      }
+    }
+  },
+  "underlyingEligibilityReason": "UNKNOWN: broker property rows never populated. Manifest Criteria, Unavailable Reason and asset error details not captured. No inference from API, headings, manifest component or software GPU.",
+  "nextStep": "Stop unchanged free-runner retries. Use existing authorized remotely controllable Chrome desktop, isolated profile, model-download permission, sufficient supported CPU/RAM or GPU and disk. Verify availability and populated broker state before evaluation. No purchase.",
+  "scope": "No source edits, commits, dispatches, paid resources, sandbox/policy bypass, hosting/DNS changes or posting."
+}
