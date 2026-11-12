@@ -28,7 +28,7 @@ try{
    const brokerFrame=r.frame();assert.equal(await brokerFrame.evaluate(()=>globalThis.__mockCheckInitialized),true);
    safeRequestMetadata.push({origin:u.origin,path:u.pathname,method:r.method(),bodyUtf8Bytes:Buffer.byteLength(body),bodySha256:createHash('sha256').update(body).digest('hex')});
    if(delayReply)await new Promise(r=>releaseReply=r);
-   try{await route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':BROKER},contentType:'application/json',body:JSON.stringify({candidates:[{content:{role:'model',parts:[{text:JSON.stringify({explanation:'MOCK PROVIDER, NOT INFERENCE: check the request.',deadlines:[],actions:['Check original.'],draft:'Dear sender, from [NAME_1]. <img src=https://evil.invalid/leak onerror=alert(1)>'})}]},finishReason:'STOP'}]})});}catch{}return;
+   try{await route.fulfill({status:200,headers:{'Access-Control-Allow-Origin':BROKER},contentType:'application/json',body:JSON.stringify({candidates:[{content:{role:'model',parts:[{text:JSON.stringify({explanation:'MOCK PROVIDER, NOT INFERENCE: check the request.',deadlines:[],actions:['Check original.'],draft:'Dear sender,\nA synthetic note from [NAME_1]. <img src=https://evil.invalid/leak onerror=alert(1)>\nKind regards,\n[NAME_1]'})}]},finishReason:'STOP'}]})});}catch{}return;
   }
   unexpected.push({origin:u.origin,path:u.pathname});await route.abort();
  });

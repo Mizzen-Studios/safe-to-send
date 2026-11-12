@@ -1,5 +1,5 @@
 import {restore, type PrivacyGate} from './privacy';
-import {replyEnvelope,validateDraftRoles} from './roles';
+import {replyEnvelope,validateDraftRoles,localizeReplyEnvelope} from './roles';
 import {CloudHandoff,validateAcceptedHandoff,acceptedHandoffReceipt} from './handoff-client';
 import {CLOUD_MODEL} from './cloud-policy';
 const cloudReviewed=new WeakMap<PrivacyGate,{handoff:CloudHandoff;payload:string;revision:number;response:string}>();
@@ -12,7 +12,7 @@ export async function runCloudJourney(gate:PrivacyGate,handoff:CloudHandoff):Pro
  const result=await runJourney(gate,async sent=>{
   const response=await handoff.send(sent,revision,()=>gate.currentRevision);
   if(acceptedHandoffReceipt(handoff)===previous||!validateAcceptedHandoff(handoff,sent,revision,response))throw Error('Validated cloud handoff required');
-  acceptedResponse=response;return response;
+  acceptedResponse=response;const parsed=parseJourney(response);parsed.draft=localizeReplyEnvelope(parsed.draft,JSON.parse(sent).letter);return JSON.stringify(parsed);
  },CLOUD_MODEL);
  if(gate.currentRevision!==revision||gate.phase!=='done'||!validateAcceptedHandoff(handoff,payload,revision,acceptedResponse))throw Error('Current validated cloud handoff required');
  cloudReviewed.set(gate,{handoff,payload,revision,response:acceptedResponse});
