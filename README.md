@@ -24,7 +24,7 @@ Open http://localhost:5192. `npm run build` typechecks and builds the static sit
 
 Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging, App Check Enterprise before AI Logic, ONLY_IN_CLOUD structured adapter, and SDK HTTP-body capture are implemented. **Production source remains locked** for parent review/deployment/testing. Raw connect-src remains data:; only the exact broker may be framed. [Integration](docs/CLOUD_HANDOFF.md).
 
-- **85 tests**, typecheck and dual static build. Mocks explicitly labelled.
+- **86 tests**, typecheck and dual static build. Mocks explicitly labelled.
 - [Two-origin browser evidence](docs/evidence/cloud-handoff-mocked-browser.json): real Chromium and pinned Firebase SDK serialization with **mock App Check/provider**. Approval, explicit send, redacted-only body, UTF-8/SHA parity against mocked network, local restoration, inert HTML output, stale cancellation and absent-attestation refusal pass. Not real inference/attestation or deployed DevTools proof.
 - Parent [private SDK harness](docs/evidence/real-cloud-sdk-private-harness.json): **real cloud inference, not deployed app E2E**, gemini-3.5-flash-lite, in_cloud, 5589 ms sample. Unconstrained output was malformed and invented [NAME_2]; product now constrains responseSchema and rejects unknown placeholders. Semantic correctness is not guaranteed.
 - [Valid-key/no-App-Check control](docs/evidence/appcheck-negative-control.json): **401 invalid App Check token**. The older no-client-key 403 in the SDK harness is NOT the correct App Check control.
@@ -34,7 +34,7 @@ Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging,
 
 Choose **Try the synthetic review journey (no AI)**, inspect/edit redactions, check the review confirmation, approve the exact redacted application JSON, then generate a labelled local example. All five supplied fixtures have deterministic explanation/deadline/action/draft templates. Relative dates stay unresolved; a council “before” date is not presented as inclusive. Source or redaction edits invalidate approval and clear results. Draft editing and local download work without cloud. This demonstrates workflow, **not Nano detection or Gemini inference**.
 
-- Earlier milestone: 44 tests. Current suite: 85 tests, including labelled mocks.
+- Earlier milestone: 44 tests. Current suite: 86 tests, including labelled mocks.
 - `npm run build`: TypeScript + Vite production build.
 - `node scripts/verify-reviewed-journey.mjs`: isolated Chromium, built files with unchanged Hosting headers at port 5192. Requires separately available Playwright and Chromium; used existing workspace Playwright, no paid services. Set `CHROMIUM_PATH` if needed.
 - [Browser evidence](docs/evidence/reviewed-journey-browser.json): 390/768/1440px, mandatory approval, local restoration, source/redaction invalidation, five fixtures, keyboard approval and edited draft download. No page exceptions or external browser requests. Deliberate CSP egress probe is blocked; expected CSP console errors and a harmless missing favicon 404 are retained. This is local QA, not deployment or real-device inference proof.
@@ -164,4 +164,4 @@ The browser SDK also has the missing-adapter edge if LanguageModel is absent, no
 
 ### Subsequent post-start handoff implementation (12 November)
 
-New substantial changes: dual-origin isolation, single-use revision/nonce/request protocol, immutable approved-byte send, cancellation, Enterprise broker setup, schema-constrained SDK generation, HTTP-body validation/capture, SHA ledger, 41 additional tests and mocked two-origin browser QA. This is implementation, not Nano/deployed app inference proof. Original dates, Apache-2.0 LICENSE and prior MIT NOTICE remain unchanged. Parent real SDK harness/control evidence is disclosed separately above.
+New substantial changes: dual-origin isolation, single-use revision/nonce/request protocol, immutable approved-byte send, cancellation, Enterprise broker setup, schema-constrained SDK generation, HTTP-body validation/capture, SHA ledger, 42 additional tests and mocked two-origin browser QA. This is implementation, not Nano/deployed app inference proof. Original dates, Apache-2.0 LICENSE and prior MIT NOTICE remain unchanged. Parent real SDK harness/control evidence is disclosed separately above.

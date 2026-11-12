@@ -23,6 +23,7 @@ export async function digest(body:string){return Array.from(new Uint8Array(await
 export function validateWireBody(body:unknown,payload:string):asserts body is string{
  if(typeof body!=='string'||body.length>100000)throw Error('Invalid SDK body');
  const x=JSON.parse(body);
+ if(JSON.stringify(x)!==body)throw Error('Noncanonical SDK body');
  if(!exact(x,['contents','generationConfig','safetySettings'])||!Array.isArray(x.safetySettings)||x.safetySettings.length!==0||!Array.isArray(x.contents)||x.contents.length!==1)throw Error('Unexpected SDK body');
  const c=x.contents[0];
  if(!exact(c,['role','parts'])||c.role!=='user'||!Array.isArray(c.parts)||c.parts.length!==1||!exact(c.parts[0],['text'])||c.parts[0].text!==payload)throw Error('SDK payload mismatch');

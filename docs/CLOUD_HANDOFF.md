@@ -35,6 +35,6 @@ Parent must compare actual Network/CDP HTTP body bytes to ledger on deployed bro
 
 ## Verification at handoff
 
-85 unit/contract tests, typecheck and dual build pass. DOM fixtures cover peer mismatch, nonce/revision/request mismatch, replay/reload, stale/cancelled digest, corrupt/absent wire, single flight and timeout. Actual SDK serialization uses mocked fetch (no inference). Isolated Chromium 145 verifies both HTTPS origins with production CSP, test-only in-memory source unlock and mock App Check/provider. Mocked parity is not deployed DevTools proof.
+86 unit/contract tests, typecheck and dual build pass. DOM fixtures cover peer mismatch, nonce/revision/request mismatch, replay/reload, stale/cancelled digest, corrupt/absent wire, single flight and timeout. Actual SDK serialization uses mocked fetch (no inference). Isolated Chromium 145 verifies both HTTPS origins with production CSP, test-only in-memory source unlock and mock App Check/provider. Mocked parity is not deployed DevTools proof.
 
 Parent evidence copied unchanged: cloud-infra-receipt.json (before real inference), real-cloud-sdk-private-harness.json (real inference, not app E2E; malformed output/invented placeholder retained), appcheck-negative-control.json (valid key/no token -> 401), nano-capability-nov12.json (absent/unavailable). Older no-key 403 is not correct App Check control. No key/token values retained.
