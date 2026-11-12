@@ -1,0 +1,153 @@
+{
+  "run": "43315346553",
+  "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43315346553",
+  "headSha": "b7f459d08db4b72847a466582ca958a9133d5074",
+  "status": "completed",
+  "conclusion": "failure",
+  "inferenceProven": false,
+  "platforms": [
+    {
+      "platform": "linux",
+      "chrome": "Chrome/157.0.8103.78",
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "launch": {
+        "ignoreDefaultArgs": [
+          "--disable-component-update",
+          "--disable-background-networking"
+        ],
+        "chromiumSandbox": true,
+        "registrationBudgetMs": 180000
+      },
+      "commandLineSource": "chrome://version",
+      "forbiddenArgsPresent": [],
+      "runtimeErrors": [],
+      "sampleCount": 13,
+      "firstAvailability": {
+        "at": "2026-11-12T21:58:29.549Z",
+        "text": "unavailable",
+        "image": "unavailable"
+      },
+      "lastAvailability": {
+        "at": "2026-11-12T22:01:29.554Z",
+        "text": "unavailable",
+        "image": "unavailable"
+      },
+      "stages": {
+        "text": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "direct": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "sdk": {
+          "status": "FAIL",
+          "name": "FirebaseError",
+          "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+        }
+      },
+      "downloadEventCount": 0,
+      "blockedPageRequests": [],
+      "hardware": {
+        "logicalCpus": 4,
+        "totalRamBytes": 16759443456,
+        "diskAvailableBytes": 93729828864
+      },
+      "gpuDevices": [
+        {
+          "vendorId": 65535,
+          "deviceId": 65535,
+          "vendorString": "Google Inc. (Google)",
+          "deviceString": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver-5.0.0)",
+          "driverVendor": "SwANGLE",
+          "driverVersion": "5.0.0"
+        }
+      ],
+      "gpuStatus": "Download Report to File Graphics Feature Status ======================= * Canvas: Software only, hardware acceleration unavailable * Direct Rendering Display Compositor: Disabled * Compositing: Software only. Hardware acceleration disabled * Multiple Raster Threads: Enabled * OpenGL: Disabled * Rasterization: Software only. Hardware acceleration disabled * Skia Graphite: Disabled * TreesInViz: Disabled * Video Decode: Software only. Hardware acceleration disabled * Video Encode: Software only. Hardware acceleration disabled * Vulkan: Disabled * WebGL: Software only, hardware acceleration unavailable * WebGPU: Software only, hardware acceleration unavailable * WebGPU interop: Disabled * WebNN: Software only, hardware acceleration unavailable",
+      "onDeviceInternals": "Internal debugging pages are currently disabled. These pages are intended for use by Chrome developers, and may not be actively maintained or tested. To enable them, navigate to chrome://chrome-urls , click the button to enable debug pages, and then navigate to this page again.",
+      "modelComponent": "Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-"
+    },
+    {
+      "platform": "win32",
+      "chrome": "Chrome/157.0.8103.79",
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "launch": {
+        "ignoreDefaultArgs": [
+          "--disable-component-update",
+          "--disable-background-networking"
+        ],
+        "chromiumSandbox": true,
+        "registrationBudgetMs": 180000
+      },
+      "commandLineSource": "chrome://version",
+      "forbiddenArgsPresent": [],
+      "runtimeErrors": [],
+      "sampleCount": 13,
+      "firstAvailability": {
+        "at": "2026-11-12T21:59:36.341Z",
+        "text": "unavailable",
+        "image": "unavailable"
+      },
+      "lastAvailability": {
+        "at": "2026-11-12T22:02:36.344Z",
+        "text": "unavailable",
+        "image": "unavailable"
+      },
+      "stages": {
+        "text": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "direct": {
+          "status": "FAIL",
+          "name": "NotSupportedError",
+          "error": "Unable to create a text session because the service is not running."
+        },
+        "sdk": {
+          "status": "FAIL",
+          "name": "FirebaseError",
+          "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+        }
+      },
+      "downloadEventCount": 0,
+      "blockedPageRequests": [],
+      "hardware": {
+        "logicalCpus": 4,
+        "totalRamBytes": 17174360064,
+        "diskAvailableBytes": 157494566912
+      },
+      "gpuDevices": [
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "Google",
+          "driverVersion": "10.0.26100.33648"
+        },
+        {
+          "vendorId": 5140,
+          "deviceId": 140,
+          "subSysId": 0,
+          "revision": 0,
+          "vendorString": "",
+          "deviceString": "Microsoft Basic Render Driver",
+          "driverVendor": "",
+          "driverVersion": "10.0.26100.33648"
+        }
+      ],
+      "gpuStatus": "Download Report to File Graphics Feature Status ======================= * Canvas: Software only, hardware acceleration unavailable * Direct Rendering Display Compositor: Disabled * Compositing: Software only. Hardware acceleration disabled * Multiple Raster Threads: Enabled * OpenGL: Disabled * Rasterization: Software only. Hardware acceleration disabled * Skia Graphite: Disabled * TreesInViz: Disabled * Video Decode: Software only. Hardware acceleration disabled * Video Encode: Software only. Hardware acceleration disabled * WebGL: Software only, hardware acceleration unavailable * WebGPU: Software only, hardware acceleration unavailable * WebNN: Software only, hardware acceleration unavailable",
+      "onDeviceInternals": "Internal debugging pages are currently disabled. These pages are intended for use by Chrome developers, and may not be actively maintained or tested. To enable them, navigate to chrome://chrome-urls , click the button to enable debug pages, and then navigate to this page again.",
+      "modelComponent": "Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-"
+    }
+  ],
+  "diagnosticBlocker": "Chrome 157 disables internal debugging pages by default; on-device-internals captured only the disabled-pages notice, not Broker State/Event Logs. Exact service/eligibility rejection remains unknown.",
+  "minimalProposedRepair": "In the isolated diagnostic profile only, use chrome://chrome-urls Enable debug pages control before on-device-internals; assert Broker State/Event Logs content and capture each separately. No enable-automation, eligibility/sandbox/hardware overrides, or retry dispatched.",
+  "caveat": "Remaining Playwright defaults include disable-features=OptimizationHints and disable-field-trial-config. Their presence is observed, not proof of causation."
+}

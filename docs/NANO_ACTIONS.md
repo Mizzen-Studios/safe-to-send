@@ -90,3 +90,9 @@ Review result.json effectiveArgs first (component suppression/no-sandbox must be
 - https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/components/optimization_guide/core/model_execution/on_device.md (broker -> asset-provider registration -> component update -> service lifecycle)
 
 Local validation: node --check on all changed JS, node --test scripts/nano-ci/check-diagnostics.mjs (sanitization/read-only capture tests), probe bundle and full npm run build. These are tooling checks, not Nano execution evidence; local ARM64 cannot reproduce the genuine x64 Stable runner service. New runner outcome remains NOT_RUN until parent dispatch and evidence review.
+
+### Sandboxed service observation
+
+[Run 43315346553](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43315346553), b7f459d, successfully launched sandboxed headed Chrome on both standard runners, without component-update/background-network suppression. Thirteen samples over 180 seconds remained unavailable for text/image. Genuine text-only and image/schema creation failed with service not running; device-only Firebase returned api-not-enabled. No download or inference output occurred. The model manifest component is not proof of downloaded weights. Software GPU observations do not establish causation.
+
+[Sanitized per-platform receipt](evidence/nano-sandboxed-service-result.json). Broker State/Event Logs were inaccessible because Chrome disables internal debug pages by default; the exact rejection reason remains unknown. A focused repair will enable diagnostic pages in the isolated profile and verify that actual broker content was captured before another run. No eligibility override or paid resource is authorized.
