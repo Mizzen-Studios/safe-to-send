@@ -1,7 +1,7 @@
 // DOM/window fixtures; no real browser, App Check, network or inference.
 import {it,expect,vi,beforeEach,afterEach} from 'vitest';
 vi.mock('../src/cloud-policy',async original=>({...await original<typeof import('../src/cloud-policy')>(),assertCloudRelease:vi.fn()}));
-import {CloudHandoff} from '../src/handoff-client';
+import {CloudHandoff,validateAcceptedHandoff} from '../src/handoff-client';
 import {cloudInstruction} from '../src/privacy';
 import {BROKER_ORIGIN,CLOUD_MODEL} from '../src/cloud-policy';
 import {digest} from '../src/handoff-protocol';
@@ -21,3 +21,14 @@ it('fails closed on a tampered hash or absent wire body',async()=>{for(const bad
 it('cancellation during asynchronous body verification cannot append a ledger or render response',async()=>{const {client,result,f,b}=start();deliver(await response(b),f.contentWindow);client.cancel();await expect(result).rejects.toThrow('invalidated');await new Promise(r=>setTimeout(r,10));expect(client.ledger).toEqual([]);});
 it('captures correlated failed-provider body but never calls it a successful response',async()=>{const {client,result,f,b}=start();const reply=await response(b);deliver({...reply,response:null,error:'CLOUD_FAILED'},f.contentWindow);await expect(result).rejects.toThrow('refused');expect(client.ledger).toHaveLength(1);});
 it('single flight refuses duplicates and timeout destroys pending frame',async()=>{vi.useFakeTimers();const {client,result,f}=start();await expect(client.send(payload,7,()=>7)).rejects.toThrow('busy');await vi.advanceTimersByTimeAsync(120000);await expect(result).rejects.toThrow('timed out');expect(client.ledger).toEqual([]);expect(f.remove).toHaveBeenCalledTimes(1);});
+
+it('brands only successfully accepted peer/wire response with exact payload/revision/response',async()=>{
+ const {client,result,f,b}=start();const reply=await response(b);
+ expect(validateAcceptedHandoff(client,payload,revision,reply.response)).toBe(false);
+ deliver(reply,f.contentWindow);await result;
+ expect(validateAcceptedHandoff(client,payload,revision,reply.response)).toBe(true);
+ expect(validateAcceptedHandoff(client,payload+' ',revision,reply.response)).toBe(false);
+ expect(validateAcceptedHandoff(client,payload,revision+1,reply.response)).toBe(false);
+ expect(validateAcceptedHandoff(client,payload,revision,reply.response+' ')).toBe(false);
+ expect(validateAcceptedHandoff(new CloudHandoff(),payload,revision,reply.response)).toBe(false);
+});

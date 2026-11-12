@@ -1,12 +1,20 @@
 import {BROKER_ORIGIN,assertCloudRelease} from './cloud-policy';
 import {approvedPayload,correlated,trustedPeer,validateWire,VERSION,type Binding,type Wire} from './handoff-protocol';
 const random=()=>Array.from(crypto.getRandomValues(new Uint8Array(32)),x=>x.toString(16).padStart(2,'0')).join('');
+const accepted=new WeakMap<CloudHandoff,{payload:string;revision:number;response:string;receipt:object}>();
+/** Read-only provenance: only this module's validated peer/wire acceptance can write it. */
+export function validateAcceptedHandoff(handoff:CloudHandoff,payload:string,revision:number,response:string){
+ const a=accepted.get(handoff);return !!a&&a.payload===payload&&a.revision===revision&&a.response===response;
+}
+/** Opaque read-only identity changes on every accepted handshake; cannot authorize by itself. */
+export function acceptedHandoffReceipt(handoff:CloudHandoff){return accepted.get(handoff)?.receipt;}
 export class CloudHandoff{
  private cancelActive:(()=>void)|undefined;
  readonly ledger:Wire[]=[];
  cancel(){this.cancelActive?.();}
  async send(payload:string,revision:number,currentRevision:()=>number):Promise<string>{
   assertCloudRelease();approvedPayload(payload);if(this.cancelActive)throw Error('Cloud busy');
+  accepted.delete(this);
   const b:Binding={version:VERSION,nonce:random(),requestId:random(),revision};
   const frame=document.createElement('iframe');frame.hidden=true;frame.title='Isolated approved-redacted cloud broker';frame.referrerPolicy='no-referrer';
   frame.setAttribute('sandbox','allow-scripts allow-same-origin');frame.src=BROKER_ORIGIN+'/';
@@ -24,6 +32,7 @@ export class CloudHandoff{
      if(currentRevision()!==revision)throw Error('Stale cloud reply');
      if(wire)this.ledger.push(wire);
      if(reply.error||!wire||reply.response===null)throw Error('Cloud generation refused or failed');
+     accepted.set(this,{payload,revision,response:reply.response,receipt:Object.freeze({})});
      finish(undefined,reply.response);
     }catch{finish(Error('Cloud response or wire ledger refused'));}
    };

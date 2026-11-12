@@ -1,18 +1,20 @@
 import {type PrivacyGate,redact,restore} from './privacy';
-import {parseJourney,reviewedJourney,type Journey} from './journey';
+import {parseJourney,reviewedCloudJourney,type Journey} from './journey';
 import {regexSpans} from './regex';
 /** Stable UI contract. Model responses are untrusted and evidence never leaves this module. */
-export type Claim={id:string;kind:'deadline'|'amount'|'action';value:string};
+export type Claim={id:string;kind:'deadline'|'amount'|'action'|'explanation'|'draft';value:string};
 export type Verdict='supported'|'mismatch'|'unsupported'|'unknown';
 export type ClaimCheck={id:string;status:Verdict};
-export type Verification={status:Verdict;checks:ClaimCheck[]};
+/** Coverage records submitted fields, never a deterministic accuracy/anonymity guarantee. */
+export type Verification={status:Verdict;checks:ClaimCheck[];coverage:{scope:'submitted-claims';claimCount:number;uncheckedFields:('explanation'|'draft')[]}};
 export type LocalNano={answer:(original:string)=>Promise<string>;verify:(original:string,claims:Claim[])=>Promise<string>};
 export type LocalResult<T>={status:'complete';revision:number;result:T}|{status:'unavailable';revision:number;reason:string};
 export const manualSuggestions=(text:string)=>regexSpans(text);
 export function startManualReview(gate:PrivacyGate){gate.manual(manualSuggestions(gate.text));}
 export function claimsFromJourney(journey:Journey):Claim[]{
  const j=parseJourney(JSON.stringify(journey));
- const claims:Claim[]=[];
+ // Whole fields are claims too: prose, draft admissions and written-out amounts cannot be skipped.
+ const claims:Claim[]=[{id:'explanation',kind:'explanation',value:j.explanation},{id:'draft',kind:'draft',value:j.draft}];
  for(const [i,d]of j.deadlines.entries())claims.push({id:'deadline-'+i,kind:'deadline',value:JSON.stringify(d)});
  for(const [i,a]of j.actions.entries())claims.push({id:'action-'+i,kind:'action',value:a});
  const amounts=[...new Set(JSON.stringify(j).match(/(?:£|GBP\s*)\d[\d,]*(?:\.\d{1,2})?/g)??[])];
@@ -44,8 +46,9 @@ export function parseVerification(json:string,original:string,claims:Claim[]):Ve
  const status=(v.status==='supported'||v.status==='mismatch')&&(!valid||!v.evidence.length)?'unknown':v.status as Verdict;
  return {id:v.id,status};
  });
- const status:Verdict=checks.some(c=>c.status==='mismatch')?'mismatch':checks.some(c=>c.status==='unsupported')?'unsupported':!checks.length||checks.some(c=>c.status==='unknown')?'unknown':'supported';
- return {status,checks};
+ const uncheckedFields=(['explanation','draft'] as const).filter(kind=>!claims.some(c=>c.kind===kind));
+ const status:Verdict=checks.some(c=>c.status==='mismatch')?'mismatch':checks.some(c=>c.status==='unsupported')?'unsupported':!checks.length||uncheckedFields.length>0||checks.some(c=>c.status==='unknown')?'unknown':'supported';
+ return {status,checks,coverage:{scope:'submitted-claims',claimCount:claims.length,uncheckedFields}};
 }
 const operations=new WeakMap<PrivacyGate,number>();
 function begin(gate:PrivacyGate){const operation=(operations.get(gate)??0)+1;operations.set(gate,operation);return operation;}
@@ -71,7 +74,7 @@ export async function runLocalAnswer(gate:PrivacyGate,nano:LocalNano|null):Promi
 export async function runTwoKey(gate:PrivacyGate,nano:LocalNano|null,redactedJourney:Journey):Promise<LocalResult<Verification>>{
  const revision=gate.currentRevision,operation=begin(gate);
  if(!nano)return {status:'unavailable',revision,reason:'On-device verifier unavailable; no fallback.'};
- const binding=reviewedJourney(gate);
+ const binding=reviewedCloudJourney(gate);
  const supplied=JSON.stringify(parseJourney(JSON.stringify(redactedJourney)));
  if(supplied!==JSON.stringify(binding.redacted)&&supplied!==JSON.stringify(binding.restored))throw Error('Verification requires the unchanged revision-bound cloud answer');
  const original=gate.text,mapping=redact(original,gate.highlights).mapping;
