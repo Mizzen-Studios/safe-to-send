@@ -1,4 +1,7 @@
 import {restore, type PrivacyGate} from './privacy';
+import {replyEnvelope,validateDraftRoles} from './roles';
+const reviewed=new WeakMap<PrivacyGate,{revision:number;redacted:Journey;restored:Journey}>();
+export function reviewedJourney(gate:PrivacyGate){const x=reviewed.get(gate);if(!x||x.revision!==gate.currentRevision||gate.phase!=='done')throw Error('Current approved cloud response required');return {revision:x.revision,redacted:parseJourney(JSON.stringify(x.redacted)),restored:parseJourney(JSON.stringify(x.restored))};}
 export type Journey={explanation:string;deadlines:{date:string|null;evidence:string;action:string}[];actions:string[];draft:string};
 const keys=(x:unknown,allowed:string[]):Record<string,unknown>=>{
  if(!x||typeof x!=='object'||Array.isArray(x)||Object.keys(x).sort().join()!==[...allowed].sort().join())throw Error('Unexpected response shape');
@@ -23,16 +26,22 @@ export function restoreJourney(json:string,mapping:Record<string,string>):Journe
 export async function runJourney(gate:PrivacyGate,transport:(payload:string)=>Promise<string>,model:string):Promise<Journey>{
  // send validates and restores only after revision-bound response acceptance.
  const approvedLetter=JSON.parse(gate.applicationPreview).letter as string;
- return gate.sendStructured(transport,model,(json,mapping)=>{
+ const revision=gate.currentRevision;
+ let redacted:Journey|undefined;
+ const restored=await gate.sendStructured(transport,model,(json,mapping)=>{
  const parsed=parseJourney(json);
  for(const deadline of parsed.deadlines)if(!approvedLetter.includes(deadline.evidence))throw Error('Deadline evidence absent from approved letter');
+ validateDraftRoles(parsed.draft,approvedLetter);
+ redacted=parsed;
  return restoreJourney(json,mapping);
  });
+ reviewed.set(gate,{revision,redacted:redacted!,restored});
+ return restored;
 }
 /** Deterministic synthetic demonstration, not model inference and never a network call. */
 export async function syntheticTransport(payload:string):Promise<string>{
  const letter=JSON.parse(payload).letter as string;
- const token=letter.match(/\[NAME_\d+\]/)?.[0];
+ const envelope=replyEnvelope(letter);
  const cases=[
  {match:'Your tax return needs a correction.',explanation:'The sender asks you to correct your tax return.',evidence:'Please reply by 30 November 2026.',date:'2026-11-30',action:'Check which correction is needed and respond.',draft:'Please tell me which part of my tax return needs correcting and what evidence you require.'},
  {match:'We need evidence of your housing costs within 14 days.',explanation:'The sender asks for evidence of housing costs within 14 days. The letter has no dated reference for calculating a due date.',evidence:'within 14 days',date:null,action:'Check the dated original or confirm the due date with the sender.',draft:'Please confirm which housing cost documents you need and the exact deadline.'},
@@ -42,5 +51,5 @@ export async function syntheticTransport(payload:string):Promise<string>{
  ];
  const scenario=cases.find(x=>letter.includes(x.match));
  if(!scenario)throw Error('Synthetic template only supports the unchanged supplied fixtures');
- return JSON.stringify({explanation:'LOCAL SYNTHETIC TEMPLATE — not AI inference. '+scenario.explanation,deadlines:scenario.evidence?[{date:scenario.date,evidence:scenario.evidence,action:scenario.action}]:[],actions:[scenario.action,'Verify the sender using independently trusted contact details.'],draft:'Dear sender,\n'+scenario.draft+'\nKind regards,\n'+(token??'Your name')});
+ return JSON.stringify({explanation:'LOCAL SYNTHETIC TEMPLATE — not AI inference. '+scenario.explanation,deadlines:scenario.evidence?[{date:scenario.date,evidence:scenario.evidence,action:scenario.action}]:[],actions:[scenario.action,'Verify the sender using independently trusted contact details.'],draft:envelope.salutation+'\n'+scenario.draft+'\nKind regards,\n'+envelope.signature});
 }
