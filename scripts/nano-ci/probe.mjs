@@ -3,7 +3,7 @@ import {createServer} from 'node:http';
 import {readFile,writeFile,mkdir} from 'node:fs/promises';
 import {resolve,extname} from 'node:path';
 const base=resolve('scripts/nano-ci'),out=resolve(base,'artifacts');await mkdir(out,{recursive:true});
-const result={at:new Date().toISOString(),classification:'NOT_RUN',headless:false,channel:'chrome',flags:['--enable-features=PromptAPIForGeminiNano,PromptAPIForGeminiNanoMultimodalInput','--prompt-api-for-gemini-nano-multimodal-input'],errors:[],blockedPageRequests:[],console:[]};
+const result={at:new Date().toISOString(),classification:'NOT_RUN',headless:false,channel:'chrome',flags:['--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput'],errors:[],blockedPageRequests:[],console:[]};
 // Browser-managed model downloads are distinct from page-origin connections.
 // CSP + request routing deny ALL non-local page HTTP, including SDK fallback.
 const server=createServer(async(req,res)=>{try{const path=new URL(req.url,'http://127.0.0.1').pathname;const file=resolve(base,'site','.'+(path==='/'?'/index.html':path));if(!file.startsWith(resolve(base,'site')+'/'))throw Error('path');const body=await readFile(file);res.writeHead(200,{'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(file)]??'application/octet-stream','Content-Security-Policy':"default-src 'self'; script-src 'self'; style-src 'unsafe-inline'; img-src 'self' data: blob:; connect-src data:; object-src 'none'; base-uri 'none'; form-action 'none'"});res.end(body);}catch{res.writeHead(404);res.end();}});
