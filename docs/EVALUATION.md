@@ -13,16 +13,28 @@ Corpus: [src/eval-corpus.ts](../src/eval-corpus.ts), version synthetic-v1. Six n
 
 Every notice is explicitly synthetic. Names and street details are invented, postcodes/NI/bank/NHS identifiers deliberately fictional or invalid, email uses example.invalid, UK phone numbers use the reserved 07700 900 range and US phone uses fictional 555-0100. Never use these details to contact or pay anyone. Invalid identifiers test recall limits, not valid-number coverage.
 
-Inline annotations generate exact UTF-16 half-open PII spans. Character scoring merges overlaps, micro-averages across letters and gives partial-span credit: recall = TP / annotated PII characters; precision = TP / predicted characters. Counts include spaces/punctuation within a span. Contextual public numbers, example codes, issue dates and deadlines are not PII; redacting them counts as false positives. No span-level exact-match score or latency benchmark is claimed.
+Inline annotations generate exact UTF-16 half-open PII spans. Character scoring merges overlaps, micro-averages across letters and gives partial-span credit: recall = TP / annotated PII characters; precision = TP / predicted characters. Counts include spaces/punctuation within a span. Contextual public numbers, example codes, issue dates and deadlines are not PII; redacting them counts as false positives. No span-level exact-match score is claimed. Regex-only warm Node latency is measured separately below; model latency remains NOT_RUN.
 
 | Detector | Recall | Precision | Latency | Evidence |
 |---|---:|---:|---|---|
-| Regex only, 32 notices | 38.59% (406/1052) | 55.62% (406/730) | NOT_RUN | Actual offline execution |
+| Regex only, 32 notices | 38.59% (406/1052) | 55.62% (406/730) | p50 0.00852 ms / p95 0.01056 ms per notice (warm Node) | Actual offline execution |
 | Nano text/image | NOT_RUN | NOT_RUN | NOT_RUN | Supported device unavailable |
 | Nano + regex union | NOT_RUN | NOT_RUN | NOT_RUN | Requires actual Nano output |
 | Two-key Nano claim catch | NOT_RUN | NOT_RUN | NOT_RUN | No verifier model execution |
 
 The unchanged five-letter spike baseline remains 172/311 recall (55.31%), 172/236 precision (72.88%); `npm run eval` reproduces that older, smaller dataset. Do not compare the two percentages as a detector regression: the dataset changed. The 32-notice regex misses names, street addresses, US phone and formats such as ISO DOB; it also masks deadline/public-number near misses. This exposes risk, not an anonymity guarantee.
+
+## Regex-only latency benchmark
+
+Run `node scripts/evaluate.mjs benchmark > /your/local/regex-benchmark.json`. [Recorded measurement](evidence/regex-benchmark.json) includes timestamp, corpus SHA-256, all per-notice p50/p95 values, exact runtime/hardware and unchanged accuracy counts. This is a bounded synchronous offline benchmark with **100 warmup full-corpus passes**, then **500 measured passes = 16,000 detector calls**, fixed corpus order. It uses monotonic `performance.now()`; p50/p95 use nearest rank `ceil(n*p)`. No model calls are made.
+
+Recorded environment: Linux ARM64 kernel 7.0.0-1013-oracle, four logical Neoverse-N1 CPUs, 25,137,336,320 bytes system RAM, **Node v24.22.1 / V8 13.6.233.17-node.58**. Browser: not applicable. Timing includes `regexSpans` plus its span validation and per-call clock overhead; it excludes startup/imports, warmup, scoring and JSON serialization. Corpus-pass/wall timing additionally includes loop/sample-bookkeeping overhead. Host scheduling and GC can affect results; there is no timing pass/fail threshold.
+
+- Per notice, pooled 16,000 calls: **p50 0.00852 ms; p95 0.01056 ms**.
+- Full 32-notice pass, 500 samples: **p50 0.282403 ms; p95 0.358203 ms**.
+- Sum of timed detector calls: **156.810165 ms**; measured-loop wall total: **161.616076 ms**; mean detector time per notice: **0.009800635 ms**.
+
+These are **32 short authored synthetic notices**, not broad real-letter coverage, long documents, images/OCR, browser timings, cold start, UI responsiveness or end-to-end latency. Precision/recall remain exactly 406/1052 and 406/730. The basic `regex` command retains its legacy latency NOT_RUN field because it is an accuracy-only run; this separate benchmark receipt is the timing evidence. Nano, combined and two-key model accuracy/latency/catch rates remain NOT_RUN. Do not extrapolate this regex microbenchmark to them.
 
 ## Deadline, amount and action ground truth; two-key challenge
 
