@@ -1,0 +1,14 @@
+{
+  "checkedOn": "2026-11-12",
+  "classification": "LOCAL_SYNTHETIC_QA_FAILURE",
+  "browser": "Snap Chromium 156",
+  "check": "Read back edited local draft download",
+  "expected": "SYNTHETIC edited reply",
+  "observed": [
+    "Playwright download stream returned empty",
+    "Direct file read returned ENOENT for browser temporary download path",
+    "Shared hidden-workspace downloadsPath produced download failure: canceled"
+  ],
+  "diagnosis": "Snap Chromium private /tmp differs from host Node /tmp; confinement also prevents writing the hidden-workspace download path. Changing Blob URL lifetime alone did not resolve the harness failure.",
+  "resolution": "Final full run uses installed non-Snap Playwright Chromium 145 and shared app-workspace downloadsPath under ignored .openclaw/tmp. Completed edited draft downloads were read and compared for all five fixtures; see reviewed-journey-browser.json."
+}

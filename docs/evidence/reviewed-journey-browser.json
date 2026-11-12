@@ -1,0 +1,92 @@
+{
+  "checkedAt": "2026-11-12T00:34:14.385Z",
+  "sourceCommit": "63842972849c69af191c8e52e56d42547e042bd7",
+  "classification": "LOCAL_SYNTHETIC_QA_NOT_INFERENCE",
+  "browser": "145.0.7632.0",
+  "appBuild": "local dist served with unchanged firebase.json headers; not deployed",
+  "viewports": [
+    {
+      "width": 390,
+      "mandatoryReview": true,
+      "redactedPayload": true,
+      "localRestore": true,
+      "deadlineVisible": true,
+      "sourceEditInvalidates": true,
+      "overflow": false
+    },
+    {
+      "width": 768,
+      "mandatoryReview": true,
+      "redactedPayload": true,
+      "localRestore": true,
+      "deadlineVisible": true,
+      "sourceEditInvalidates": true,
+      "overflow": false
+    },
+    {
+      "width": 1440,
+      "mandatoryReview": true,
+      "redactedPayload": true,
+      "localRestore": true,
+      "deadlineVisible": true,
+      "sourceEditInvalidates": true,
+      "overflow": false
+    }
+  ],
+  "fixtures": [
+    {
+      "id": "hmrc",
+      "keyboardApproval": true,
+      "structuredResult": true,
+      "editedDraftDownload": true
+    },
+    {
+      "id": "dwp",
+      "keyboardApproval": true,
+      "structuredResult": true,
+      "editedDraftDownload": true
+    },
+    {
+      "id": "nhs",
+      "keyboardApproval": true,
+      "structuredResult": true,
+      "editedDraftDownload": true
+    },
+    {
+      "id": "council",
+      "keyboardApproval": true,
+      "structuredResult": true,
+      "editedDraftDownload": true
+    },
+    {
+      "id": "landlord",
+      "keyboardApproval": true,
+      "structuredResult": true,
+      "editedDraftDownload": true
+    }
+  ],
+  "redactionEditInvalidates": true,
+  "missingLanguageModel": {
+    "initializationRefused": true,
+    "appFetchAttempts": []
+  },
+  "externalBrowserRequests": [],
+  "cspProbe": {
+    "result": "blocked",
+    "violations": [
+      {
+        "directive": "connect-src",
+        "blocked": "https://example.invalid/negative-egress-probe"
+      }
+    ]
+  },
+  "pageErrors": [],
+  "consoleErrors": [
+    "Failed to load resource: the server responded with a status of 404 (Not Found)",
+    "Connecting to 'https://example.invalid/negative-egress-probe' violates the following Content Security Policy directive: \"connect-src data:\". The action has been blocked.",
+    "Fetch API cannot load https://example.invalid/negative-egress-probe. Refused to connect because it violates the document's Content Security Policy."
+  ],
+  "nanoInference": "NOT_RUN — unavailable VM; missing API deliberately forced for guard test",
+  "cloudInference": "NOT_RUN — hard-locked; no App Check or cloud configured",
+  "ledger": "Application payload only; no SDK HTTP body exists"
+}

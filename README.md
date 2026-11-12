@@ -2,7 +2,7 @@
 
 A private-first helper for stressful UK official letters. **Research build, synthetic letters only.** A preparatory spike predates the owner-supplied submission period; see the explicit provenance below.
 
-**Live cloud-disabled spike:** https://safe-to-send-2026.web.app
+**Previously deployed November 9 spike (not the current source milestone):** https://safe-to-send-2026.web.app
 
 Hosting verified against all three build files byte-for-byte, with no page errors or external requests in the tested synthetic preview. [Deployment evidence](docs/evidence/hosting-verification.json). Billing remains disabled with no linked billing account. This is not a successful Nano inference result.
 
@@ -20,7 +20,18 @@ npm run dev
 
 Open http://localhost:5192. `npm run build` typechecks and builds the static site; `npm run eval` reports the five-letter regex baseline. Dependencies and lockfile are pinned. Apache-2.0 licensed; prior MIT attribution is preserved in [NOTICE](NOTICE).
 
-## Spike verdict: PARTIAL — real-device gate blocked
+## Current milestone: reviewed synthetic journey
+
+Choose **Try the synthetic review journey (no AI)**, inspect/edit redactions, check the review confirmation, approve the exact redacted application JSON, then generate a labelled local example. All five supplied fixtures have deterministic explanation/deadline/action/draft templates. Relative dates stay unresolved; a council “before” date is not presented as inclusive. Source or redaction edits invalidate approval and clear results. Draft editing and local download work without cloud. This demonstrates workflow, **not Nano detection or Gemini inference**.
+
+- `npm test`: 44 tests (including SDK mocks explicitly labelled as mocks).
+- `npm run build`: TypeScript + Vite production build.
+- `node scripts/verify-reviewed-journey.mjs`: isolated Chromium, built files with unchanged Hosting headers at port 5192. Requires separately available Playwright and Chromium; used existing workspace Playwright, no paid services. Set `CHROMIUM_PATH` if needed.
+- [Browser evidence](docs/evidence/reviewed-journey-browser.json): 390/768/1440px, mandatory approval, local restoration, source/redaction invalidation, five fixtures, keyboard approval and edited draft download. No page exceptions or external browser requests. Deliberate CSP egress probe is blocked; expected CSP console errors and a harmless missing favicon 404 are retained. This is local QA, not deployment or real-device inference proof.
+- [GitHub license evidence](docs/evidence/github-license.json): GitHub repository API and license endpoint detect **Apache-2.0**, and an isolated public browser confirmed the rendered [Apache-2.0 license link](docs/evidence/github-about-license.json) ([capture](docs/evidence/github-about-license.png)), after pushing the standard LICENSE. Prior MIT permission notice remains in NOTICE.
+- [Boundary design / remaining gates](docs/REVIEWED_JOURNEY.md). Cloud remains compile-time locked; App Check preflight mock tests do not establish server-side enforcement.
+
+## November 9 spike verdict: PARTIAL — real-device gate blocked
 
 **Question:** Can Firebase AI Logic web `firebase/ai` perform image input plus JSON-schema-constrained PII extraction entirely on device?
 
@@ -79,9 +90,9 @@ These figures expose why regex alone cannot authorize cloud sending: it misses n
 
 **Implemented:** pure state machine, generation-bound approval, stale-response rejection, download/detection errors fail closed, UK regex union, strict matching/overlap merging, reserved-placeholder collision rejection, unknown-placeholder rejection, single-pass local restore, synthetic selection, regex preview, device check, Nano image/text runner, basic Nano review/add/remove/approve UI. Storage is in-memory for this spike.
 
-**Not implemented / not enabled:** cloud model or request, production App Check, byte-exact wire ledger, explanation/deadlines/draft, IndexedDB history, reminders, copy/export reply, 30+ corpus. No cloud request means the visible privacy ledger correctly says **0 cloud requests**. There is no fake cloud success.
+**Still not enabled / not implemented:** live cloud model or request, production App Check, separate-origin redacted handoff, byte-exact wire ledger, real-inference explanations, IndexedDB history, reminders, 30+ corpus. Structured journey and local draft download now work with explicitly synthetic templates. A gated cloud SDK adapter exists in source but is not reachable for inference. No cloud request means the visible privacy ledger correctly says **0 cloud requests**. There is no fake cloud success.
 
-The gate's injected transport receives only a freshly constructed redacted JSON string, never the original source, image, mapping, or instance. Tests cover empty/unavailable/unreviewed states, detector failure, stale detection, changed review, duplicate sends, stale responses, failed transport and placeholder collisions. This is a boundary invariant, **not a proof that every personal detail was found**. A missed PII span could survive redaction; human review and evaluation reduce, but cannot eliminate, that risk. Requiring Nano does not mean Nano is perfectly accurate.
+The gate's injected transport receives only the immutable redacted JSON string captured at approval, never the original source, image, mapping, or instance. Tests cover empty/unavailable/unreviewed states, detector failure, stale detection, changed review, duplicate sends, stale responses, failed transport and placeholder collisions. This is a boundary invariant, **not a proof that every personal detail was found**. A missed PII span could survive redaction; human review and evaluation reduce, but cannot eliminate, that risk. Requiring Nano does not mean Nano is perfectly accurate.
 
 ### Exact ledger gate
 
@@ -99,7 +110,7 @@ The pure gate records the exact **application payload string** plus UTF-8 byte l
 
 ## Zero-spend / deployment controls
 
-Parent provisioned Firebase project `safe-to-send-2026` on Spark, billing disabled. Static Firebase Hosting only. Deploy with `npm run build && firebase deploy --only hosting --project safe-to-send-2026` after verification. No Functions, Storage, domain/DNS, paid APIs, Live API or grounding. No billing upgrade/card.
+Parent provisioned Firebase project `safe-to-send-2026` on Spark, billing disabled. Static Firebase Hosting only. Deployment is parent-owned and requires release review; this milestone does not deploy or change resources. No Functions, Storage, domain/DNS, paid APIs, Live API or grounding. No billing upgrade/card.
 
 Cloud model candidate is **gemini-3.5-flash-lite**, matching current Firebase hybrid docs. Free-tier availability and project enablement must be independently verified before any cloud call. Gemini Developer API only, never a paid backend. Set up reCAPTCHA Enterprise App Check within free quota and **enforce** it for AI Logic before enabling cloud. No debug token in production. This research build deliberately initializes neither App Check nor cloud inference.
 
