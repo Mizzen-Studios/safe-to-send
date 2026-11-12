@@ -22,6 +22,8 @@ it('sends the exact approved payload to synthetic transport and only restores lo
  const result=await runJourney(g,transport,'synthetic-template');expect(result.draft).toContain('Maya Fiction');
  expect(transport).toHaveBeenCalledWith(preview);expect(preview).not.toContain('Maya Fiction');expect(g.phase).toBe('done');
 });
+it.each(letters)('completes fixture $id with templates, not model inference',async letter=>{const g=new PrivacyGate();g.load(letter.text);await g.detect(async()=>letter.truth);g.approve();const j=await runJourney(g,syntheticTransport,'local-template');expect(j.explanation).toContain('not AI inference');if(letter.id==='dwp')expect(j.deadlines[0].date).toBeNull();if(letter.id==='landlord')expect(j.deadlines).toEqual([]);expect(g.phase).toBe('done');});
+it('rejects unsupported deadline evidence even with a valid schema',async()=>{const g=await approved();await expect(runJourney(g,async()=>JSON.stringify({...example,deadlines:[{...example.deadlines[0],evidence:'invented deadline quotation'}]}),'mock')).rejects.toThrow('evidence absent');});
 it('requires fresh review after edit, never invokes transport without approval',async()=>{
  const g=await approved(),transport=vi.fn(syntheticTransport);g.edit(g.highlights);await expect(runJourney(g,transport,'mock')).rejects.toThrow('approval');expect(transport).not.toHaveBeenCalled();
 });

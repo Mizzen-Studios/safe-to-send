@@ -1,0 +1,12 @@
+import {it,expect,vi,afterEach} from 'vitest';
+const sdk=vi.hoisted(()=>({token:vi.fn(),ai:vi.fn(),model:vi.fn()}));
+vi.mock('firebase/app-check',()=>({getToken:sdk.token}));
+vi.mock('firebase/ai',()=>({getAI:sdk.ai,getGenerativeModel:sdk.model,GoogleAIBackend:class{},InferenceMode:{ONLY_IN_CLOUD:'cloud'},InferenceSource:{IN_CLOUD:'cloud'}}));
+import {requireAppCheck,cloudTransport} from '../src/cloud';
+import type {FirebaseApp} from 'firebase/app';import type {AppCheck} from 'firebase/app-check';
+afterEach(()=>vi.clearAllMocks());
+const app={} as FirebaseApp,check={app} as AppCheck;
+it('refuses missing or wrong-app App Check before token lookup (SDK MOCK)',async()=>{for(const x of [null,{app:{}}])await expect(requireAppCheck(app,x as AppCheck)).rejects.toThrow('App Check required');expect(sdk.token).not.toHaveBeenCalled();expect(sdk.model).not.toHaveBeenCalled();});
+it('fails closed on absent attestation or token failure (SDK MOCK)',async()=>{sdk.token.mockResolvedValue({token:''});await expect(requireAppCheck(app,check)).rejects.toThrow('token required');sdk.token.mockRejectedValue(Error('attestation failed'));await expect(requireAppCheck(app,check)).rejects.toThrow('attestation failed');expect(sdk.model).not.toHaveBeenCalled();});
+it('preflights supplied same-app attestation without exposing a token (SDK MOCK only)',async()=>{sdk.token.mockResolvedValue({token:'synthetic-mock-value'});expect(await requireAppCheck(app,check)).toBeUndefined();expect(sdk.token).toHaveBeenCalledWith(check,false);expect(sdk.ai).not.toHaveBeenCalled();});
+it('release lock precedes even valid App Check and model creation (SDK MOCK)',async()=>{await expect(cloudTransport(app,check,'{}')).rejects.toThrow('Cloud locked');expect(sdk.token).not.toHaveBeenCalled();expect(sdk.model).not.toHaveBeenCalled();});

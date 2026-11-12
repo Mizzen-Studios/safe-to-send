@@ -27,7 +27,7 @@ export class PrivacyGate{
  load(text:string){this.revision++;this.raw=text;this.spans=[];this.ready=false;this.approved=-1;this.map={};this.phase=text?'blocked':'empty';this.reason='Run on-device detection before sending.';}
  deviceUnavailable(reason:string){this.ready=false;this.revision++;this.approved=-1;this.phase='blocked';this.reason=reason;}
  async detect(detector:(text:string)=>Promise<Span[]>){const version=++this.revision;this.approved=-1;this.ready=false;this.phase='detecting';try{const spans=await detector(this.raw);if(version!==this.revision)throw Error('Letter changed during detection');this.spans=validateSpans(this.raw,spans);this.ready=true;this.phase='review';}catch(e){if(version===this.revision){this.phase='blocked';this.reason=String(e);}throw e;}}
- edit(spans:Span[]){if(!this.ready||!['review','approved'].includes(this.phase))throw Error('Detection required');this.spans=validateSpans(this.raw,spans);this.revision++;this.approved=-1;this.phase='review';}
+ edit(spans:Span[]){if(!this.ready||!['review','approved','done'].includes(this.phase))throw Error('Detection required');this.spans=validateSpans(this.raw,spans);this.revision++;this.approved=-1;this.phase='review';}
  preview(){return redact(this.raw,this.spans).text;}
  approve(){if(!this.ready||this.phase!=='review')throw Error('Review required');this.map=redact(this.raw,this.spans).mapping;this.approvedPayload=JSON.stringify({instruction:cloudInstruction,letter:this.preview()});this.approved=this.revision;this.phase='approved';}
  get applicationPreview(){return JSON.stringify({instruction:cloudInstruction,letter:this.preview()});}
