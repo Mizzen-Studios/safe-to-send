@@ -1,4 +1,5 @@
 import {it,expect,vi,afterEach} from 'vitest';
+vi.mock('../src/cloud-policy',async importOriginal=>({...await importOriginal<typeof import('../src/cloud-policy')>(),assertCloudRelease:()=>{throw Error('Cloud locked: unit-tested disabled release policy');}}));
 const sdk=vi.hoisted(()=>({token:vi.fn(),ai:vi.fn(),model:vi.fn()}));
 vi.mock('firebase/app-check',()=>({getToken:sdk.token}));
 vi.mock('firebase/ai',()=>({getAI:sdk.ai,getGenerativeModel:sdk.model,GoogleAIBackend:class{},InferenceMode:{ONLY_IN_CLOUD:'cloud'},InferenceSource:{IN_CLOUD:'cloud'}}));

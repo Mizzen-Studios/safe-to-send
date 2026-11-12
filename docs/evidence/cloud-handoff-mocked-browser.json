@@ -1,9 +1,9 @@
 {
-  "checkedAt": "2026-11-12T18:30:32.062Z",
-  "sourceCommit": "4d5b70b608ce7252e3273d1930eae13fcb6e1033",
+  "checkedAt": "2026-11-12T18:41:16.705Z",
+  "sourceCommit": "9d1ff9cf030b47e9b8c6033d3cc5cab3c84e96ce",
   "classification": "REAL_BROWSER_REAL_SDK_SERIALIZATION_MOCK_APPCHECK_MOCK_PROVIDER_NOT_INFERENCE",
   "browser": "145.0.7632.0",
-  "productionReleaseSwitch": "false; test-only in-memory Vite transform, no production source unlock",
+  "productionReleaseSwitch": "true for supplied synthetic fixtures only; App Check/provider are mocked in this suite",
   "origins": [
     "https://safe-to-send-2026.web.app",
     "https://safe-to-send-cloud-2026.web.app"

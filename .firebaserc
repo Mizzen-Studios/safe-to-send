@@ -1,5 +1,18 @@
 {
   "projects": {
     "default": "safe-to-send-2026"
-  }
+  },
+  "targets": {
+    "safe-to-send-2026": {
+      "hosting": {
+        "raw": [
+          "safe-to-send-2026"
+        ],
+        "cloud": [
+          "safe-to-send-cloud-2026"
+        ]
+      }
+    }
+  },
+  "etags": {}
 }

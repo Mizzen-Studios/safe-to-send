@@ -2,7 +2,7 @@
 
 A private-first helper for stressful UK official letters. **Research build, synthetic letters only.** A preparatory spike predates the owner-supplied submission period; see the explicit provenance below.
 
-**Previously deployed November 9 spike (not the current source milestone):** https://safe-to-send-2026.web.app
+**Live synthetic research build:** https://safe-to-send-2026.web.app
 
 Hosting verified against all three build files byte-for-byte, with no page errors or external requests in the tested synthetic preview. [Deployment evidence](docs/evidence/hosting-verification.json). Billing remains disabled with no linked billing account. This is not a successful Nano inference result.
 
@@ -22,9 +22,9 @@ Open http://localhost:5192. `npm run build` typechecks and builds the static sit
 
 ## Current milestone: isolated approved-redacted cloud handoff
 
-Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging, App Check Enterprise before AI Logic, ONLY_IN_CLOUD structured adapter, and SDK HTTP-body capture are implemented. **Production source remains locked** for parent review/deployment/testing. Raw connect-src remains data:; only the exact broker may be framed. [Integration](docs/CLOUD_HANDOFF.md).
+Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging, App Check Enterprise before AI Logic, ONLY_IN_CLOUD structured adapter, and SDK HTTP-body capture are implemented. **Cloud release is limited to unchanged supplied synthetic fixtures**, with all known fixture PII still redacted. Nano-derived and arbitrary-source cloud sends remain locked pending supported-device verification. Raw connect-src remains data:; only the exact broker may be framed. [Integration](docs/CLOUD_HANDOFF.md).
 
-- **86 tests**, typecheck and dual static build. Mocks explicitly labelled.
+- **90 tests**, typecheck and dual static build. Mocks explicitly labelled.
 - [Two-origin browser evidence](docs/evidence/cloud-handoff-mocked-browser.json): real Chromium and pinned Firebase SDK serialization with **mock App Check/provider**. Approval, explicit send, redacted-only body, UTF-8/SHA parity against mocked network, local restoration, inert HTML output, stale cancellation and absent-attestation refusal pass. Not real inference/attestation or deployed DevTools proof.
 - Parent [private SDK harness](docs/evidence/real-cloud-sdk-private-harness.json): **real cloud inference, not deployed app E2E**, gemini-3.5-flash-lite, in_cloud, 5589 ms sample. Unconstrained output was malformed and invented [NAME_2]; product now constrains responseSchema and rejects unknown placeholders. Semantic correctness is not guaranteed.
 - [Valid-key/no-App-Check control](docs/evidence/appcheck-negative-control.json): **401 invalid App Check token**. The older no-client-key 403 in the SDK harness is NOT the correct App Check control.
@@ -34,12 +34,12 @@ Dual raw/broker builds, strict origin+window+nonce+requestId+revision messaging,
 
 Choose **Try the synthetic review journey (no AI)**, inspect/edit redactions, check the review confirmation, approve the exact redacted application JSON, then generate a labelled local example. All five supplied fixtures have deterministic explanation/deadline/action/draft templates. Relative dates stay unresolved; a council “before” date is not presented as inclusive. Source or redaction edits invalidate approval and clear results. Draft editing and local download work without cloud. This demonstrates workflow, **not Nano detection or Gemini inference**.
 
-- Earlier milestone: 44 tests. Current suite: 86 tests, including labelled mocks.
+- Earlier milestone: 44 tests. Current suite: 90 tests, including labelled mocks.
 - `npm run build`: TypeScript + Vite production build.
 - `node scripts/verify-reviewed-journey.mjs`: isolated Chromium, built files with unchanged Hosting headers at port 5192. Requires separately available Playwright and Chromium; used existing workspace Playwright, no paid services. Set `CHROMIUM_PATH` if needed.
 - [Browser evidence](docs/evidence/reviewed-journey-browser.json): 390/768/1440px, mandatory approval, local restoration, source/redaction invalidation, five fixtures, keyboard approval and edited draft download. No page exceptions or external browser requests. Deliberate CSP egress probe is blocked; expected CSP console errors and a harmless missing favicon 404 are retained. This is local QA, not deployment or real-device inference proof.
 - [GitHub license evidence](docs/evidence/github-license.json): GitHub repository API and license endpoint detect **Apache-2.0**, and an isolated public browser confirmed the rendered [Apache-2.0 license link](docs/evidence/github-about-license.json) ([capture](docs/evidence/github-about-license.png)), after pushing the standard LICENSE. Prior MIT permission notice remains in NOTICE.
-- [Boundary design / remaining gates](docs/REVIEWED_JOURNEY.md). Cloud remains source-locked. Client mocks do not prove enforcement; parent negative-control evidence is separate.
+- [Boundary design / remaining gates](docs/REVIEWED_JOURNEY.md). Nano-to-cloud remains source-locked. Client mocks do not prove enforcement; parent negative-control evidence is separate.
 
 ## November 9 spike verdict: PARTIAL — real-device gate blocked
 

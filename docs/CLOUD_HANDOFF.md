@@ -1,6 +1,6 @@
 # Isolated cloud handoff — parent integration
 
-Implementation complete; production release remains SOURCE-LOCKED (cloud-policy.ts false). No deployed app inference, real Enterprise attestation or DevTools parity claimed here. Parent real SDK harness is separate.
+Source release is enabled only for unchanged supplied synthetic fixtures. Dispatch rechecks the displayed/selected/source text and complete known ground-truth PII coverage; removing any known PII redaction refuses dispatch. Nano-derived and arbitrary-source sends remain disabled. Real private-browser app inference with registered debug App Check passed independent CDP/body/ledger parity; deployed evidence is recorded separately. Enterprise (non-debug) browser attestation is not yet verified.
 
 ## Exact build interface
 
@@ -15,7 +15,7 @@ Run SAFE_TO_SEND_BROKER_CONFIG=/private/metadata.json npm run build. Outputs dis
 
 Two Firebase Hosting targets in firebase.json: raw -> safe-to-send-2026, cloud -> safe-to-send-cloud-2026. Parent must bind these in .firebaserc before targeted deployment. Existing .firebaserc intentionally untouched by implementation owner. Only parent deploys/resources.
 
-The release switch is src/cloud-policy.ts CLOUD_RELEASE_ENABLED, false by default. Parent source review must explicitly change this after server-enforced App Check, model free quota and boundary review are evidenced. Both bundles must then rebuild. It cannot be enabled by URL, storage or config. Do not enable while checking infrastructure alone.
+The release switch is src/cloud-policy.ts CLOUD_RELEASE_ENABLED, true for the reviewed synthetic-only release, after server-enforced App Check, model free quota, boundary review and real private-app CDP parity were verified. Both bundles must then rebuild. It cannot be enabled by URL, storage or config. Do not enable while checking infrastructure alone.
 
 On released UI: fixture journey -> mandatory review + exact payload approval -> separate Send this approved SYNTHETIC payload to cloud AI action. Local template action remains distinct. Fixture annotations are NOT Nano detection and cloud verification is not successful Nano evidence. Real-source path requires actual Nano detection. Parent injects any pre-registered explicit debug UUID only into a fresh private test browser broker realm before App Check initialization; no debug-token handling code is shipped.
 
@@ -35,6 +35,6 @@ Parent must compare actual Network/CDP HTTP body bytes to ledger on deployed bro
 
 ## Verification at handoff
 
-86 unit/contract tests, typecheck and dual build pass. DOM fixtures cover peer mismatch, nonce/revision/request mismatch, replay/reload, stale/cancelled digest, corrupt/absent wire, single flight and timeout. Actual SDK serialization uses mocked fetch (no inference). Isolated Chromium 145 verifies both HTTPS origins with production CSP, test-only in-memory source unlock and mock App Check/provider. Mocked parity is not deployed DevTools proof.
+90 unit/contract tests, typecheck and dual build pass. DOM fixtures cover peer mismatch, nonce/revision/request mismatch, replay/reload, stale/cancelled digest, corrupt/absent wire, single flight and timeout. Actual SDK serialization uses mocked fetch (no inference). Isolated Chromium 145 verifies both HTTPS origins with production CSP, test-only in-memory source unlock and mock App Check/provider. Mocked parity is not deployed DevTools proof.
 
 Parent evidence copied unchanged: cloud-infra-receipt.json (before real inference), real-cloud-sdk-private-harness.json (real inference, not app E2E; malformed output/invented placeholder retained), appcheck-negative-control.json (valid key/no token -> 401), nano-capability-nov12.json (absent/unavailable). Older no-key 403 is not correct App Check control. No key/token values retained.

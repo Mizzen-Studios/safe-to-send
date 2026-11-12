@@ -33,6 +33,6 @@ it('discards an in-flight structured response after letter replacement',async()=
 it('fails closed on response schema or unknown placeholder errors',async()=>{
  for(const response of ['not JSON',JSON.stringify({...example,draft:'[NAME_999]'})]){const g=await approved();await expect(runJourney(g,async()=>response,'mock')).rejects.toThrow();expect(g.phase).toBe('blocked');expect(()=>g.approve()).toThrow();}
 });
-it('hard-locks cloud before App Check, SDK model construction or fetch',async()=>{
- const fetch=vi.spyOn(globalThis,'fetch');await expect(cloudTransport(null!,null!,'{}')).rejects.toThrow('Cloud locked');expect(fetch).not.toHaveBeenCalled();fetch.mockRestore();
+it('rejects invalid cloud payload before App Check, SDK model construction or fetch',async()=>{
+ const fetch=vi.spyOn(globalThis,'fetch');await expect(cloudTransport(null!,null!,'{}')).rejects.toThrow();expect(fetch).not.toHaveBeenCalled();fetch.mockRestore();
 });
