@@ -1,0 +1,115 @@
+{
+  "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43313425316",
+  "headSha": "b2675db41e13a910d5e920476c166e8700db8c62",
+  "status": "completed",
+  "conclusion": "failure",
+  "jobs": [
+    {
+      "name": "probe (ubuntu-latest)",
+      "conclusion": "failure",
+      "completedAt": "2026-11-12T21:46:32Z"
+    },
+    {
+      "name": "probe (windows-latest)",
+      "conclusion": "failure",
+      "completedAt": "2026-11-12T21:47:38Z"
+    }
+  ],
+  "os": {
+    "ubuntu": {
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "chrome": "Chrome/157.0.8103.78",
+      "availability": [
+        {
+          "at": "2026-11-12T21:46:29.296Z",
+          "type": "availability-text",
+          "data": "unavailable"
+        },
+        {
+          "at": "2026-11-12T21:46:29.305Z",
+          "type": "availability-image",
+          "data": "unavailable"
+        }
+      ],
+      "direct": {
+        "status": "FAIL",
+        "name": "NotSupportedError",
+        "error": "Unable to create a text session because the service is not running."
+      },
+      "sdk": {
+        "status": "FAIL",
+        "name": "FirebaseError",
+        "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+      },
+      "downloadProgressEvents": 0,
+      "modelOutput": null,
+      "hardware": {
+        "at": "2026-11-12T21:46:02.551Z",
+        "os": "linux",
+        "release": "7.0.0-1019-azure",
+        "arch": "x64",
+        "cpu": [
+          "AMD EPYC 9V45 96-Core Processor",
+          "AMD EPYC 9V45 96-Core Processor",
+          "AMD EPYC 9V45 96-Core Processor",
+          "AMD EPYC 9V45 96-Core Processor"
+        ],
+        "logicalCpus": 4,
+        "totalRamBytes": 16759439360,
+        "freeRamBytes": 15544438784,
+        "diskAvailableBytes": 93138972672,
+        "gpu": [],
+        "runnerImage": "ubuntu26",
+        "runnerImageVersion": "20261111.196.1"
+      }
+    },
+    "windows": {
+      "classification": "FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF",
+      "chrome": "Chrome/157.0.8103.79",
+      "availability": [
+        {
+          "at": "2026-11-12T21:47:32.532Z",
+          "type": "availability-text",
+          "data": "unavailable"
+        },
+        {
+          "at": "2026-11-12T21:47:32.542Z",
+          "type": "availability-image",
+          "data": "unavailable"
+        }
+      ],
+      "direct": {
+        "status": "FAIL",
+        "name": "NotSupportedError",
+        "error": "Unable to create a text session because the service is not running."
+      },
+      "sdk": {
+        "status": "FAIL",
+        "name": "FirebaseError",
+        "error": "AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)"
+      },
+      "downloadProgressEvents": 0,
+      "modelOutput": null,
+      "hardware": {
+        "at": "2026-11-12T21:46:37.660Z",
+        "os": "win32",
+        "release": "10.0.26100",
+        "arch": "x64",
+        "cpu": [
+          "AMD EPYC 9V74 80-Core Processor                ",
+          "AMD EPYC 9V74 80-Core Processor                ",
+          "AMD EPYC 9V74 80-Core Processor                ",
+          "AMD EPYC 9V74 80-Core Processor                "
+        ],
+        "logicalCpus": 4,
+        "totalRamBytes": 17174360064,
+        "freeRamBytes": 14143619072,
+        "diskAvailableBytes": 235726770176,
+        "gpu": "{\r\n    \"Name\":  \"Microsoft Hyper-V Video\",\r\n    \"AdapterRAM\":  null,\r\n    \"DriverVersion\":  \"10.0.26100.1150\"\r\n}\r\n",
+        "runnerImage": "win25-vs2026",
+        "runnerImageVersion": "20261103.298.1"
+      }
+    }
+  },
+  "nextAction": "Focused official Chrome eligibility/service diagnostics are being prepared. No paid resource, hardware-check bypass, or additional inference result claimed."
+}

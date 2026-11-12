@@ -72,6 +72,6 @@ Factual post-start milestones (12 November):
 - `a42b88f`: allowlisted public device metadata build bundle.
 - `2044b8d` / `8d670df`: manual-review and revision-bound local-answer/two-key APIs, sender/recipient roles.
 - `5fc8405` / `3d913f2` / `8763bb6`: product-first UI, IndexedDB history and keyboard/mobile/drag-drop QA.
-- `03a5fd2` / `0c0968a`: free x64 Ubuntu/Windows headed Chrome Nano Actions probe; results pending.
+- `03a5fd2` / `0c0968a`: free x64 Ubuntu/Windows headed Chrome Nano Actions probe; corrected run reached APIs but both local model services were unavailable ([result](docs/evidence/nano-free-runner-result.json)).
 
 [Full provenance, SDK/runtime caveats and preserved audit links](docs/EVALUATION.md#existing-audit-trail-preserved-from-baseline-a096591). This branch does not deploy, alter DNS/resources, submit or post publicly. Operator owns device tests/recording; the owner need not run setup. Apache-2.0 · [prior attribution](NOTICE).
