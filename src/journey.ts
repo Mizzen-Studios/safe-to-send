@@ -1,7 +1,28 @@
 import {restore, type PrivacyGate} from './privacy';
 import {replyEnvelope,validateDraftRoles} from './roles';
+import {CloudHandoff,validateAcceptedHandoff,acceptedHandoffReceipt} from './handoff-client';
+import {CLOUD_MODEL} from './cloud-policy';
+const cloudReviewed=new WeakMap<PrivacyGate,{handoff:CloudHandoff;payload:string;revision:number;response:string}>();
 const reviewed=new WeakMap<PrivacyGate,{revision:number;redacted:Journey;restored:Journey}>();
 export function reviewedJourney(gate:PrivacyGate){const x=reviewed.get(gate);if(!x||x.revision!==gate.currentRevision||gate.phase!=='done')throw Error('Current approved cloud response required');return {revision:x.revision,redacted:parseJourney(JSON.stringify(x.redacted)),restored:parseJourney(JSON.stringify(x.restored))};}
+/** Unlike generic runJourney, this requires a successful production peer + wire handoff. */
+export async function runCloudJourney(gate:PrivacyGate,handoff:CloudHandoff):Promise<Journey>{
+ const revision=gate.currentRevision,payload=gate.applicationPreview,previous=acceptedHandoffReceipt(handoff);
+ let acceptedResponse='';
+ const result=await runJourney(gate,async sent=>{
+  const response=await handoff.send(sent,revision,()=>gate.currentRevision);
+  if(acceptedHandoffReceipt(handoff)===previous||!validateAcceptedHandoff(handoff,sent,revision,response))throw Error('Validated cloud handoff required');
+  acceptedResponse=response;return response;
+ },CLOUD_MODEL);
+ if(gate.currentRevision!==revision||gate.phase!=='done'||!validateAcceptedHandoff(handoff,payload,revision,acceptedResponse))throw Error('Current validated cloud handoff required');
+ cloudReviewed.set(gate,{handoff,payload,revision,response:acceptedResponse});
+ return result;
+}
+export function reviewedCloudJourney(gate:PrivacyGate){
+ const a=cloudReviewed.get(gate);
+ if(!a||a.revision!==gate.currentRevision||!validateAcceptedHandoff(a.handoff,a.payload,a.revision,a.response))throw Error('Current approved cloud response required');
+ return reviewedJourney(gate);
+}
 export type Journey={explanation:string;deadlines:{date:string|null;evidence:string;action:string}[];actions:string[];draft:string};
 const keys=(x:unknown,allowed:string[]):Record<string,unknown>=>{
  if(!x||typeof x!=='object'||Array.isArray(x)||Object.keys(x).sort().join()!==[...allowed].sort().join())throw Error('Unexpected response shape');
@@ -24,6 +45,7 @@ export function restoreJourney(json:string,mapping:Record<string,string>):Journe
  return {explanation:r(j.explanation),draft:r(j.draft),actions:j.actions.map(r),deadlines:j.deadlines.map(d=>({...d,evidence:r(d.evidence),action:r(d.action)}))};
 }
 export async function runJourney(gate:PrivacyGate,transport:(payload:string)=>Promise<string>,model:string):Promise<Journey>{
+ cloudReviewed.delete(gate);
  // send validates and restores only after revision-bound response acceptance.
  const approvedLetter=JSON.parse(gate.applicationPreview).letter as string;
  const revision=gate.currentRevision;
