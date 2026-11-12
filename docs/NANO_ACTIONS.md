@@ -46,3 +46,9 @@ Version-specific evidence:
 - https://chromium.googlesource.com/chromium/src/+/refs/tags/157.0.8103.78/third_party/blink/renderer/platform/runtime_enabled_features.json5
 
 The fix is pending parent review/integration and a separate dispatch. These changes alone do not establish any successful Nano execution.
+
+### Windows final first-run outcome
+
+Windows launched genuine headed Chrome 157.0.8103.79 but the local page failed navigation with ERR_HTTP_RESPONSE_CODE_FAILURE. Root cause: probe path guard used a POSIX slash suffix against Windows backslash paths, returning 404 for valid files. Consequently availability/create/prompt and SDK inference were NOT_RUN. The process printed its failure within seconds but SDK/browser handles kept it alive until the 25-minute job cancellation. Only hardware.json and result.json were uploaded; screenshot/video did not survive this failure. No precise Nano eligibility rejection is available because the test page never loaded.
+
+Windows inventory: 4 AMD EPYC logical CPUs, 17,174,360,064 bytes RAM, 235,732,299,776 free disk bytes, Microsoft Hyper-V Video with no reported AdapterRAM, Windows build 10.0.26100. Neither runner had a disk shortfall, so deleting toolchains is unnecessary for this retry. Fix uses node:path.relative confinement on either platform and explicit process exit only after final artifacts/context closure. POSIX and Windows path tests pass locally; actual retry remains parent-owned.
