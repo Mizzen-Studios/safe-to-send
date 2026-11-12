@@ -14,7 +14,7 @@ Nano status and advanced device configuration are separate from manual review. R
 ## Integration hooks for parent / lane B
 - Main consumes the parent-provided compile-time `__DEVICE_CONFIG__`, guarded with typeof for local builds. No paste-config field. Local missing config is friendly and manual review remains available.
 - The earlier handoff below is superseded by the integrated hybrid controls section. The sample template remains deliberately labelled not inference and only supports supplied examples.
-- Manual review uses existing `gate.detect(regexSpans)` to enter review; it does not call `deviceUnavailable`. Any reviewed synthetic input may be approved. Synthetic declaration and exact-payload checkbox are separate and must both be checked. Edits rebuild controls and invalidate revision approval.
+- Manual review uses `startManualReview(gate)` / `gate.manual` to enter review; it does not call `deviceUnavailable`. Any reviewed synthetic input may be approved. Synthetic declaration and exact-payload checkbox are separate and must both be checked. Edits rebuild controls and invalidate revision approval.
 - The two local browser scripts now use both required checkboxes. The cloud mock negative test removes all redactions to test whole-original refusal instead of the removed fixture-identity policy. Parent-owned deployed-proof script was not edited.
 
 ## Verification
