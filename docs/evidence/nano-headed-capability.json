@@ -1,0 +1,29 @@
+{
+  "checkedAt": "2026-11-12T20:47:23.761Z",
+  "classification": "NANO_UNAVAILABLE_HEADED_DIAGNOSTIC_ONLY",
+  "mode": "headed-system-Chromium-isolated-profile",
+  "host": {
+    "architecture": "aarch64",
+    "cpuCores": 4,
+    "memoryGiB": 23,
+    "freeProfileVolumeGiB": 40,
+    "display": "Virtio virtual GPU"
+  },
+  "capability": {
+    "userAgent": "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/156.0.0.0 Safari/537.36",
+    "cores": 4,
+    "secureContext": true,
+    "api": "function",
+    "text": "unavailable",
+    "image": "unavailable"
+  },
+  "inference": "NOT_RUN",
+  "accuracy": "NOT_RUN",
+  "latency": "NOT_RUN",
+  "limitations": [
+    "System Chromium, not a verified supported Google Chrome/Nano environment.",
+    "Isolated capability diagnostic used --no-sandbox; not sandboxed release/attestation evidence.",
+    "Debug internals page remained unavailable; precise eligibility failure not established.",
+    "No cloud inference or raw-letter fallback."
+  ]
+}

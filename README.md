@@ -167,3 +167,7 @@ The browser SDK also has the missing-adapter edge if LanguageModel is absent, no
 ### Subsequent post-start handoff implementation (12 November)
 
 New substantial changes: dual-origin isolation, single-use revision/nonce/request protocol, immutable approved-byte send, cancellation, Enterprise broker setup, schema-constrained SDK generation, HTTP-body validation/capture, SHA ledger, 42 additional tests and mocked two-origin browser QA. This is implementation, not Nano/deployed app inference proof. Original dates, Apache-2.0 LICENSE and prior MIT NOTICE remain unchanged. Parent real SDK harness/control evidence is disclosed separately above.
+
+## Operator-owned device testing and demo
+
+Olly does not need to run local setup or tests. Current headed VM testing still returns Nano unavailable; accuracy and latency remain NOT_RUN. An existing authorized desktop with supported Google Chrome and private remote access is required. See [machine requirements, evaluation gates and <=2:55 recording plan](docs/DEVICE_TESTING_AND_RECORDING.md). No purchase or Spark upgrade is authorized. Non-debug Enterprise verification also remains NOT_RUN because the sandbox-enabled browser could not launch; debug-verified cloud evidence is separate.

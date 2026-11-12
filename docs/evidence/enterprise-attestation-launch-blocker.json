@@ -1,0 +1,22 @@
+{
+  "checkedAt": "2026-11-12T20:47:30.009Z",
+  "classification": "FAILED_NOT_RUN_BROWSER_SANDBOX_BLOCKER",
+  "mode": "fresh isolated headless Chromium; non-debug Enterprise App Check",
+  "debugInjection": false,
+  "privateCredentialReads": false,
+  "sourceCommit": "cfbf5cc",
+  "inferenceAttempts": 0,
+  "network": [],
+  "aiBodies": [],
+  "cdpBodies": [],
+  "leaks": [],
+  "errors": [],
+  "nanoInference": "NOT_RUN",
+  "blocker": "Sandbox-enabled Chromium could not launch: Chromium sandboxing failed. No sandbox relaxation was attempted.",
+  "limitations": [
+    "No deployed-page navigation occurred; Enterprise attestation and human CAPTCHA behavior were not exercised.",
+    "Zero inference requests; no conclusion about ordinary human browsers or App Check configuration.",
+    "No App Check bodies, auth headers, HAR, tokens, or client-key values captured."
+  ],
+  "repositoryClean": true
+}
