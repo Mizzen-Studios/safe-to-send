@@ -1,0 +1,41 @@
+{
+  "checkedAt": "2026-11-12T18:42:23.913464+00:00",
+  "sourceCommit": "06b7c0e",
+  "files": [
+    {
+      "origin": "https://safe-to-send-2026.web.app",
+      "path": "index.html",
+      "bytes": 433,
+      "sha256": "b0159e1155fcc0710f2a180c4ca0610d0dff01639ff9e8e4a21439d61d771623",
+      "matches": true
+    },
+    {
+      "origin": "https://safe-to-send-2026.web.app",
+      "path": "assets/index-BDwhnsDg.css",
+      "bytes": 2358,
+      "sha256": "82f39a2fb2369139534ce6abfb6033ec96ad57b88471a38126947c0f8c494d5c",
+      "matches": true
+    },
+    {
+      "origin": "https://safe-to-send-2026.web.app",
+      "path": "assets/index-CUCLV-zF.js",
+      "bytes": 89995,
+      "sha256": "b9059a1a6b0fdab7d78cffd9a4b667dc027cd6ff61633191d375feaf41548b0b",
+      "matches": true
+    },
+    {
+      "origin": "https://safe-to-send-cloud-2026.web.app",
+      "path": "index.html",
+      "bytes": 341,
+      "sha256": "680a5b99c53a9a10b0c15fedf5174d6b10b5b1fe25c55bacbda32017f6374152",
+      "matches": true
+    },
+    {
+      "origin": "https://safe-to-send-cloud-2026.web.app",
+      "path": "assets/index-CobO-Qgv.js",
+      "bytes": 77868,
+      "sha256": "8e3eb460dad6180408a61ce5aa9e80ab2e7973791f3d06d1edc5581329c44756",
+      "matches": true
+    }
+  ]
+}

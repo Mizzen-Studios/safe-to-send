@@ -38,3 +38,13 @@ Parent must compare actual Network/CDP HTTP body bytes to ledger on deployed bro
 90 unit/contract tests, typecheck and dual build pass. DOM fixtures cover peer mismatch, nonce/revision/request mismatch, replay/reload, stale/cancelled digest, corrupt/absent wire, single flight and timeout. Actual SDK serialization uses mocked fetch (no inference). Isolated Chromium 145 verifies both HTTPS origins with production CSP, test-only in-memory source unlock and mock App Check/provider. Mocked parity is not deployed DevTools proof.
 
 Parent evidence copied unchanged: cloud-infra-receipt.json (before real inference), real-cloud-sdk-private-harness.json (real inference, not app E2E; malformed output/invented placeholder retained), appcheck-negative-control.json (valid key/no token -> 401), nano-capability-nov12.json (absent/unavailable). Older no-key 403 is not correct App Check control. No key/token values retained.
+
+## Deployed verification (November 12)
+
+The live synthetic HMRC journey passed real cloud inference with registered private debug App Check. Independent CDP and browser request-body comparison matched the ledger (1766 UTF-8 bytes and SHA-256); all five known synthetic PII sentinels were absent from observed outgoing URLs/bodies. See evidence/deployed-cloud-cdp-ledger.json. All five deployed static artifacts matched local builds. This is not Nano inference, a general recall guarantee, or verified non-debug Enterprise attestation. Expected sandbox StorageAccess warning retained; no sandbox relaxation.
+
+Reproduce with an existing Playwright installation and private registered test credentials:
+
+    SAFE_SEND_DEBUG_FILE=/private/debug-token.json SAFE_SEND_FIREBASE_CONFIG_FILE=/private/firebase-config.json node scripts/verify-deployed-cloud.mjs
+
+This invokes real free-tier inference once; outputs only synthetic request BODY evidence and safe metadata under ignored .openclaw/tmp/safe-send-proof. Never publish private input files. No auth headers, HAR or token values are recorded.

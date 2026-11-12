@@ -87,6 +87,6 @@
     "Fetch API cannot load https://example.invalid/negative-egress-probe. Refused to connect because it violates the document's Content Security Policy."
   ],
   "nanoInference": "NOT_RUN — unavailable VM; missing API deliberately forced for guard test",
-  "cloudInference": "NOT_RUN — hard-locked; no App Check or cloud configured",
+  "cloudInference": "NOT_RUN — local-template-only test; explicit cloud action not invoked",
   "ledger": "No cloud handoff in this local-template run; isolated SDK wire ledger is separately tested"
 }

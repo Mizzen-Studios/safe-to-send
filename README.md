@@ -4,7 +4,9 @@ A private-first helper for stressful UK official letters. **Research build, synt
 
 **Live synthetic research build:** https://safe-to-send-2026.web.app
 
-Hosting verified against all three build files byte-for-byte, with no page errors or external requests in the tested synthetic preview. [Deployment evidence](docs/evidence/hosting-verification.json). Billing remains disabled with no linked billing account. This is not a successful Nano inference result.
+Current raw and broker Hosting artifacts match all five build files byte-for-byte. Spark billing remains disabled/unlinked. [Artifact verification](docs/evidence/cloud-hosting-artifact-parity.json).
+
+**November 12 deployed milestone:** real Firebase AI Logic cloud inference with registered private debug App Check passed the reviewed synthetic-fixture journey. Independent DevTools/CDP and browser request bodies equal the ledger: **1766 UTF-8 bytes**, matching SHA-256; none of the five HMRC synthetic PII sentinels appeared in observed outgoing URLs/bodies. [Safe body-only evidence](docs/evidence/deployed-cloud-cdp-ledger.json) · [ledger capture](docs/evidence/deployed-cloud-ledger.png). No credential/header dumps were retained. This is one synthetic test, not proof of perfect redaction, successful Nano inference, or non-debug Enterprise attestation. A sandbox StorageAccess warning is retained; the sandbox was not weakened.
 
 ## Run in under five minutes
 
