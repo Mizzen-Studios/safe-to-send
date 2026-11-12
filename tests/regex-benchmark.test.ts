@@ -1,3 +1,4 @@
+/// <reference types="node" />
 import {it,expect} from 'vitest';
 import {execFileSync} from 'node:child_process';
 import {readFileSync} from 'node:fs';
