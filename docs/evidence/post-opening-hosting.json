@@ -1,0 +1,26 @@
+{
+  "checkedAt": "2026-11-12T00:35:43.042Z",
+  "origin": "https://safe-to-send-2026.web.app",
+  "sourceCommit": "ab96369658014981a599b5ee73d637166e2fc282",
+  "parity": [
+    {
+      "file": "index.html",
+      "match": true,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    },
+    {
+      "file": "assets/index-BDwhnsDg.css",
+      "match": true,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    },
+    {
+      "file": "assets/index-JnodGE-A.js",
+      "match": true,
+      "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'"
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "syntheticJourney": true,
+  "realInference": false
+}
