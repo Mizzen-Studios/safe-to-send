@@ -28,11 +28,10 @@ jobs:
         run: npm ci --ignore-scripts
       - name: Install isolated probe driver (no repository dependency edits)
         run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.58.2
-      - name: Install genuine Google Chrome Stable
-        run: node scripts/nano-ci/.driver/node_modules/playwright/cli.js install chrome
       - name: Hardware and storage inventory
-        shell: bash
         run: node scripts/nano-ci/hardware.mjs
+      - name: Install genuine Google Chrome Stable and video codec
+        run: node scripts/nano-ci/.driver/node_modules/playwright/cli.js install chrome ffmpeg
       - name: Bundle local-only SDK page
         run: node scripts/nano-ci/build.mjs
       - name: Headed Chrome Linux probe

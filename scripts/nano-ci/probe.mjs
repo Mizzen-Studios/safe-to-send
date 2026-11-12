@@ -15,7 +15,7 @@ try{
  page=context.pages()[0]??await context.newPage();
  await context.route('**/*',route=>{const u=new URL(route.request().url());if(u.origin==='http://127.0.0.1:5193'||['data:','blob:'].includes(u.protocol))return route.continue();result.blockedPageRequests.push({origin:u.origin,method:route.request().method()});return route.abort('blockedbyclient');});
  page.on('console',m=>{result.console.push({type:m.type(),text:m.text()});console.log(m.text());});page.on('pageerror',e=>result.errors.push(e.message));
- result.chrome=await context.browser()?.version();
+ const cdp=await context.newCDPSession(page);result.chrome=await cdp.send('Browser.getVersion');await cdp.detach();
  await page.goto('http://127.0.0.1:5193');await page.waitForFunction(()=>window.probe?.ready,{},{timeout:60000});
  timer=setInterval(()=>{persist().catch(console.error);},15000);
  // Genuine Playwright button clicks provide activation. Each stage has a bounded
@@ -27,5 +27,5 @@ try{
  result.page=await page.evaluate(()=>window.probe);
  result.classification=['direct','sdk'].every(s=>result.page.stages[s]?.status==='PASS')?'REAL_ON_DEVICE_IMAGE_SCHEMA_PASS':'FAILED_OR_UNAVAILABLE_NOT_INFERENCE_PROOF';
 }catch(e){result.errors.push(e.message);result.classification='LAUNCH_OR_RUNTIME_BLOCKED';}
-finally{clearInterval(timer);await persist();await context?.close();server.close();console.log(JSON.stringify(result,null,2));}
+finally{clearInterval(timer);await persist();try{await context?.close();}catch(e){result.errors.push('close: '+e.message);}server.close();await writeFile(resolve(out,'result.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));}
 if(result.classification!=='REAL_ON_DEVICE_IMAGE_SCHEMA_PASS')process.exitCode=1;
