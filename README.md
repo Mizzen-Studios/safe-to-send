@@ -2,11 +2,17 @@
 
 **Understand the letter. Keep control of what leaves your browser.**
 
-A stressful tax, benefits, NHS or housing letter should not require pasting your identity into a chatbot. Safe to Send explores a different journey: find personal details locally, review the redactions, approve the exact payload, then get a plain-English explanation, important dates, next actions and an editable reply.
+A stressful tax, benefits, NHS or housing letter should not require pasting your identity into a chatbot. Safe to Send offers a different journey: find personal details locally, review the redactions, approve the exact payload, then get a plain-English explanation, important dates, next actions and an editable reply.
 
-**[Try the synthetic research build](https://safe-to-send-2026.web.app)** · [Measured evaluation](docs/EVALUATION.md) · [Real cloud evidence](docs/evidence/deployed-cloud-cdp-ledger.json)
+**[Try the live synthetic build](https://safe-to-send-2026.web.app)** · [Measured evaluation](docs/EVALUATION.md) · [Real cloud evidence](docs/evidence/deployed-cloud-cdp-ledger.json)
 
 > **Synthetic letters only.** Real Nano execution is still blocked by device availability. The working local journey uses explicitly labelled templates—not AI. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
+
+![Actual local product flow: synthetic templates, not Nano or cloud inference](docs/media/product-preview.gif)
+
+*Captured from the real local UI; the response is an explicitly labelled deterministic synthetic template, not model inference. [Capture receipt](docs/evidence/product-preview.json).*
+
+**Deployment status:** round-two source is ahead of the live link. Hosting changes are held pending clarification of the no-publishing instruction.
 
 ## Try it in under five minutes
 
@@ -19,18 +25,18 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:5192. Choose **Try the synthetic review journey (no AI)**, review/edit the marked details, confirm your review, approve the exact redacted JSON, then generate the labelled local example. Edit/download the draft. Changing the source or redactions invalidates approval. Local preview needs no Firebase configuration. Public Firebase project metadata bundling is parent-owned integration work; this branch does not include a key or claim keyless live-model setup. Supported-device model initialization/download is a separate research step, not part of the five-minute preview.
+Open http://localhost:5192. Choose a synthetic sample, select **Use sample annotations (not AI)** or **Review redactions manually**, edit the marked details, confirm synthetic input and exact-payload review, approve the redacted JSON, then choose the labelled local example. Edit/download the draft. Changing the source or redactions invalidates approval. Local preview needs no Firebase configuration. Release builds bundle strictly allowlisted public Firebase metadata without a config-paste screen; private input files and debug tokens are never committed. The hosted build needs no judge setup. Source checkout uses a key-free local preview unless release metadata is supplied. Supported-device model initialization/download is a separate research step, not part of the five-minute preview.
 
 ## Why hybrid, not “upload and hope”?
 
 ![Architecture: raw browser origin separated from approved-redacted Firebase broker](architecture.svg)
 
-Firebase AI Logic (`firebase/ai`) is the runtime: an explicit **ONLY_ON_DEVICE** image/text + JSON-schema adapter for detection, and a separate **ONLY_IN_CLOUD** structured explanation adapter. There is no raw-content automatic cloud fallback. The design ladder has four criteria:
+Firebase AI Logic (`firebase/ai`) is the runtime: an explicit **ONLY_ON_DEVICE** image/text + JSON-schema adapter for detection, and a separate **ONLY_IN_CLOUD** structured explanation adapter. There is no raw-content automatic cloud fallback. The implementation and evidence map to the four equal judging criteria:
 
-1. **Privacy:** raw source/image and placeholder mapping stay in the raw browser origin. Only reviewed redacted JSON may cross the boundary. Missing PII remains a risk; review is not a guarantee.
-2. **Capability:** local Nano handles detection; cloud handles explanation/draft after approval. A strict synthetic-source lock currently refuses arbitrary or Nano-derived cloud sends.
-3. **Availability and latency:** unsupported device, interrupted download or failed detection blocks that route, not a silent upload. Real Nano/combined accuracy and latency remain **NOT_RUN**. Local deterministic preview stays usable.
-4. **Cost and trust:** Spark only, billing disabled/unlinked in the recorded infrastructure receipt; no card/Blaze/paid-resource upgrade. Broker App Check plus exact SDK-body ledger makes a send inspectable. No always-on inference or paid fallback.
+1. **Technological implementation of hybrid inference:** explicit local detection plus regex; immutable reviewed redacted cloud requests; local-only answers and a separate local two-key claim checker. Manual review works without Nano, never as an automatic upload fallback. Local answer/checker APIs are implemented and unit-tested; visible UI integration is in progress. Actual Nano inference and two-key catch rate are unmeasured.
+2. **Design:** letter-first paste/select/drop flow, highlighted editable redactions, explicit approval, explanation and editable/exportable draft. Saved results/reminder dates use optional local-only IndexedDB; reminders require the app open. Technical panels live in Evidence.
+3. **Potential impact:** calmer official correspondence without uploading the original. Manual mode lowers the device barrier. Redaction can miss details; users must review what they send, and check advice against the original.
+4. **Idea quality:** the two-key design checks cloud claims against the private original on device, while the exact-body ledger makes the cloud boundary inspectable. It is a model-supported warning mechanism, not a truth guarantee or compliance certification. Spark/free-tier constraints and no paid fallback remain.
 
 [Boundary implementation](docs/CLOUD_HANDOFF.md) · [Supported-device gates and recording plan](docs/DEVICE_TESTING_AND_RECORDING.md) · [Firebase hybrid setup](https://firebase.google.com/docs/ai-logic/hybrid/web/get-started)
 
@@ -47,7 +53,7 @@ npm run build
 node scripts/evaluate.mjs regex
 ```
 
-The original five UI fixtures stay unchanged; `npm run eval` still measures that smaller spike. Expanded evaluation is not a cloud-send allowlist. No perfect recall, anonymity, legal advice or policy-compliance promise. IndexedDB history/reminders and supported-device inference proof remain future work. No genuine Nano GIF is supplied because it has not run; the linked ledger capture is real synthetic cloud evidence, not an invented demo.
+The original five UI fixtures stay unchanged; `npm run eval` still measures that smaller spike. Expanded evaluation is not a cloud-send allowlist. No perfect recall, anonymity, legal advice or policy-compliance promise. IndexedDB history/reminders are implemented and browser-tested; supported-device inference proof remains pending. The product GIF shows actual local UI/template behavior only. Genuine Nano footage remains pending; the linked ledger capture is separate real synthetic cloud evidence.
 
 ## Built during the submission period—history disclosed
 
@@ -60,6 +66,11 @@ Factual post-start milestones (12 November):
 - `447f318` / `06b7c0e`: isolated two-origin handoff, immutable approved bytes, structured cloud SDK path and synthetic-only scope guards.
 - `cfbf5cc`: actual deployed debug-App-Check inference and independent DevTools/ledger parity.
 - `a096591`: headed Nano eligibility blocker and operator-owned device/recording plan.
-- `8d9a272`: 32-notice corpus, offline measured regex scoring and real-output import contract (no model calls).
+- `fd8e434`: 32-notice corpus, offline measured regex scoring and real-output import contract (no model calls).
+
+- `a42b88f`: allowlisted public device metadata build bundle.
+- `2044b8d` / `8d670df`: manual-review and revision-bound local-answer/two-key APIs, sender/recipient roles.
+- `5fc8405` / `3d913f2` / `8763bb6`: product-first UI, IndexedDB history and keyboard/mobile/drag-drop QA.
+- `03a5fd2` / `0c0968a`: free x64 Ubuntu/Windows headed Chrome Nano Actions probe; results pending.
 
 [Full provenance, SDK/runtime caveats and preserved audit links](docs/EVALUATION.md#existing-audit-trail-preserved-from-baseline-a096591). This branch does not deploy, alter DNS/resources, submit or post publicly. Operator owns device tests/recording; the owner need not run setup. Apache-2.0 · [prior attribution](NOTICE).

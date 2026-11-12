@@ -1,0 +1,13 @@
+{
+  "classification": "REAL_UI_LOCAL_SYNTHETIC_TEMPLATE_NOT_MODEL_INFERENCE",
+  "checkedAt": "2026-11-12T21:20:33.676Z",
+  "externalRequests": [],
+  "frames": 4,
+  "viewport": {
+    "width": 1200,
+    "height": 900
+  },
+  "nanoInference": "NOT_RUN",
+  "cloudInference": "NOT_RUN",
+  "browserSandbox": "disabled in isolated screenshot harness; not security attestation"
+}
