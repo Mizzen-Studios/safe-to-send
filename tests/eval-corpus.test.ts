@@ -17,5 +17,5 @@ it('tests 96 deliberate claim mutations against a deterministic oracle, NOT a mo
  for(const l of evalCorpus){expect(mismatchedClaimFields(l.claim,l.claim)).toEqual([]);for(const m of l.mutations)expect(mismatchedClaimFields(l.claim,m.claim)).toEqual([m.field]);}
 });
 it('reports measured regex coverage without inventing model results',()=>{
- const r=regexEvaluation();expect(r.actual).toBeGreaterThan(r.tp);expect(r.predicted).toBeGreaterThan(r.tp);expect(r.nano).toBe('NOT_RUN');expect(r.twoKeyModelCatchRate).toBe('NOT_RUN');console.log('32_LETTER_REGEX',JSON.stringify(r));
+ const r=regexEvaluation();expect({tp:r.tp,actual:r.actual,predicted:r.predicted}).toEqual({tp:406,actual:1052,predicted:730});expect(r.actual).toBeGreaterThan(r.tp);expect(r.predicted).toBeGreaterThan(r.tp);expect(r.nano).toBe('NOT_RUN');expect(r.twoKeyModelCatchRate).toBe('NOT_RUN');console.log('32_LETTER_REGEX',JSON.stringify(r));
 });
