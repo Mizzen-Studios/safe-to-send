@@ -1,0 +1,448 @@
+{
+  "status": "MEASURED_REGEX_ONLY",
+  "recordedAt": "2026-11-12T21:26:02.231Z",
+  "corpusVersion": "synthetic-v1",
+  "corpusSha256": "3df55891b2c058f5c3ced03db766b6111d1ed26a2f28b440d3b489e2295d8dba",
+  "environment": {
+    "runtime": "v24.22.1",
+    "v8": "13.6.233.17-node.58",
+    "platform": "linux",
+    "osRelease": "7.0.0-1013-oracle",
+    "arch": "arm64",
+    "cpuModel": "Neoverse-N1",
+    "logicalCpus": 4,
+    "totalMemoryBytes": 25137336320,
+    "browser": "NOT_APPLICABLE_NODE"
+  },
+  "method": {
+    "warmupIterations": 100,
+    "measuredIterations": 500,
+    "letters": 32,
+    "detectorCalls": 16000,
+    "ordering": "fixed corpus order, repeated full passes",
+    "clock": "node:perf_hooks performance.now monotonic milliseconds",
+    "percentile": "nearest rank ceil(n*p), ascending",
+    "scope": "regexSpans including validateSpans only; excludes scoring, imports, startup, warmup and JSON serialization; per-call clock overhead included",
+    "limits": "32 short authored synthetic notices; warm Node/V8 microbenchmark, not browser, real-letter, cold-start or end-to-end latency; host scheduling/GC may affect samples"
+  },
+  "timing": {
+    "perCall": {
+      "samples": 16000,
+      "p50Ms": 0.008520000000089567,
+      "p95Ms": 0.01056000000005497
+    },
+    "perCorpusPass": {
+      "samples": 500,
+      "p50Ms": 0.2824030000000448,
+      "p95Ms": 0.35820300000000316
+    },
+    "measuredDetectorTotalMs": 156.81016499999686,
+    "wallTotalMs": 161.61607600000002,
+    "meanPerLetterMs": 0.009800635312499804
+  },
+  "perLetter": [
+    {
+      "id": "hmrc-01",
+      "samples": 500,
+      "p50Ms": 0.009520000000009077,
+      "p95Ms": 0.011280000000056134
+    },
+    {
+      "id": "hmrc-02",
+      "samples": 500,
+      "p50Ms": 0.007520999999997002,
+      "p95Ms": 0.008680000000026666
+    },
+    {
+      "id": "hmrc-03",
+      "samples": 500,
+      "p50Ms": 0.008759999999995216,
+      "p95Ms": 0.010320000000035634
+    },
+    {
+      "id": "hmrc-04",
+      "samples": 500,
+      "p50Ms": 0.009360000000015134,
+      "p95Ms": 0.010761000000002241
+    },
+    {
+      "id": "hmrc-05",
+      "samples": 500,
+      "p50Ms": 0.007080000000030395,
+      "p95Ms": 0.008040000000050895
+    },
+    {
+      "id": "hmrc-06",
+      "samples": 500,
+      "p50Ms": 0.008679999999969823,
+      "p95Ms": 0.009919999999965512
+    },
+    {
+      "id": "dwp-01",
+      "samples": 500,
+      "p50Ms": 0.007439999999974134,
+      "p95Ms": 0.008479999999963184
+    },
+    {
+      "id": "dwp-02",
+      "samples": 500,
+      "p50Ms": 0.008039999999994052,
+      "p95Ms": 0.009359999999901447
+    },
+    {
+      "id": "dwp-03",
+      "samples": 500,
+      "p50Ms": 0.007279999999923348,
+      "p95Ms": 0.008359999999981937
+    },
+    {
+      "id": "dwp-04",
+      "samples": 500,
+      "p50Ms": 0.008679999999969823,
+      "p95Ms": 0.010239999999953397
+    },
+    {
+      "id": "dwp-05",
+      "samples": 500,
+      "p50Ms": 0.008720000000039363,
+      "p95Ms": 0.009920000000022355
+    },
+    {
+      "id": "dwp-06",
+      "samples": 500,
+      "p50Ms": 0.008960000000001855,
+      "p95Ms": 0.010080000000016298
+    },
+    {
+      "id": "nhs-01",
+      "samples": 500,
+      "p50Ms": 0.008960000000001855,
+      "p95Ms": 0.010479999999972733
+    },
+    {
+      "id": "nhs-02",
+      "samples": 500,
+      "p50Ms": 0.008679999999969823,
+      "p95Ms": 0.009879999999952815
+    },
+    {
+      "id": "nhs-03",
+      "samples": 500,
+      "p50Ms": 0.00856000000004542,
+      "p95Ms": 0.00968000000000302
+    },
+    {
+      "id": "nhs-04",
+      "samples": 500,
+      "p50Ms": 0.007320000000049731,
+      "p95Ms": 0.008479999999963184
+    },
+    {
+      "id": "nhs-05",
+      "samples": 500,
+      "p50Ms": 0.008120000000019445,
+      "p95Ms": 0.009519999999952233
+    },
+    {
+      "id": "nhs-06",
+      "samples": 500,
+      "p50Ms": 0.007201000000009117,
+      "p95Ms": 0.008240000000000691
+    },
+    {
+      "id": "council-01",
+      "samples": 500,
+      "p50Ms": 0.008039999999994052,
+      "p95Ms": 0.009279999999989741
+    },
+    {
+      "id": "council-02",
+      "samples": 500,
+      "p50Ms": 0.007560000000012224,
+      "p95Ms": 0.008680000000026666
+    },
+    {
+      "id": "council-03",
+      "samples": 500,
+      "p50Ms": 0.00767999999999347,
+      "p95Ms": 0.00864000000001397
+    },
+    {
+      "id": "council-04",
+      "samples": 500,
+      "p50Ms": 0.008680000000026666,
+      "p95Ms": 0.009720000000015716
+    },
+    {
+      "id": "council-05",
+      "samples": 500,
+      "p50Ms": 0.009119999999938955,
+      "p95Ms": 0.010279999999966094
+    },
+    {
+      "id": "council-06",
+      "samples": 500,
+      "p50Ms": 0.007680000000050313,
+      "p95Ms": 0.008520000000089567
+    },
+    {
+      "id": "tenancy-01",
+      "samples": 500,
+      "p50Ms": 0.00808099999994738,
+      "p95Ms": 0.009079999999926258
+    },
+    {
+      "id": "tenancy-02",
+      "samples": 500,
+      "p50Ms": 0.007959999999968659,
+      "p95Ms": 0.009040000000027248
+    },
+    {
+      "id": "tenancy-03",
+      "samples": 500,
+      "p50Ms": 0.009679999999946176,
+      "p95Ms": 0.011160000000018044
+    },
+    {
+      "id": "tenancy-04",
+      "samples": 500,
+      "p50Ms": 0.007920000000012806,
+      "p95Ms": 0.009040000000027248
+    },
+    {
+      "id": "tenancy-05",
+      "samples": 500,
+      "p50Ms": 0.009080000000039945,
+      "p95Ms": 0.01059999999995398
+    },
+    {
+      "id": "tenancy-06",
+      "samples": 500,
+      "p50Ms": 0.00836000000003878,
+      "p95Ms": 0.009720000000015716
+    },
+    {
+      "id": "nonuk-01",
+      "samples": 500,
+      "p50Ms": 0.009480999999993855,
+      "p95Ms": 0.010800999999958094
+    },
+    {
+      "id": "negative-01",
+      "samples": 500,
+      "p50Ms": 0.010640000000080363,
+      "p95Ms": 0.012479999999982283
+    }
+  ],
+  "consumedSpans": 34200,
+  "accuracy": {
+    "corpusVersion": "synthetic-v1",
+    "letters": 32,
+    "rows": [
+      {
+        "id": "hmrc-01",
+        "tp": 17,
+        "actual": 46,
+        "predicted": 37
+      },
+      {
+        "id": "hmrc-02",
+        "tp": 8,
+        "actual": 26,
+        "predicted": 8
+      },
+      {
+        "id": "hmrc-03",
+        "tp": 35,
+        "actual": 48,
+        "predicted": 50
+      },
+      {
+        "id": "hmrc-04",
+        "tp": 10,
+        "actual": 26,
+        "predicted": 18
+      },
+      {
+        "id": "hmrc-05",
+        "tp": 0,
+        "actual": 36,
+        "predicted": 0
+      },
+      {
+        "id": "hmrc-06",
+        "tp": 12,
+        "actual": 29,
+        "predicted": 30
+      },
+      {
+        "id": "dwp-01",
+        "tp": 0,
+        "actual": 23,
+        "predicted": 10
+      },
+      {
+        "id": "dwp-02",
+        "tp": 17,
+        "actual": 45,
+        "predicted": 42
+      },
+      {
+        "id": "dwp-03",
+        "tp": 28,
+        "actual": 40,
+        "predicted": 28
+      },
+      {
+        "id": "dwp-04",
+        "tp": 12,
+        "actual": 37,
+        "predicted": 22
+      },
+      {
+        "id": "dwp-05",
+        "tp": 11,
+        "actual": 26,
+        "predicted": 21
+      },
+      {
+        "id": "dwp-06",
+        "tp": 20,
+        "actual": 32,
+        "predicted": 30
+      },
+      {
+        "id": "nhs-01",
+        "tp": 12,
+        "actual": 27,
+        "predicted": 37
+      },
+      {
+        "id": "nhs-02",
+        "tp": 25,
+        "actual": 37,
+        "predicted": 25
+      },
+      {
+        "id": "nhs-03",
+        "tp": 0,
+        "actual": 29,
+        "predicted": 18
+      },
+      {
+        "id": "nhs-04",
+        "tp": 27,
+        "actual": 43,
+        "predicted": 27
+      },
+      {
+        "id": "nhs-05",
+        "tp": 10,
+        "actual": 23,
+        "predicted": 10
+      },
+      {
+        "id": "nhs-06",
+        "tp": 7,
+        "actual": 41,
+        "predicted": 7
+      },
+      {
+        "id": "council-01",
+        "tp": 8,
+        "actual": 19,
+        "predicted": 18
+      },
+      {
+        "id": "council-02",
+        "tp": 7,
+        "actual": 40,
+        "predicted": 23
+      },
+      {
+        "id": "council-03",
+        "tp": 14,
+        "actual": 29,
+        "predicted": 24
+      },
+      {
+        "id": "council-04",
+        "tp": 21,
+        "actual": 34,
+        "predicted": 28
+      },
+      {
+        "id": "council-05",
+        "tp": 12,
+        "actual": 25,
+        "predicted": 22
+      },
+      {
+        "id": "council-06",
+        "tp": 0,
+        "actual": 28,
+        "predicted": 10
+      },
+      {
+        "id": "tenancy-01",
+        "tp": 0,
+        "actual": 15,
+        "predicted": 16
+      },
+      {
+        "id": "tenancy-02",
+        "tp": 30,
+        "actual": 72,
+        "predicted": 30
+      },
+      {
+        "id": "tenancy-03",
+        "tp": 16,
+        "actual": 30,
+        "predicted": 16
+      },
+      {
+        "id": "tenancy-04",
+        "tp": 0,
+        "actual": 16,
+        "predicted": 10
+      },
+      {
+        "id": "tenancy-05",
+        "tp": 12,
+        "actual": 24,
+        "predicted": 22
+      },
+      {
+        "id": "tenancy-06",
+        "tp": 12,
+        "actual": 28,
+        "predicted": 32
+      },
+      {
+        "id": "nonuk-01",
+        "tp": 23,
+        "actual": 78,
+        "predicted": 23
+      },
+      {
+        "id": "negative-01",
+        "tp": 0,
+        "actual": 0,
+        "predicted": 36
+      }
+    ],
+    "tp": 406,
+    "actual": 1052,
+    "predicted": 730,
+    "recall": 0.38593155893536124,
+    "precision": 0.5561643835616439,
+    "nano": "NOT_RUN",
+    "combined": "NOT_RUN",
+    "latency": "NOT_RUN",
+    "twoKeyModelCatchRate": "NOT_RUN"
+  },
+  "nanoLatency": "NOT_RUN",
+  "combinedLatency": "NOT_RUN",
+  "twoKeyModelCatchRate": "NOT_RUN"
+}
