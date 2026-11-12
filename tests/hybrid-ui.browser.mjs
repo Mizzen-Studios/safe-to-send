@@ -1,0 +1,37 @@
+// Deliberately MOCKED Nano + handoff. UI wiring proof only, NEVER inference evidence.
+import {build} from 'vite';
+import {chromium} from 'playwright';
+import {readFile,mkdir} from 'node:fs/promises';
+import {resolve,extname} from 'node:path';
+import {createServer} from 'node:http';
+import assert from 'node:assert/strict';
+const temp=resolve('.openclaw/tmp/hybrid-ui');await mkdir(temp,{recursive:true});
+const journey={explanation:'MOCK ONLY — not inference. A synthetic request for £25.',deadlines:[],actions:['Check the original.','Confirm the amount.'],draft:'Dear sender,\nMOCK draft, not inference.'};
+await build({configFile:false,logLevel:'warn',define:{__DEVICE_CONFIG__:JSON.stringify({projectId:'synthetic-only'})},plugins:[{name:'EXPLICIT-TEST-ONLY-MOCKS',enforce:'pre',transform(code,id){
+ if(id.endsWith('/src/nano.ts'))return    'export const cloudReleaseGates=["MOCK ONLY — not inference"];export async function capability(){return {availability:"available"};}export function createNano(){return {initialize:async p=>p(1),detect:async text=>({text,spans:[],latencyMs:0}),answer:async original=>{globalThis.__answerCalls=(globalThis.__answerCalls||0)+1;if(globalThis.__delayAnswer)await new Promise(r=>globalThis.__releaseAnswer=r);if(globalThis.__failAnswer)throw Error(original);return JSON.stringify('+JSON.stringify(journey)+');},verify:async(original,claims)=>{globalThis.__verifyCalls=(globalThis.__verifyCalls||0)+1;if(globalThis.__delayVerify)await new Promise(r=>globalThis.__releaseVerify=r);if(globalThis.__failVerify)throw Error(original);return JSON.stringify({checks:claims.map((c,i)=>({id:c.id,status:i===0?"mismatch":i===1?"unknown":"supported",evidence:i===1?[]:[{start:0,end:4,quote:original.slice(0,4)}]}))});}}}';
+ if(id.endsWith('/src/handoff-client.ts'))return 'export class CloudHandoff{ledger=[];cancel(){}async send(payload){globalThis.__mockSends=(globalThis.__mockSends||0)+1;globalThis.__mockPayload=payload;return JSON.stringify('+JSON.stringify(journey)+');}}';
+ }}],build:{outDir:temp,rollupOptions:{input:resolve('index.html')}}});
+const config=JSON.parse(await readFile('firebase.json','utf8'));const headers=Object.fromEntries(config.hosting.find(h=>h.target==='raw').headers[0].headers.map(h=>[h.key,h.value]));
+const server=createServer(async(req,res)=>{try{let path=resolve(temp,'.'+new URL(req.url,'http://localhost').pathname);if(!path.startsWith(temp+'/'))path=resolve(temp,'index.html');const body=await readFile(path);res.writeHead(200,{...headers,'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(path)]??'application/octet-stream'});res.end(body);}catch{res.writeHead(404);res.end();}});await new Promise(r=>server.listen(5192,'127.0.0.1',r));
+let browser;try{
+ browser=await chromium.launch({headless:true,args:['--no-sandbox','--disable-dev-shm-usage']});const context=await browser.newContext();const external=[],errors=[];
+ context.on('request',r=>{if(!r.url().startsWith('http://127.0.0.1:5192/'))external.push(r.url());});
+ await context.addInitScript(()=>{globalThis.__fetchCalls=[];globalThis.fetch=(...args)=>{globalThis.__fetchCalls.push(String(args[0]));throw Error('TEST fetch forbidden');};});
+ const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));await page.goto('http://127.0.0.1:5192/');
+ await page.locator('#demo').click();await page.locator('#local-answer').click();assert.match(await page.locator('#local-answer-status').textContent(),/unavailable.*no fallback/i);assert.equal(await page.locator('#draft').count(),0);
+ await page.locator('#initialize').click();await page.locator('#demo').click();
+ await page.locator('#local-answer').focus();await page.keyboard.press('Enter');await page.locator('#draft').waitFor();assert.match(await page.locator('#journey h2').textContent(),/On this device/);assert.equal(await page.evaluate(()=>globalThis.__mockSends||0),0);
+ const approve=async()=>{await page.locator('#synthetic-confirm').check();await page.locator('#review-confirm').check();await page.locator('#approve').click();};
+ await approve();await page.locator('#cloud-explain').click();await page.locator('#verify-local').waitFor();assert.equal(await page.evaluate(()=>globalThis.__mockSends),1);
+ await page.locator('#verify-local').focus();await page.keyboard.press('Enter');await page.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('Local check: mismatch'));
+ assert.match(await page.locator('#claim-checks').textContent(),/action 1: mismatch/);assert.match(await page.locator('#claim-checks').textContent(),/action 2: unknown/);assert.match(await page.locator('#verification-status').textContent(),/not a truth guarantee/);
+ for(const width of [390,768,1440]){await page.setViewportSize({width,height:900});assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);}
+ await page.evaluate(()=>globalThis.__failVerify=true);await page.locator('#verify-local').click();await page.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('unavailable or invalid'));assert.equal(await page.evaluate(()=>globalThis.__mockSends),1);
+ await page.evaluate(()=>{globalThis.__failVerify=false;globalThis.__delayVerify=true;});await page.locator('#verify-local').click();await page.waitForFunction(()=>!!globalThis.__releaseVerify);await page.locator('#letter').fill('SYNTHETIC replacement');await page.evaluate(()=>globalThis.__releaseVerify());assert.equal(await page.locator('#two-key').count(),0);
+ await page.locator('#demo').click();await page.evaluate(()=>globalThis.__delayAnswer=true);await page.locator('#local-answer').click();await page.waitForFunction(()=>!!globalThis.__releaseAnswer);await page.locator('#letter').fill('Another SYNTHETIC revision');await page.evaluate(()=>globalThis.__releaseAnswer());assert.equal(await page.locator('#draft').count(),0);
+ await page.evaluate(()=>{globalThis.__delayAnswer=false;globalThis.__failAnswer=true;});await page.locator('#demo').click();await page.locator('#local-answer').click();await page.waitForFunction(()=>document.querySelector('#local-answer-status').textContent.includes('unavailable or invalid'));assert.equal(await page.locator('#draft').count(),0);
+ // A second tab has no prepared model and makes no fallback transport call.
+ const other=await context.newPage();await other.goto('http://127.0.0.1:5192/');await other.locator('#demo').click();await other.locator('#synthetic-confirm').check();await other.locator('#review-confirm').check();await other.locator('#approve').click();await other.locator('#cloud-explain').click();await other.locator('#verify-local').click();await other.waitForFunction(()=>document.querySelector('#verification-status').textContent.includes('verifier unavailable'));assert.equal(await other.evaluate(()=>globalThis.__mockSends),1);
+ assert.deepEqual(await page.evaluate(()=>globalThis.__fetchCalls),[]);assert.deepEqual(await other.evaluate(()=>globalThis.__fetchCalls),[]);assert.deepEqual(external,[]);assert.deepEqual(errors,[]);
+ console.log(JSON.stringify({classification:'MOCK_ONLY_UI_WIRING_NOT_INFERENCE',localAnswer:true,twoKey:true,mismatch:true,unknown:true,unavailableNoFallback:true,staleAnswerDiscarded:true,staleVerifierDiscarded:true,keyboard:true,mobileWidths:[390,768,1440],wholeContextFetchCalls:0,externalRequests:external,pageErrors:errors},null,2));
+}finally{if(browser)await browser.close();await new Promise(r=>server.close(r));}
