@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-11-12T00:35:23.412Z",
-  "sourceCommit": "ab96369658014981a599b5ee73d637166e2fc282",
+  "checkedAt": "2026-11-12T18:30:35.518Z",
+  "sourceCommit": "4d5b70b608ce7252e3273d1930eae13fcb6e1033",
   "classification": "LOCAL_SYNTHETIC_QA_NOT_INFERENCE",
   "browser": "145.0.7632.0",
   "appBuild": "local dist served with unchanged firebase.json headers; not deployed",
@@ -88,5 +88,5 @@
   ],
   "nanoInference": "NOT_RUN — unavailable VM; missing API deliberately forced for guard test",
   "cloudInference": "NOT_RUN — hard-locked; no App Check or cloud configured",
-  "ledger": "Application payload only; no SDK HTTP body exists"
+  "ledger": "No cloud handoff in this local-template run; isolated SDK wire ledger is separately tested"
 }
