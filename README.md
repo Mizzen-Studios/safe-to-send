@@ -1,6 +1,6 @@
 # Safe to Send
 
-A private-first helper for stressful UK official letters. New work begun 9 November 2026 for #BuildHybridAI. **Week-one spike, not a finished product. Synthetic letters only.**
+A private-first helper for stressful UK official letters. **Research build, synthetic letters only.** A preparatory spike predates the owner-supplied submission period; see the explicit provenance below.
 
 **Live cloud-disabled spike:** https://safe-to-send-2026.web.app
 
@@ -18,7 +18,7 @@ npm test
 npm run dev
 ```
 
-Open http://localhost:5192. `npm run build` typechecks and builds the static site; `npm run eval` reports the five-letter regex baseline. Dependencies and lockfile are pinned. MIT licensed.
+Open http://localhost:5192. `npm run build` typechecks and builds the static site; `npm run eval` reports the five-letter regex baseline. Dependencies and lockfile are pinned. Apache-2.0 licensed; prior MIT attribution is preserved in [NOTICE](NOTICE).
 
 ## Spike verdict: PARTIAL — real-device gate blocked
 
@@ -119,8 +119,24 @@ Hackathon deadline supplied by owner: 30 November 2026, 22:00 UK. Owner handles 
 
 A mocked-fetch Node import of the current Firebase SDK attempted a cloud request despite ONLY_ON_DEVICE: its Node build has no Chrome adapter. No real network was used (fetch was a spy, synthetic sentinel only). Therefore this app explicitly refuses SDK creation outside a browser with LanguageModel, and the static Vite browser build is the only supported runtime. Do not move redaction into SSR, Node, a worker without audited API support, or a backend. This is an important reason to test the actual runtime rather than trusting the mode name alone. Actual isolated Chromium tests now prove both unavailable-model initialization and a removed-LanguageModel case reject with zero fetch attempts; see docs/evidence/sdk-browser-rejection.json. Successful/download-in-progress inference remains unproven.
 
-### Contest eligibility is not cleared
+## Built during submission period
 
-Independent research on 9 November found the official Devpost rules page explicitly says rules are not yet available and the overview lists a November 11 start. This November 9 code is a dated preparatory spike, **not eligibility-cleared contest work**. Preserve it and its timestamps; recheck official rules before deciding whether contest implementation must begin afresh. Do not represent prize allocation, AI-tool permission, or pre-event work as verified until published rules are reviewed.
+Owner-provided rule changes (12 November): submission began **2026-11-11T21:30:00Z**, deadline **2026-11-30T22:00:00Z**. Existing work must be significantly updated and disclosed. This is owner-provided guidance, not independent eligibility clearance: the official rules fetch returned HTTP 403, and its challenge was not bypassed.
+
+### Pre-existing preparatory spike — unchanged history
+
+All five original commits are dated **9 November 2026**, before the submission start:
+
+- 20ab95e (22:11:54Z): fail-closed privacy state machine and adversarial tests.
+- 052a9b0 (22:13:15Z): on-device image/schema adapter, five synthetic fixtures, evaluation UI.
+- aefd5f4 (22:16:53Z): browser-only guards and blocked-device documentation.
+- 8d5b919 (22:17:05Z): absent/malformed LanguageModel guard tests.
+- 9b1ffd3 (22:19:14Z): free Hosting verification and independent SDK audit evidence.
+
+The original scope included regex preview, basic Nano review/add/remove/approve, and an injected test transport. It had **no explanation/deadlines/actions/draft journey or cloud inference**. Nano was unavailable on this VM. No commits or dates were rewritten. The linked live site and older screenshots document that spike, not this new milestone.
+
+### Post-start implementation (12 November 2026)
+
+This milestone adds mandatory checked review of an immutable redacted payload, structured explanation/deadline/action/draft parsing and local restoration, revision-bound result invalidation, a clearly labelled synthetic journey, a disabled cloud SDK adapter with App Check preflight, and additional tests plus browser negative-egress evidence. These are new implementation features, not successful Nano or cloud inference results. License metadata is now Apache-2.0, retaining the original MIT notice.
 
 The browser SDK also has the missing-adapter edge if LanguageModel is absent, not just Node. Explicit secure-browser + API method guards and network-blocking CSP are required. Result inferenceSource is asserted ON_DEVICE, but this post-response assertion is detection, not upload prevention.
