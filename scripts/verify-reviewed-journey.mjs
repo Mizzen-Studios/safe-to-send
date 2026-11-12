@@ -29,7 +29,7 @@ try{
  await page.locator('#demo').click();assert.equal(await page.locator('#approve').isDisabled(),true);
  assert.equal(await page.locator('#explain').isDisabled(),true);
  const payload=await page.locator('#payload').textContent();assert.ok(!payload.includes('Maya Fiction'));assert.ok(payload.includes('[NAME_1]'));
- await page.locator('#review-confirm').check();await page.locator('#approve').click();assert.equal(await page.locator('#explain').isEnabled(),true);
+ await page.locator('#synthetic-confirm').check();await page.locator('#review-confirm').check();await page.locator('#approve').click();assert.equal(await page.locator('#explain').isEnabled(),true);
  await page.locator('#explain').click();await page.locator('#draft').waitFor();assert.ok((await page.locator('#draft').inputValue()).includes('Maya Fiction'));
  assert.ok((await page.locator('#journey').textContent()).includes('2026-11-30'));
  const overflow=await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth);assert.equal(overflow,false);
@@ -40,20 +40,20 @@ try{
  // Keyboard approval, all supplied fixtures, local draft editing and download.
  for(const id of ['hmrc','dwp','nhs','council','landlord']){
  await page.locator('#sample').selectOption(id);await page.locator('#demo').click();
- await page.locator('#review-confirm').focus();await page.keyboard.press('Space');assert.equal(await page.locator('#approve').isEnabled(),true);
+ await page.locator('#synthetic-confirm').focus();await page.keyboard.press('Space');await page.locator('#review-confirm').focus();await page.keyboard.press('Space');assert.equal(await page.locator('#approve').isEnabled(),true);
  await page.locator('#approve').focus();await page.keyboard.press('Enter');await page.locator('#explain').click();await page.locator('#draft').waitFor();
  const result=await page.locator('#journey').textContent();assert.ok(result.includes('not AI inference'));
  if(id==='dwp')assert.ok(result.includes('Date unresolved'));
- if(id==='landlord')assert.ok(result.includes('No deadlines extracted'));
+ if(id==='landlord')assert.ok(result.includes('No deadlines identified'));
  await page.locator('#draft').fill('SYNTHETIC edited reply');const downloaded=page.waitForEvent('download');await page.getByRole('button',{name:'Download draft locally'}).click();const download=await downloaded;assert.equal(await download.failure(),null);const downloadedPath=await download.path();const content=await readFile(downloadedPath,'utf8');assert.equal(content,'SYNTHETIC edited reply');
  fixtureResults.push({id,keyboardApproval:true,structuredResult:true,editedDraftDownload:true});
  }
  await page.locator('#sample').selectOption('hmrc');
  // Result-to-redaction revision must also invalidate approval and the completed result.
- await page.locator('#demo').click();await page.locator('#review-confirm').check();await page.locator('#approve').click();await page.locator('#explain').click();await page.locator('#draft').waitFor();
+ await page.locator('#demo').click();await page.locator('#synthetic-confirm').check();await page.locator('#review-confirm').check();await page.locator('#approve').click();await page.locator('#explain').click();await page.locator('#draft').waitFor();
  await page.getByRole('button',{name:'Remove NAME 1',exact:true}).click();assert.equal(await page.locator('#draft').count(),0);assert.equal(await page.locator('#approve').isDisabled(),true);assert.equal(await page.locator('#explain').isDisabled(),true);
  // Explicit missing-LanguageModel browser path must reject before any fetch.
- await page.getByText('Run the Nano research test',{exact:true}).click();await page.locator('#config').fill(JSON.stringify({apiKey:'synthetic-not-a-key',projectId:'synthetic',appId:'synthetic'}));await page.locator('#initialize').click();await page.getByRole('status').filter({hasText:'initialization failed'}).waitFor();
+ await page.locator('#initialize').click();await page.waitForFunction(()=>document.querySelector('#nano-status').textContent.includes('unavailable'));
  assert.equal(await page.locator('#detect').isDisabled(),true);
  const appFetchAttempts=await page.evaluate(()=>globalThis.__fetchAttempts);assert.deepEqual(appFetchAttempts,[]);assert.deepEqual(external,[]);
  // Negative CSP probe: synthetic marker only; browser must refuse BEFORE an HTTP request.
