@@ -23,7 +23,7 @@ async function readShadowText(locator){
   return collect(root.shadowRoot??root).replace(/\s+/g,' ').trim().slice(0,100000);
  }));
 }
-async function capturePanel(tab,name,selector){
+async function capturePanel(tab,name,selector,out,label){
  const panel={status:'PAGE_UNAVAILABLE',inspected:false};
  try{
   await tab.getByRole('tab',{name,exact:true}).click({timeout:5000});
@@ -36,8 +36,20 @@ async function capturePanel(tab,name,selector){
   if(!required.every(x=>panel.text.includes(x)))throw Error(name+' content markers missing');
   panel.rowCount=await content.locator('tbody tr').count();
   panel.status='CAPTURED';panel.inspected=true;
- }catch(e){panel.error=sanitize(e.message);}
+  if(tab.screenshot){panel.screenshot=label+'-'+(name==='Broker State'?'broker':'events')+'.png';await screenshotSanitized(tab,resolve(out,panel.screenshot));}
+ }catch(e){panel.error=sanitize(e.message);
+  try{panel.text=await readShadowText(tab.locator(selector));if(tab.screenshot){panel.screenshot=label+'-'+(name==='Broker State'?'broker':'events')+'-unavailable.png';await screenshotSanitized(tab,resolve(out,panel.screenshot));}}catch{}
+ }
  return panel;
+}
+// Mutate only the isolated diagnostic WebUI text immediately before screenshots.
+// JSON text is captured first. Never screenshot policy/GPU pages or Chrome paths.
+async function screenshotSanitized(tab,path){
+ await tab.locator('body').evaluate(root=>{
+  const scrub=s=>s.replace(/https?:\/\/[^\s<>"']+/g,'[url-redacted]').replace(/(?:[A-Z]:\\|\/home\/|\/Users\/)[^\s<>"']+/g,'[local-path]').replace(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/gi,'[email]').replace(/((?:token|authorization|api[_-]?key|secret|password)\s*[:=]\s*)[^\s,;]+/gi,'$1[redacted]');
+  const visit=n=>{if(n.nodeType===3)n.textContent=scrub(n.textContent);else if(n.nodeType===1&&!['SCRIPT','STYLE'].includes(n.tagName)){if(n.shadowRoot)visit(n.shadowRoot);for(const child of n.childNodes)visit(child);}else if(n.nodeType===11)for(const child of n.childNodes)visit(child);};visit(root);
+ });
+ await tab.screenshot({path,fullPage:true,timeout:10000});
 }
 export async function captureDiagnostics(context,out,label){
  const records=[];
@@ -57,12 +69,17 @@ export async function captureDiagnostics(context,out,label){
    await tab.waitForTimeout(750);
    if(url.includes('on-device-internals')){
     // Navigation only: never Tools, Reset, Uninstall, Dump or use-case controls.
-    entry.brokerState=await capturePanel(tab,'Broker State','on-device-internals-broker-state');
-    entry.eventLogs=await capturePanel(tab,'Event Logs','on-device-internals-event-log');
+    entry.brokerState=await capturePanel(tab,'Broker State','on-device-internals-broker-state',out,label);
+    entry.eventLogs=await capturePanel(tab,'Event Logs','on-device-internals-event-log',out,label);
     entry.brokerInspected=entry.brokerState.inspected;
     entry.status=entry.brokerState.inspected&&entry.eventLogs.inspected?'CAPTURED':'PAGE_UNAVAILABLE';
     if(entry.status!=='CAPTURED')entry.text=await readShadowText(tab.locator('body'));
-   }else entry.text=await readShadowText(tab.locator('body'));
+   }else {entry.text=await readShadowText(tab.locator('body'));
+    if(url.includes('components')){
+     entry.status=entry.text.includes('Components')&&/Version|version/.test(entry.text)?'CAPTURED':'PAGE_UNAVAILABLE';
+     if(tab.screenshot){entry.screenshot=label+'-components.png';await screenshotSanitized(tab,resolve(out,entry.screenshot));}
+    }
+   }
   }catch(e){entry.error=sanitize(e.message);}finally{const video=tab?.video();await tab?.close().catch(()=>{});await video?.delete().catch(()=>{});}
   records.push(entry);
  }
@@ -78,7 +95,7 @@ export async function readEffectiveArgs(context,cdp){
    tab=await context.newPage();await tab.goto('chrome://version/',{waitUntil:'domcontentloaded',timeout:15000});
    const command=await tab.locator('#command_line').textContent({timeout:5000});
    if(!command?.trim())throw Error('Chrome version command line unavailable');
-   return {source:'chrome://version',arguments:command.match(/--[^\s]+/g)??[],cdpError:sanitize(e.message)};
+   return {source:'chrome://version',arguments:command.match(/--[^\s"']+(?:="[^"]*")?/g)??[],cdpError:sanitize(e.message)};
   }finally{const video=tab?.video();await tab?.close().catch(()=>{});await video?.delete().catch(()=>{});}
  }
 }

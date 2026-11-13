@@ -13,9 +13,18 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        os: [ubuntu-latest, windows-latest]
+        include:
+          - {os: ubuntu-latest, channel: stable, diagnostic: ''}
+          - {os: ubuntu-latest, channel: dev, diagnostic: ''}
+          - {os: windows-latest, channel: stable, diagnostic: ''}
+          - {os: windows-latest, channel: dev, diagnostic: ''}
+          - {os: windows-latest, channel: canary, diagnostic: ''}
+          - {os: windows-latest, channel: stable, diagnostic: requested-perf-bypass}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
+    env:
+      NANO_CHANNEL: ${{ matrix.channel }}
+      NANO_DIAGNOSTIC: ${{ matrix.diagnostic }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,8 +39,8 @@ jobs:
         run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
       - name: Hardware and storage inventory
         run: node scripts/nano-ci/hardware.mjs
-      - name: Install genuine Google Chrome Stable and video codec
-        run: node scripts/nano-ci/.driver/node_modules/playwright/cli.js install chrome ffmpeg
+      - name: Install genuine Google Chrome channel
+        run: node scripts/nano-ci/install-chrome.mjs
       - name: Bundle local-only SDK page
         run: node scripts/nano-ci/build.mjs
       - name: Headed Chrome Linux probe
@@ -44,7 +53,7 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: nano-probe-${{ matrix.os }}-${{ github.run_id }}
+          name: nano-probe-${{ matrix.os }}-${{ matrix.channel }}-${{ matrix.diagnostic || 'native' }}-${{ github.run_id }}
           path: scripts/nano-ci/artifacts/
           if-no-files-found: warn
           retention-days: 7
