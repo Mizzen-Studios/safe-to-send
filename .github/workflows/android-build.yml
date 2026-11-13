@@ -1,0 +1,52 @@
+name: Native Android build
+on:
+  push:
+    branches: [council/android-app]
+    paths: ['android/**', '.github/workflows/android-build.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: android-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Verify official wrapper checksum
+        working-directory: android
+        run: echo "$(cat gradle/wrapper/wrapper.sha256)  gradle/wrapper/gradle-wrapper.jar" | sha256sum -c -
+      - name: Install pinned SDK
+        run: sdkmanager 'platforms;android-36' 'build-tools;36.0.0'
+      - name: Compile real Firebase SDK signatures and run unit tests
+        working-directory: android
+        run: ./gradlew --no-daemon :app:assembleDebug :app:testDebugUnitTest :app:assembleDebugAndroidTest :app:assembleRelease
+      - name: Emulator UI and TEST_ONLY contract tests (not actual cloud or Nano)
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          working-directory: android
+          script: ./gradlew --no-daemon :app:connectedDebugAndroidTest
+      - name: Preserve APK and test reports (no logcat)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: safe-to-send-android-debug-${{ github.sha }}
+          path: |
+            android/app/build/outputs/apk/debug/app-debug.apk
+            android/app/build/reports/tests/
+            android/app/build/reports/androidTests/
+            android/app/build/outputs/androidTest-results/
+          retention-days: 7
