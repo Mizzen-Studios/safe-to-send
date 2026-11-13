@@ -22,6 +22,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
       - name: Verify official wrapper checksum
         working-directory: android
         run: echo "$(cat gradle/wrapper/wrapper.sha256)  gradle/wrapper/gradle-wrapper.jar" | sha256sum -c -
