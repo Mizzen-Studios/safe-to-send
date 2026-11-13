@@ -76,8 +76,11 @@ This recipe belongs to the assistant/operator, not a request for Olly to run it.
   late output is discarded, and no later trial starts after a timeout.
 - No corpus annotation, baseline expected claim, truth span, mutation label,
   source id, variant, order id or correctness label enters model inputs. Detector
-  receives only letter text; verifier receives original plus the candidate's
-  three claims under fixed opaque ids c0/c1/c2. Expected data remains available
+  receives the original with mechanically indexed UTF-16 token/line boundaries,
+  not semantic annotations. Verifier receives that same indexed source plus
+  candidate claims under fixed opaque ids c0/c1/c2, in up to three serial batches.
+  Each request schema enumerates only its batch IDs with exact cardinality;
+  strict parsing validates every batch and the final aggregate. Expected data remains available
   to **local scoring** only. Corpus candidate values are hypotheses, never an
   additional baseline answer shown beside the candidate.
 - Claim projection: deadline becomes production deadline JSON with blank evidence
@@ -202,5 +205,27 @@ frames and hash the real final clip. Implement/verify that path before claiming
 recording evidence; no simulated/generated footage is a substitute.
 
 Additional TEST_ONLY wiring check: node --test operator/device-eval/ci.test.mjs.
-The eight existing adapter tests cover production prompts/no label leaks, native
+The adapter tests cover production prompts/no label leaks, native
 capture, unknown/failure separation and lifecycle. Tests are not measurements.
+
+### Batched-protocol reconciliation (TEST_ONLY)
+
+The 160 planned outer operations remain 32 detectors +128 verifier trials.
+Three-claim trials now use three serial single-claim native prompts: up to 416
+native prompts in a complete run (32 +128×3), fewer after a batch failure.
+The unchanged 60-second verifier timeout bounds the **whole outer trial**, not
+60 seconds per batch. No cap was raised and no retries were added. Per-prompt
+inputs, request-specific schemas, raw outputs and both SHA-256 hashes remain
+in each outer capture. The top-level verifier schema hash describes the base
+schema only; each captured schema hash binds the actual batch constraint.
+
+Reconciliation reproduced the obsolete native stub failure (7/8 passing): it
+returned all three IDs to a single-ID batch. The corrected TEST_ONLY stub reads
+IDs from the actual responseConstraint; it does not infer expected truth. The
+focused browser-SDK config needed no adapter-binding change in this environment.
+A new missing-ID regression confirms strict failure, no synthesized checks, no
+later batch execution, and all 128 errors retained outside decided rejections.
+Product whole-explanation/draft coverage and offset/evidence validation are
+unchanged. These checks establish harness compatibility, not model improvement.
+The original poor real receipt/measurements preserved by 3101e4a remain valid;
+no real inference was run for this reconciliation.
