@@ -3,7 +3,7 @@
 Package com.mizzen.safetosend; Firebase project safe-to-send-2026. Synthetic-only. Web remains primary.
 
 ## Build
-JDK 17, Android SDK platform 36/build-tools 36.0.0, Gradle 8.14.3, AGP 8.13.2, Kotlin 2.2.21. The official Gradle distribution and wrapper checksums are pinned. Run ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:assembleDebugAndroidTest from this directory. Standard free public CI also compiles release attestation and runs API35 x86_64 emulator instrumentation.
+JDK 17, Android SDK platform 36/build-tools 36.0.0, Gradle 8.14.3, AGP 8.13.2, Kotlin 2.4.0. The official Gradle distribution and wrapper checksums are pinned. Run ./gradlew :app:assembleDebug :app:testDebugUnitTest :app:assembleDebugAndroidTest from this directory. Standard free public CI also compiles release attestation and runs API35 x86_64 emulator instrumentation.
 
 APK: app/build/outputs/apk/debug/app-debug.apk. CI artifact safe-to-send-android-debug-<commit>. No release publishing or Play Console operation.
 
