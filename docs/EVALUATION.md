@@ -1,3 +1,14 @@
+# Latest genuine model run — 13 November 2026
+
+[Run 43339470805](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339470805), 291947e, executed all 160 native prompts on free Ubuntu Stable CPU Nano, production ONLY_ON_DEVICE. Zero native errors, no page external requests. Native launch omitted sandbox-disabling and performance-bypass flags; GPU-process diagnostics are not blanket sandbox attestation. Corpus results are poor, not a success claim:
+
+- 32/32 detector calls: Nano character recall 0% (0/1052), precision 0% (0/239). Predictions landed in the synthetic header. Regex recall 38.59%, precision 55.62%; union recall 38.59%, precision 41.90% (406/969).
+- Initialization/download 88.098s separately; detector n32 p50 2.666s, p95 5.196s.
+- 96 mutated claims: 2 rejected, 31 unknown, 63 errors. 32 controls: 1 rejected (false alarm), 11 unknown, 20 errors. No timeouts/aborts/not_run. All 128 native verifier prompts returned; most failed strict application validation because checks were missing or evidence invalid.
+- Do NOT quote the importer's decided-subset 100% catch/false-alarm fields as overall rates: only two mutations and one control were decidable. This is not complete product two-key validation.
+
+[Importer output](evidence/nano-eval-first-imported-measurements.json) must accompany [coverage/error inspection](evidence/nano-eval-first-inspection-summary.json). Original receipt hash 07a2fc2d574b5b159868f839f76da2f9dbcc37250f28dcd63369b35a21389cba. Raw synthetic receipt remains preserved in local/Actions artifacts. A measured protocol repair is underway; no improved results are claimed yet. Earlier NOT_RUN rows below are historical pre-run context, not the latest measurement.
+
 # Evaluation and evidence
 
 ## Reproduce the 32-notice baseline (offline)

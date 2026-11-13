@@ -1,0 +1,33 @@
+{
+  "run": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339470805",
+  "nativePromptCount": 160,
+  "nativePromptHashMismatches": [],
+  "nativeErrors": 0,
+  "verifierErrorShapes": {
+    "checks length 1": 78,
+    "checks length 2": 5
+  },
+  "detectorAllPredictedOffsetsInsideSyntheticHeader": true,
+  "decisions": [
+    {
+      "id": "hmrc-04",
+      "variant": "control",
+      "rejected": true,
+      "latencyMs": 8345.799999999988
+    },
+    {
+      "id": "nonuk-01",
+      "variant": "deadline",
+      "rejected": true,
+      "latencyMs": 13897.400000000023
+    },
+    {
+      "id": "hmrc-06",
+      "variant": "action",
+      "rejected": true,
+      "latencyMs": 10188.79999999993
+    }
+  ],
+  "receiptSHA256": "07a2fc2d574b5b159868f839f76da2f9dbcc37250f28dcd63369b35a21389cba",
+  "limitations": "Three-field authored synthetic text experiment, not complete product two-key journey, image/OCR, real-letter generalization, or independent device attestation."
+}

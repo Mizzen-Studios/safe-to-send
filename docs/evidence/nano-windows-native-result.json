@@ -1,0 +1,247 @@
+{
+  "runId": 43339474097,
+  "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339474097",
+  "headSha": "291947e0e3c7cdd1623485e1677095bb4d62954d",
+  "scope": "Windows only; native and requested performance-bypass diagnostic kept separate",
+  "stableNative": {
+    "classification": "REAL_ON_DEVICE_IMAGE_SCHEMA_PASS",
+    "chrome": "Chrome/157.0.8103.79",
+    "launch": {
+      "mode": "native-process-attachCDP",
+      "playwrightLaunchDefaults": false,
+      "sandboxDisabled": false,
+      "registrationBudgetMs": 180000,
+      "video": "NOT_RECORDED_CDP_ATTACH"
+    },
+    "effectiveArgs": [
+      "--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput",
+      "--user-data-dir=",
+      "--remote-debugging-port=0",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--window-size=1280,900",
+      "--flag-switches-begin",
+      "--flag-switches-end"
+    ],
+    "availability": [
+      {
+        "at": "2026-11-13T00:45:59.135Z",
+        "text": "downloadable",
+        "image": "downloadable"
+      }
+    ],
+    "stages": {
+      "text": {
+        "status": "PASS",
+        "durationMs": 116859.5,
+        "result": {
+          "raw": "READY\n"
+        }
+      },
+      "direct": {
+        "status": "PASS",
+        "durationMs": 4093.899999999907,
+        "result": {
+          "raw": "{\"code\": \"BLUE-472\"}",
+          "validated": {
+            "code": "BLUE-472"
+          }
+        }
+      },
+      "sdk": {
+        "status": "PASS",
+        "durationMs": 3397.4000000000233,
+        "result": {
+          "inferenceSource": "on_device",
+          "raw": "{\"code\": \"BLUE-472\"}",
+          "validated": {
+            "code": "BLUE-472"
+          }
+        }
+      }
+    },
+    "brokerAfterSDK": {
+      "url": "chrome://on-device-internals/",
+      "at": "2026-11-13T00:48:16.272Z",
+      "status": "CAPTURED",
+      "brokerInspected": true,
+      "brokerState": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Broker Properties Broker Type ManifestBrokerState Performance Class GpuBlocked Possible Capabilities Image Manifest Path [local-path] Manifest Loaded true Model crash count (current/maximum): 0 / 3 View global crash reports (chrome://crashes) Manifest Criteria Enabled by feature flag true Enabled by enterprise policy true Enabled by user setting true Enough VRAM false (0 MiB actual, 3000 MiB required) Device Capable true Enough disk space to install true (224795 MiB available, 20480 MiB required) Enough disk space to retain true (224795 MiB available, 5120 MiB required) Assets Name Version State Progress Error laya_en_s512_wfp16_component 2026.10.1.1331 Not Installed 0% None laya_ml_s256_wfp16_component 2026.10.1.1331 Not Installed 0% None nano_v3_cpu_component 2025.8.21.1028 Ready 100% None proofreader_small_expert_model_component 2026.6.3.1603 Not Installed 0% None gemma4_component 2026.8.7.929 Not Installed 0% None summarizer_small_expert_model_component 2026.6.3.1604 Not Installed 0% None laya_en_s256_wint8_component 2026.10.1.1331 Not Installed 0% None Use Cases Name Requested Unavailable Reason compose Not Supported history_query_intent Not Supported history_search Not Supported laya_en_s256_wint8 Pending Usage laya_en_s512_wfp16 Pending Usage laya_ml_s256_wfp16 Pending Usage permissions_ai Not Supported prompt_api Available prompt_api_gemma4 Pending Usage proofreader_api Pending Usage scam_detection Available speech_recognition Not Supported speech_recognition_small_expert_model Not Supported summarizer_api Available summarizer_gemma4 Pending Usage summarizer_small_expert_model Pending Usage test Not Supported writing_assistance_api Available writing_assistance_api_gemma4 Pending Usage Models Name Folder Size Weights Path Backend Type gemma4_cpu_model 0 MiB CPU laya_en_s256_wint8 0 MiB CPU laya_en_s512_wfp16 0 MiB CPU laya_ml_s256_wfp16 0 MiB CPU nano_v3_cpu_model 2,730.3 MiB [local-path] CPU proofreader_small_expert_model 0 MiB CPU summarizer_small_expert_model 0 MiB CPU",
+        "rowCount": 33,
+        "screenshot": "after-sdk-broker.png"
+      },
+      "eventLogs": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Event Logs Time Source Location Log Message",
+        "rowCount": 0,
+        "screenshot": "after-sdk-events.png"
+      },
+      "debugPages": {
+        "status": "already-enabled",
+        "clicked": false
+      }
+    },
+    "errors": [],
+    "blockedPageRequests": [],
+    "resultSha256": "5ba73a95ecabfdb99f800d571c9cc7da8532c2ef168e77ee1f7c676f7b53a45d",
+    "screenshotInspection": "screen.png and after-sdk-broker.png viewed. Screen shows synthetic BLUE-472 fixture; broker screenshot confirms CPU model Ready and prompt_api Available. Final pass events are below initial viewport, so JSON is primary output proof."
+  },
+  "dev": {
+    "classification": "NOT_RUN",
+    "reason": "Chrome installer failed: exit code 9",
+    "version": "UNKNOWN_NOT_LAUNCHED",
+    "rootCause": "UNKNOWN; no installer diagnostic log retained"
+  },
+  "canary": {
+    "classification": "NOT_RUN",
+    "reason": "Chrome installer failed: exit code 75044",
+    "version": "UNKNOWN_NOT_LAUNCHED",
+    "rootCause": "UNKNOWN; no installer diagnostic log retained"
+  },
+  "limitations": [
+    "One synthetic image smoke test is not a corpus accuracy measurement.",
+    "Feature enable flags present; normalEligibilityAttested remains false.",
+    "Text duration includes initial model download and is not pure inference latency.",
+    "No video recorded (CDP attach)."
+  ],
+  "minimalRepairProposal": "For Dev/Canary preserve sanitized installer/updater diagnostic log excerpts and downloaded PE FileVersionInfo/Verified Google signature metadata before finally cleanup; distinguish wrapper status from nested setup status before changing installer args or accepting nonzero exit. Do not weaken Valid/Google verification. Do not guess OS eligibility or retry blindly.",
+  "run": {
+    "conclusion": "failure",
+    "headSha": "291947e0e3c7cdd1623485e1677095bb4d62954d",
+    "jobs": [
+      {
+        "conclusion": "failure",
+        "name": "probe (windows-latest, dev)",
+        "status": "completed",
+        "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339474097/job/131603892937"
+      },
+      {
+        "conclusion": "failure",
+        "name": "probe (windows-latest, canary)",
+        "status": "completed",
+        "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339474097/job/131603893156"
+      },
+      {
+        "conclusion": "success",
+        "name": "probe (windows-latest, stable)",
+        "status": "completed",
+        "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339474097/job/131603893180"
+      },
+      {
+        "conclusion": "success",
+        "name": "probe (windows-latest, stable, requested-perf-bypass)",
+        "status": "completed",
+        "url": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339474097/job/131603893209"
+      }
+    ],
+    "status": "completed"
+  },
+  "stableRequestedPerfBypass": {
+    "classification": "REAL_ON_DEVICE_IMAGE_SCHEMA_PASS",
+    "variant": {
+      "id": "stable-requested-perf-bypass",
+      "channel": "stable",
+      "diagnostic": true,
+      "flags": [
+        "--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput,OptimizationGuideOnDeviceModel:BypassPerfRequirement/true,PromptAPIForGeminiNano"
+      ],
+      "executable": "[local-path] Files\\Google\\Chrome\\Application\\chrome.exe",
+      "profile": "[local-path]",
+      "normalEligibilityAttested": false,
+      "flagSupport": "USER_REQUESTED_UNVERIFIED_MAY_BE_IGNORED"
+    },
+    "chrome": {
+      "protocolVersion": "1.3",
+      "product": "Chrome/157.0.8103.79",
+      "revision": "@6dc9bc3bdaea5c35ed6d41fceab2f7a3a2227c4f",
+      "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+      "jsVersion": "15.7.112.43"
+    },
+    "launch": {
+      "mode": "native-process-attachCDP",
+      "playwrightLaunchDefaults": false,
+      "sandboxDisabled": false,
+      "registrationBudgetMs": 180000,
+      "video": "NOT_RECORDED_CDP_ATTACH"
+    },
+    "effectiveArgs": [
+      "--enable-features=AIPromptAPI,AIPromptAPIMultimodalInput,OptimizationGuideOnDeviceModel:BypassPerfRequirement/true,PromptAPIForGeminiNano",
+      "--user-data-dir=",
+      "--remote-debugging-port=0",
+      "--no-first-run",
+      "--no-default-browser-check",
+      "--window-size=1280,900",
+      "--flag-switches-begin",
+      "--flag-switches-end"
+    ],
+    "registrationSamples": [
+      {
+        "at": "2026-11-13T00:48:31.102Z",
+        "text": "downloadable",
+        "image": "downloadable"
+      }
+    ],
+    "errors": [],
+    "blockedPageRequests": [],
+    "stages": {
+      "text": {
+        "status": "PASS",
+        "durationMs": 88872.29999999993,
+        "result": {
+          "raw": "READY.\n"
+        }
+      },
+      "direct": {
+        "status": "PASS",
+        "durationMs": 10972.399999999907,
+        "result": {
+          "raw": "{\"code\": \"BLUE-472\"}",
+          "validated": {
+            "code": "BLUE-472"
+          }
+        }
+      },
+      "sdk": {
+        "status": "PASS",
+        "durationMs": 9614.5,
+        "result": {
+          "inferenceSource": "on_device",
+          "raw": "{\"code\": \"BLUE-472\"}",
+          "validated": {
+            "code": "BLUE-472"
+          }
+        }
+      }
+    },
+    "brokerAfterSDK": {
+      "url": "chrome://on-device-internals/",
+      "at": "2026-11-13T00:50:35.957Z",
+      "status": "CAPTURED",
+      "brokerInspected": true,
+      "brokerState": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Broker Properties Broker Type ManifestBrokerState Performance Class GpuBlocked Possible Capabilities Image Manifest Path [local-path] Manifest Loaded true Model crash count (current/maximum): 0 / 3 View global crash reports (chrome://crashes) Manifest Criteria Enabled by feature flag true Enabled by enterprise policy true Enabled by user setting true Enough VRAM false (0 MiB actual, 3000 MiB required) Device Capable true Enough disk space to install true (150187 MiB available, 20480 MiB required) Enough disk space to retain true (150187 MiB available, 5120 MiB required) Assets Name Version State Progress Error laya_en_s512_wfp16_component 2026.10.1.1331 Not Installed 0% None laya_ml_s256_wfp16_component 2026.10.1.1331 Not Installed 0% None nano_v3_cpu_component 2025.8.21.1028 Ready 100% None proofreader_small_expert_model_component 2026.6.3.1603 Not Installed 0% None gemma4_component 2026.8.7.929 Not Installed 0% None summarizer_small_expert_model_component 2026.6.3.1604 Not Installed 0% None laya_en_s256_wint8_component 2026.10.1.1331 Not Installed 0% None Use Cases Name Requested Unavailable Reason compose Not Supported history_query_intent Not Supported history_search Not Supported laya_en_s256_wint8 Pending Usage laya_en_s512_wfp16 Pending Usage laya_ml_s256_wfp16 Pending Usage permissions_ai Not Supported prompt_api Available prompt_api_gemma4 Pending Usage proofreader_api Pending Usage scam_detection Available speech_recognition Not Supported speech_recognition_small_expert_model Not Supported summarizer_api Available summarizer_gemma4 Pending Usage summarizer_small_expert_model Pending Usage test Not Supported writing_assistance_api Available writing_assistance_api_gemma4 Pending Usage Models Name Folder Size Weights Path Backend Type gemma4_cpu_model 0 MiB CPU laya_en_s256_wint8 0 MiB CPU laya_en_s512_wfp16 0 MiB CPU laya_ml_s256_wfp16 0 MiB CPU nano_v3_cpu_model 2,730.3 MiB [local-path] CPU proofreader_small_expert_model 0 MiB CPU summarizer_small_expert_model 0 MiB CPU",
+        "rowCount": 33,
+        "screenshot": "after-sdk-broker.png"
+      },
+      "eventLogs": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Event Logs Time Source Location Log Message",
+        "rowCount": 0,
+        "screenshot": "after-sdk-events.png"
+      },
+      "debugPages": {
+        "status": "already-enabled",
+        "clicked": false
+      }
+    },
+    "resultSha256": "22a819c5020ecbf44f58ff2bd2cc916dcb47424b313dfeaaee32523012cfdcfd",
+    "screenshotInspection": "screen.png and after-sdk-broker.png viewed; same synthetic fixture and CPU model Ready. No normal-eligibility inference and bypass support UNKNOWN."
+  },
+  "terminal": true
+}
