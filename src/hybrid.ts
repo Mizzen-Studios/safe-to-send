@@ -1,6 +1,7 @@
 import {type PrivacyGate,redact,restore} from './privacy';
 import {parseJourney,reviewedCloudJourney,type Journey} from './journey';
 import {validateDraftRoles} from './roles';
+import {typedAction,sourceSentences} from './typed-evidence';
 import {manualReviewSuggestions} from './manual-suggestions';
 /** Stable UI contract. Model responses are untrusted and evidence never leaves this module. */
 export type Claim={id:string;kind:'deadline'|'amount'|'action'|'explanation'|'draft';value:string};
@@ -23,17 +24,24 @@ export function claimsFromJourney(journey:Journey):Claim[]{
  amounts.forEach((value,i)=>claims.push({id:'amount-'+i,kind:'amount',value}));
  return claims;
 }
-/** Conservative textual matching only: paraphrases/contradictions remain unknown.
+/** Conservative textual matching only: general paraphrases remain unknown.
  * This is not semantic entailment, advice validation or a truth guarantee. */
 const normalizeEvidence=(s:string)=>s.normalize('NFC').toLowerCase().replace(/\s+/gu,' ').trim();
 function matchesClaim(claim:Claim,quotes:string[],original:string):boolean{
  const contains=(value:string)=>quotes.some(q=>normalizeEvidence(q).includes(normalizeEvidence(value)));
  // Whole prose/action fields must match complete source sentences, not fragments
  // selected out of a negation, condition, attribution or longer instruction.
- const whole=(value:string)=>contains(value)&&original.split(/(?<=[.!?])\s+|[\r\n]+/u).some(sentence=>normalizeEvidence(sentence)===normalizeEvidence(value));
+ const whole=(value:string)=>contains(value)&&sourceSentences(original).some(sentence=>normalizeEvidence(sentence)===normalizeEvidence(value));
  if(claim.kind==='amount'){
- const amounts=(text:string)=>text.match(/(?:£|GBP\s*)\d[\d,]*(?:\.\d{1,2})?/g)??[];
- return amounts(original).some(amount=>amount===claim.value)&&quotes.some(q=>amounts(q).some(amount=>amount===claim.value));
+ const amounts=(text:string)=>Array.from(text.matchAll(/(?:£|GBP\s*)\d[\d,]*(?:\.\d{1,2})?(?!\d|,\d|\.\d)/g));
+ const source=amounts(original).filter(m=>m[0]===claim.value);
+ // A short quote inside a different longer money token is not that amount.
+ return quotes.some(q=>amounts(q).some(m=>{
+  if(m[0]!==claim.value)return false;
+  let at=original.indexOf(q),found=false;
+  while(at>=0){if(!source.some(s=>s.index===at+m.index))return false;found=true;at=original.indexOf(q,at+1);}
+  return found;
+ }));
  }
  if(claim.kind!=='deadline')return whole(claim.value);
  const d=JSON.parse(claim.value) as Journey['deadlines'][number];
@@ -66,9 +74,10 @@ export function parseVerification(json:string,original:string,claims:Claim[]):Ve
  quotes.push(e.quote);
  }
  const claim=claims.find(c=>c.id===v.id)!;
- // No deterministic contradiction checker exists. Never promote a model's mismatch
- // on the strength of an unrelated (or merely real) quote.
- const status:Verdict=v.status==='mismatch'?'unknown':v.status==='supported'&&(!valid||!quotes.length||!matchesClaim(claim,quotes,original))?'unknown':v.status as Verdict;
+ // Only a unique full sentence in the tiny typed grammar corroborates mismatch.
+ // Whole explanation/draft coverage is unchanged.
+ const typed=valid&&claim.kind==='action'?typedAction(claim.value,quotes,original):'unknown';
+ const status:Verdict=v.status==='mismatch'?(typed==='mismatch'?'mismatch':'unknown'):v.status==='supported'&&(!valid||!quotes.length||!matchesClaim(claim,quotes,original)&&typed!=='supported')?'unknown':v.status as Verdict;
  return {id:v.id,status};
  });
  const uncheckedFields=(['explanation','draft'] as const).filter(kind=>!claims.some(c=>c.kind===kind));

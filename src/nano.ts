@@ -3,6 +3,7 @@ import {getAI,getGenerativeModel,GoogleAIBackend,InferenceMode,InferenceSource,t
 import {validateSpans,type Span,cloudInstruction} from './privacy';
 import {parseVerification,type Claim} from './hybrid';
 import contract from '../shared/nano/contract.json';
+import {automaticReviewSpans} from './manual-suggestions';
 export const localAnswerSchema={type:'object',additionalProperties:false,properties:{explanation:{type:'string'},deadlines:{type:'array',items:{type:'object',additionalProperties:false,properties:{date:{type:['string','null']},evidence:{type:'string'},action:{type:'string'}},required:['date','evidence','action']}},actions:{type:'array',items:{type:'string'}},draft:{type:'string'}},required:['explanation','deadlines','actions','draft']};
 /** Shared quote-only wire contract. Internal spans are derived locally. */
 export const localVerifierSchema=contract.verifierSchema;
@@ -142,7 +143,8 @@ export function createNano(config:FirebaseOptions){
  if(result.response.inferenceSource!==InferenceSource.ON_DEVICE)throw Error('Privacy invariant: non-device inference result');
  const rawJson=result.response.text();
  const detected=image!==undefined?parseImageDetection(rawJson):{text,spans:parseTextDetection(rawJson,text)};
- return {...detected,latencyMs:performance.now()-before,rawJson};
+ // Apply the same DATE policy to text, image and programmatic callers as UI review.
+ return {...detected,spans:automaticReviewSpans(detected.text,detected.spans),latencyMs:performance.now()-before,rawJson};
  }
  };
 }

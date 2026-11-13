@@ -1,4 +1,4 @@
-# Nano quote protocol (quotes-v1; unmeasured candidate)
+# Nano quote protocol (quotes-v1; next candidate unmeasured)
 
 This supersedes the indexed-offset model wire protocol. Prior real metrics and receipts in EVALUATION.md are unchanged. Run 43346787463 is an independent intermediate indexed-protocol diagnostic, **not** proof of this quote candidate. Parent owns the next authorized real 32-letter / 96-mutation rerun.
 
@@ -22,13 +22,13 @@ Identical duplicate findings are idempotent. Different kinds for the same quote 
 
 Limits: source/transcription 50,000 UTF-16 units; text response 100,000 units; image response 200,000; individual quote 5,000; findings 1,000; expanded matches 1,000 before merging. The last cap prevents repeated-character output from creating unbounded local spans. Text original remains the caller's unchanged string, never a model echo. Raw diagnostic JSON now necessarily contains private quotes and must remain local.
 
-Detection prompt explicitly preserves due/deadline/appointment dates by default; DATE is for personal DOB/identity contexts. Prompt guidance is not a deterministic guarantee of detector recall or classifications.
+Detection prompt explicitly preserves due/deadline/appointment dates by default; DATE is for personal DOB/identity contexts. The text/image adapter now applies the same automaticReviewSpans DOB-prefix filter as review UI/manual suggestions. Raw diagnostic JSON and strict raw parsing remain unchanged. This postfilter is not raw model accuracy; it can miss identity dates without recognized labels or dates misclassified under other kinds.
 
 ## Two-key integration interface (B3 handoff)
 
 nano.verify returns **quote-only JSON unchanged**, not fabricated offsets or rewritten statuses. validateQuoteVerification checks exact keys, bounded response/evidence, complete exact IDs, and exact source occurrence before each batch and after aggregation. Existing up-to-three serial contiguous batches remain; all whole explanation, whole draft, action, amount and deadline claims supplied by the caller are preserved. Missing/extra/duplicate IDs are never synthesized or repaired. A failed batch stops later batches.
 
-**B3 must update hybrid.ts parseVerification to consume evidence [{quote:string}] and assess evidence relevance to the matching claim**, retaining strict IDs and whole explanation/draft/action coverage. This branch intentionally does not edit hybrid.ts. At the base commit its offset consumer conservatively downgrades quote-only positive evidence to unknown; adapter contract tests passing here do not prove integrated supported decisions. Merge B3 before the real evaluation.
+hybrid.ts consumes evidence [{quote:string}] with strict IDs, exact-source provenance and whole explanation/draft/action coverage. General paraphrases remain unknown. A narrow unique-full-sentence typed action guard corroborates model mismatch on differing GBP amount/absolute date slots; equivalent typed spellings can corroborate model support. It does not infer decisions from arbitrary quotes or bypass whole-field coverage. See [candidate scope and limitations](QUOTE_TWO_KEY_NEXT_2026-11-13.md). Android shares the wire/prompts, not the new web-only typed semantics; its more conservative native reviewer remains explicit.
 
 Exact occurrence is evidence provenance, **not** proof of the claim. The shared prompt requires assessment of the entire matching claim, actors/actions/amount/date/conditions/negations, and explicitly forbids a real but unrelated quote as support or contradiction. The validator returns void, never a fabricated semantic verdict; final verdict remains the hybrid consumer's job. Prompt instructions and local relevance guards are not an accuracy guarantee. Real verifier catch rate must be measured, including unrelated-quote adversarial cases.
 
@@ -36,4 +36,4 @@ Exact occurrence is evidence provenance, **not** proof of the claim. The shared 
 
 SDK/native injections in unit and operator tests are TEST_ONLY, not model inference. Collector assertions track the new original-only prompts, quote schemas and exact-ID batches; collection/import format remains internal Span[] plus unchanged raw output receipts. Baseline corpus/regex/evidence assets are untouched. No deployment, resources, credentials or real model dispatch are part of this change.
 
-Final local gates: 185 tests in tests/ pass; 9 operator collector tests pass; 3 node:test CI wiring checks pass; TypeScript and both production builds pass; git diff --check passes. All SDK/native fixtures are TEST_ONLY. Chrome capability.modelIdentity and nano.modelIdentity report {reportedName:null,status:"UNKNOWN_NOT_EXPOSED",source:"Chrome Prompt API"}; no exact Nano version is inferred from Chrome/component/cloud aliases.
+Historical quote-protocol branch local gates: 185 tests in tests/ passed; 9 operator collector tests passed; 3 node:test CI wiring checks passed; TypeScript and both production builds passed; git diff --check passed. Current candidate gates are recorded in QUOTE_TWO_KEY_NEXT_2026-11-13.md. All SDK/native fixtures are TEST_ONLY. Chrome capability.modelIdentity and nano.modelIdentity report {reportedName:null,status:"UNKNOWN_NOT_EXPOSED",source:"Chrome Prompt API"}; no exact Nano version is inferred from Chrome/component/cloud aliases.
