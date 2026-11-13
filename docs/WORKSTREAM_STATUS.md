@@ -53,3 +53,12 @@ Quote-only detection/shared wire schemas, matching-evidence hardening, checked l
 All model mismatch verdicts become unknown without an independent contradiction checker; paraphrased actions and deadlines with empty action/evidence also become unknown. Existing authored corpus includes those cases. Do not weaken parser or edit authored claims to inflate coverage; report unknowns/errors separately in genuine quote run. Full drafts commonly remain unknown, not verified. Previous indexed run remains separate diagnostic.
 
 Native reCAPTCHA Enterprise Preview on Spark is documented without Play Console; earlier attestation paragraph superseded by research and judge-access docs. Production Android configuration and normal tokens remain unproven. No deployment, phone operation, AICore enrollment or paid resource change.
+
+
+### Indexed diagnostic run 43346787463 — terminal partial failure
+
+Source 674c6ec74d0906c7a9db54bedc08253f5823f07b; genuine inference, not quote-protocol evidence. Detection: 32 attempted, 29 successful, 3 invalid-offset errors. Successful 29-only Nano character recall 68.66%, precision 47.81% (644/938 truth characters, 1347 predicted); union with regex on same subset 77.29% recall, 44.53% precision. Full32 regex baseline 38.59% recall, 55.62% precision. Do not present subset scores as complete coverage.
+
+Verification: mutations96: rejected0, accepted0, unknown3, timeout1, not_run92; controls32: accepted0, rejected0, unknown3, not_run29. Zero decided trials, no catch-rate claim. First-batch timeout on trial-006 halted remaining121 per existing policy. Actual native prompts51, not160; complete batched protocol maximum416. Detector p50/p95 all32 20.379s/33.574s; verifier attempts7 47.865s/60.001s; initialization123.264s separate.
+
+Worker verified111 artifact/source/prompt/schema checks and8 source hashes. Receipt SHA256 2ddba11aaf9cf34d9aa41f90849bfee71de5918e9671e4fee8576ec5bcba8de4; inspection SHA256 1845c060b2129b6db8595a2a1136bbaa8cc5194d3d0ac1bee3274f8024fbaa79. Evidence local ignored directory .openclaw/tmp/safe-send-indexed-eval-43346787463/. No exact SDK model-revision attestation. No unattended privacy or full-product two-key guarantee. Quote run43348904459 was already dispatched separately; no blind indexed rerun.
