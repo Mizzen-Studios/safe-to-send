@@ -2,7 +2,7 @@
 
 **Real-device status: NOT_RUN. No accuracy, catch-rate or Nano latency measured.**
 This is a separate local experiment, not a product feature, product UI, release
-mode, cloud probe or CI job. Nothing is deployed. Do not copy its build to Hosting.
+mode or cloud probe. The separate manual operator CI job below deploys nothing. Do not copy its build to Hosting.
 The existing five-fixture UI collector and product sources are unchanged.
 
 ## Operator-owned run (authorized supported desktop)
@@ -147,6 +147,60 @@ is not a substitute for a browser-native test. Mock receipts are never labelled
 REAL_ON_DEVICE, never imported as real results and never committed as measurements.
 The importer has not yet been run on real Nano results because none exist.
 
-No eligible real model was available for this implementation. Real browser-native
-SDK integration with dummy app identifiers, model download, image/OCR, complete
-product journey, model accuracy/latency and recording all remain **NOT_RUN**.
+This collector has not yet produced a real corpus receipt. Separate Ubuntu Stable
+probe run 43337348269 (source 151f813) demonstrated real native text/image/schema
+and Firebase ONLY_ON_DEVICE inference; it is not 160-call corpus evidence. Corpus
+accuracy/latency, complete product journey and recording remain NOT_RUN.
+
+
+## Manual free Ubuntu Stable evaluation
+
+The separate nano-evaluation.yml is workflow_dispatch-only: review/land its exact
+source before dispatch; do not rerun the six-variant probe. Public repository
+only, standard ubuntu-latest, one job/max-parallel 1, no secrets, paid/larger/GPU
+runner, deployment, cloud route or performance eligibility bypass. Existing
+installer/native Stable flags, 22 GiB profile disk guard, isolated profile,
+unchanged sandbox and CDP attach without Playwright launch defaults are reused.
+
+ci.mjs builds the actual standalone collector with existing CSP connect-src none
+and static server on 127.0.0.1:5192; external page requests are blocked. It clicks
+Initialize using trusted UI activation, observes DOM progress, then clicks Save
+and awaits the genuine Blob download event. Automation injects no model answer
+and invokes no model API. Browser component download remains permitted. Core,
+native wrapper, page and product remain unchanged: 32 detectors +128 blinded
+verifiers, 15 minute initialization, 60 second calls, no retries.
+
+Overall collection deadline is 45 minutes, not an impossible 175-minute worst-case
+promise. Calls must generally complete faster than their individual cap. On the
+deadline, Stop aborts the active call; allow 30 seconds for accounting/export.
+The job 60-minute bound leaves setup/diagnostic/upload headroom. Unknown/error/
+timeout/aborted/not_run remain separate; partial coverage fails but keeps receipt.
+A crashed browser may make export impossible: retain progress/error proof, never
+manufacture a model receipt. Screenshots/progress are saved every 30 seconds;
+bounded DOM/screenshot work can add up to 20 seconds overhead.
+
+Artifacts (7 days) are strictly the device-eval-artifacts directory plus named
+hardware/installation JSON, not profiles, HAR, model files, private inputs or
+secrets. receipt.json is the unchanged download with synthetic raw responses.
+Separate proof.json binds source commit, hardware/browser/GPU, requested/observed
+native args, CSP/block policy, before/after sanitized broker diagnostics, receipt
+SHA-256 and complete/partial status. manifest.json hashes evidence including
+proof. progress.json is atomic current progress/error state, with screenshot
+sequence. Runner-side artifact upload is not a browser-to-server upload route;
+the loopback server never receives receipts. Do not HTML-render raw outputs.
+Read coverage before successful-subset import. Operator provenance is not
+independent device attestation.
+
+### Recording follow-up (not performed)
+
+CDP attach provides no Playwright video. This job labels video NOT_RECORDED;
+screenshot sequence is not demo footage. A separate reviewed recording run can
+use CDP Page screencast on the collector tab only, acknowledge each frame, retain
+timestamped JPEG frames and encode with local ffmpeg. Bound duration/storage,
+stop before diagnostic tabs, exclude full desktop/profile paths, inspect actual
+frames and hash the real final clip. Implement/verify that path before claiming
+recording evidence; no simulated/generated footage is a substitute.
+
+Additional TEST_ONLY wiring check: node --test operator/device-eval/ci.test.mjs.
+The eight existing adapter tests cover production prompts/no label leaks, native
+capture, unknown/failure separation and lifecycle. Tests are not measurements.

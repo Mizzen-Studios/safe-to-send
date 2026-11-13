@@ -1,0 +1,53 @@
+name: Operator real Nano corpus evaluation (free Ubuntu Stable)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: nano-evaluation
+  cancel-in-progress: false
+jobs:
+  evaluate:
+    if: github.event.repository.private == false
+    strategy:
+      max-parallel: 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      NANO_CHANNEL: stable
+      GITHUB_REPOSITORY_VISIBILITY: public
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install repository dependencies
+        run: npm ci --ignore-scripts
+      - name: Install CDP attach driver only (no browser install or launch defaults)
+        run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
+      - name: Focused collector and wiring checks
+        run: |
+          node --test operator/device-eval/ci.test.mjs
+          node node_modules/typescript/bin/tsc -p operator/device-eval/tsconfig.json
+          node node_modules/vitest/vitest.mjs run --config operator/device-eval/vitest.config.ts --configLoader runner
+      - name: Hardware and storage inventory
+        run: node scripts/nano-ci/hardware.mjs
+      - name: Install genuine Google Chrome Stable
+        run: node scripts/nano-ci/install-chrome.mjs
+      - name: Real headed local corpus collection (45 minute run deadline)
+        run: xvfb-run -a node operator/device-eval/ci.mjs
+      - name: Preserve genuine download, partial progress and separate proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: nano-evaluation-ubuntu-stable-${{ github.run_id }}
+          path: |
+            .openclaw/tmp/device-eval-artifacts/
+            scripts/nano-ci/artifacts/hardware.json
+            scripts/nano-ci/artifacts/installation.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 7
