@@ -10,7 +10,6 @@ import com.google.firebase.ai.ai
 import com.google.firebase.ai.InferenceMode
 import com.google.firebase.ai.OnDeviceConfig
 import com.google.firebase.ai.type.*
-import com.google.firebase.ai.ondevice.FirebaseAIOnDevice
 import org.json.JSONObject
 
 class SafeApplication : Application() {
@@ -41,15 +40,20 @@ class FirebaseProvider : AiProvider {
  var modelQueryTime:Long?=null; private set
  var responseModelVersion:String?=null; private set
  private suspend fun identity(instance:com.google.firebase.ai.GenerativeModel) { modelQueryTime=System.currentTimeMillis(); reportedModelName=try { instance.onDeviceExtension?.getModelName()?.takeIf { it.isNotBlank() } ?: "UNKNOWN" } catch(_:Exception) { "UNKNOWN" } }
- private fun schema(j:JSONObject):JsonSchema<*> = when(j.getString("type")) {
-  "object" -> { val p=j.getJSONObject("properties"); val required=j.getJSONArray("required"); val r=(0 until required.length()).map { required.getString(it) }; JsonSchema.obj(p.keys().asSequence().associateWith { schema(p.getJSONObject(it)) }, optionalProperties=p.keys().asSequence().filter { it !in r }.toList()) }
-  "array" -> JsonSchema.array(schema(j.getJSONObject("items")),maxItems=if(j.has("maxItems")) j.getInt("maxItems") else null)
-  "string" -> if(j.has("enum")) { val a=j.getJSONArray("enum"); JsonSchema.enumeration((0 until a.length()).map { a.getString(it) }) } else JsonSchema.string()
-  else -> error("Unsupported shared schema")
+ override suspend fun privateJson(prompt:String,schema:JSONObject):String {
+  val instance=model(InferenceMode.ONLY_ON_DEVICE); identity(instance)
+  val fields=schema.getJSONObject("properties").keys().asSequence().toSet()
+  val response=when(fields) {
+   setOf("findings") -> instance.generateObject(QuoteDetection.firebaseAISchema(),prompt).response
+   setOf("checks") -> instance.generateObject(QuoteReview.firebaseAISchema(),prompt).response
+   else -> error("Unsupported shared quote contract")
+  }
+  check(response.inferenceSource==com.google.firebase.ai.InferenceSource.ON_DEVICE)
+  responseModelVersion=response.modelVersion
+  return response.text ?: error("No local response")
  }
- override suspend fun privateJson(prompt:String,schema:JSONObject):String { val instance=model(InferenceMode.ONLY_ON_DEVICE); identity(instance); val response=instance.generateObject(this.schema(schema),prompt).response; check(response.inferenceSource==com.google.firebase.ai.InferenceSource.ON_DEVICE); responseModelVersion=response.modelVersion; return response.text ?: error("No local response") }
  override suspend fun status(): String { identity(local); val availability=try { local.onDeviceExtension?.checkStatus().toString() } catch (_:Exception) { "UNKNOWN / unavailable" }; return "$availability; requested STABLE; device-reported model: $reportedModelName; queried: $modelQueryTime" }
- override suspend fun download(update: (String)->Unit) { FirebaseAIOnDevice.download().collect { update(it.javaClass.simpleName) } }
+ override suspend fun download(update: (String)->Unit) { val extension=local.onDeviceExtension ?: error("On-device extension unavailable"); extension.download().collect { update(it.javaClass.simpleName) } }
  override suspend fun privateOnly(prompt: String, photo: Bitmap?): String {
   identity(local)
   val response = if (photo == null) local.generateContent(prompt) else local.generateContent(content { image(photo); text(prompt) })

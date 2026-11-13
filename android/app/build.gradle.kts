@@ -1,5 +1,5 @@
 import java.util.Properties
-plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose") }
+plugins { id("com.android.application"); id("org.jetbrains.kotlin.android"); id("org.jetbrains.kotlin.plugin.compose"); id("org.jetbrains.kotlin.plugin.serialization"); id("com.google.devtools.ksp") }
 val privateConfig = Properties().apply { rootProject.file("private.properties").takeIf { it.exists() }?.inputStream()?.use { load(it) } }
 fun privateValue(name: String) = "\"" + (privateConfig.getProperty(name) ?: "").replace("\\", "\\\\").replace("\"", "\\\"") + "\""
 android {
@@ -28,6 +28,7 @@ dependencies {
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
  implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
  implementation("com.google.firebase:firebase-ai:18.2.0")
+ ksp("com.google.firebase:firebase-ai-ksp-processor:17.0.0")
  implementation("com.google.firebase:firebase-ai-ondevice:16.0.0-beta08")
  debugImplementation("com.google.firebase:firebase-appcheck-debug:20.1.0")
  releaseImplementation("com.google.firebase:firebase-appcheck-recaptcha:20.1.0")
