@@ -1,0 +1,466 @@
+{
+  "status": "IMPORTED_OPERATOR_MEASUREMENTS_NOT_INDEPENDENTLY_ATTESTED",
+  "coverage": "29/32",
+  "corpusVersion": "synthetic-v1",
+  "nano": {
+    "tp": 839,
+    "actual": 955,
+    "predicted": 1271,
+    "recall": 0.8785340314136125,
+    "precision": 0.6601101494885917
+  },
+  "combined": {
+    "tp": 858,
+    "actual": 955,
+    "predicted": 1524,
+    "recall": 0.8984293193717278,
+    "precision": 0.562992125984252
+  },
+  "initializationMs": 62491.20000000001,
+  "latencyMs": [
+    19140.399999999994,
+    11995.899999999994,
+    13142.599999999977,
+    12138.000000000015,
+    12722.5,
+    12650.899999999965,
+    14896.899999999965,
+    9767.399999999965,
+    16390.5,
+    13069.099999999977,
+    14111.900000000023,
+    12536.600000000035,
+    12212,
+    9835.700000000012,
+    13225.900000000023,
+    9612.700000000012,
+    15069.700000000012,
+    12817.099999999977,
+    12707.299999999988,
+    12496.200000000012,
+    11394.600000000035,
+    12208.600000000035,
+    14107.899999999965,
+    14376.700000000012,
+    11189.800000000047,
+    12872.400000000023,
+    10210.800000000047,
+    16439,
+    14622.599999999977
+  ],
+  "twoKeyModelCatchRate": "NOT_RUN",
+  "twoKey": {
+    "caught": 0,
+    "mutations": 0,
+    "falseAlarms": 0,
+    "controls": 0
+  },
+  "rows": [
+    {
+      "id": "hmrc-01",
+      "nano": {
+        "tp": 46,
+        "actual": 46,
+        "predicted": 74
+      },
+      "combined": {
+        "tp": 46,
+        "actual": 46,
+        "predicted": 90
+      },
+      "latencyMs": 19140.399999999994
+    },
+    {
+      "id": "hmrc-02",
+      "nano": {
+        "tp": 24,
+        "actual": 26,
+        "predicted": 24
+      },
+      "combined": {
+        "tp": 24,
+        "actual": 26,
+        "predicted": 24
+      },
+      "latencyMs": 11995.899999999994
+    },
+    {
+      "id": "hmrc-03",
+      "nano": {
+        "tp": 35,
+        "actual": 48,
+        "predicted": 40
+      },
+      "combined": {
+        "tp": 35,
+        "actual": 48,
+        "predicted": 50
+      },
+      "latencyMs": 13142.599999999977
+    },
+    {
+      "id": "hmrc-05",
+      "nano": {
+        "tp": 36,
+        "actual": 36,
+        "predicted": 36
+      },
+      "combined": {
+        "tp": 36,
+        "actual": 36,
+        "predicted": 36
+      },
+      "latencyMs": 12138.000000000015
+    },
+    {
+      "id": "hmrc-06",
+      "nano": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 29
+      },
+      "combined": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 47
+      },
+      "latencyMs": 12722.5
+    },
+    {
+      "id": "dwp-01",
+      "nano": {
+        "tp": 23,
+        "actual": 23,
+        "predicted": 26
+      },
+      "combined": {
+        "tp": 23,
+        "actual": 23,
+        "predicted": 36
+      },
+      "latencyMs": 12650.899999999965
+    },
+    {
+      "id": "dwp-02",
+      "nano": {
+        "tp": 45,
+        "actual": 45,
+        "predicted": 56
+      },
+      "combined": {
+        "tp": 45,
+        "actual": 45,
+        "predicted": 71
+      },
+      "latencyMs": 14896.899999999965
+    },
+    {
+      "id": "dwp-03",
+      "nano": {
+        "tp": 40,
+        "actual": 40,
+        "predicted": 40
+      },
+      "combined": {
+        "tp": 40,
+        "actual": 40,
+        "predicted": 40
+      },
+      "latencyMs": 9767.399999999965
+    },
+    {
+      "id": "dwp-04",
+      "nano": {
+        "tp": 12,
+        "actual": 37,
+        "predicted": 41
+      },
+      "combined": {
+        "tp": 12,
+        "actual": 37,
+        "predicted": 51
+      },
+      "latencyMs": 16390.5
+    },
+    {
+      "id": "dwp-05",
+      "nano": {
+        "tp": 16,
+        "actual": 26,
+        "predicted": 26
+      },
+      "combined": {
+        "tp": 16,
+        "actual": 26,
+        "predicted": 26
+      },
+      "latencyMs": 13069.099999999977
+    },
+    {
+      "id": "dwp-06",
+      "nano": {
+        "tp": 32,
+        "actual": 32,
+        "predicted": 53
+      },
+      "combined": {
+        "tp": 32,
+        "actual": 32,
+        "predicted": 63
+      },
+      "latencyMs": 14111.900000000023
+    },
+    {
+      "id": "nhs-01",
+      "nano": {
+        "tp": 27,
+        "actual": 27,
+        "predicted": 38
+      },
+      "combined": {
+        "tp": 27,
+        "actual": 27,
+        "predicted": 53
+      },
+      "latencyMs": 12536.600000000035
+    },
+    {
+      "id": "nhs-03",
+      "nano": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 29
+      },
+      "combined": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 47
+      },
+      "latencyMs": 12212
+    },
+    {
+      "id": "nhs-04",
+      "nano": {
+        "tp": 43,
+        "actual": 43,
+        "predicted": 46
+      },
+      "combined": {
+        "tp": 43,
+        "actual": 43,
+        "predicted": 46
+      },
+      "latencyMs": 9835.700000000012
+    },
+    {
+      "id": "nhs-05",
+      "nano": {
+        "tp": 23,
+        "actual": 23,
+        "predicted": 33
+      },
+      "combined": {
+        "tp": 23,
+        "actual": 23,
+        "predicted": 33
+      },
+      "latencyMs": 13225.900000000023
+    },
+    {
+      "id": "nhs-06",
+      "nano": {
+        "tp": 28,
+        "actual": 41,
+        "predicted": 31
+      },
+      "combined": {
+        "tp": 28,
+        "actual": 41,
+        "predicted": 31
+      },
+      "latencyMs": 9612.700000000012
+    },
+    {
+      "id": "council-01",
+      "nano": {
+        "tp": 19,
+        "actual": 19,
+        "predicted": 59
+      },
+      "combined": {
+        "tp": 19,
+        "actual": 19,
+        "predicted": 69
+      },
+      "latencyMs": 15069.700000000012
+    },
+    {
+      "id": "council-02",
+      "nano": {
+        "tp": 33,
+        "actual": 40,
+        "predicted": 36
+      },
+      "combined": {
+        "tp": 40,
+        "actual": 40,
+        "predicted": 59
+      },
+      "latencyMs": 12817.099999999977
+    },
+    {
+      "id": "council-03",
+      "nano": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 65
+      },
+      "combined": {
+        "tp": 29,
+        "actual": 29,
+        "predicted": 65
+      },
+      "latencyMs": 12707.299999999988
+    },
+    {
+      "id": "council-05",
+      "nano": {
+        "tp": 25,
+        "actual": 25,
+        "predicted": 33
+      },
+      "combined": {
+        "tp": 25,
+        "actual": 25,
+        "predicted": 43
+      },
+      "latencyMs": 12496.200000000012
+    },
+    {
+      "id": "council-06",
+      "nano": {
+        "tp": 28,
+        "actual": 28,
+        "predicted": 28
+      },
+      "combined": {
+        "tp": 28,
+        "actual": 28,
+        "predicted": 38
+      },
+      "latencyMs": 11394.600000000035
+    },
+    {
+      "id": "tenancy-01",
+      "nano": {
+        "tp": 15,
+        "actual": 15,
+        "predicted": 42
+      },
+      "combined": {
+        "tp": 15,
+        "actual": 15,
+        "predicted": 58
+      },
+      "latencyMs": 12208.600000000035
+    },
+    {
+      "id": "tenancy-02",
+      "nano": {
+        "tp": 70,
+        "actual": 72,
+        "predicted": 70
+      },
+      "combined": {
+        "tp": 70,
+        "actual": 72,
+        "predicted": 70
+      },
+      "latencyMs": 14107.899999999965
+    },
+    {
+      "id": "tenancy-03",
+      "nano": {
+        "tp": 30,
+        "actual": 30,
+        "predicted": 124
+      },
+      "combined": {
+        "tp": 30,
+        "actual": 30,
+        "predicted": 124
+      },
+      "latencyMs": 14376.700000000012
+    },
+    {
+      "id": "tenancy-04",
+      "nano": {
+        "tp": 0,
+        "actual": 16,
+        "predicted": 27
+      },
+      "combined": {
+        "tp": 0,
+        "actual": 16,
+        "predicted": 37
+      },
+      "latencyMs": 11189.800000000047
+    },
+    {
+      "id": "tenancy-05",
+      "nano": {
+        "tp": 24,
+        "actual": 24,
+        "predicted": 24
+      },
+      "combined": {
+        "tp": 24,
+        "actual": 24,
+        "predicted": 34
+      },
+      "latencyMs": 12872.400000000023
+    },
+    {
+      "id": "tenancy-06",
+      "nano": {
+        "tp": 0,
+        "actual": 28,
+        "predicted": 0
+      },
+      "combined": {
+        "tp": 12,
+        "actual": 28,
+        "predicted": 32
+      },
+      "latencyMs": 10210.800000000047
+    },
+    {
+      "id": "nonuk-01",
+      "nano": {
+        "tp": 78,
+        "actual": 78,
+        "predicted": 89
+      },
+      "combined": {
+        "tp": 78,
+        "actual": 78,
+        "predicted": 89
+      },
+      "latencyMs": 16439
+    },
+    {
+      "id": "negative-01",
+      "nano": {
+        "tp": 0,
+        "actual": 0,
+        "predicted": 52
+      },
+      "combined": {
+        "tp": 0,
+        "actual": 0,
+        "predicted": 62
+      },
+      "latencyMs": 14622.599999999977
+    }
+  ]
+}

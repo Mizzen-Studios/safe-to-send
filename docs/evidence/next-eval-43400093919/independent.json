@@ -1,0 +1,1146 @@
+{
+  "verdict": "PARTIAL_FAILED_ACCEPTANCE_GATE",
+  "promptInspection": {
+    "detectorPrompts": 32,
+    "verifierPrompts": 49,
+    "total": 81,
+    "verifierBatchHistogram": {
+      "0": 108,
+      "1": 4,
+      "2": 3,
+      "3": 13
+    },
+    "exactProductionPromptAndSchemaReconstruction": true,
+    "expectedLabelsSent": false,
+    "reason": "Every captured input equals production guidance plus original only, or original and submitted claim batch. Truth spans, variants, trial ids and expected decisions are absent."
+  },
+  "additionalSourceHashes": {
+    "shared/nano/contract.json": "d462f36db8ca564a4cd947503aed53a3f8a2a4decfb1587fe47f27eb19bd0183",
+    "src/manual-suggestions.ts": "b99ab28c85083cf0214100908a0fc5b198de5383e45ab8d473c33b3203337e71",
+    "src/typed-evidence.ts": "7f18ba588bf13360aef46ba493cfe2b56418b24606b2d963ea97e8dde84d83b8",
+    "src/regex.ts": "8980f12214929ac0692cf4bcb8dce9819fee528e9920f2ab61521ad3dc9cf091",
+    "src/privacy.ts": "a614c89393040201c39c0587d774e4a52fd613ad497c59f30126e49100425171"
+  },
+  "additionalSourceHashBinding": "These files match the run head commit; the original receipt hashes only eight source files. No claim that extra hashes were embedded by the collector.",
+  "scoring": "UTF-16 character micro counts, successful detector subset only; Nano adapter includes deterministic DATE filtering after exact quote parsing, NOT raw model performance",
+  "detectors": {
+    "planned": 32,
+    "successful": 29,
+    "subsetIds": [
+      "hmrc-01",
+      "hmrc-02",
+      "hmrc-03",
+      "hmrc-05",
+      "hmrc-06",
+      "dwp-01",
+      "dwp-02",
+      "dwp-03",
+      "dwp-04",
+      "dwp-05",
+      "dwp-06",
+      "nhs-01",
+      "nhs-03",
+      "nhs-04",
+      "nhs-05",
+      "nhs-06",
+      "council-01",
+      "council-02",
+      "council-03",
+      "council-05",
+      "council-06",
+      "tenancy-01",
+      "tenancy-02",
+      "tenancy-03",
+      "tenancy-04",
+      "tenancy-05",
+      "tenancy-06",
+      "nonuk-01",
+      "negative-01"
+    ],
+    "adapter": {
+      "tp": 839,
+      "actual": 955,
+      "predicted": 1271,
+      "fp": 432,
+      "fn": 116,
+      "recall": 0.8785340314136125,
+      "precision": 0.6601101494885917
+    },
+    "regexSameSubset": {
+      "tp": 350,
+      "actual": 955,
+      "predicted": 659,
+      "fp": 309,
+      "fn": 605,
+      "recall": 0.36649214659685864,
+      "precision": 0.5311077389984825
+    },
+    "combinedUnion": {
+      "tp": 858,
+      "actual": 955,
+      "predicted": 1524,
+      "fp": 666,
+      "fn": 97,
+      "recall": 0.8984293193717278,
+      "precision": 0.562992125984252
+    },
+    "regexFullCorpus": {
+      "corpusVersion": "synthetic-v1",
+      "letters": 32,
+      "rows": [
+        {
+          "id": "hmrc-01",
+          "tp": 17,
+          "actual": 46,
+          "predicted": 37
+        },
+        {
+          "id": "hmrc-02",
+          "tp": 8,
+          "actual": 26,
+          "predicted": 8
+        },
+        {
+          "id": "hmrc-03",
+          "tp": 35,
+          "actual": 48,
+          "predicted": 50
+        },
+        {
+          "id": "hmrc-04",
+          "tp": 10,
+          "actual": 26,
+          "predicted": 18
+        },
+        {
+          "id": "hmrc-05",
+          "tp": 0,
+          "actual": 36,
+          "predicted": 0
+        },
+        {
+          "id": "hmrc-06",
+          "tp": 12,
+          "actual": 29,
+          "predicted": 30
+        },
+        {
+          "id": "dwp-01",
+          "tp": 0,
+          "actual": 23,
+          "predicted": 10
+        },
+        {
+          "id": "dwp-02",
+          "tp": 17,
+          "actual": 45,
+          "predicted": 42
+        },
+        {
+          "id": "dwp-03",
+          "tp": 28,
+          "actual": 40,
+          "predicted": 28
+        },
+        {
+          "id": "dwp-04",
+          "tp": 12,
+          "actual": 37,
+          "predicted": 22
+        },
+        {
+          "id": "dwp-05",
+          "tp": 11,
+          "actual": 26,
+          "predicted": 21
+        },
+        {
+          "id": "dwp-06",
+          "tp": 20,
+          "actual": 32,
+          "predicted": 30
+        },
+        {
+          "id": "nhs-01",
+          "tp": 12,
+          "actual": 27,
+          "predicted": 37
+        },
+        {
+          "id": "nhs-02",
+          "tp": 25,
+          "actual": 37,
+          "predicted": 25
+        },
+        {
+          "id": "nhs-03",
+          "tp": 0,
+          "actual": 29,
+          "predicted": 18
+        },
+        {
+          "id": "nhs-04",
+          "tp": 27,
+          "actual": 43,
+          "predicted": 27
+        },
+        {
+          "id": "nhs-05",
+          "tp": 10,
+          "actual": 23,
+          "predicted": 10
+        },
+        {
+          "id": "nhs-06",
+          "tp": 7,
+          "actual": 41,
+          "predicted": 7
+        },
+        {
+          "id": "council-01",
+          "tp": 8,
+          "actual": 19,
+          "predicted": 18
+        },
+        {
+          "id": "council-02",
+          "tp": 7,
+          "actual": 40,
+          "predicted": 23
+        },
+        {
+          "id": "council-03",
+          "tp": 14,
+          "actual": 29,
+          "predicted": 24
+        },
+        {
+          "id": "council-04",
+          "tp": 21,
+          "actual": 34,
+          "predicted": 28
+        },
+        {
+          "id": "council-05",
+          "tp": 12,
+          "actual": 25,
+          "predicted": 22
+        },
+        {
+          "id": "council-06",
+          "tp": 0,
+          "actual": 28,
+          "predicted": 10
+        },
+        {
+          "id": "tenancy-01",
+          "tp": 0,
+          "actual": 15,
+          "predicted": 16
+        },
+        {
+          "id": "tenancy-02",
+          "tp": 30,
+          "actual": 72,
+          "predicted": 30
+        },
+        {
+          "id": "tenancy-03",
+          "tp": 16,
+          "actual": 30,
+          "predicted": 16
+        },
+        {
+          "id": "tenancy-04",
+          "tp": 0,
+          "actual": 16,
+          "predicted": 10
+        },
+        {
+          "id": "tenancy-05",
+          "tp": 12,
+          "actual": 24,
+          "predicted": 22
+        },
+        {
+          "id": "tenancy-06",
+          "tp": 12,
+          "actual": 28,
+          "predicted": 32
+        },
+        {
+          "id": "nonuk-01",
+          "tp": 23,
+          "actual": 78,
+          "predicted": 23
+        },
+        {
+          "id": "negative-01",
+          "tp": 0,
+          "actual": 0,
+          "predicted": 36
+        }
+      ],
+      "tp": 406,
+      "actual": 1052,
+      "predicted": 730,
+      "recall": 0.38593155893536124,
+      "precision": 0.5561643835616439,
+      "nano": "NOT_RUN",
+      "combined": "NOT_RUN",
+      "latency": "NOT_RUN",
+      "twoKeyModelCatchRate": "NOT_RUN"
+    },
+    "rows": [
+      {
+        "id": "hmrc-01",
+        "adapter": {
+          "tp": 46,
+          "actual": 46,
+          "predicted": 74
+        },
+        "regex": {
+          "tp": 17,
+          "actual": 46,
+          "predicted": 37
+        },
+        "combined": {
+          "tp": 46,
+          "actual": 46,
+          "predicted": 90
+        },
+        "rawSpanCount": 6,
+        "adapterSpanCount": 5
+      },
+      {
+        "id": "hmrc-02",
+        "adapter": {
+          "tp": 24,
+          "actual": 26,
+          "predicted": 24
+        },
+        "regex": {
+          "tp": 8,
+          "actual": 26,
+          "predicted": 8
+        },
+        "combined": {
+          "tp": 24,
+          "actual": 26,
+          "predicted": 24
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "hmrc-03",
+        "adapter": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 40
+        },
+        "regex": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 50
+        },
+        "combined": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 50
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "hmrc-05",
+        "adapter": {
+          "tp": 36,
+          "actual": 36,
+          "predicted": 36
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 36,
+          "predicted": 0
+        },
+        "combined": {
+          "tp": 36,
+          "actual": 36,
+          "predicted": 36
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "hmrc-06",
+        "adapter": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 29
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 29,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 47
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "dwp-01",
+        "adapter": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 26
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 23,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 36
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "dwp-02",
+        "adapter": {
+          "tp": 45,
+          "actual": 45,
+          "predicted": 56
+        },
+        "regex": {
+          "tp": 17,
+          "actual": 45,
+          "predicted": 42
+        },
+        "combined": {
+          "tp": 45,
+          "actual": 45,
+          "predicted": 71
+        },
+        "rawSpanCount": 5,
+        "adapterSpanCount": 4
+      },
+      {
+        "id": "dwp-03",
+        "adapter": {
+          "tp": 40,
+          "actual": 40,
+          "predicted": 40
+        },
+        "regex": {
+          "tp": 28,
+          "actual": 40,
+          "predicted": 28
+        },
+        "combined": {
+          "tp": 40,
+          "actual": 40,
+          "predicted": 40
+        },
+        "rawSpanCount": 2,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "dwp-04",
+        "adapter": {
+          "tp": 12,
+          "actual": 37,
+          "predicted": 41
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 37,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 12,
+          "actual": 37,
+          "predicted": 51
+        },
+        "rawSpanCount": 4,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "dwp-05",
+        "adapter": {
+          "tp": 16,
+          "actual": 26,
+          "predicted": 26
+        },
+        "regex": {
+          "tp": 11,
+          "actual": 26,
+          "predicted": 21
+        },
+        "combined": {
+          "tp": 16,
+          "actual": 26,
+          "predicted": 26
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 3
+      },
+      {
+        "id": "dwp-06",
+        "adapter": {
+          "tp": 32,
+          "actual": 32,
+          "predicted": 53
+        },
+        "regex": {
+          "tp": 20,
+          "actual": 32,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 32,
+          "actual": 32,
+          "predicted": 63
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "nhs-01",
+        "adapter": {
+          "tp": 27,
+          "actual": 27,
+          "predicted": 38
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 27,
+          "predicted": 37
+        },
+        "combined": {
+          "tp": 27,
+          "actual": 27,
+          "predicted": 53
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "nhs-03",
+        "adapter": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 29
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 29,
+          "predicted": 18
+        },
+        "combined": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 47
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "nhs-04",
+        "adapter": {
+          "tp": 43,
+          "actual": 43,
+          "predicted": 46
+        },
+        "regex": {
+          "tp": 27,
+          "actual": 43,
+          "predicted": 27
+        },
+        "combined": {
+          "tp": 43,
+          "actual": 43,
+          "predicted": 46
+        },
+        "rawSpanCount": 1,
+        "adapterSpanCount": 1
+      },
+      {
+        "id": "nhs-05",
+        "adapter": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 33
+        },
+        "regex": {
+          "tp": 10,
+          "actual": 23,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 33
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "nhs-06",
+        "adapter": {
+          "tp": 28,
+          "actual": 41,
+          "predicted": 31
+        },
+        "regex": {
+          "tp": 7,
+          "actual": 41,
+          "predicted": 7
+        },
+        "combined": {
+          "tp": 28,
+          "actual": 41,
+          "predicted": 31
+        },
+        "rawSpanCount": 1,
+        "adapterSpanCount": 1
+      },
+      {
+        "id": "council-01",
+        "adapter": {
+          "tp": 19,
+          "actual": 19,
+          "predicted": 59
+        },
+        "regex": {
+          "tp": 8,
+          "actual": 19,
+          "predicted": 18
+        },
+        "combined": {
+          "tp": 19,
+          "actual": 19,
+          "predicted": 69
+        },
+        "rawSpanCount": 4,
+        "adapterSpanCount": 3
+      },
+      {
+        "id": "council-02",
+        "adapter": {
+          "tp": 33,
+          "actual": 40,
+          "predicted": 36
+        },
+        "regex": {
+          "tp": 7,
+          "actual": 40,
+          "predicted": 23
+        },
+        "combined": {
+          "tp": 40,
+          "actual": 40,
+          "predicted": 59
+        },
+        "rawSpanCount": 4,
+        "adapterSpanCount": 3
+      },
+      {
+        "id": "council-03",
+        "adapter": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 65
+        },
+        "regex": {
+          "tp": 14,
+          "actual": 29,
+          "predicted": 24
+        },
+        "combined": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 65
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "council-05",
+        "adapter": {
+          "tp": 25,
+          "actual": 25,
+          "predicted": 33
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 25,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 25,
+          "actual": 25,
+          "predicted": 43
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "council-06",
+        "adapter": {
+          "tp": 28,
+          "actual": 28,
+          "predicted": 28
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 28,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 28,
+          "actual": 28,
+          "predicted": 38
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "tenancy-01",
+        "adapter": {
+          "tp": 15,
+          "actual": 15,
+          "predicted": 42
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 15,
+          "predicted": 16
+        },
+        "combined": {
+          "tp": 15,
+          "actual": 15,
+          "predicted": 58
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "tenancy-02",
+        "adapter": {
+          "tp": 70,
+          "actual": 72,
+          "predicted": 70
+        },
+        "regex": {
+          "tp": 30,
+          "actual": 72,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 70,
+          "actual": 72,
+          "predicted": 70
+        },
+        "rawSpanCount": 5,
+        "adapterSpanCount": 5
+      },
+      {
+        "id": "tenancy-03",
+        "adapter": {
+          "tp": 30,
+          "actual": 30,
+          "predicted": 124
+        },
+        "regex": {
+          "tp": 16,
+          "actual": 30,
+          "predicted": 16
+        },
+        "combined": {
+          "tp": 30,
+          "actual": 30,
+          "predicted": 124
+        },
+        "rawSpanCount": 4,
+        "adapterSpanCount": 4
+      },
+      {
+        "id": "tenancy-04",
+        "adapter": {
+          "tp": 0,
+          "actual": 16,
+          "predicted": 27
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 16,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 0,
+          "actual": 16,
+          "predicted": 37
+        },
+        "rawSpanCount": 2,
+        "adapterSpanCount": 1
+      },
+      {
+        "id": "tenancy-05",
+        "adapter": {
+          "tp": 24,
+          "actual": 24,
+          "predicted": 24
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 24,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 24,
+          "actual": 24,
+          "predicted": 34
+        },
+        "rawSpanCount": 3,
+        "adapterSpanCount": 2
+      },
+      {
+        "id": "tenancy-06",
+        "adapter": {
+          "tp": 0,
+          "actual": 28,
+          "predicted": 0
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 28,
+          "predicted": 32
+        },
+        "combined": {
+          "tp": 12,
+          "actual": 28,
+          "predicted": 32
+        },
+        "rawSpanCount": 1,
+        "adapterSpanCount": 0
+      },
+      {
+        "id": "nonuk-01",
+        "adapter": {
+          "tp": 78,
+          "actual": 78,
+          "predicted": 89
+        },
+        "regex": {
+          "tp": 23,
+          "actual": 78,
+          "predicted": 23
+        },
+        "combined": {
+          "tp": 78,
+          "actual": 78,
+          "predicted": 89
+        },
+        "rawSpanCount": 5,
+        "adapterSpanCount": 4
+      },
+      {
+        "id": "negative-01",
+        "adapter": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 52
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 36
+        },
+        "combined": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 62
+        },
+        "rawSpanCount": 4,
+        "adapterSpanCount": 3
+      }
+    ],
+    "falsePositiveExamples": [
+      {
+        "id": "hmrc-01",
+        "quote": "Dear Robin Fiction,",
+        "kind": "NAME",
+        "falsePositiveCharacters": 6
+      },
+      {
+        "id": "hmrc-01",
+        "quote": "1 Imaginary Lane,",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "hmrc-01",
+        "quote": "ZZ1 1ZZ.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "hmrc-01",
+        "quote": "UTR 0000000000.",
+        "kind": "NI",
+        "falsePositiveCharacters": 5
+      },
+      {
+        "id": "hmrc-01",
+        "quote": "Balance £24.50.",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 15
+      },
+      {
+        "id": "hmrc-03",
+        "quote": "REF: HMRC-DEMO003",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 5
+      },
+      {
+        "id": "dwp-01",
+        "quote": "NI QQ000000A",
+        "kind": "NI",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "dwp-02",
+        "quote": "Reference DWP-SYN002.",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 11
+      },
+      {
+        "id": "dwp-04",
+        "quote": "Call 07700 900123",
+        "kind": "PHONE",
+        "falsePositiveCharacters": 5
+      },
+      {
+        "id": "dwp-04",
+        "quote": "outstanding amount £9.99",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 24
+      },
+      {
+        "id": "dwp-05",
+        "quote": "1234567890",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "dwp-06",
+        "quote": "Drew Fiction: repayment £100.00.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 20
+      },
+      {
+        "id": "dwp-06",
+        "quote": "drew@example.invalid.",
+        "kind": "EMAIL",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "nhs-01",
+        "quote": "NHS number 000 000 0000",
+        "kind": "NHS",
+        "falsePositiveCharacters": 11
+      },
+      {
+        "id": "nhs-04",
+        "quote": "Skyler Synthetic <skyler.test@example.invalid>",
+        "kind": "EMAIL",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "nhs-05",
+        "quote": "Emery Fiction:",
+        "kind": "NAME",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "nhs-05",
+        "quote": "NHS no. 0000000000.",
+        "kind": "NHS",
+        "falsePositiveCharacters": 9
+      },
+      {
+        "id": "nhs-06",
+        "quote": "Unit 6, Example House, ZZ3 3ZZ.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "council-01",
+        "quote": "Dear Reese Fable",
+        "kind": "NAME",
+        "falsePositiveCharacters": 5
+      },
+      {
+        "id": "council-01",
+        "quote": "account 00000000",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "council-01",
+        "quote": "Council tax balance £250.10",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 27
+      },
+      {
+        "id": "council-02",
+        "quote": "£12",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "council-03",
+        "quote": "To Ellis Synthetic: reference COUNCIL-DEMO03",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 15
+      },
+      {
+        "id": "council-03",
+        "quote": "receipt date unknown.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 21
+      },
+      {
+        "id": "council-05",
+        "quote": "Contact 07700-900789",
+        "kind": "PHONE",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "tenancy-01",
+        "quote": "Dear River Imaginary.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 6
+      },
+      {
+        "id": "tenancy-01",
+        "quote": "Rent balance £725.00.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 21
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "Shiloh Fiction.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "sort code 00-00-00, account 00000000.",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 21
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "Do not use these invalid test details.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 38
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "Verify payment instructions first.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 34
+      },
+      {
+        "id": "tenancy-04",
+        "quote": "Deposit £900.00 is recorded",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 27
+      },
+      {
+        "id": "nonuk-01",
+        "quote": "Charlie Synthetic, 1 Fictional Example Way",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 2
+      },
+      {
+        "id": "nonuk-01",
+        "quote": "USD 12.00",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 9
+      },
+      {
+        "id": "negative-01",
+        "quote": "Form 12345678",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 13
+      },
+      {
+        "id": "negative-01",
+        "quote": "version 1234567890",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 18
+      },
+      {
+        "id": "negative-01",
+        "quote": "example code 12-34-56",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 21
+      }
+    ]
+  },
+  "verifiers": {
+    "all": {
+      "planned": 128,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 12,
+      "error": 7,
+      "timeout": 1,
+      "aborted": 0,
+      "not_run": 108,
+      "decided": 0,
+      "decidedFraction": 0,
+      "observedRejectionsOverPlanned": 0,
+      "decidedSubsetRejectionRate": null
+    },
+    "mutations": {
+      "planned": 96,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 9,
+      "error": 4,
+      "timeout": 1,
+      "aborted": 0,
+      "not_run": 82,
+      "decided": 0,
+      "decidedFraction": 0,
+      "observedRejectionsOverPlanned": 0,
+      "decidedSubsetRejectionRate": null
+    },
+    "controls": {
+      "planned": 32,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 3,
+      "error": 3,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 26,
+      "decided": 0,
+      "decidedFraction": 0,
+      "observedRejectionsOverPlanned": 0,
+      "decidedSubsetRejectionRate": null
+    }
+  },
+  "limits": "No expected truth or labels supplied to native API. Candidate claims are authored test inputs, not model-generated cloud answers. This trial score is not full product two-key validation. Null decided rates mean undefined, never zero accuracy."
+}

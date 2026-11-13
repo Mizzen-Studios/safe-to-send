@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-13T09:17:56.734Z",
+  "os": "linux",
+  "release": "7.0.0-1019-azure",
+  "arch": "x64",
+  "cpu": [
+    "AMD EPYC 7763 64-Core Processor",
+    "AMD EPYC 7763 64-Core Processor",
+    "AMD EPYC 7763 64-Core Processor",
+    "AMD EPYC 7763 64-Core Processor"
+  ],
+  "logicalCpus": 4,
+  "totalRamBytes": 16759435264,
+  "freeRamBytes": 15437615104,
+  "diskAvailableBytes": 93098840064,
+  "gpu": [],
+  "runnerImage": "ubuntu26",
+  "runnerImageVersion": "20261111.196.1"
+}

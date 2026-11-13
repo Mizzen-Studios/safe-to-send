@@ -1,0 +1,201 @@
+{
+  "run": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43400093919",
+  "source": {
+    "commit": "a8757413f8fec8ec74c555ba896db8b18f1559c5",
+    "dirty": false,
+    "sha256": {
+      "src/nano.ts": "2d80402ef760633e3b6b5f7f17a71fa02fc2072cfded96c05610ca277c2583ad",
+      "src/hybrid.ts": "d8e7ad7218538f5bfbc4b78fc2549651ad56a903d4592fb3c48483d475c83cf1",
+      "src/eval-corpus.ts": "b33ed0991e70158f2c72eb8aa55bda4c7aaaed04b6376c19690c8d6ab0123ee3",
+      "operator/device-eval/core.ts": "e63fb2d5b72a1a592194ab547e9b8030251754fec372f3e76c8479535b54ec39",
+      "operator/device-eval/native.ts": "d9ceab622c8f068e2811bb52dfec77c7e46fdbc03c735eadf02991091d52bff5",
+      "operator/device-eval/page.ts": "a6cf80a265cf8012fa04cd1beaed3f99f9fa4dff0474601c8035d5ac0aeeb08d",
+      "operator/device-eval/run.mjs": "a1d56b35e962cdffe0c6e3ab6057aff4506ae9c1e699c44da4d36e76fae15a84",
+      "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+    }
+  },
+  "receiptSha256": "dedb8ebf275ff89cb728bbf0cf6f36935ddaff90c9d58e9c3818736cdba34985",
+  "receiptBytes": 576812,
+  "modelIdentity": {
+    "status": "UNKNOWN",
+    "reportedName": null,
+    "reason": "Exact model identity/revision is not exposed or attested. Receipt model string is an operator label, not a measured identity."
+  },
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "os": "Linux x86_64",
+  "proofStatus": "PARTIAL_OR_NOT_RUN",
+  "proofErrors": [],
+  "pageNetwork": {
+    "CSP": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; frame-ancestors 'none'; worker-src 'none'",
+    "blockedPageRequests": []
+  },
+  "coverage": {
+    "detectors": {
+      "planned": 32,
+      "success": 29,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 0,
+      "error": 3,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 0
+    },
+    "verifiers": {
+      "planned": 128,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 12,
+      "error": 7,
+      "timeout": 1,
+      "aborted": 0,
+      "not_run": 108
+    },
+    "mutations": {
+      "planned": 96,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 9,
+      "error": 4,
+      "timeout": 1,
+      "aborted": 0,
+      "not_run": 82
+    },
+    "controls": {
+      "planned": 32,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 3,
+      "error": 3,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 26
+    },
+    "mutationsDecided": 0,
+    "controlsDecided": 0
+  },
+  "nativePromptCount": 81,
+  "nativeErrors": 1,
+  "verifiedManifestFiles": [
+    "after-broker.png",
+    "after-components.png",
+    "after-events.png",
+    "before-broker.png",
+    "before-components.png",
+    "before-events.png",
+    "diagnostics-after.json",
+    "diagnostics-before.json",
+    "hardware.json",
+    "installation.json",
+    "receipt.json",
+    "screen-000.png",
+    "screen-001.png",
+    "screen-002.png",
+    "screen-003.png",
+    "screen-004.png",
+    "screen-005.png",
+    "screen-006.png",
+    "screen-007.png",
+    "screen-008.png",
+    "screen-009.png",
+    "screen-010.png",
+    "screen-011.png",
+    "screen-012.png",
+    "screen-013.png",
+    "screen-014.png",
+    "screen-015.png",
+    "screen-016.png",
+    "screen-017.png",
+    "screen-018.png",
+    "screen-019.png",
+    "screen-020.png",
+    "screen-021.png",
+    "screen-022.png",
+    "screen-023.png",
+    "screen-024.png",
+    "screen-025.png",
+    "screen-026.png",
+    "screen-027.png",
+    "screen-028.png",
+    "screen-029.png",
+    "screen-030.png",
+    "screen-031.png",
+    "screen-032.png",
+    "screen-033.png",
+    "screen-034.png",
+    "screen-035.png",
+    "screen-036.png",
+    "screen-037.png",
+    "proof.json"
+  ],
+  "initializationMs": 62491.20000000001,
+  "timing": {
+    "detectorSuccessfulSubset": {
+      "n": 29,
+      "p50Ms": 12722.5,
+      "p95Ms": 16439
+    },
+    "detectorAllAttempted": {
+      "n": 32,
+      "p50Ms": 12707.299999999988,
+      "p95Ms": 16439
+    },
+    "verifierAllAttempted": {
+      "n": 20,
+      "p50Ms": 33646.19999999995,
+      "p95Ms": 40151
+    },
+    "verifierIncludingNotRunForAudit": {
+      "n": 128,
+      "p50Ms": 0,
+      "p95Ms": 35355.19999999995
+    }
+  },
+  "detectorErrors": [
+    {
+      "id": "hmrc-04",
+      "status": "error",
+      "error": "Error: Nano quote absent from source",
+      "rawOutputs": [
+        "{\"findings\": [{\"quote\": \"Taylor Imaginary\", \"kind\": \"NAME\"}, {\"quote\": \" DOB 04.05.1980\", \"kind\": \"DATE\"}]}"
+      ]
+    },
+    {
+      "id": "nhs-02",
+      "status": "error",
+      "error": "Error: Nano quote absent from source",
+      "rawOutputs": [
+        "{\"findings\": [{\"quote\": \"Patient: Finley Fable;\", \"kind\": \"NAME\"}, {\"quote\": \"DOB 09/08/1970;\", \"kind\": \"DATE\"}, {\"quote\": \"Phone +44 7700 900456;\", \"kind\": \"PHONE\"}]}"
+      ]
+    },
+    {
+      "id": "council-04",
+      "status": "error",
+      "error": "Error: Nano quote absent from source",
+      "rawOutputs": [
+        "{\"findings\": [{\"quote\": \"Arden Fiction\", \"kind\": \"NAME\"}, {\"quote\": \"ardin@example.invalid\", \"kind\": \"EMAIL\"}, {\"quote\": \"ZZ9 9ZZ\", \"kind\": \"ADDRESS\"}, {\"quote\": \"Public ward code\", \"kind\": \"ADDRESS\"}]}"
+      ]
+    }
+  ],
+  "verifierErrors": {
+    "Error: Nano evidence quote absent from source": 7
+  },
+  "regexSameSuccessfulSubset": {
+    "tp": 350,
+    "actual": 955,
+    "predicted": 659,
+    "recall": 0.36649214659685864,
+    "precision": 0.5311077389984825
+  },
+  "fullCorpusTruthCharacters": 1052,
+  "limitations": "Three-field authored synthetic text experiment, not complete product two-key journey, image/OCR, real-letter generalization, or independent device attestation."
+}
