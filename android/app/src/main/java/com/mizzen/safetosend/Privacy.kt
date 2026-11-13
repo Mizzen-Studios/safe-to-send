@@ -33,10 +33,10 @@ class PrivacySession {
  }
  fun redacted(): String { var s = source; spans.sortedByDescending { it.start }.forEach { s = s.replaceRange(it.start,it.end,"[${it.role}]") }; return s }
  fun approve(exactVisiblePayload: String) {
-  require(synthetic && spans.isNotEmpty() && exactVisiblePayload == redacted() && exactVisiblePayload != source)
+  require(synthetic && spans.isNotEmpty() && exactVisiblePayload == Prompts.response(redacted()) && exactVisiblePayload != source)
   approval = Approval(revision, exactVisiblePayload, UUID.randomUUID().toString())
  }
- fun isApproved() = approval?.let { it.revision == revision && it.payload == redacted() && synthetic } == true
+ fun isApproved() = approval?.let { it.revision == revision && it.payload == Prompts.response(redacted()) && synthetic } == true
  /** Consume before suspending so repeated taps cannot replay a handoff. */
  fun consume(): Pair<Long,String> { check(isApproved()); val a = approval!!; approval = null; return a.revision to a.payload }
  fun record(payload: String, source: String) { ledger.add(LedgerEntry(payload,payload.toByteArray(Charsets.UTF_8).size,sha256(payload),System.currentTimeMillis(),source)) }

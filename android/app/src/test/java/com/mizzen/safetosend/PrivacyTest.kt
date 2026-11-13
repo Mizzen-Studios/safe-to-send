@@ -3,10 +3,10 @@ import org.junit.Assert.*
 import org.junit.Test
 class PrivacyTest {
  private fun session() = PrivacySession().apply { change("Dear Alex, pay £20 by Friday. From Sam"); addSpan(5,9,"WRITER"); addSpan(35,38,"ADDRESSEE"); confirmSynthetic(true) }
- @Test fun approvalIsOneUse() { val p=session(); p.approve(p.redacted()); assertTrue(p.isApproved()); p.consume(); assertFalse(p.isApproved()) }
- @Test fun editInvalidates() { val p=session(); p.approve(p.redacted()); p.change(p.source+"!"); assertFalse(p.isApproved()) }
- @Test fun spanInvalidates() { val p=session(); p.approve(p.redacted()); p.addSpan(15,18,"AMOUNT"); assertFalse(p.isApproved()) }
- @Test fun syntheticChangeInvalidates() { val p=session(); p.approve(p.redacted()); p.confirmSynthetic(false); assertFalse(p.isApproved()) }
+ @Test fun approvalIsOneUse() { val p=session(); p.approve(Prompts.response(p.redacted())); assertTrue(p.isApproved()); p.consume(); assertFalse(p.isApproved()) }
+ @Test fun editInvalidates() { val p=session(); p.approve(Prompts.response(p.redacted())); p.change(p.source+"!"); assertFalse(p.isApproved()) }
+ @Test fun spanInvalidates() { val p=session(); p.approve(Prompts.response(p.redacted())); p.addSpan(15,18,"AMOUNT"); assertFalse(p.isApproved()) }
+ @Test fun syntheticChangeInvalidates() { val p=session(); p.approve(Prompts.response(p.redacted())); p.confirmSynthetic(false); assertFalse(p.isApproved()) }
  @Test(expected=IllegalArgumentException::class) fun originalNeverApproved() { val p=session(); p.approve(p.source) }
  @Test(expected=IllegalArgumentException::class) fun overlapRejected() { val p=session(); p.addSpan(6,10,"OTHER") }
  @Test fun rolesRestoreLocally() { val p=session(); assertEquals("Dear Sam, I am Alex",p.restore("Dear [ADDRESSEE], I am [WRITER]")) }

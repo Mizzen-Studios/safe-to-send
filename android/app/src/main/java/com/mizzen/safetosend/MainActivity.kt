@@ -55,6 +55,7 @@ class SessionModel : ViewModel() {
  Surface { Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(20.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
   Text("Safe to Send",style=MaterialTheme.typography.headlineLarge)
   Text("Synthetic notices only • originals stay local • never auto-send")
+  Text("Review revision $tick",style=MaterialTheme.typography.bodySmall)
   Text("Android experimental preview. Production attestation UNVERIFIED. No phone/Nano inference claimed.",style=MaterialTheme.typography.bodySmall)
   Text(status)
   Button(enabled=!busy,onClick={ task { status="Nano: "+provider.status() } }) { Text("Check Nano availability") }
@@ -85,10 +86,10 @@ class SessionModel : ViewModel() {
   if(payload.isNotEmpty()) {
    Text("Exact application text passed to Firebase SDK (NOT HTTP/TLS wire bytes)",style=MaterialTheme.typography.titleMedium)
    Text(payload)
-   Button(enabled=!busy && p.synthetic,onClick={ try {p.approve(p.redacted()); tick++; status="Approved exact payload; edits invalidate approval"} catch(_:Exception){ status="Redact at least one selection and confirm synthetic content"} }) { Text("Approve this exact payload") }
+   Button(enabled=!busy && p.synthetic,onClick={ try {p.approve(payload); tick++; status="Approved exact payload; edits invalidate approval"} catch(_:Exception){ status="Redact at least one selection and confirm synthetic content"} }) { Text("Approve this exact payload") }
   }
   Button(enabled=!busy && p.isApproved() && payload==Prompts.response(p.redacted()),onClick={task {
-   val (rev,redacted)=p.consume(); val exact=Prompts.response(redacted)
+   val (rev,exact)=p.consume()
    check(exact==payload)
    p.record(exact,"ATTEMPT / PREFER_ON_DEVICE; transport not observed")
    val answer=provider.approvedHybrid(exact)

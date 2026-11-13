@@ -32,8 +32,8 @@ class NativeContractTest {
  @Test fun manualApprovalContractUsesOnlyRedactedBytes()=runBlocking {
   val p=PrivacySession(); val provider=TestOnlyProvider()
   p.change("Dear Alex, pay £20"); p.addSpan(5,9,"WRITER"); p.confirmSynthetic(true)
-  val exact=Prompts.response(p.redacted()); p.approve(p.redacted()); val (_,s)=p.consume()
-  val r=provider.approvedHybrid(Prompts.response(s))
+  val exact=Prompts.response(p.redacted()); p.approve(Prompts.response(p.redacted())); val (_,s)=p.consume()
+  val r=provider.approvedHybrid(s)
   assertEquals(exact,provider.calls.single()); assertFalse(provider.calls.single().contains("Alex")); assertTrue(r.source.startsWith("TEST_ONLY")); assertFalse(p.isApproved())
  }
  @Test fun unavailablePrivatePathCannotFallBack()=runBlocking {

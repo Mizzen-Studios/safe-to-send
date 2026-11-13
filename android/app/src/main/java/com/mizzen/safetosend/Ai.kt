@@ -6,6 +6,8 @@ import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
 import com.google.firebase.Firebase
 import com.google.firebase.ai.ai
+import com.google.firebase.ai.InferenceMode
+import com.google.firebase.ai.OnDeviceConfig
 import com.google.firebase.ai.type.*
 import com.google.firebase.ai.ondevice.FirebaseAIOnDevice
 import org.json.JSONObject
