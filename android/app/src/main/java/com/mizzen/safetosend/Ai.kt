@@ -44,7 +44,7 @@ class FirebaseProvider : AiProvider {
  private fun schema(j:JSONObject):Schema = when(j.getString("type")) {
   "object" -> { val p=j.getJSONObject("properties"); val required=j.getJSONArray("required"); val r=(0 until required.length()).map { required.getString(it) }; Schema.obj(p.keys().asSequence().associateWith { schema(p.getJSONObject(it)) }, optionalProperties=p.keys().asSequence().filter { it !in r }.toList()) }
   "array" -> Schema.array(schema(j.getJSONObject("items")),maxItems=if(j.has("maxItems")) j.getInt("maxItems") else null)
-  "string" -> if(j.has("enum")) { val a=j.getJSONArray("enum"); Schema.enumeration((0 until a.length()).map { a.getString(it) }) } else Schema.str()
+  "string" -> if(j.has("enum")) { val a=j.getJSONArray("enum"); Schema.enumeration((0 until a.length()).map { a.getString(it) }) } else Schema.string()
   else -> error("Unsupported shared schema")
  }
  override suspend fun privateJson(prompt:String,schema:JSONObject):String { val instance=model(InferenceMode.ONLY_ON_DEVICE,this.schema(schema)); identity(instance); val response=instance.generateContent(prompt); check(response.inferenceSource==com.google.firebase.ai.InferenceSource.ON_DEVICE); responseModelVersion=response.modelVersion; return response.text ?: error("No local response") }
