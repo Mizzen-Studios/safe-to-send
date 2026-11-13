@@ -28,6 +28,7 @@ class PrivacySession {
  fun addSpan(start: Int, end: Int, role: String) {
   require(start >= 0 && end <= source.length && end > start)
   require(role.matches(Regex("[A-Z][A-Z_0-9]{0,30}")))
+  require(!source.contains("[$role]"))
   require(spans.none { start < it.end && end > it.start || role == it.role })
   spans.add(Span(start,end,role)); invalidate()
  }
@@ -46,7 +47,7 @@ class PrivacySession {
   val accepted = response ?: return false
   return accepted.revision == rev && rev == revision && accepted.answer === answer && accepted.receipt === receipt &&
    answer.claims().isNotEmpty() && evidence.size == answer.claims().size &&
-   answer.claims().zip(evidence).all { (claim, quote) -> quote.isNotBlank() && quote == claim.evidence && source.contains(quote) }
+   answer.claims().zip(evidence).all { (claim, quote) -> quote.isNotBlank() && quote == restore(claim.evidence) && source.contains(quote) }
  }
  fun restore(text: String): String { var s = text; spans.forEach { s = s.replace("[${it.role}]",source.substring(it.start,it.end)) }; return s }
  fun clear() { source=""; spans.clear(); synthetic=false; ledger.clear(); invalidate() }

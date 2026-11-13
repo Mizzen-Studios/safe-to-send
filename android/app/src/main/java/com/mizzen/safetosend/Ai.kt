@@ -1,3 +1,4 @@
+@file:OptIn(com.google.firebase.ai.type.PublicPreviewAPI::class)
 package com.mizzen.safetosend
 
 import android.app.Application
@@ -50,6 +51,6 @@ object Prompts {
   val j=JSONObject(raw.removePrefix("000json").removePrefix("000").removeSuffix("000").trim())
   require(j.keys().asSequence().toSet() == setOf("explanation","draft","deadlines","actions","amounts"))
   fun list(key:String):List<Claim> { val a=j.getJSONArray(key); return (0 until a.length()).map { val c=a.getJSONObject(it); require(c.keys().asSequence().toSet()==setOf("text","evidence")); Claim(c.getString("text"),c.getString("evidence")).also { require(it.text.isNotBlank() && it.evidence.isNotBlank()) } } }
-  return Answer(list("explanation"),list("draft"),list("deadlines"),list("actions"),list("amounts"))
+  return Answer(list("explanation"),list("draft"),list("deadlines"),list("actions"),list("amounts")).also { require(it.explanation.isNotEmpty() && it.draft.isNotEmpty()) }
  }
 }
