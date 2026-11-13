@@ -27,7 +27,7 @@ dependencies {
  implementation("com.google.firebase:firebase-ai:18.2.0")
  implementation("com.google.firebase:firebase-ai-ondevice:16.0.0-beta08")
  debugImplementation("com.google.firebase:firebase-appcheck-debug:20.1.0")
- releaseImplementation("com.google.firebase:firebase-appcheck-playintegrity:20.0.2")
+ releaseImplementation("com.google.firebase:firebase-appcheck-playintegrity:20.1.0")
  testImplementation("junit:junit:4.13.2")
  androidTestImplementation(platform("androidx.compose:compose-bom:2025.11.01"))
  androidTestImplementation("androidx.compose.ui:ui-test-junit4")
