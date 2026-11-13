@@ -1,0 +1,46 @@
+{
+  "runUrl": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43337348269",
+  "headSha": "151f81351296514dbfa02c262c90c365af3cc3aa",
+  "status": "completed",
+  "conclusion": "failure",
+  "ubuntuStable": {
+    "chrome": "157.0.8103.78",
+    "classification": "REAL_ON_DEVICE_IMAGE_SCHEMA_PASS",
+    "availability": "text/image downloadable",
+    "text": "READY.",
+    "directImage": {
+      "code": "BLUE-472",
+      "ms": 8359.2
+    },
+    "firebaseOnlyOnDevice": {
+      "inferenceSource": "on_device",
+      "code": "BLUE-472",
+      "ms": 7501.7
+    },
+    "coldTextIncludingDownloadMs": 96326.8,
+    "broker": "Inspected; manifest loaded; user setting true; Device Capable true; nano_v3_cpu_component2025.8.21.1028 Ready100%; CPU model4238.72MiB; prompt_api Available; events inspected0rows. GpuBlocked/0VRAM did not prevent CPU inference.",
+    "launch": "Native persistent isolated profile/CDP, no Playwright defaults, no sandbox-disabling or requested-perf-bypass."
+  },
+  "ubuntuDev": {
+    "chrome": "159.0.8144.0",
+    "availability": "text/image unavailable",
+    "directError": "NotSupportedError: The feature flag gating model execution was disabled.",
+    "sdkError": "FirebaseError: AI: Local LanguageModel API not available in this environment. (AI/api-not-enabled)",
+    "broker": "Inspected: featureflag true; policy true; user setting false; prompt_api Not Supported; no assets/models; manifest1.20261108.2; events0rows. Missing gate mechanism not established.",
+    "downloads": 0
+  },
+  "windows": {
+    "rows": [
+      "stable-native",
+      "dev-native",
+      "canary-native",
+      "stable-requested-perf-bypass"
+    ],
+    "classification": "INSTALL_SETUP_FAILED_NOT_RUN",
+    "reason": "Get-AuthenticodeSignature command found in Microsoft.PowerShell.Security but module could not be loaded; CouldNotAutoloadMatchingModule. install-chrome.mjs line24 invokes legacy powershell inside pwsh7 workflow. No availability, internals or inference tests reached.",
+    "bypass": "Separate diagnostic row; flag support UNVERIFIED_NOT_REACHED; no ordinary eligibility claim."
+  },
+  "scope": "Single synthetic fixture smoke test only; real corpus evaluation/accuracy/demo NOT_RUN.",
+  "recommendedNext": "Integrate real corpus on proven Ubuntu Stable native lane. Windows minimum proposed repair: invoke pwsh and explicitly import Microsoft.PowerShell.Security/check cmdlet, preserving signature checks and reporting underlying import failure. This repair is not yet Windows-proven. Put installer outside artifacts and finally-clean it (failure left162MB installer in each Windows artifact).",
+  "mutations": "No source/main edits, retry, dispatch, paid resources, Firebase changes, secret/HAR/profile collection or posts."
+}
