@@ -1,30 +1,39 @@
-# Nano text protocol repair (unmeasured candidate)
+# Nano quote protocol (quotes-v1; unmeasured candidate)
 
-Base: 291947e0e3c7cdd1623485e1677095bb4d62954d. This is a production adapter/prompt change, not a new model measurement.
+This supersedes the indexed-offset model wire protocol. Prior real metrics and receipts in EVALUATION.md are unchanged. Run 43346787463 is an independent intermediate indexed-protocol diagnostic, **not** proof of this quote candidate. Parent owns the next authorized real 32-letter / 96-mutation rerun.
 
-## Failure motivating the change
+## Shared wire contract
 
-Real run 43339470805 returned all 160 native prompts without native errors, but detector character TP was 0/1052 and every predicted character lay in the synthetic heading. Verifier structural failures were 78 one-check and five two-check responses to three-claim requests. Local inspection receipt: workspace .openclaw/tmp/safe-send-eval-run-43339470805/inspection-summary.json; underlying receipt SHA-256 07a2fc2d574b5b159868f839f76da2f9dbcc37250f28dcd63369b35a21389cba. These failures remain the latest actual measurement; no improved accuracy or timing is claimed here.
+Canonical assets: [../shared/nano/contract.json](../shared/nano/contract.json) contains prompts and text/image/verifier JSON schemas, imported directly by the web adapter. Android can consume the same JSON asset; it must implement identical strict local matching and bounds, not silently translate legacy schemas. The contract contains no corpus ground truth, mutation labels, variants, expected answers or evaluation IDs.
 
-## Input/output
+- Text input: detectionPrompt followed by newline and JSON containing only original.
+- Text output: exactly findings, an array of objects containing exactly quote and kind. No transcription or offsets.
+- Image output: exactly transcription and findings; findings use the same quote/kind contract, indexed locally against transcription. OCR correctness still requires real image evaluation.
+- Verification input: verificationPrompt followed by newline and JSON containing only original and claims (id, kind, value).
+- Verification output: exactly checks; each check has exactly id, status and evidence. Each evidence item has exactly quote, **not** start/end. Status remains supported/mismatch/unsupported/unknown.
 
-Text detection now supplies the unchanged original, its UTF-16 length, mechanically indexed non-whitespace tokens (start/end/text), and nonempty line start/end offsets. Tables are constructed solely from the supplied source, without regex PII classifications, corpus labels, expected answers, mutation types, or evaluation IDs. All JSON values are explicitly untrusted source data, not instructions. Token text is INPUT ONLY.
+No indexed token/line tables are sent. The old indexedOriginal export remains an unused mechanical utility for historical test compatibility, not part of current inference inputs. ONLY_ON_DEVICE, initialization and response-provenance checks remain mandatory; there are no cloud parameters or fallbacks.
 
-Text OUTPUT remains exactly an object with spans, each containing numeric start/end and a schema kind. No transcription, original words, token text, quotes, or letter echo are allowed. Numeric example spans were removed to avoid example-offset anchoring. The existing exact-key, bounded-count/size, integer, range, kind and UTF-16 surrogate-boundary parser is unchanged. Tables guide selection but are not a detection oracle or a deterministic privacy guarantee.
+## Local detection matching
 
-Verifier uses the same source indexing, with a per-request schema enumerating only the batch's exact claim IDs and setting checks minItems=maxItems=batch size. Up to three serial calls cover every submitted claim: one claim per call for requests of up to three; larger requests use contiguous batches of ceil(N/3). Whole explanation and draft claims are neither trimmed nor omitted. Each response passes the existing strict parseVerification before aggregation; the aggregate passes it again. Missing, duplicate, invented or extra IDs are never repaired or filled. Existing evidence validation/downgrades are unchanged, and original evidence remains present for the final strict consumer parse; a supported label with invalid evidence still becomes unknown, not supported.
+parseTextDetection returns existing internal Span[] (JavaScript UTF-16, end exclusive). Exact source substring matching only: no Unicode normalization, case folding, whitespace repair, punctuation stripping or fuzzy mappings. Every exact occurrence is selected, including overlapping repeats. This deliberately conservatively redacts repeated identical text even if one occurrence has a different semantic role; users review redactions.
 
-## Tradeoffs and gates
+Identical duplicate findings are idempotent. Different kinds for the same quote reject the response. Overlap union uses existing validateSpans, with explicit start/end/kind ordering so output order does not change the result. Absent quotes, whitespace-only quotes, split-surrogate boundaries, unknown kinds, extra keys and legacy schemas reject the whole response. No partial success is returned.
 
-- Indexed tokens repeat source words locally and increase prompt size. Whitespace-token boundaries may include punctuation; whole-line boundaries allow address/evidence selection. Model semantic recall, exact entity endpoints, prompt-injection resistance and context-limit behaviour still require real evaluation.
-- Three serial sessions/calls increase verifier latency and repeat the source up to three times on device. Approximately 15 seconds is a budget hypothesis, not a result. The existing evaluator's 60-second timeout remains unchanged. Product N > 3 still requires multiple checks per batch; strict validation intentionally continues to fail closed on omissions.
-- ONLY_ON_DEVICE, successful initialization, device response provenance, no cloud params/fallback, image protocol and whole-field privacy coverage are preserved. No harness, UI, hybrid, journey, CI, deployment or resources changed.
-- New regression fixtures are SDK MOCKS/TEST_ONLY and test contracts, not real inference.
+Limits: source/transcription 50,000 UTF-16 units; text response 100,000 units; image response 200,000; individual quote 5,000; findings 1,000; expanded matches 1,000 before merging. The last cap prevents repeated-character output from creating unbounded local spans. Text original remains the caller's unchanged string, never a model echo. Raw diagnostic JSON now necessarily contains private quotes and must remain local.
 
-## Local verification
+Detection prompt explicitly preserves due/deadline/appointment dates by default; DATE is for personal DOB/identity contexts. Prompt guidance is not a deterministic guarantee of detector recall or classifications.
 
-npx vitest run tests --maxWorkers=1: 176 passing (existing 165 plus 11 focused protocol regressions). npx tsc --noEmit and npm run build (both production builds) pass. git diff --check passes.
+## Two-key integration interface (B3 handoff)
 
-Bare npm test also discovers operator tests outside tests/: the existing node:test ci.test.mjs is not a Vitest suite, and the collector native-adapter test fails identically on unchanged base 291947e in this Node environment (zero native calls, mocked fetch rejects SDK transport). Its existing hardcoded 160-call/static-schema assertions will additionally need a separately authorized harness-test update for three-call verification and request-specific schemas. No harness edits were made in this scope. Parallel test invocations intermittently hit an unrelated offline benchmark stdout JSON parse failure; full tests/ passed both on a parallel rerun and on the final serial gate, including both benchmark tests.
+nano.verify returns **quote-only JSON unchanged**, not fabricated offsets or rewritten statuses. validateQuoteVerification checks exact keys, bounded response/evidence, complete exact IDs, and exact source occurrence before each batch and after aggregation. Existing up-to-three serial contiguous batches remain; all whole explanation, whole draft, action, amount and deadline claims supplied by the caller are preserved. Missing/extra/duplicate IDs are never synthesized or repaired. A failed batch stops later batches.
 
-Next gate: parent review and authorized real rerun on the already working free Ubuntu Stable CPU route. No model rerun, push, dispatch, or publication was performed by this change.
+**B3 must update hybrid.ts parseVerification to consume evidence [{quote:string}] and assess evidence relevance to the matching claim**, retaining strict IDs and whole explanation/draft/action coverage. This branch intentionally does not edit hybrid.ts. At the base commit its offset consumer conservatively downgrades quote-only positive evidence to unknown; adapter contract tests passing here do not prove integrated supported decisions. Merge B3 before the real evaluation.
+
+Exact occurrence is evidence provenance, **not** proof of the claim. The shared prompt requires assessment of the entire matching claim, actors/actions/amount/date/conditions/negations, and explicitly forbids a real but unrelated quote as support or contradiction. The validator returns void, never a fabricated semantic verdict; final verdict remains the hybrid consumer's job. Prompt instructions and local relevance guards are not an accuracy guarantee. Real verifier catch rate must be measured, including unrelated-quote adversarial cases.
+
+## Local gates
+
+SDK/native injections in unit and operator tests are TEST_ONLY, not model inference. Collector assertions track the new original-only prompts, quote schemas and exact-ID batches; collection/import format remains internal Span[] plus unchanged raw output receipts. Baseline corpus/regex/evidence assets are untouched. No deployment, resources, credentials or real model dispatch are part of this change.
+
+Final local gates: 185 tests in tests/ pass; 9 operator collector tests pass; 3 node:test CI wiring checks pass; TypeScript and both production builds pass; git diff --check passes. All SDK/native fixtures are TEST_ONLY. Chrome capability.modelIdentity and nano.modelIdentity report {reportedName:null,status:"UNKNOWN_NOT_EXPOSED",source:"Chrome Prompt API"}; no exact Nano version is inferred from Chrome/component/cloud aliases.

@@ -1,6 +1,6 @@
 import {afterEach,expect,it,vi} from 'vitest';
 import {deleteApp,getApps} from 'firebase/app';
-import {createNano,piiSchema,indexedOriginal,verifierSchemaFor} from '../../src/nano';
+import {createNano,piiSchema,verifierSchemaFor} from '../../src/nano';
 import {evalCorpus} from '../../src/eval-corpus';
 import {collect,trials,claimsFor,decision,type Capture} from './core';
 import {recordNativeProvider,hashCaptures} from './native';
@@ -21,7 +21,7 @@ it('TEST_ONLY: unknown and malformed evidence do not become rejection',()=>{
  const rejected=JSON.stringify({checks:claims.map(c=>({id:c.id,status:c.id==='c2'?'unsupported':'supported',evidence}))});expect(decision(rejected,original,claims).status).toBe('rejected');
 });
 it('TEST_ONLY: failures and unknowns retained separately, successes satisfy importer row contract',async()=>{
- let n=0;const run=await collect({initialize:async()=>{},detect:async text=>({text,spans:[],rawJson:'{"spans":[]}',latencyMs:0}),verify:async(_text,claims)=>{n++;if(n===1)throw Error('TEST_ONLY failure');if(n===2)return 'invalid JSON';return JSON.stringify({checks:claims.map(c=>({id:c.id,status:n===3?'unknown':'unsupported',evidence:[]}))});}},lifecycle,TEST_ONLY);
+ let n=0;const run=await collect({initialize:async()=>{},detect:async text=>({text,spans:[],rawJson:'{"findings":[]}',latencyMs:0}),verify:async(_text,claims)=>{n++;if(n===1)throw Error('TEST_ONLY failure');if(n===2)return 'invalid JSON';return JSON.stringify({checks:claims.map(c=>({id:c.id,status:n===3?'unknown':'unsupported',evidence:[]}))});}},lifecycle,TEST_ONLY);
  expect(run.provenance).toBe('TEST_ONLY');expect(run.results).toHaveLength(32);expect(run.twoKeyDecisions).toHaveLength(125);expect(run.coverage.verifiers.error).toBe(2);expect(run.coverage.verifiers.unknown).toBe(1);expect(run.verifiers[0].error).toContain('TEST_ONLY failure');
  for(const row of run.results){expect(row.transcription).toBe(evalCorpus.find(l=>l.id===row.id)!.text);expect(row.latencyMs).toBeGreaterThanOrEqual(0);expect(row.spans).toEqual([]);}
  for(const row of run.twoKeyDecisions){expect(['control','deadline','amountPence','action']).toContain(row.variant);expect(typeof row.rejected).toBe('boolean');}
@@ -37,7 +37,7 @@ it('TEST_ONLY: init failure executes no model calls',async()=>{
 });
 it('TEST_ONLY: actual production adapter prompts/schemas recorded; raw invalid output survives validation error',async()=>{
  let promptCount=0,destroyed=0;const nativeInputs:any[]=[];
- const fake={availability:async()=> 'available',create:async()=>({destroy(){destroyed++;},prompt:async(input:any,options:any)=>{nativeInputs.push({input,options});promptCount++;if(promptCount===1)return 'TEST_ONLY malformed detection';if(promptCount===2)throw Error('TEST_ONLY native failure');if(promptCount<=32)return '{"spans":[]}';return JSON.stringify({checks:options.responseConstraint.properties.checks.items.properties.id.enum.map((id:string)=>({id,status:'unknown',evidence:[]}))});}})};
+ const fake={availability:async()=> 'available',create:async()=>({destroy(){destroyed++;},prompt:async(input:any,options:any)=>{nativeInputs.push({input,options});promptCount++;if(promptCount===1)return 'TEST_ONLY malformed detection';if(promptCount===2)throw Error('TEST_ONLY native failure');if(promptCount<=32)return '{"findings":[]}';return JSON.stringify({checks:options.responseConstraint.properties.checks.items.properties.id.enum.map((id:string)=>({id,status:'unknown',evidence:[]}))});}})};
  const fetch=vi.fn(()=>{throw Error('TEST_ONLY unexpected network');});vi.stubGlobal('fetch',fetch);
  vi.stubGlobal('LanguageModel',fake);vi.stubGlobal('window',globalThis);vi.stubGlobal('document',{});vi.stubGlobal('isSecureContext',true);
  const recorder=recordNativeProvider();
@@ -48,8 +48,8 @@ it('TEST_ONLY: actual production adapter prompts/schemas recorded; raw invalid o
  expect(nativeInputs[0].options.responseConstraint).toEqual(piiSchema);
  for(let i=0;i<32;i++){
   const prompt=nativeInputs[i].input[0].content[0].value;
-  expect(JSON.parse(prompt.slice(prompt.indexOf(String.fromCharCode(10))+1))).toEqual(indexedOriginal(evalCorpus[i].text));
-  expect(prompt).toContain('Do NOT return transcription');
+  expect(JSON.parse(prompt.slice(prompt.indexOf(String.fromCharCode(10))+1))).toEqual({original:evalCorpus[i].text});
+  expect(prompt).toContain('Never return offsets');
   expect(prompt).not.toContain('"start":0,"end":1,"kind":"NAME"');
  }
  for(let i=0;i<128;i++){
@@ -60,7 +60,7 @@ it('TEST_ONLY: actual production adapter prompts/schemas recorded; raw invalid o
    const native=nativeInputs[32+i*3+j],call=calls[j];
    const prompt=native.input[0].content[0].value;
    const data=JSON.parse(prompt.slice(prompt.indexOf(String.fromCharCode(10))+1));
-   expect(data).toEqual({source:indexedOriginal(trial.original),claims:[trial.claims[j]]});
+   expect(data).toEqual({original:trial.original,claims:[trial.claims[j]]});
    expect(native.options.responseConstraint).toEqual(verifierSchemaFor([trial.claims[j]]));
    expect(JSON.stringify(data)).not.toMatch(/"(truth|annotations|mutations|variant|trialId|expected|rejected)"/);
    expect(call.promptSha256).toMatch(/^[a-f0-9]{64}$/);expect(call.schemaSha256).toMatch(/^[a-f0-9]{64}$/);
@@ -87,7 +87,7 @@ it('TEST_ONLY: a missing batch ID fails closed without synthesizing checks or ru
  let prompts=0;
  vi.stubGlobal('LanguageModel',{availability:async()=> 'available',create:async()=>({destroy(){},prompt:async(_input:any,options:any)=>{
   prompts++;
-  if(options.responseConstraint.properties.spans)return '{"spans":[]}';
+  if(options.responseConstraint.properties.findings)return '{"findings":[]}';
   return '{"checks":[]}';
  }})});
  vi.stubGlobal('window',globalThis);vi.stubGlobal('document',{});vi.stubGlobal('isSecureContext',true);
