@@ -5,3 +5,4 @@
 *.jks
 *.keystore
 google-services.json
+/.kotlin/
