@@ -21,10 +21,15 @@ export function validateDraftRoles(draft:string,letter:string,roles:LetterRoles=
  if(!greeting||(greeting!=='sender'&&greeting!==r.sender))throw Error('Draft addressee is not the confirmed sender');
  const signature=draft.match(/\r?\n(?:Kind regards|Yours sincerely|Yours faithfully|Regards|Sincerely),?\r?\n([^\r\n]+)\s*$/)?.[1].trim();
  if(!signature||(signature!=='Your name'&&signature!==r.recipient))throw Error('Draft signature is not the confirmed recipient');
+ const lines=draft.replace(/\r\n?/g,'\n').split('\n');
+ if(lines.slice(1).some(line=>/^(?:Dear|Hello|Hi|To)\b/i.test(line.trim())))throw Error('Ambiguous draft greeting');
+ if(lines.filter(line=>/^(?:Kind regards|Yours sincerely|Yours faithfully|Regards|Sincerely|Best wishes|Best regards|With thanks|Many thanks|Thank you),?$/i.test(line.trim())).length!==1)throw Error('Ambiguous draft signoff');
 }
 
-/** The model supplies a body, not trusted addressing. Rebuild the envelope locally. */
+/** Validate the complete untrusted envelope before canonicalizing allowed boilerplate.
+ * Never silently discard model-authored greeting/signature claims. */
 export function localizeReplyEnvelope(draft:string,letter:string,roles:LetterRoles=inferRoles(letter)){
+ validateDraftRoles(draft,letter,roles);
  const lines=draft.replace(/\r\n?/g,'\n').trim().split('\n');
  if(!/^(?:Dear|Hello|Hi|To)\b.{1,200}$/i.test(lines[0]??''))throw Error('Unrecognized draft greeting');
  let closing=-1;
