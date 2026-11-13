@@ -6,13 +6,13 @@ A stressful tax, benefits, NHS or housing letter should not require pasting your
 
 **[Try the live synthetic build](https://safe-to-send-2026.web.app)** · [Measured evaluation](docs/EVALUATION.md) · [Real cloud evidence](docs/evidence/deployed-cloud-cdp-ledger.json)
 
-> **Synthetic letters only.** Real Nano text and image/schema inference now passed on free Ubuntu Stable, including Firebase ONLY_ON_DEVICE. The product GIF still shows explicitly labelled templates—not AI; first full-corpus text run exposed incorrect offsets and mostly invalid verification; a protocol repair is underway. End-to-end Nano journey proof remains pending. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
+> **Synthetic letters only.** Real Nano text and image/schema inference now passed on free Ubuntu Stable, including Firebase ONLY_ON_DEVICE. The product GIF still shows explicitly labelled templates—not AI; the measured full-corpus text baseline exposed incorrect offsets and mostly invalid verification. Source repairs are not evidence of improved model accuracy. End-to-end Nano journey proof remains pending. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
 
 ![Actual local product flow: synthetic templates, not Nano or cloud inference](docs/media/product-preview.gif)
 
 *Captured from the real local UI; the response is an explicitly labelled deterministic synthetic template, not model inference. [Capture receipt](docs/evidence/product-preview.json).*
 
-**Deployment status:** round-two source is ahead of the live link. Hosting changes are held pending clarification of the no-publishing instruction.
+**Deployment status:** source is ahead of the live link. Hosting remains held pending explicit owner approval overriding the no-publishing hold. [Gated release command and remaining checks](docs/DEPLOYMENT.md); preparing it is not permission to deploy.
 
 ## Try it in under five minutes
 
@@ -59,7 +59,9 @@ The original five UI fixtures stay unchanged; `npm run eval` still measures that
 
 ## Built during the submission period—history disclosed
 
-Owner-supplied start: **11 November 2026, 21:30 UK (21:30 UTC)**. Deadline: **30 November 2026, 22:00 UK**. Eligibility/rules are not independently cleared; the official rules fetch returned 403 and was not bypassed.
+A solo entry by **Olly**, developed with AI coding assistance. Mizzen Studios is the repository organization and retained copyright attribution, not an additional entrant or team member. Organization/entry presentation needs owner review; no organization change or eligibility claim is implied.
+
+Owner-supplied start: **11 November 2026, 21:30 UK (21:30 UTC)**. Deadline: **30 November 2026, 22:00 UK**. Rules and eligibility require owner review; these dates are owner-provided, not independent eligibility clearance.
 
 A **9 November preparatory spike predates the start**: `20ab95e`, `052a9b0`, `aefd5f4`, `8d5b919`, `9b1ffd3`. It covered privacy gates, five fixtures and the blocked on-device adapter—not explanation/deadlines/actions/drafts or real cloud inference. History/dates are unchanged.
 
