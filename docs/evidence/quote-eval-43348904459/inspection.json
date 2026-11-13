@@ -1,0 +1,203 @@
+{
+  "run": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43348904459",
+  "source": {
+    "commit": "1b719969e5661389a762ae5a2c43e67c8166cfca",
+    "dirty": false,
+    "sha256": {
+      "src/nano.ts": "8f09f5867dfec67c191a73c4a11c3c283ade07f275e9d9c453d5159684583a81",
+      "src/hybrid.ts": "7114129eceb8bea12ed8f960a67521ed1f5860d32f7e721b7c3e0945919acc84",
+      "src/eval-corpus.ts": "b33ed0991e70158f2c72eb8aa55bda4c7aaaed04b6376c19690c8d6ab0123ee3",
+      "operator/device-eval/core.ts": "e63fb2d5b72a1a592194ab547e9b8030251754fec372f3e76c8479535b54ec39",
+      "operator/device-eval/native.ts": "d9ceab622c8f068e2811bb52dfec77c7e46fdbc03c735eadf02991091d52bff5",
+      "operator/device-eval/page.ts": "a6cf80a265cf8012fa04cd1beaed3f99f9fa4dff0474601c8035d5ac0aeeb08d",
+      "operator/device-eval/run.mjs": "a1d56b35e962cdffe0c6e3ab6057aff4506ae9c1e699c44da4d36e76fae15a84",
+      "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+    }
+  },
+  "receiptSha256": "05c78db27a2fa6c9f9e2a194ccd004395fa13cf93849ad73c2705068e3966b60",
+  "receiptBytes": 2133229,
+  "modelIdentity": {
+    "status": "UNKNOWN",
+    "reportedName": null,
+    "reason": "Exact model identity/revision is not exposed or attested. Receipt model string is an operator label, not a measured identity."
+  },
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "os": "Linux x86_64",
+  "proofStatus": "PARTIAL_OR_NOT_RUN",
+  "proofErrors": [],
+  "pageNetwork": {
+    "CSP": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; frame-ancestors 'none'; worker-src 'none'",
+    "blockedPageRequests": []
+  },
+  "coverage": {
+    "detectors": {
+      "planned": 32,
+      "success": 31,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 0,
+      "error": 1,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 0
+    },
+    "verifiers": {
+      "planned": 128,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 54,
+      "error": 74,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 0
+    },
+    "mutations": {
+      "planned": 96,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 41,
+      "error": 55,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 0
+    },
+    "controls": {
+      "planned": 32,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 0,
+      "unknown": 13,
+      "error": 19,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 0
+    },
+    "mutationsDecided": 0,
+    "controlsDecided": 0
+  },
+  "nativePromptCount": 335,
+  "nativeErrors": 0,
+  "verifiedManifestFiles": [
+    "after-broker.png",
+    "after-components.png",
+    "after-events.png",
+    "before-broker.png",
+    "before-components.png",
+    "before-events.png",
+    "diagnostics-after.json",
+    "diagnostics-before.json",
+    "hardware.json",
+    "installation.json",
+    "receipt.json",
+    "screen-000.png",
+    "screen-001.png",
+    "screen-002.png",
+    "screen-003.png",
+    "screen-004.png",
+    "screen-005.png",
+    "screen-006.png",
+    "screen-007.png",
+    "screen-008.png",
+    "screen-009.png",
+    "screen-010.png",
+    "screen-011.png",
+    "screen-012.png",
+    "screen-013.png",
+    "screen-014.png",
+    "screen-015.png",
+    "screen-016.png",
+    "screen-017.png",
+    "screen-018.png",
+    "screen-019.png",
+    "screen-020.png",
+    "screen-021.png",
+    "screen-022.png",
+    "screen-023.png",
+    "screen-024.png",
+    "screen-025.png",
+    "screen-026.png",
+    "screen-027.png",
+    "screen-028.png",
+    "screen-029.png",
+    "screen-030.png",
+    "screen-031.png",
+    "screen-032.png",
+    "screen-033.png",
+    "screen-034.png",
+    "screen-035.png",
+    "screen-036.png",
+    "screen-037.png",
+    "screen-038.png",
+    "screen-039.png",
+    "screen-040.png",
+    "screen-041.png",
+    "screen-042.png",
+    "screen-043.png",
+    "screen-044.png",
+    "screen-045.png",
+    "screen-046.png",
+    "screen-047.png",
+    "screen-048.png",
+    "screen-049.png",
+    "screen-050.png",
+    "screen-051.png",
+    "screen-052.png",
+    "screen-053.png",
+    "screen-054.png",
+    "screen-055.png",
+    "screen-056.png",
+    "screen-057.png",
+    "screen-058.png",
+    "screen-059.png",
+    "screen-060.png",
+    "proof.json"
+  ],
+  "initializationMs": 64799.9,
+  "timing": {
+    "detectorSuccessfulSubset": {
+      "n": 31,
+      "p50Ms": 4948.8000000000175,
+      "p95Ms": 7638.1999999999825
+    },
+    "detectorAllAttempted": {
+      "n": 32,
+      "p50Ms": 4856.299999999988,
+      "p95Ms": 7638.1999999999825
+    },
+    "verifierAllAttempted": {
+      "n": 128,
+      "p50Ms": 13106.40000000014,
+      "p95Ms": 18332.900000000023
+    }
+  },
+  "detectorErrors": [
+    {
+      "id": "council-03",
+      "status": "error",
+      "error": "Error: Nano quote absent from source",
+      "rawOutputs": [
+        "{\"findings\":[{\"quote\":\"council-demo03\",\"kind\":\"REFERENCE\"}]}"
+      ]
+    }
+  ],
+  "verifierErrors": {
+    "Error: Nano evidence quote absent from source": 74
+  },
+  "regexSameSuccessfulSubset": {
+    "tp": 392,
+    "actual": 1023,
+    "predicted": 706,
+    "recall": 0.3831867057673509,
+    "precision": 0.5552407932011332
+  },
+  "fullCorpusTruthCharacters": 1052,
+  "limitations": "Three-field authored synthetic text experiment, not complete product two-key journey, image/OCR, real-letter generalization, or independent device attestation."
+}

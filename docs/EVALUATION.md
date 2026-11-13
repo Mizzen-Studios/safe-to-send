@@ -1,4 +1,8 @@
-# Latest genuine model run — 13 November 2026
+# Latest quote-only run — 13 November 2026
+
+[Run 43348904459 report](QUOTE_EVALUATION_2026-11-13.md), source 1b71996: **PARTIAL / acceptance gate failed**. Detector 31/32 validated; successful-subset recall 832/1023 (81.33%), precision 832/1546 (53.82%); union 900/1023 (87.98%), 900/1725 (52.17%). These are NOT full-corpus results. All 128 verifier trials attempted: mutations 41 unknown +55 errors; controls 13 unknown +19 errors; zero decidable trials, no catch/false-alarm accuracy claim. Exact model identity **UNKNOWN**. Original receipt, all denominators and hash inspection are linked in the report. Prior measurements below remain historical, not the latest result.
+
+# Earlier offset-protocol run — 13 November 2026
 
 [Run 43339470805](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43339470805), 291947e, executed all 160 native prompts on free Ubuntu Stable CPU Nano, production ONLY_ON_DEVICE. Zero native errors, no page external requests. Native launch omitted sandbox-disabling and performance-bypass flags; GPU-process diagnostics are not blanket sandbox attestation. Corpus results are poor, not a success claim:
 
