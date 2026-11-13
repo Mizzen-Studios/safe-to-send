@@ -1,6 +1,11 @@
 name: Nano on free public runners
 on:
   workflow_dispatch:
+    inputs:
+      windows_only:
+        description: Skip already-proven Linux rows for a Windows setup retry
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -13,13 +18,7 @@ jobs:
       fail-fast: false
       max-parallel: 2
       matrix:
-        include:
-          - {os: ubuntu-latest, channel: stable, diagnostic: ''}
-          - {os: ubuntu-latest, channel: dev, diagnostic: ''}
-          - {os: windows-latest, channel: stable, diagnostic: ''}
-          - {os: windows-latest, channel: dev, diagnostic: ''}
-          - {os: windows-latest, channel: canary, diagnostic: ''}
-          - {os: windows-latest, channel: stable, diagnostic: requested-perf-bypass}
+        include: ${{ fromJSON(inputs.windows_only && '[{"os":"windows-latest","channel":"stable","diagnostic":""},{"os":"windows-latest","channel":"dev","diagnostic":""},{"os":"windows-latest","channel":"canary","diagnostic":""},{"os":"windows-latest","channel":"stable","diagnostic":"requested-perf-bypass"}]' || '[{"os":"ubuntu-latest","channel":"stable","diagnostic":""},{"os":"ubuntu-latest","channel":"dev","diagnostic":""},{"os":"windows-latest","channel":"stable","diagnostic":""},{"os":"windows-latest","channel":"dev","diagnostic":""},{"os":"windows-latest","channel":"canary","diagnostic":""},{"os":"windows-latest","channel":"stable","diagnostic":"requested-perf-bypass"}]') }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 25
     env:
