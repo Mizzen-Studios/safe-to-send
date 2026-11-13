@@ -23,11 +23,24 @@ export function handler(headers){return async(req,res)=>{
  if(req.headers.host!=='127.0.0.1:5192'||!['GET','HEAD'].includes(req.method)||!(path==='/'||/^\/assets\/[a-zA-Z0-9_.-]+$/.test(path))){res.writeHead(403);res.end();return;}
  try{const file=resolve('.openclaw/tmp/record-real-dist',path==='/'?'index.html':'.'+path);const body=await readFile(file);res.writeHead(200,{...headers,'Content-Type':{'.html':'text/html','.js':'text/javascript','.css':'text/css'}[extname(file)]??'application/octet-stream'});res.end(req.method==='HEAD'?undefined:body);}catch{res.writeHead(404);res.end();}
 };}
+export const SAMPLE_PRIVATE_VALUES=['Maya Fiction','21 Imaginary Lane','ZZ1 1ZZ','AB123456C','UTR 1234567890'];
+export async function reviewMisses(page){
+ const text=await page.locator('#letter').inputValue();
+ for(const value of SAMPLE_PRIVATE_VALUES){
+  const start=text.indexOf(value);assert(start>=0,'Expected synthetic sample required');
+  const covered=await page.locator('#review .letter').evaluate((el,range)=>{let position=0,covered=0;for(const n of el.childNodes){const end=position+(n.textContent??'').length;if(n.nodeType===1&&n.nodeName==='MARK')covered+=Math.max(0,Math.min(end,range.end)-Math.max(position,range.start));position=end;}return covered===range.end-range.start;},{start,end:start+value.length});
+  if(covered)continue;
+  await page.locator('#letter').evaluate((el,range)=>{el.focus();el.setSelectionRange(range.start,range.end);},{start,end:start+value.length});
+  await page.getByRole('button',{name:'Add selected redaction',exact:true}).click();
+ }
+ const payload=JSON.parse(await page.locator('#payload').innerText()).letter;
+ for(const value of SAMPLE_PRIVATE_VALUES)assert(!payload.includes(value),'Review must cover known synthetic detail');
+}
 export async function journey(page,step){
  await step('original synthetic sample',async()=>{await page.locator('#letter').scrollIntoViewIfNeeded();assert((await page.locator('#letter').inputValue()).length>50);});
  await step('real Nano detection plus product regex union',async()=>{await page.locator('#detect').click();await page.waitForFunction(()=>document.querySelector('#review p')?.textContent.startsWith('On-device detection completed.'),null,{timeout:LIMITS.callMs});assert((await page.locator('#review mark').count())>0);});
  // Never click sample annotations or template. Product rendering is untouched.
- await step('inspect original highlights',async()=>{await page.locator('#review .letter').scrollIntoViewIfNeeded();});
+ await step('inspect highlights and manually correct any known synthetic details missed by detectors',async()=>{await page.locator('#review .letter').scrollIntoViewIfNeeded();await reviewMisses(page);});
  await step('inspect redacted application preview and require review',async()=>{await page.locator('#payload').scrollIntoViewIfNeeded();assert(await page.locator('#approve').isDisabled());const payload=JSON.parse(await page.locator('#payload').innerText());assert.notEqual(payload.letter,await page.locator('#letter').inputValue());});
  await step('confirm synthetic original and exact payload reviewed',async()=>{await page.locator('#synthetic-confirm').check();assert(await page.locator('#approve').isDisabled());await page.locator('#review-confirm').check();await page.locator('#approve').click();assert(await page.locator('#cloud-explain').isEnabled());});
  await step('Explain on this device with original local input',async()=>{await page.locator('#local-answer').click();await page.waitForFunction(()=>document.querySelector('#journey h2')?.textContent==='Your explanation · On this device',null,{timeout:LIMITS.callMs});assert((await page.locator('#draft').inputValue()).trim().length>0);});
