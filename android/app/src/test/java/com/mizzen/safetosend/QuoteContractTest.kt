@@ -7,6 +7,7 @@ class QuoteContractTest {
  @Test fun exactDetection() { assertEquals(listOf("Alex" to "NAME"),QuoteContract.detection("""{"findings":[{"quote":"Alex","kind":"NAME"}]}""","Alex and Alex",setOf("NAME"))) }
  @Test(expected=IllegalArgumentException::class) fun absentQuoteFails() { QuoteContract.detection("""{"findings":[{"quote":"Sam","kind":"NAME"}]}""","Alex",setOf("NAME")) }
  @Test(expected=IllegalArgumentException::class) fun offsetsRejected() { QuoteContract.detection("""{"findings":[{"quote":"Alex","kind":"NAME","start":0}]}""","Alex",setOf("NAME")) }
+ @Test fun sharedContractIsCanonicalAsset() { val file=java.io.File("../../shared/nano/contract.json"); val j=org.json.JSONObject(file.readText()); assertEquals("quotes-v1",j.getString("version")); assertTrue(j.getString("detectionPrompt").contains("Never return offsets")); assertEquals(setOf("checks"),j.getJSONObject("verifierSchema").getJSONObject("properties").keys().asSequence().toSet()) }
  @Test fun mismatchIsUnknown() { assertEquals(listOf("unknown"),QuoteContract.review(wire("mismatch"),"Pay £20",answer)) }
  @Test fun unrelatedRealQuoteNotSupport() { assertEquals(listOf("unknown"),QuoteContract.review(wire("supported","Hello"),"Hello. Pay £20",answer)) }
  @Test fun paraphraseNotDeterministicProof() { val a=answer.copy(explanation=listOf(Claim("You owe £20","Pay £20"))); assertEquals(listOf("unknown"),QuoteContract.review(wire("supported"),"Pay £20",a)) }

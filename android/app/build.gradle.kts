@@ -26,6 +26,7 @@ dependencies {
  implementation("androidx.core:core-ktx:1.17.0")
  implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.9.4")
  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
+ implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.9.0")
  implementation("com.google.firebase:firebase-ai:18.2.0")
  implementation("com.google.firebase:firebase-ai-ondevice:16.0.0-beta08")
  debugImplementation("com.google.firebase:firebase-appcheck-debug:20.1.0")

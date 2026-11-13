@@ -29,6 +29,23 @@ class NativeContractTest {
   compose.onNodeWithText("Nano: UNAVAILABLE (TEST_ONLY emulator)").assertExists()
   assertTrue(provider.calls.isEmpty())
  }
+ @Test fun manualUiRequiresExactApprovalAndShowsRedactedPreview() {
+  val provider=TestOnlyProvider()
+  compose.setContent { MaterialTheme { SafeScreen(provider,SessionModel()) } }
+  compose.onNodeWithText("Original synthetic notice (select sensitive text)").performScrollTo().performTextInput("Dear Alex, pay £20")
+  compose.onNodeWithText("Original synthetic notice (select sensitive text)").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetSelection) { it(5,9,false) }
+  compose.onNodeWithText("Redact selected range").performScrollTo().performClick()
+  compose.onNodeWithText("Dear [WRITER], pay £20").assertExists()
+  compose.onNode(isToggleable()).performScrollTo().performClick()
+  compose.onNodeWithText("Preview exact hybrid payload").performScrollTo().performClick()
+  compose.onNodeWithText("Run approved hybrid response").performScrollTo().assertIsNotEnabled()
+  compose.onNodeWithText("Approve this exact payload").performScrollTo().performClick()
+  compose.onNodeWithText("Run approved hybrid response").performScrollTo().assertIsEnabled().performClick()
+  compose.waitForIdle()
+  assertEquals(1,provider.calls.size)
+  assertFalse(provider.calls.single().contains("Alex"))
+  assertTrue(provider.calls.single().contains("[WRITER]"))
+ }
  @Test fun manualApprovalContractUsesOnlyRedactedBytes()=runBlocking {
   val p=PrivacySession(); val provider=TestOnlyProvider()
   p.change("Dear Alex, pay £20"); p.addSpan(5,9,"WRITER"); p.confirmSynthetic(true)
