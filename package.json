@@ -5,8 +5,9 @@
   "scripts": {
     "dev": "vite --host 127.0.0.1 --port 5192 --strictPort",
     "build": "tsc --noEmit && vite build && vite build --mode broker",
-    "test": "vitest run",
-    "eval": "vitest run tests/evaluation.test.ts"
+    "test": "vitest run tests",
+    "eval": "vitest run tests/evaluation.test.ts",
+    "test:operator": "vitest run --config operator/device-eval/vitest.config.ts --configLoader runner"
   },
   "repository": {
     "type": "git",

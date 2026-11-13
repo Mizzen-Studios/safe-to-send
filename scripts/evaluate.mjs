@@ -4,7 +4,7 @@ import {cpus,platform,release,arch,totalmem} from 'node:os';
 import {performance} from 'node:perf_hooks';
 import {createHash} from 'node:crypto';
 import {readFile} from 'node:fs/promises';
-const server=await createServer({server:{middlewareMode:true},appType:'custom'});
+const server=await createServer({configFile:false,envDir:false,publicDir:false,logLevel:'error',server:{middlewareMode:true},appType:'custom'});
 try {
  const {evalCorpus,regexEvaluation,characterCounts,CORPUS_VERSION}=await server.ssrLoadModule('/src/eval-corpus.ts');
  const {regexSpans}=await server.ssrLoadModule('/src/regex.ts');
