@@ -1,0 +1,21 @@
+{
+  "classification": "AUTOMATION_PREPARED_NOT_RECORDED",
+  "baseCommit": "291947e",
+  "checks": {
+    "automationContract": "4 PASS (node --test operator/record-real/check-contract.mjs)",
+    "productionTests": "165 PASS (vitest run tests)",
+    "typecheck": "PASS (tsc --noEmit)",
+    "operatorProductBuild": "PASS, unchanged product sources with inert ONLY_ON_DEVICE config",
+    "syntax": "PASS",
+    "diffWhitespace": "PASS"
+  },
+  "limitations": [
+    "No eligible native machine accessed in this child; this host is ARM64",
+    "No workflow dispatch, push, deployment, corpus-run change or recording",
+    "Unscoped vitest run also discovers existing operator/device-eval suites: existing node:test no-suite and adapter failure; not changed here. Scoped production tests pass. New node:test contract renamed check-contract.mjs to avoid introducing mixed-runner discovery.",
+    "Native inert metadata initialization, real detector schema, local explanation and live encoder require reviewed free Ubuntu Stable dispatch",
+    "Footage requires operator review before release; no human review completeness or anonymity claim"
+  ],
+  "recipe": "operator/record-real/README.md",
+  "sourceChanges": "Only new operator/record-real files and new recording workflow. Core product, evaluation CI, native installer/probe unchanged."
+}

@@ -1,0 +1,57 @@
+name: Operator genuine local product recording (free Ubuntu Stable)
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: record-real-local
+  cancel-in-progress: false
+jobs:
+  record:
+    if: github.event.repository.private == false
+    strategy:
+      max-parallel: 1
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      NANO_CHANNEL: stable
+      GITHUB_REPOSITORY_VISIBILITY: public
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - name: Install attach-only driver, never Playwright browser launch
+        run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
+      - name: Contract tests and production typecheck
+        run: |
+          node --test operator/record-real/check-contract.mjs
+          node node_modules/typescript/bin/tsc --noEmit
+      - name: Inventory and genuine Chrome Stable installation
+        run: |
+          node scripts/nano-ci/hardware.mjs
+          node scripts/nano-ci/install-chrome.mjs
+      - name: Distro free capture tools only if missing
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null || ! command -v xdpyinfo >/dev/null || ! command -v xvfb-run >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends ffmpeg xvfb xauth x11-utils
+          fi
+      - name: Prewarm separately then bounded real product take
+        run: xvfb-run -a -s '-screen 0 1280x1024x24' node operator/record-real/run.mjs
+      - name: Retain raw footage and failure evidence, never profile or credentials
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: real-local-product-${{ github.run_id }}
+          path: |
+            .openclaw/tmp/record-real-artifacts/
+            scripts/nano-ci/artifacts/hardware.json
+            scripts/nano-ci/artifacts/installation.json
+          include-hidden-files: true
+          if-no-files-found: warn
+          retention-days: 7
