@@ -36,3 +36,11 @@ Current Firebase App Check documentation says Play Integrity supports outside-Pl
 - https://firebase.google.com/docs/app-check/android/play-integrity-provider
 
 Current docs list firebase-ai 18.2.0 and firebase-ai-ondevice 16.0.0-beta08; exact API/build compatibility still requires compile verification. minSdk 26 for the on-device library. The feature is experimental; model availability and latency require actual device evidence.
+
+## Council round 3 — 13 November 2026
+
+Ordered work: B2 exact-quote Nano detection/verifier and fresh 32-letter/96-mutation evaluation; B3 matching evidence across explanation/draft/actions, greeting/sign-off and checked local answers; B4–B6 manual name/address suggestions, visible deadlines and no duplicated greeting. Indexed evaluation remains an intermediate protocol, not quote-protocol proof.
+
+Web stays primary. Android is a tight approved-redacted core loop targeting emulator manual/cloud paths by 22 November, with shared prompts/schemas/eval assets. Record actual device model identity or UNKNOWN; investigate Android reCAPTCHA Enterprise and AICore preview without signup. Prepare 10-minute early Pixel and 45-minute recording plans; no phone inference before authorized USB access.
+
+Product-first README with solo-entry ownership, remove stale rules-fetch line, flag org naming without changing it. Prepare one-command deploy but DO NOT redeploy. Spark only, no purchases, secrets, public release/post/submission or organizer contact. Push working milestones at least hourly.
