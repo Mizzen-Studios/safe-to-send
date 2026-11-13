@@ -10,9 +10,11 @@ android {
   testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
   buildConfigField("String", "FIREBASE_APP_ID", privateValue("firebase.appId"))
   buildConfigField("String", "FIREBASE_API_KEY", privateValue("firebase.apiKey"))
+  buildConfigField("String", "RECAPTCHA_ANDROID_SITE_KEY", privateValue("appcheck.androidSiteKey"))
  }
  buildTypes { release { isMinifyEnabled = false } }
  buildFeatures { compose = true; buildConfig = true }
+ sourceSets.getByName("main").assets.srcDir(rootProject.file("../shared"))
  compileOptions { sourceCompatibility = JavaVersion.VERSION_17; targetCompatibility = JavaVersion.VERSION_17 }
  packaging { resources.excludes += "/META-INF/{AL2.0,LGPL2.1}" }
 }
@@ -27,7 +29,8 @@ dependencies {
  implementation("com.google.firebase:firebase-ai:18.2.0")
  implementation("com.google.firebase:firebase-ai-ondevice:16.0.0-beta08")
  debugImplementation("com.google.firebase:firebase-appcheck-debug:20.1.0")
- releaseImplementation("com.google.firebase:firebase-appcheck-playintegrity:20.1.0")
+ releaseImplementation("com.google.firebase:firebase-appcheck-recaptcha:20.1.0")
+ testImplementation("org.json:json:20250517")
  testImplementation("junit:junit:4.13.2")
  androidTestImplementation(platform("androidx.compose:compose-bom:2025.11.01"))
  androidTestImplementation("androidx.compose.ui:ui-test-junit4")
