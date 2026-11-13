@@ -1,0 +1,11 @@
+import {it,expect} from 'vitest';
+import {manualReviewSuggestions,automaticReviewSpans} from '../src/manual-suggestions';
+import {regexSpans} from '../src/regex';
+const found=(s:string)=>manualReviewSuggestions(s).map(x=>s.slice(x.start,x.end));
+it('suggests salutation names, repeated occurrences and street addresses',()=>{const s='Dear Alice Example,\n12 Willow Road\nAlice Example must reply by 30 November 2026.';expect(found(s)).toEqual(['Alice Example','12 Willow Road','Alice Example']);});
+it('handles Unicode, hyphens, apostrophes and a signature without crossing lines',()=>{const s="Dear Éva O’Neill,\nPlease reply.\nKind regards,\nAnne-Marie Example";expect(found(s)).toEqual(['Éva O’Neill','Anne-Marie Example']);});
+it('keeps deadline and appointment dates visible but suggests labelled birth dates',()=>{const s='DOB: 12/03/1990\nReply by 30 November 2026.\nAppointment 21/11/2026';expect(found(s)).toEqual(['12/03/1990']);});
+it('does not guess arbitrary capitalized instructions or generic salutations are people',()=>{expect(found('Dear Customer,\nPlease Reply Soon.\nYour Payment Is Due.')).toEqual([]);});
+it('keeps historical regex baseline separate from manual suggestions',()=>{const s='Reply by 30 November 2026.';expect(regexSpans(s)).toHaveLength(1);expect(automaticReviewSpans(s,regexSpans(s))).toEqual([]);});
+it('merges street and postcode suggestions without swallowing the next line',()=>{const s='23 High Street, AB1 2CD\nPlease respond.';expect(found(s)).toEqual(['23 High Street','AB1 2CD']);});
+it('does not remove explicit manual non-date spans',()=>{const s='Reply by 30 November 2026.';expect(automaticReviewSpans(s,[{start:9,end:25,kind:'PERSONAL'}])).toHaveLength(1);});
