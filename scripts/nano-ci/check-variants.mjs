@@ -15,3 +15,9 @@ test('bounded six-job workflow, native launch and privacy controls stay intact',
  const probe=await readFile('scripts/nano-ci/probe.mjs','utf8');assert(!probe.includes('launchPersistentContext'));assert.match(probe,/connect-src data:/);assert(probe.includes("route.abort('blockedbyclient')"));
  const native=await readFile('scripts/nano-ci/native-chrome.mjs','utf8');assert(native.includes('22*1024**3'));assert.match(native,/connectOverCDP/);
 });
+
+test('native CDP endpoint parses Unix and Windows line endings without accepting external endpoints',async()=>{
+ const {parseDevToolsEndpoint}=await import('./native-chrome.mjs');
+ for(const newline of ['\n','\r\n'])assert.equal(parseDevToolsEndpoint('12345'+newline+'/devtools/browser/abc-123'+newline),'ws://127.0.0.1:12345/devtools/browser/abc-123');
+ for(const invalid of ['bad','0\n/devtools/browser/abc','12345\nhttps://evil.invalid'])assert.throws(()=>parseDevToolsEndpoint(invalid));
+});

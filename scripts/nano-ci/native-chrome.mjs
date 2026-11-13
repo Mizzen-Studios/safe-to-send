@@ -16,10 +16,16 @@ export async function launchNative(chromium,variant){
   while(Date.now()<deadline){
    if(failure)throw failure;
    if(child.exitCode!==null)throw Error('Native Chrome exited '+child.exitCode+' '+stderr);
-   try{const [port,path]= (await readFile(resolve(variant.profile,'DevToolsActivePort'),'utf8')).trim().split(/\r?\n/);browser=await chromium.connectOverCDP('ws://127.0.0.1:'+Number(port)+path,{timeout:2000});break;}catch{await new Promise(r=>setTimeout(r,250));}
+   try{const endpoint=parseDevToolsEndpoint(await readFile(resolve(variant.profile,'DevToolsActivePort'),'utf8'));browser=await chromium.connectOverCDP(endpoint,{timeout:2000});break;}catch{await new Promise(r=>setTimeout(r,250));}
   }
   if(!browser)throw Error('Native Chrome CDP startup timeout '+stderr);
   const context=browser.contexts()[0];if(!context)throw Error('No persistent native context');
   return {context,args,close:async()=>{try{const cdp=await browser.newBrowserCDPSession();await cdp.send('Browser.close');}finally{await browser.close().catch(()=>{});if(child.exitCode===null)child.kill();}}};
  }catch(e){if(child.exitCode===null)child.kill();throw e;}
+}
+
+export function parseDevToolsEndpoint(value){
+ const [port,path]=value.trim().split(/\r?\n/);
+ if(!/^\d+$/.test(port)||Number(port)<1||Number(port)>65535||!/^\/devtools\/browser\/[a-zA-Z0-9-]+$/.test(path??''))throw Error('Invalid local Chrome DevTools endpoint');
+ return 'ws://127.0.0.1:'+Number(port)+path;
 }
