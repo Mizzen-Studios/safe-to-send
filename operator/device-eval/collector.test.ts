@@ -16,9 +16,14 @@ it('TEST_ONLY: unknown and malformed evidence do not become rejection',()=>{
  const claims=claimsFor(evalCorpus[0].claim),original=evalCorpus[0].text;
  const raw=JSON.stringify({checks:claims.map(c=>({id:c.id,status:c.id==='c0'?'mismatch':'unknown',evidence:[]}))});
  expect(decision(raw,original,claims).status).toBe('unknown');expect(()=>decision('{}',original,claims)).toThrow();
- const evidence=[{start:0,end:original.length,quote:original}];
- const supported=JSON.stringify({checks:claims.map(c=>({id:c.id,status:'supported',evidence}))});expect(decision(supported,original,claims).status).toBe('accepted');
- const rejected=JSON.stringify({checks:claims.map(c=>({id:c.id,status:c.id==='c2'?'unsupported':'supported',evidence}))});expect(decision(rejected,original,claims).status).toBe('rejected');
+ const evidence=[{quote:original}];
+ const unrelated=JSON.stringify({checks:claims.map(c=>({id:c.id,status:'supported',evidence}))});expect(decision(unrelated,original,claims).status).toBe('unknown');
+ // A genuinely matching textual fixture, not permissive corpus-claim evidence.
+ const source='Pay £24.50. Reply by 30 November 2026.';
+ const matching=[{id:'c0',kind:'deadline' as const,value:JSON.stringify({date:'2026-11-30',evidence:'Reply by 30 November 2026.',action:'Reply by 30 November 2026.'})},{id:'c1',kind:'amount' as const,value:'£24.50'},{id:'c2',kind:'action' as const,value:'Pay £24.50.'}];
+ const exactEvidence=[{quote:source}];
+ const supported=JSON.stringify({checks:matching.map(c=>({id:c.id,status:'supported',evidence:exactEvidence}))});expect(decision(supported,source,matching).status).toBe('accepted');
+ const rejected=JSON.stringify({checks:matching.map(c=>({id:c.id,status:c.id==='c2'?'unsupported':'supported',evidence:exactEvidence}))});expect(decision(rejected,source,matching).status).toBe('rejected');
 });
 it('TEST_ONLY: failures and unknowns retained separately, successes satisfy importer row contract',async()=>{
  let n=0;const run=await collect({initialize:async()=>{},detect:async text=>({text,spans:[],rawJson:'{"findings":[]}',latencyMs:0}),verify:async(_text,claims)=>{n++;if(n===1)throw Error('TEST_ONLY failure');if(n===2)return 'invalid JSON';return JSON.stringify({checks:claims.map(c=>({id:c.id,status:n===3?'unknown':'unsupported',evidence:[]}))});}},lifecycle,TEST_ONLY);

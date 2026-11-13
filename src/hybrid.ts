@@ -1,7 +1,7 @@
 import {type PrivacyGate,redact,restore} from './privacy';
 import {parseJourney,reviewedCloudJourney,type Journey} from './journey';
 import {validateDraftRoles} from './roles';
-import {regexSpans} from './regex';
+import {manualReviewSuggestions} from './manual-suggestions';
 /** Stable UI contract. Model responses are untrusted and evidence never leaves this module. */
 export type Claim={id:string;kind:'deadline'|'amount'|'action'|'explanation'|'draft';value:string};
 export type Verdict='supported'|'mismatch'|'unsupported'|'unknown';
@@ -11,7 +11,7 @@ export type Verification={status:Verdict;checks:ClaimCheck[];coverage:{scope:'su
 export type LocalNano={answer:(original:string)=>Promise<string>;verify:(original:string,claims:Claim[])=>Promise<string>};
 export type LocalResult<T>={status:'complete';revision:number;result:T}|{status:'unavailable';revision:number;reason:string};
 export type LocalAnswerResult=Extract<LocalResult<Journey>,{status:'unavailable'}>|(Extract<LocalResult<Journey>,{status:'complete'}>&{checked:true;verification:Verification});
-export const manualSuggestions=(text:string)=>regexSpans(text);
+export const manualSuggestions=manualReviewSuggestions;
 export function startManualReview(gate:PrivacyGate){gate.manual(manualSuggestions(gate.text));}
 export function claimsFromJourney(journey:Journey):Claim[]{
  const j=parseJourney(JSON.stringify(journey));

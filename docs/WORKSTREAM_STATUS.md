@@ -44,3 +44,12 @@ Ordered work: B2 exact-quote Nano detection/verifier and fresh 32-letter/96-muta
 Web stays primary. Android is a tight approved-redacted core loop targeting emulator manual/cloud paths by 22 November, with shared prompts/schemas/eval assets. Record actual device model identity or UNKNOWN; investigate Android reCAPTCHA Enterprise and AICore preview without signup. Prepare 10-minute early Pixel and 45-minute recording plans; no phone inference before authorized USB access.
 
 Product-first README with solo-entry ownership, remove stale rules-fetch line, flag org naming without changing it. Prepare one-command deploy but DO NOT redeploy. Spark only, no purchases, secrets, public release/post/submission or organizer contact. Push working milestones at least hourly.
+
+
+### Integrated quote candidate — 13 November 01:59 UTC
+
+Quote-only detection/shared wire schemas, matching-evidence hardening, checked local answers and release preparation integrated. Manual API shares UI name/address helper; UI displays local verification status and Chrome model identity UNKNOWN. Gates: 213 unit tests, 9 operator tests, 3 CI wiring checks, 6 deployment guards, both TypeScript configurations and both production builds pass network-isolated. Vite benchmark emitted read-only cache warnings; assertions passed. Builds without private public-metadata input are gate artifacts, not deploy candidates.
+
+All model mismatch verdicts become unknown without an independent contradiction checker; paraphrased actions and deadlines with empty action/evidence also become unknown. Existing authored corpus includes those cases. Do not weaken parser or edit authored claims to inflate coverage; report unknowns/errors separately in genuine quote run. Full drafts commonly remain unknown, not verified. Previous indexed run remains separate diagnostic.
+
+Native reCAPTCHA Enterprise Preview on Spark is documented without Play Console; earlier attestation paragraph superseded by research and judge-access docs. Production Android configuration and normal tokens remain unproven. No deployment, phone operation, AICore enrollment or paid resource change.
