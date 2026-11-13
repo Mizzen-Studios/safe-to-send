@@ -30,7 +30,7 @@ object QuoteContract {
    val quotes=(0 until evidence.length()).map { val e=evidence.getJSONObject(it); keys(e,"quote"); quote(e.get("quote"),original) }
    // Conservative support: entire assertion AND an entire source line must be identical.
    // Partial substrings cannot discard negation/context; paraphrases remain UNKNOWN.
-   result[index]=when { status=="unsupported" -> "unsupported"; status=="supported" && quotes.isNotEmpty() && claims[index].text.isNotBlank() && original.lineSequence().any { it==claims[index].text } && quotes.any { it == claims[index].text } -> "supported"; else -> "unknown" }
+   result[index]=when { status=="unsupported" -> "unknown"; status=="supported" && quotes.isNotEmpty() && claims[index].text.isNotBlank() && original.lineSequence().any { it==claims[index].text } && quotes.any { it == claims[index].text } -> "supported"; else -> "unknown" }
   }
   return result
  }
