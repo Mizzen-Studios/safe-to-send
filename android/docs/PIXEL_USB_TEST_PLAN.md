@@ -2,6 +2,15 @@
 
 **NOT_RUN.** Wait for the physical phone later connected by USB to authorized Mac. Complete/build app first. Do not ask Olly to run setup/tests/recording. Emulator CI is build/UI evidence only, never Nano or production device attestation evidence.
 
+
+## Council 3 timeboxed sessions
+
+[Versioned 10-minute early check and 45-minute recording runbooks](../../docs/ANDROID_PROVIDER_AND_MODEL_RESEARCH.md#proposed-operator-sessions--plan-only) are the baseline. The core demonstration is synthetic text/photo → on-device or manual redaction → exact approved payload → cloud explanation → Nano warning for a deliberately altered deadline. The planted alteration must be explicitly labelled an evaluation mutation, never passed off as a spontaneous cloud error; keep an unaltered control. Both accepted output and modified evaluation output need separate provenance, and an evaluation mutation must never mint accepted-cloud approval.
+
+Native reCAPTCHA Enterprise (Preview, Spark) is selected without Play Console. Private emulator debug-provider proof is distinct from normal non-debug production App Check. No public debug token, enrollment, release or phone execution is authorized now. Record actual device-reported model name, or UNKNOWN; stable/preview preference and cloud model aliases are not identity.
+
+The adb helper provides real transport/install/record/pull operations, not invented availability/eval commands. After the app is integrated, the operator must bind the timed runbook to its actual controls/export and validate those steps before calling the plan executable. Missing controls, downloads or attestation are explicit stop conditions; do not silently substitute mocked phone results.
+
 ## Safe operator sequence
 
 1. Assistant gains authorized private remote control of Mac. Use existing platform-tools and SDK build-tools aapt; if absent, stop for approved setup rather than downloading unsolicited tools. Privately confirm USB debugging authorization; never capture unlock codes, notifications or personal screens. No root, bootloader unlock, Play Protect bypass, adb tcpip, exposed ports, purchases, billing linkage, resources changes or Spark upgrade.
