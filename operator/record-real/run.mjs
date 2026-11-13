@@ -30,8 +30,11 @@ export async function reviewMisses(page){
   const start=text.indexOf(value);assert(start>=0,'Expected synthetic sample required');
   const covered=await page.locator('#review .letter').evaluate((el,range)=>{let position=0,covered=0;for(const n of el.childNodes){const end=position+(n.textContent??'').length;if(n.nodeType===1&&n.nodeName==='MARK')covered+=Math.max(0,Math.min(end,range.end)-Math.max(position,range.start));position=end;}return covered===range.end-range.start;},{start,end:start+value.length});
   if(covered)continue;
+  await page.locator('#letter').scrollIntoViewIfNeeded();
   await page.locator('#letter').evaluate((el,range)=>{el.focus();el.setSelectionRange(range.start,range.end);},{start,end:start+value.length});
+  await page.waitForTimeout(2000);
   await page.getByRole('button',{name:'Add selected redaction',exact:true}).click();
+  await page.locator('#review .letter').scrollIntoViewIfNeeded();await page.waitForTimeout(2000);
  }
  const payload=JSON.parse(await page.locator('#payload').innerText()).letter;
  for(const value of SAMPLE_PRIVATE_VALUES)assert(!payload.includes(value),'Review must cover known synthetic detail');
@@ -45,7 +48,7 @@ export async function journey(page,step){
  await step('confirm synthetic original and exact payload reviewed',async()=>{await page.locator('#synthetic-confirm').check();assert(await page.locator('#approve').isDisabled());await page.locator('#review-confirm').check();await page.locator('#approve').click();assert(await page.locator('#cloud-explain').isEnabled());});
  await step('Explain on this device with original local input',async()=>{await page.locator('#local-answer').click();await page.waitForFunction(()=>document.querySelector('#journey h2')?.textContent==='Your explanation · On this device',null,{timeout:LIMITS.callMs});assert((await page.locator('#draft').inputValue()).trim().length>0);});
  await step('real local explanation and editable draft',async()=>{await page.locator('#journey').scrollIntoViewIfNeeded();});
- assert.match(await page.locator('#cloud-count').innerText(),/^0 cloud handoff attempts · 0 captured SDK HTTP bodies$/);
+ assert.match((await page.locator('#cloud-count').textContent()??''),/^0 cloud handoff attempts · 0 captured SDK HTTP bodies$/);
  assert.equal(await page.locator('#two-key').count(),0);
 }
 export async function run(){
