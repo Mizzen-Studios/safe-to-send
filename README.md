@@ -6,7 +6,7 @@ A stressful tax, benefits, NHS or housing letter should not require pasting your
 
 **[Try the live synthetic build](https://safe-to-send-2026.web.app)** · [Measured evaluation](docs/EVALUATION.md) · [Real cloud evidence](docs/evidence/deployed-cloud-cdp-ledger.json)
 
-> **Synthetic letters only.** Real Nano execution is still blocked by device availability. The working local journey uses explicitly labelled templates—not AI. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
+> **Synthetic letters only.** Real Nano text and image/schema inference now passed on free Ubuntu Stable, including Firebase ONLY_ON_DEVICE. The product GIF still shows explicitly labelled templates—not AI; full-corpus and end-to-end Nano journey measurements remain pending. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
 
 ![Actual local product flow: synthetic templates, not Nano or cloud inference](docs/media/product-preview.gif)
 
@@ -33,7 +33,7 @@ Open http://localhost:5192. Choose a synthetic sample, select **Use sample annot
 
 Firebase AI Logic (`firebase/ai`) is the runtime: an explicit **ONLY_ON_DEVICE** image/text + JSON-schema adapter for detection, and a separate **ONLY_IN_CLOUD** structured explanation adapter. There is no raw-content automatic cloud fallback. The implementation and evidence map to the four equal judging criteria:
 
-1. **Technological implementation of hybrid inference:** explicit local detection plus regex; immutable reviewed redacted cloud requests; local-only answers and a separate local two-key claim checker. Manual review works without Nano, never as an automatic upload fallback. Local answers and two-key checks are exposed in the UI and unit/browser-tested; actual model execution remains unverified. Actual Nano inference and two-key catch rate are unmeasured.
+1. **Technological implementation of hybrid inference:** explicit local detection plus regex; immutable reviewed redacted cloud requests; local-only answers and a separate local two-key claim checker. Manual review works without Nano, never as an automatic upload fallback. Local answers and two-key checks are exposed in the UI and unit/browser-tested; product-level model execution remains unverified. Nano smoke inference is proven separately; corpus accuracy and two-key catch rate remain unmeasured.
 2. **Design:** letter-first paste/select/drop flow, highlighted editable redactions, explicit approval, explanation and editable/exportable draft. Saved results/reminder dates use optional local-only IndexedDB; reminders require the app open. Technical panels live in Evidence.
 3. **Potential impact:** calmer official correspondence without uploading the original. Manual mode lowers the device barrier. Redaction can miss details; users must review what they send, and check advice against the original.
 4. **Idea quality:** the two-key design checks cloud claims against the private original on device, while the exact-body ledger makes the cloud boundary inspectable. It is a model-supported warning mechanism, not a truth guarantee or compliance certification. Spark/free-tier constraints and no paid fallback remain.
@@ -46,6 +46,7 @@ Firebase AI Logic (`firebase/ai`) is the runtime: an explicit **ONLY_ON_DEVICE**
 - **One real deployed cloud test:** gemini-3.5-flash-lite through AI Logic with registered private debug App Check. Independent DevTools/CDP body and ledger match: **1766 UTF-8 bytes + SHA-256**; five known HMRC synthetic PII sentinels absent from observed outbound URLs/bodies. [Body-only receipt](docs/evidence/deployed-cloud-cdp-ledger.json) · [ledger capture](docs/evidence/deployed-cloud-ledger.png). Not TLS-byte measurement or a general privacy/semantic-correctness guarantee.
 - **Custom manual cloud journey, private candidate:** real AI Logic response after exact-payload approval; independent CDP/ledger parity for **2,167 UTF-8 bytes**, both known synthetic identifiers absent from observed outbound requests. [Body-only receipt](docs/evidence/manual-candidate-cloud-cdp.json). Uses debug App Check and browser-served candidate assets, **not a deployed release or Nano proof**. Reply addressing is reconstructed locally, rather than trusting model-invented roles.
 - **App Check negative control:** valid client key without App Check rejected **401**; [receipt](docs/evidence/appcheck-negative-control.json). Non-debug Enterprise attestation remains unverified: [browser launch blocker](docs/evidence/enterprise-attestation-launch-blocker.json).
+- **Real Nano smoke proof:** native sandboxed Chrome 157 on a standard free Ubuntu runner passed text, image/schema and Firebase ONLY_ON_DEVICE. No performance bypass. [Result and per-channel limitations](docs/evidence/nano-native-smoke-result.json) · [CPU broker screenshot](docs/evidence/nano-native-cpu-broker.png). Smoke-stage timings are not corpus latency.
 - **32 synthetic evaluation notices:** six each HMRC/DWP/NHS/council/tenancy, one non-UK and a PII-free negative control. Measured regex character recall **38.59% (406/1052)**, precision **55.62% (406/730)**. Warm Node regex-only per-notice latency: p50 **0.00852 ms**, p95 **0.01056 ms** (not browser performance). Nano, combined and two-key model measurements remain **NOT_RUN**. [Corpus, 96 authored claim mutations, importer and limitations](docs/EVALUATION.md).
 
 ```sh
@@ -54,7 +55,7 @@ npm run build
 node scripts/evaluate.mjs regex
 ```
 
-The original five UI fixtures stay unchanged; `npm run eval` still measures that smaller spike. Expanded evaluation is not a cloud-send allowlist. No perfect recall, anonymity, legal advice or policy-compliance promise. IndexedDB history/reminders are implemented and browser-tested; supported-device inference proof remains pending. The product GIF shows actual local UI/template behavior only. Genuine Nano footage remains pending; the linked ledger capture is separate real synthetic cloud evidence.
+The original five UI fixtures stay unchanged; `npm run eval` still measures that smaller spike. Expanded evaluation is not a cloud-send allowlist. No perfect recall, anonymity, legal advice or policy-compliance promise. IndexedDB history/reminders are implemented and browser-tested; supported-device smoke inference passed; full product model-flow validation remains pending. The product GIF shows actual local UI/template behavior only. Genuine Nano footage remains pending; the linked ledger capture is separate real synthetic cloud evidence.
 
 ## Built during the submission period—history disclosed
 
