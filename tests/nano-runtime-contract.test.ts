@@ -147,3 +147,13 @@ it('reports unknown model identity instead of inferring Nano versions from brows
  expect((await capability()).modelIdentity).toEqual({reportedName:null,status:'UNKNOWN_NOT_EXPOSED',source:'Chrome Prompt API'});
  expect(nano.modelIdentity).not.toBe(identity);
 });
+
+it.each([false,true])('adapter applies automatic DATE policy for text/image (%s), leaving raw quotes untouched (SDK MOCK)',async image=>{
+ browser();const nano=createNano({});await nano.initialize(()=>{});
+ const text='DOB: 30 November 2000\nPay by 30 November 2026';
+ const findings=[{quote:'30 November 2000',kind:'DATE'},{quote:'30 November 2026',kind:'DATE'}];
+ const rawJson=JSON.stringify(image?{transcription:text,findings}:{findings});
+ sdk.generate.mockResolvedValue({response:{inferenceSource:'device',text:()=>rawJson}});
+ const r=await nano.detect(image?'':text,image?'TEST_ONLY_image':undefined);
+ expect(r.spans).toEqual([{start:5,end:21,kind:'DATE'}]);expect(r.rawJson).toBe(rawJson);
+});
