@@ -5,6 +5,7 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.CompletableDeferred
 import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
@@ -16,6 +17,22 @@ private class TestOnlyProvider: AiProvider {
  override suspend fun download(update:(String)->Unit) { update("TEST_ONLY unavailable") }
  override suspend fun privateOnly(prompt:String,photo:Bitmap?):String { calls.add("ONLY_ON_DEVICE"); error("TEST_ONLY unavailable") }
  override suspend fun approvedHybrid(exactPayload:String):ModelAnswer { calls.add(exactPayload); return ModelAnswer("TEST_ONLY simulated response","TEST_ONLY simulated — NOT CLOUD") }
+}
+/** TEST_ONLY suspension/completion controls; no Firebase, Nano or cloud invocation. */
+private class SuspendedTestOnlyProvider: AiProvider {
+ val completion=CompletableDeferred<String>()
+ var photo:Bitmap?=null
+ val hybridPayloads=mutableListOf<String>()
+ override suspend fun status()="TEST_ONLY unavailable"
+ override suspend fun download(update:(String)->Unit) { error("TEST_ONLY unavailable") }
+ override suspend fun privateOnly(prompt:String,photo:Bitmap?):String {
+  this.photo=photo
+  return completion.await()
+ }
+ override suspend fun approvedHybrid(exactPayload:String):ModelAnswer {
+  hybridPayloads.add(exactPayload)
+  return ModelAnswer(completion.await(),"TEST_ONLY simulated — NOT CLOUD")
+ }
 }
 @RunWith(AndroidJUnit4::class)
 class NativeContractTest {
@@ -58,4 +75,62 @@ class NativeContractTest {
   try {provider.privateOnly("synthetic original",null); fail()} catch(_:IllegalStateException){}
   assertEquals(listOf("ONLY_ON_DEVICE"),provider.calls)
  }
+ @Test fun testOnlySuspendedOcrLocksDestructiveControlsUntilCompletion() {
+  val provider=SuspendedTestOnlyProvider(); val vm=SessionModel()
+  val bitmap=Bitmap.createBitmap(2,2,Bitmap.Config.ARGB_8888)
+  vm.photo=bitmap; vm.privacy.change("TEST_ONLY synthetic original")
+  compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
+  compose.onNodeWithText("OCR photo — local only").performScrollTo().performClick()
+  compose.runOnIdle { assertTrue(vm.busy); assertSame(bitmap,provider.photo); assertFalse(bitmap.isRecycled); assertFalse(vm.begin()) }
+  for(label in listOf("Clear session","Choose photo","Camera","OCR photo — local only","Detect sensitive text — local only","Preview exact hybrid payload")) {
+   compose.onNodeWithText(label).performScrollTo().assertIsNotEnabled()
+  }
+  compose.onNodeWithText("Original synthetic notice (select sensitive text)").performScrollTo().assertIsNotEnabled()
+  compose.onNode(isToggleable()).performScrollTo().assertIsNotEnabled()
+  // Even a queued semantics callback cannot bypass the callback-level guard.
+  compose.onNodeWithText("Clear session").performScrollTo().performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.OnClick) { it() }
+  compose.runOnIdle {
+   assertSame(bitmap,vm.photo); assertFalse(bitmap.isRecycled)
+   assertEquals("TEST_ONLY synthetic original",vm.privacy.source)
+   assertTrue(vm.privacy.ledger.isEmpty()); assertTrue(provider.hybridPayloads.isEmpty())
+   provider.completion.complete("TEST_ONLY OCR synthetic completion")
+  }
+  compose.waitForIdle()
+  compose.runOnIdle { assertFalse(vm.busy); assertNull(vm.photo); assertTrue(bitmap.isRecycled); assertEquals("TEST_ONLY OCR synthetic completion",vm.privacy.source) }
+  compose.onNodeWithText("Clear session").performScrollTo().assertIsEnabled().performClick()
+  compose.runOnIdle { assertEquals("",vm.privacy.source); assertTrue(vm.privacy.ledger.isEmpty()) }
+ }
+ @Test fun testOnlySuspendedOcrRejectsStaleRevisionCompletion() {
+  val provider=SuspendedTestOnlyProvider(); val vm=SessionModel()
+  val bitmap=Bitmap.createBitmap(2,2,Bitmap.Config.ARGB_8888); vm.photo=bitmap
+  compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
+  compose.onNodeWithText("OCR photo — local only").performScrollTo().performClick()
+  // Deliberate out-of-UI invalidation: stale provider output must not overwrite newer source.
+  compose.runOnIdle { vm.privacy.change("TEST_ONLY newer source"); provider.completion.complete("TEST_ONLY stale OCR") }
+  compose.waitForIdle()
+  compose.runOnIdle { assertFalse(vm.busy); assertEquals("TEST_ONLY newer source",vm.privacy.source); assertSame(bitmap,vm.photo); assertFalse(bitmap.isRecycled); assertTrue(vm.privacy.ledger.isEmpty()); assertTrue(provider.hybridPayloads.isEmpty()) }
+  compose.onNodeWithText("Clear session").performScrollTo().performClick()
+  compose.runOnIdle { assertTrue(bitmap.isRecycled) }
+ }
+ @Test fun testOnlySuspendedHybridKeepsOriginalLocalAndClearLocked() {
+  val provider=SuspendedTestOnlyProvider(); val vm=SessionModel()
+  vm.privacy.change("Dear Alex, pay £20"); vm.privacy.addSpan(5,9,"WRITER"); vm.privacy.confirmSynthetic(true)
+  compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
+  compose.onNodeWithText("Preview exact hybrid payload").performScrollTo().performClick()
+  compose.onNodeWithText("Approve this exact payload").performScrollTo().performClick()
+  compose.onNodeWithText("Run approved hybrid response").performScrollTo().performClick()
+  compose.onNodeWithText("Clear session").performScrollTo().assertIsNotEnabled()
+  compose.runOnIdle {
+   assertTrue(vm.busy); assertEquals(1,provider.hybridPayloads.size)
+   assertFalse(provider.hybridPayloads.single().contains("Alex")); assertTrue(provider.hybridPayloads.single().contains("[WRITER]"))
+   assertEquals(provider.hybridPayloads.single(),vm.privacy.ledger.single().applicationText)
+   // Deliberately invalid JSON: this proves handoff/locking, NOT accepted-answer/two-key success.
+   provider.completion.complete("TEST_ONLY non-JSON rejected response")
+  }
+  compose.waitForIdle()
+  compose.runOnIdle { assertFalse(vm.busy); assertNull(vm.privacy.currentAnswer()); assertFalse(vm.privacy.isApproved()) }
+  compose.onNodeWithText("Clear session").performScrollTo().assertIsEnabled().performClick()
+  compose.runOnIdle { assertEquals("",vm.privacy.source); assertTrue(vm.privacy.ledger.isEmpty()) }
+ }
+
 }

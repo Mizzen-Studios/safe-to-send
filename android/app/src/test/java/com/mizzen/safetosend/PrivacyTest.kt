@@ -17,4 +17,19 @@ class PrivacyTest {
  @Test(expected=IllegalArgumentException::class) fun existingRoleTokenRejected() { PrivacySession().apply { change("Alex [WRITER]"); addSpan(0,4,"WRITER") } }
  @Test fun plantedWrongDeadlineRejected() { val p=session(); val a=Answer(listOf(Claim("Notice","pay £20")),listOf(Claim("I will pay","pay £20")),listOf(Claim("Due Monday","Monday")),emptyList(),emptyList()); val r=Any(); p.accept(p.revision,a,r); assertFalse(p.validate(p.revision,a,r,listOf("pay £20","pay £20","Monday"))); assertFalse(p.validate(p.revision,a,r,listOf("pay £20","pay £20","Friday"))) }
  @Test fun clearDropsOriginalAndLedger() { val p=session(); p.record("redacted","TEST_ONLY"); p.clear(); assertEquals("",p.source); assertTrue(p.ledger.isEmpty()) }
+ @Test fun clearRejectsSuspendedAnswerRevision() {
+  val p=session(); val revision=p.revision
+  val answer=Answer(listOf(Claim("Pay","pay £20")),emptyList(),emptyList(),emptyList(),emptyList())
+  p.clear()
+  try { p.accept(revision,answer,Any()); fail("stale answer accepted after clear") } catch(_:IllegalStateException) {}
+  assertNull(p.currentAnswer()); assertFalse(p.isApproved()); assertTrue(p.ledger.isEmpty())
+ }
+ @Test fun sourceReplacementRejectsSuspendedAnswerRevision() {
+  val p=session(); val revision=p.revision
+  val answer=Answer(listOf(Claim("Pay","pay £20")),emptyList(),emptyList(),emptyList(),emptyList())
+  p.change("TEST_ONLY newer synthetic notice")
+  try { p.accept(revision,answer,Any()); fail("stale answer accepted after edit") } catch(_:IllegalStateException) {}
+  assertNull(p.currentAnswer()); assertEquals("TEST_ONLY newer synthetic notice",p.source)
+ }
+
 }

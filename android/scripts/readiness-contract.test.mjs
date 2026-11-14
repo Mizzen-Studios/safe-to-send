@@ -127,3 +127,29 @@ test('instrumentation remains explicitly simulated handoff/UI evidence, not infe
  assert.ok(variants[0].includes('DebugAppCheckProviderFactory'));
  assert.ok(variants[1].includes('RecaptchaAppCheckProviderFactory'));
 });
+
+
+test('busy source/photo/session controls guard callbacks and stale suspended completions', () => {
+ assert.ok(ui.includes('OutlinedButton(enabled=!busy,onClick={ if(vm.busy) return@OutlinedButton; vm.photo?.recycle()'));
+ assert.ok(ui.includes('OutlinedTextField(enabled=!busy,value=input,onValueChange={ if(vm.busy) return@OutlinedTextField;'));
+ assert.ok(ui.includes('Checkbox(enabled=!busy,checked=p.synthetic,onCheckedChange={if(!vm.busy)'));
+ assert.ok(ui.includes('if(!vm.begin()) return'));
+ assert.ok(ui.includes('scope.launch(start=CoroutineStart.UNDISPATCHED)'));
+ assert.ok(ui.includes('job.isActive && vm.isOpen() && p.revision==revision'));
+ assert.ok(ui.includes('catch (cancelled:CancellationException) { throw cancelled }'));
+ assert.ok(ui.includes('finally { vm.finish(); tick++ }'));
+ assert.ok(ui.includes('current(); p.change(raw)'));
+ assert.ok(ui.includes('current(); check(p.revision==rev)'));
+ assert.equal((ui.match(/p.revision==photoRequestRevision/g) || []).length,2);
+ assert.ok(ui.includes('p.revision!=photoRequestRevision'));
+ assert.ok(ui.includes('override fun onCleared() { closed=true; if(!busy)'));
+});
+
+test('controlled TEST_ONLY provider tests cover suspended OCR, stale completion and redacted handoff', () => {
+ const source=read('android/app/src/androidTest/java/com/mizzen/safetosend/NativeContractTest.kt');
+ for(const name of ['testOnlySuspendedOcrLocksDestructiveControlsUntilCompletion','testOnlySuspendedOcrRejectsStaleRevisionCompletion','testOnlySuspendedHybridKeepsOriginalLocalAndClearLocked']) assert.ok(source.includes(name));
+ assert.ok(source.includes('CompletableDeferred<String>()'));
+ assert.ok(source.includes('assertFalse(bitmap.isRecycled)'));
+ assert.ok(source.includes('TEST_ONLY non-JSON rejected response'));
+ assert.ok(!source.includes('FirebaseProvider()'));
+});
