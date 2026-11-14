@@ -1,0 +1,32 @@
+# Android readiness checkpoint — 2026-11-14
+
+Base: main4b65b0f (latest integrated Android merge279a220). Isolated branch council/android-readiness. No runtime Kotlin, Gradle/workflow/config, canonical asset or historical receipt changes in this checkpoint.
+
+## Completed
+
+- Read MainActivity.kt, Ai.kt, Privacy.kt, QuoteContract.kt, QuoteTypes.kt, both native unit suites and NativeContractTest.kt against the integrated source, not a proposed UI.
+- Rebound PIXEL_USB_TEST_PLAN.md to literal existing controls and explicit 10-minute/45-minute stop/evidence checklists. Removed assumed exports, payload editing, span removal/resizing, planted mutation UI and HTTP-body capture expectations. SDK application ledger is implemented; HTTP transport proof remains BLOCKED.
+- Added dependency-free Node source-drift guards for shared asset packaging/no variant shadow copies, KSP/generated field shapes and list bounds, canonical prompt loading/status enums, actual queried model identity or UNKNOWN, ONLY_ON_DEVICE boundaries, one-use approval/provenance guards, conservative verification semantics, runbook labels and TEST_ONLY instrumentation labeling. Negative source mutations demonstrate field/bounds/annotation drift rejection. These are source assertions, not Kotlin execution or inference.
+- Current asset identity is computed from canonical bytes by the test at each run. Do not copy the recovery receipt's historical hash into a current acceptance receipt. android/RECOVERY_RECEIPT.md stays immutable history. No APK from this checkpoint has been inspected.
+
+## Verification
+
+From repository root, no dependency installation:
+
+    node --test android/scripts/readiness-contract.test.mjs
+    bash android/scripts/test-pixel-usb.sh
+    git diff --check
+
+Results:8/8 Node tests PASS; bash syntax and26 offline guard cases PASS with ZERO adb/device operations; diff whitespace check PASS. First local Node iteration failed because the new test misspelled the Maven artifact coordinate; corrected the test to match the existing real dependency, without changing production config or weakening the guard. The guard runner uses a tripwire adb shim; actual helper/device operations were not invoked.
+
+No new Android build/emulator CI dispatched: production Kotlin, Gradle, workflow and shared asset bytes are unchanged, so the smallest relevant verification is the new source suite and existing offline helper guards. Historical CI43352623202 at333aff8 remains historical debug/release +26 unit +4 TEST_ONLY emulator evidence, not validation of a physical Pixel, actual SDK cloud response or current-device model support.
+
+## Source findings / deliberately not invented
+
+- Instrumentation's manual UI test proves redacted SDK handoff, not acceptance/two-key: TestOnlyProvider returns non-JSON text, which production parsing rejects. No parsed accepted-answer/two-key UI success should be inferred from its passing assertion. Native unit tests cover conservative quote/verifier/provenance invariants; this checkpoint adds no fabricated inference result.
+- UI has no remove/resize span, editable payload, explicit standalone local answer, cancellation, photo preview, transport observer, export, App Check negative-control or planted-mutation editor. These are explicit blocked/unsupported demo steps, not an excuse to add broad controls during readiness work.
+- Clear session is currently not disabled while busy. Operator runbook therefore requires waiting for completion before clearing; recycling a photo during suspended OCR is an untested UI lifecycle risk. A focused native UI change and busy-operation instrumentation should be separately validated before claiming concurrency safety. No speculative fix or fake model behavior is added here.
+- A suggestion operation overwrites the visible result; there is no persistent suggestion/response history. Preserve synthetic observations at each step before further operations.
+- Android text/evidence claim arrays and conservative whole-source-line support differ from web typed actions. Shared wire prompts/fields do not prove semantic/accuracy parity. No Nano accuracy, reliable planted-deadline warning or release-readiness claim.
+
+Remaining gates: authorized native Firebase registration/client config; private debug App Check enrollment and separate non-debug native reCAPTCHA Enterprise Preview acceptance (not Play Integrity); actual accepted cloud inference; physical Pixel availability/model identity/schema/text/photo; camera/gallery privacy; exact HTTP transport proof; unsupported negative/recording/export interfaces. Spark/no paid resources/config changes/Mac installs/phone operations/publishing/organizer contact preserved. Parent owns review and integration.
