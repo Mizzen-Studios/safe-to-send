@@ -5,6 +5,9 @@ import {validateSpans,type Span} from './privacy';
  * Operator-selected redactions are deliberately outside this helper. */
 export function automaticReviewSpans(text:string,spans:Span[]):Span[]{
  return validateSpans(text,spans.filter(s=>{
+  const quote=text.slice(s.start,s.end);
+  if(['SORT_CODE','ACCOUNT'].includes(s.kind)&&/^(?:Balance |Amount |Cost |Fee )?[£$€]\d[\d,.]*\.?$/i.test(quote))return false;
+  if(s.kind==='ADDRESS'&&/^(?:receipt date|issue date) (?:unknown|absent)\.?$/i.test(quote))return false;
   if(s.kind!=='DATE')return true;
   const lineStart=text.lastIndexOf('\n',s.start-1)+1;
   return /(?:date of birth|birth date|born|DOB)\s*[:=-]?\s*$/i.test(text.slice(lineStart,s.start));

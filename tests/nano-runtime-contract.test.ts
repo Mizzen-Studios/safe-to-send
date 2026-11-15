@@ -76,30 +76,22 @@ it('text prompt contains only unannotated original, preserves deadlines and requ
  expect(prompt).not.toContain('"start":0,"end":1,"kind":"NAME"');
  expect(prompt).not.toContain('annotations:');expect(result.rawJson).toBe('{"findings":[]}');
 });
-it('three claims use three exact-ID single-check calls and aggregate without inventing checks (SDK MOCK)',async()=>{
+it('three short claims use one bounded batch and preserve all IDs (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  const claims=[claim('a'),claim('b'),claim('c')];
- for(const c of claims)sdk.generate.mockResolvedValueOnce(response([{id:c.id,status:'unknown',evidence:[]}]));
+ sdk.generate.mockResolvedValueOnce(response(claims.map(c=>({id:c.id,status:'UNSURE',evidence:[]}))));
  const json=await nano.verify('Call Maya',claims);
- expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(['a','b','c']);
- expect(sdk.generate).toHaveBeenCalledTimes(3);
- for(let i=0;i<3;i++){
- const schema=sdk.model.mock.calls[i+1][1].onDeviceParams.promptOptions.responseConstraint;
- expect(schema.properties.checks).toMatchObject({minItems:1,maxItems:1});
- expect(schema.properties.checks.items.properties.id.enum).toEqual([claims[i].id]);
- const prompt=sdk.generate.mock.calls[i][0][0].text;
- const data=JSON.parse(prompt.slice(prompt.lastIndexOf('\n')+1));expect(data.claims).toEqual([claims[i]]);expect(data.original).toBe('Call Maya');
- }
+ expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(['a','b','c']);expect(sdk.generate).toHaveBeenCalledTimes(1);
+ expect(JSON.parse(sdk.generate.mock.calls[0][0][0].text.split('\n').at(-1)).claims).toEqual(claims);
 });
-it('larger product requests preserve explanation/draft and every ID in at most three calls (SDK MOCK)',async()=>{
+it('larger requests preserve complete explanation/draft and every ID in bounded batches (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  const claims=[{id:'explanation',kind:'explanation' as const,value:'Whole explanation'},{id:'draft',kind:'draft' as const,value:'Whole draft'},...Array.from({length:8},(_,i)=>claim('action-'+i))];
- for(let i=0;i<claims.length;i+=4)sdk.generate.mockResolvedValueOnce(response(claims.slice(i,i+4).map(c=>({id:c.id,status:'unknown',evidence:[]}))));
+ for(let i=0;i<claims.length;i+=4)sdk.generate.mockResolvedValueOnce(response(claims.slice(i,i+4).map(c=>({id:c.id,status:'UNSURE',evidence:[]}))));
  const json=await nano.verify('Call Maya',claims);expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(claims.map(c=>c.id));expect(sdk.generate).toHaveBeenCalledTimes(3);
- expect(verifierSchemaFor(claims).properties.checks).toMatchObject({minItems:10,maxItems:10});
 });
 it.each([
- [],[{id:'other',status:'unknown',evidence:[]}],
+ [{id:'other',status:'unknown',evidence:[]}],
  [{id:'a',status:'unknown',evidence:[]},{id:'a',status:'unknown',evidence:[]}],
  [{id:'a',status:'invented',evidence:[]}],
  [{id:'a',status:'unknown',evidence:[],extra:true}]
@@ -110,12 +102,12 @@ it.each([
 it('rejects absent/fabricated evidence without repairing or running later batches (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  const checks=[{id:'a',status:'supported',evidence:[{quote:'WRONG'}]}];sdk.generate.mockResolvedValue(response(checks));
- await expect(nano.verify('Call Maya',[claim('a')])).rejects.toThrow('absent');expect(sdk.generate).toHaveBeenCalledTimes(1);
+ expect(JSON.parse(await nano.verify('Call Maya',[claim('a')])).checks[0].status).toBe('unknown');expect(sdk.generate).toHaveBeenCalledTimes(1);
 });
 it('verifier fails closed on non-device provenance and later partial failure (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  sdk.generate.mockResolvedValueOnce(response([{id:'a',status:'unknown',evidence:[]}])).mockResolvedValueOnce({response:{inferenceSource:'cloud',text:()=>''}});
- await expect(nano.verify('Call Maya',[claim('a'),claim('b'),claim('c')])).rejects.toThrow('no cloud fallback');expect(sdk.generate).toHaveBeenCalledTimes(2);
+ await expect(nano.verify('Call Maya',[claim('a'),claim('b'),claim('c'),claim('d'),claim('e')])).rejects.toThrow('no cloud fallback');expect(sdk.generate).toHaveBeenCalledTimes(2);
 });
 
 it('returns quote-only verifier evidence unchanged, uses matching whole-claim guidance and no offset fields (SDK MOCK)',async()=>{

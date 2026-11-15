@@ -21,7 +21,7 @@ export function decision(raw:string,original:string,claims:Claim[]){
 }
 export type Capture={rawOutputs:string[];nativeCalls:unknown[];nativeErrors:unknown[]};
 export type Attempt={status:string;startedAt:string;latencyMs:number;error?:string;capture:Capture;value?:any;[key:string]:unknown};
-export type Adapter={initialize:(progress:(n:number)=>void)=>Promise<void>;detect:(text:string)=>Promise<{text:string;spans:unknown[];rawJson:string;latencyMs:number}>;verify:(text:string,claims:Claim[])=>Promise<string>};
+export type Adapter={initialize:(progress:(n:number)=>void)=>Promise<void>;detect:(text:string)=>Promise<{text:string;spans:unknown[];rawJson:string;latencyMs:number;invalidFindings?:number}>;verify:(text:string,claims:Claim[])=>Promise<string>};
 export type Lifecycle={begin:(signal:AbortSignal,capture:Capture)=>void;end:()=>void;close:()=>void};
 export async function collect(adapter:Adapter,lifecycle:Lifecycle,options:{provenance:'REAL_ON_DEVICE'|'TEST_ONLY';browser:string;os:string;model:string;initializationTimeoutMs?:number;callTimeoutMs?:number;signal?:AbortSignal;onProgress?:(done:number)=>void}){
  const initTimeout=options.initializationTimeoutMs??900000,callTimeout=options.callTimeoutMs??60000;
@@ -53,7 +53,7 @@ export async function collect(adapter:Adapter,lifecycle:Lifecycle,options:{prove
   if(initialization.status!=='success')halted=true;
   for(const letter of evalCorpus){
    const row=await attempt(()=>adapter.detect(letter.text),callTimeout);row.id=letter.id;
-   if(row.status==='success'){const d=row.value;results.push({id:letter.id,transcription:d.text,spans:d.spans,latencyMs:row.latencyMs});row.rawJson=d.rawJson;delete row.value;}
+   if(row.status==='success'){const d=row.value;results.push({id:letter.id,transcription:d.text,spans:d.spans,latencyMs:row.latencyMs});row.rawJson=d.rawJson;row.invalidFindings=d.invalidFindings??0;delete row.value;}
    detectors.push(row);options.onProgress?.(detectors.length);
   }
   for(const trial of trials()){

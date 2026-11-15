@@ -31,3 +31,28 @@ export function typedAction(value:string,quotes:string[],original:string):TypedV
  }
  return 'unknown';
 }
+
+/** Literal values only, independently grounded in complete source sentences.
+ * Multiple values/obligations remain uncertain. Never resolve relative dates. */
+export function typedField(claim:{kind:string;value:string},quotes:string[],original:string):TypedVerdict {
+ const units=sourceSentences(original);
+ const full=quotes.filter(q=>units.some(s=>s===q||q.includes(s)));
+ if(!full.length)return 'unknown';
+ if(claim.kind==='amount'){
+ const tokens=(text:string)=>Array.from(text.matchAll(/(?:£|GBP )\d+(?:,\d{3})*(?:\.\d{2})?(?!\d|,\d|\.\d)/g),m=>m[0]);
+ const target=key(claim.value),all=tokens(original);
+ const related=units.filter(s=>tokens(s).includes(all[0]));
+ if(!target||all.length!==1||related.length!==1||!full.some(q=>q.includes(related[0])))return 'unknown';
+ const source=key(all[0]);return source===null?'unknown':target===source?'supported':'mismatch';
+ }
+ if(claim.kind!=='deadline')return 'unknown';
+ let d;try{d=JSON.parse(claim.value);}catch{return 'unknown';}
+ const dates=(text:string)=>Array.from(text.matchAll(/\b(?:\d{4}-\d{2}-\d{2}|\d{1,2}[/.\-]\d{1,2}[/.\-]\d{4}|\d{1,2} (?:January|February|March|April|May|June|July|August|September|October|November|December) \d{4})\b/g),m=>m[0]);
+ const relevant=units.filter(s=>/\b(?:by|before|on|appointment|inspection)\b/i.test(s)&&!/\b(?:birth|DOB|issue date|not a deadline)\b/i.test(s)&&dates(s).length);
+ if(relevant.length!==1||!full.some(q=>q.includes(relevant[0]))||dates(relevant[0]).length!==1)return 'unknown';
+ if(d.evidence&&(!original.includes(d.evidence)||!relevant[0].includes(d.evidence)))return 'unknown';
+ if(d.action&&!relevant[0].toLowerCase().includes(d.action.toLowerCase().replace(/[.!?]$/,''))&&typedAction(d.action,quotes,original)==='unknown')return 'unknown';
+ const raw=dates(relevant[0])[0],parts=raw.match(/^(\d{1,2})[/.\-](\d{1,2})[/.\-](\d{4})$/);
+ const source=key(parts?parts[3]+'-'+parts[2].padStart(2,'0')+'-'+parts[1].padStart(2,'0'):raw);
+ return source===null?'unknown':source===d.date?'supported':'mismatch';
+}

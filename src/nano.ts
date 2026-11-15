@@ -2,6 +2,7 @@ import {initializeApp,type FirebaseOptions} from 'firebase/app';
 import {getAI,getGenerativeModel,GoogleAIBackend,InferenceMode,InferenceSource,type Part} from 'firebase/ai';
 import {validateSpans,type Span,cloudInstruction} from './privacy';
 import {parseVerification,type Claim} from './hybrid';
+import {fixedChecks,claimBatches,responseJSON} from './fixed-verdict';
 import contract from '../shared/nano/contract.json';
 import {automaticReviewSpans} from './manual-suggestions';
 export const localAnswerSchema={type:'object',additionalProperties:false,properties:{explanation:{type:'string'},deadlines:{type:'array',items:{type:'object',additionalProperties:false,properties:{date:{type:['string','null']},evidence:{type:'string'},action:{type:'string'}},required:['date','evidence','action']}},actions:{type:'array',items:{type:'string'}},draft:{type:'string'}},required:['explanation','deadlines','actions','draft']};
@@ -40,15 +41,24 @@ export function quoteSpans(text:string,findings:unknown):Span[]{
 }
 export function parseTextDetection(json:string,text:string):Span[]{
  if(json.length>100000)throw Error('Invalid Nano quote response');
- let x:unknown;try{x=JSON.parse(json);}catch{throw Error('Invalid Nano quote response');}
+ let x:unknown;try{x=responseJSON(json);}catch{throw Error('Invalid Nano quote response');}
  if(!exactKeys(x,['findings']))throw Error('Invalid Nano quote response');
  return quoteSpans(text,x.findings);
+}
+/** Production partial-response handling: invalid findings are recorded, not repaired.
+ * Scoring keeps these notices and their false negatives in the full denominator. */
+export function partialTextDetection(json:string,text:string):{spans:Span[];invalidFindings:number}{
+ const x=responseJSON(json);
+ if(!exactKeys(x,['findings'])||!Array.isArray(x.findings)||x.findings.length>1000)throw Error('Invalid Nano quote response');
+ const spans:Span[]=[];let invalidFindings=0;
+ for(const finding of x.findings){try{spans.push(...quoteSpans(text,[finding]));}catch{invalidFindings++;}}
+ return {spans:validateSpans(text,spans),invalidFindings};
 }
 /** Wire validation only: exact occurrence is necessary, NOT semantic support.
  * Claim assessment and whole-field coverage remain parseVerification's contract. */
 export function validateQuoteVerification(json:string,original:string,claims:Claim[]):void{
  if(json.length>50000||original.length>50000)throw Error('Invalid Nano quote verification');
- let x:unknown;try{x=JSON.parse(json);}catch{throw Error('Invalid Nano quote verification');}
+ let x:unknown;try{x=responseJSON(json);}catch{throw Error('Invalid Nano quote verification');}
  if(!exactKeys(x,['checks'])||!Array.isArray(x.checks)||x.checks.length!==claims.length)throw Error('Invalid Nano quote verification');
  const seen=new Set<string>();
  for(const v of x.checks){
@@ -74,7 +84,7 @@ export function verifierSchemaFor(claims:Claim[]){
 }
 function parseImageDetection(json:string):{text:string;spans:Span[]}{
  if(json.length>200000)throw Error('Invalid Nano image response');
- let x:unknown;try{x=JSON.parse(json);}catch{throw Error('Invalid Nano image response');}
+ let x:unknown;try{x=responseJSON(json);}catch{throw Error('Invalid Nano image response');}
  if(!exactKeys(x,['transcription','findings'])||typeof x.transcription!=='string'||!x.transcription.trim()||x.transcription.length>50000)throw Error('Invalid Nano image response');
  return {text:x.transcription,spans:quoteSpans(x.transcription,x.findings)};
 }
@@ -106,22 +116,20 @@ export function createNano(config:FirebaseOptions){
  async verify(original:string,claims:Claim[]):Promise<string>{
  if(!initialized)throw Error('Nano not initialized. No cloud fallback.');
  if(!original.trim()||original.length>50000||!claims.length||claims.length>1000||JSON.stringify(claims).length>100000||claims.some(c=>!c.id)||new Set(claims.map(c=>c.id)).size!==claims.length)throw Error('Invalid local verification request');
- // Up to three serial calls; one claim per call for three-claim requests.
- // Product journeys still submit EVERY claim, including whole explanation and draft.
- const size=Math.ceil(claims.length/3),checks:unknown[]=[];
- for(let offset=0;offset<claims.length;offset+=size){
- const batch=claims.slice(offset,offset+size);
- const json=await localJSON(verifierSchemaFor(batch),contract.verificationPrompt+'\n'+JSON.stringify({original,claims:batch}));
- // No repair, missing-check synthesis, retries or fuzzy conversion.
+ // Small bounded requests; explanation and draft remain complete.
+ const checks:unknown[]=[];
+ for(const batch of claimBatches(claims)){
+ const raw=await localJSON(verifierSchemaFor(batch),contract.verificationPrompt+'\n'+JSON.stringify({original,claims:batch}));
+ const json=fixedChecks(raw,original,batch);
  validateQuoteVerification(json,original,batch);
- checks.push(...(JSON.parse(json) as {checks:unknown[]}).checks);
+ checks.push(...JSON.parse(json).checks);
  }
  const json=JSON.stringify({checks});
  validateQuoteVerification(json,original,claims);
  return json;
  },
  async initialize(progress:(n:number)=>void){initialized=false;const availability=await (lm.availability as (options?:object)=>Promise<string>)({expectedInputs:[{type:'text',languages:['en']},{type:'image'}],expectedOutputs:[{type:'text',languages:['en']}]});if(availability==='unavailable')throw Error('On-device model unavailable. No cloud fallback.');await model.initializeDeviceModel(progress);initialized=true;},
- async detect(text:string,image?:string):Promise<{text:string;spans:Span[];latencyMs:number;rawJson:string}>{
+ async detect(text:string,image?:string):Promise<{text:string;spans:Span[];latencyMs:number;rawJson:string;invalidFindings?:number}>{
  if(!initialized)throw Error('Nano not initialized. No cloud fallback.');
  const before=performance.now();
  const guidance=contract.detectionPrompt+' ';
@@ -142,7 +150,7 @@ export function createNano(config:FirebaseOptions){
  const result=await detector.generateContent(input);
  if(result.response.inferenceSource!==InferenceSource.ON_DEVICE)throw Error('Privacy invariant: non-device inference result');
  const rawJson=result.response.text();
- const detected=image!==undefined?parseImageDetection(rawJson):{text,spans:parseTextDetection(rawJson,text)};
+ const detected=image!==undefined?parseImageDetection(rawJson):{text,...partialTextDetection(rawJson,text)};
  // Apply the same DATE policy to text, image and programmatic callers as UI review.
  return {...detected,spans:automaticReviewSpans(detected.text,detected.spans),latencyMs:performance.now()-before,rawJson};
  }
