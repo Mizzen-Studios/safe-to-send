@@ -148,7 +148,7 @@ class NativeContractTest {
    override suspend fun privateJson(prompt:String,schema:org.json.JSONObject):String {
     val claims=org.json.JSONObject(prompt.substringAfter('\n')).getJSONArray("claims")
     return org.json.JSONObject().put("checks",org.json.JSONArray().apply {
-     for(i in 0 until claims.length()) put(org.json.JSONObject().put("id","claim-$i").put("status","supported").put("evidence",org.json.JSONArray().put(org.json.JSONObject().put("quote","Pay £20 by Friday."))))
+     for(i in 0 until claims.length()) put(org.json.JSONObject().put("id","claim-$i").put("status","MATCH").put("evidence",org.json.JSONArray().put(org.json.JSONObject().put("quote","Pay £20 by Friday."))))
     }).toString()
    }
   }
