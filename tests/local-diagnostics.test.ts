@@ -2,3 +2,5 @@ import {it,expect} from 'vitest';
 import {emitLocalDiagnostic,observeLocalDiagnostics,localFailureCode,LocalOperationError} from '../src/local-diagnostics';
 it('never exposes provider error or unknown codes',()=>{expect(localFailureCode(new Error('PRIVATE TOKEN'),'ANSWER_SCHEMA')).toBe('ANSWER_SCHEMA');expect(localFailureCode(new LocalOperationError('PRIVATE'),'ANSWER_SCHEMA')).toBe('LOCAL_UNAVAILABLE');});
 it('raw observation is explicitly installed, bounded and removable',()=>{const seen:unknown[]=[];emitLocalDiagnostic({operation:'answer',stage:'RESPONSE_TEXT',raw:'not observed'});const stop=observeLocalDiagnostics(v=>seen.push(v));emitLocalDiagnostic({operation:'answer',stage:'RESPONSE_TEXT',raw:'x'.repeat(110000)});stop();emitLocalDiagnostic({operation:'answer',stage:'RESPONSE_TEXT',raw:'not observed'});expect(seen).toHaveLength(1);expect((seen[0] as {raw:string}).raw.length).toBe(100000);});
+
+it('observer exceptions cannot change the inference path',()=>{const stop=observeLocalDiagnostics(()=>{throw Error('observer failure');});expect(()=>emitLocalDiagnostic({operation:'answer',stage:'MODEL_GENERATE'})).not.toThrow();stop();});

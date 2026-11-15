@@ -1,0 +1,184 @@
+{
+  "status": "TAKE_FAILED_NOT_RELEASE_FOOTAGE",
+  "sourceCommit": "3d9d286d9a5bd050ce829f1ea83eedc887fc777c",
+  "errors": [
+    "Local answer unavailable or invalid; no fallback. [MODEL_GENERATE]"
+  ],
+  "localAnswerStatus": "Local answer unavailable or invalid; no fallback. [MODEL_GENERATE]",
+  "steps": [
+    {
+      "name": "original synthetic sample",
+      "start": "2026-11-15T19:06:29.268Z",
+      "elapsedMs": 85,
+      "end": "2026-11-15T19:06:29.471Z"
+    },
+    {
+      "name": "real Nano detection plus product regex union",
+      "start": "2026-11-15T19:06:32.025Z",
+      "elapsedMs": 2842,
+      "end": "2026-11-15T19:06:52.957Z"
+    },
+    {
+      "name": "inspect highlights and manually correct any known synthetic details missed by detectors",
+      "start": "2026-11-15T19:06:55.238Z",
+      "elapsedMs": 26055,
+      "end": "2026-11-15T19:06:55.296Z"
+    },
+    {
+      "name": "inspect redacted application preview and require review",
+      "start": "2026-11-15T19:06:57.584Z",
+      "elapsedMs": 28401,
+      "end": "2026-11-15T19:06:57.607Z"
+    },
+    {
+      "name": "confirm synthetic original and exact payload reviewed",
+      "start": "2026-11-15T19:06:59.892Z",
+      "elapsedMs": 30709,
+      "end": "2026-11-15T19:06:59.992Z"
+    },
+    {
+      "name": "Explain on this device with original local input",
+      "start": "2026-11-15T19:07:02.280Z",
+      "elapsedMs": 33097
+    }
+  ],
+  "chrome": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "modelIdentity": {
+    "reportedName": null,
+    "status": "UNKNOWN_NOT_EXPOSED",
+    "source": "Chrome Prompt API"
+  },
+  "take": {
+    "start": "2026-11-15T19:06:29.183Z",
+    "capture": "ffmpeg live Xvfb x11grab, 15 fps, no audio, no edits",
+    "end": "2026-11-15T19:07:23.352Z",
+    "wallMs": 54169,
+    "cdpFrameCount": 3
+  },
+  "network": {
+    "scope": "page CDP + route; not browser model download traffic",
+    "externalAttempts": [],
+    "requests": [
+      {
+        "at": 60.530486,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Document"
+      },
+      {
+        "at": 60.550083,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Script"
+      },
+      {
+        "at": 60.550389,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Stylesheet"
+      },
+      {
+        "at": 60.600735,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Other"
+      }
+    ]
+  },
+  "productSourceHashes": {
+    "src/main.ts": "60cb5d6f9c806a11847380de1b35ef83c60899ae7cd5c9e2d32fcd43aa3ea4d5",
+    "src/nano.ts": "afd83c4f893c234dbd98ff370e4b4eadfb08ce6ab67c01674d3a1ace33be8c07",
+    "src/hybrid.ts": "8ad084f64d064cbad6cfa081a0ab57a2dd0c606dce9526878cfc29ec47250d9b",
+    "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+  },
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 2147,
+      "sha256": "7418c32459a95cbb257bbe914268f60ce817834b66cb929a7ba6310c9b165a58"
+    },
+    "after-take-events.png": {
+      "bytes": 19046,
+      "sha256": "ddf829b85211c9a637f4eb15f4b8e485fa025a9683eb4e982db4400b42084276"
+    },
+    "03.png": {
+      "bytes": 123344,
+      "sha256": "d8edcc7c8b92ab2f7a6ae38af45e063653787f24eda70c76271f6e31ad5bf263"
+    },
+    "prewarm-ready.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "02.png": {
+      "bytes": 132458,
+      "sha256": "cdad7740bfa4692379e2b16ea3c634973bdfdafdb80e7f1c54db60c0a595d7bb"
+    },
+    "after-take-components.png": {
+      "bytes": 159086,
+      "sha256": "b461a7f082d3bf0c55362439a5cedd93da9a87591a4a93bf5f678496ed18cc67"
+    },
+    "diagnostics-after-take.json": {
+      "bytes": 94037,
+      "sha256": "270b3f2f139d1676893558d307304e2ff7b2df1331f0c5721f52ca91d87d1578"
+    },
+    "04.png": {
+      "bytes": 161653,
+      "sha256": "dc6d6ebbfdeae65b3a59313847ffaad300592da571e4888d0b06293572759d18"
+    },
+    "01.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "synthetic-local-responses.json": {
+      "bytes": 299,
+      "sha256": "083ef8b91fa481b0ac59f484afe188eeb9f0a46a0a931b8226e427ff042e7025"
+    },
+    "frame-timing.json": {
+      "bytes": 127,
+      "sha256": "a301a5f5c20952d01ced15f7e76be1898185d79ae8bbdfad166008ffeaf4cb64"
+    },
+    "proof.json": {
+      "bytes": 103681,
+      "sha256": "6f8db16688912048779952243a975e914619a86cadc41a111ef4fcc8ca7b7ec1"
+    },
+    "after-take-broker.png": {
+      "bytes": 194987,
+      "sha256": "a592a9553fa162a9e4cd4c85dfd521c0cf8e3c2aa0f7d8c8c135ea324dc80ea5"
+    },
+    "final-native-ui.png": {
+      "bytes": 166220,
+      "sha256": "868a54130e054b76d02db75814a08bee2e6ab677bb890084176de3f1002b7fe0"
+    },
+    "05.png": {
+      "bytes": 164668,
+      "sha256": "0a8d4b1e666a3f3e44378dd86cb855f00749c0e4576e09667ae6c213aecf206e"
+    },
+    "take-raw.mp4": {
+      "bytes": 509948,
+      "sha256": "75ce9346a0aded3d4e541d4b07fd8ed9a36acfa6ea5c710f585d9bec60dc7215"
+    }
+  },
+  "componentMetadata": [
+    {
+      "url": "chrome://on-device-internals/",
+      "status": "CAPTURED",
+      "brokerState": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Broker Properties Broker Type ManifestBrokerState Performance Class GpuBlocked Possible Capabilities Image Manifest Path [local-path] Manifest Loaded true Model crash count (current/maximum): 1 / 3 View global crash reports (chrome://crashes) Manifest Criteria Enabled by feature flag true Enabled by enterprise policy true Enabled by user setting true Enough VRAM false (0 MiB actual, 3000 MiB required) Device Capable true Enough disk space to install true (88423 MiB available, 20480 MiB required) Enough disk space to retain true (88423 MiB available, 5120 MiB required) Assets Name Version State Progress Error laya_en_s512_wfp16_component 2026.10.1.1331 Not Installed 0% None laya_ml_s256_wfp16_component 2026.10.1.1331 Not Installed 0% None nano_v3_cpu_component 2025.8.21.1028 Ready 100% None proofreader_small_expert_model_component 2026.6.3.1603 Not Installed 0% None gemma4_component 2026.8.7.929 Not Installed 0% None summarizer_small_expert_model_component 2026.6.3.1604 Not Installed 0% None laya_en_s256_wint8_component 2026.10.1.1331 Not Installed 0% None Use Cases Name Requested Unavailable Reason compose Not Supported history_query_intent Not Supported history_search Not Supported laya_en_s256_wint8 Pending Usage laya_en_s512_wfp16 Pending Usage laya_ml_s256_wfp16 Pending Usage permissions_ai Not Supported prompt_api Available prompt_api_gemma4 Pending Usage proofreader_api Pending Usage scam_detection Available speech_recognition Not Supported speech_recognition_small_expert_model Not Supported summarizer_api Available summarizer_gemma4 Pending Usage summarizer_small_expert_model Pending Usage test Not Supported writing_assistance_api Available writing_assistance_api_gemma4 Pending Usage Models Name Folder Size Weights Path Backend Type gemma4_cpu_model 0 MiB CPU laya_en_s256_wint8 0 MiB CPU laya_en_s512_wfp16 0 MiB CPU laya_ml_s256_wfp16 0 MiB CPU nano_v3_cpu_model 4,074.77 MiB [local-path] CPU proofreader_small_expert_model 0 MiB CPU summarizer_small_expert_model 0 MiB CPU",
+        "rowCount": 33,
+        "screenshot": "after-take-broker.png"
+      }
+    },
+    {
+      "url": "chrome://components/",
+      "text": "Components Components ( 23 ) No components are installed Actor Safety Lists - Version: 9.8200.9609 Status - Updated Check for update Uninstall Amount Extraction Heuristic Regexes - Version: 4 Status - Updated Check for update Uninstall Captcha Providers - Version: 8.5419.4434 Status - Updated Check for update Uninstall Certificate Error Assistant - Version: 7 Status - Updated Check for update Uninstall CRLSet - Version: 10905 Status - Updated Check for update Uninstall Crowd Deny - Version: 2026.11.12.125 Status - Updated Check for update Uninstall File Type Policies - Version: 159.0.8152.0 Status - Updated Check for update Uninstall Hyphenation - Version: 120.0.6050.0 Status - Updated Check for update Uninstall MEI Preload - Version: 1.1.0.3 Status - Updated Check for update Uninstall OnDeviceHeadSuggest - Version: 20251024.824731831.14 Status - Updated Check for update Uninstall Optimization Guide Manifest Component: nano_v3_cpu_component - Version: 2025.8.21.1028 Status - Up-to-date Check for update Uninstall Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Optimization Hints - Version: 778 Status - Updated Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-date Check for update Uninstall PKI Metadata - Version: 1834 Status - Updated Check for update Uninstall Privacy Sandbox Attestations - Version: 2025.6.16.0 Status - Updated Check for update Uninstall Related Website Sets - Version: 2025.7.24.0 Status - Updated Check for update Uninstall Safety Tips - Version: 3092 Status - Updated Check for update Uninstall Subresource Filter Rules - Version: 9.73.1 Status - Updated Check for update Uninstall Trust Token Key Commitments - Version: 2026.10.12.1 Status - Updated Check for update Uninstall WASM TTS Engine - Version: 20261029.1 Status - Updated Check for update Uninstall Widevine Content Decryption Module - Version: 4.10.3112.0 Status - Up-to-date Check for update Uninstall Zxcvbn Data Dictionaries - Version: 3 Status - Updated Check for update Uninstall",
+      "status": "CAPTURED"
+    }
+  ]
+}

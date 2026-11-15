@@ -1,0 +1,203 @@
+{
+  "status": "RECORDED_REAL_LOCAL_PRODUCT",
+  "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+  "errors": [],
+  "localAnswerStatus": "Local explanation ready. Local checks: unknown. Unknown is not verified; this is not a truth guarantee. Known redacted values stay hidden. Check the original.",
+  "steps": [
+    {
+      "name": "original synthetic sample",
+      "start": "2026-11-15T19:10:17.640Z",
+      "elapsedMs": 87,
+      "end": "2026-11-15T19:10:17.711Z"
+    },
+    {
+      "name": "real Nano detection plus product regex union",
+      "start": "2026-11-15T19:10:19.997Z",
+      "elapsedMs": 2444,
+      "end": "2026-11-15T19:10:43.784Z"
+    },
+    {
+      "name": "inspect highlights and manually correct any known synthetic details missed by detectors",
+      "start": "2026-11-15T19:10:46.067Z",
+      "elapsedMs": 28514,
+      "end": "2026-11-15T19:10:50.255Z"
+    },
+    {
+      "name": "inspect redacted application preview and require review",
+      "start": "2026-11-15T19:10:52.536Z",
+      "elapsedMs": 34983,
+      "end": "2026-11-15T19:10:52.563Z"
+    },
+    {
+      "name": "confirm synthetic original and exact payload reviewed",
+      "start": "2026-11-15T19:10:54.940Z",
+      "elapsedMs": 37387,
+      "end": "2026-11-15T19:10:55.182Z"
+    },
+    {
+      "name": "Explain on this device with original local input",
+      "start": "2026-11-15T19:10:57.457Z",
+      "elapsedMs": 39904,
+      "end": "2026-11-15T19:12:24.362Z"
+    },
+    {
+      "name": "real local explanation and editable draft",
+      "start": "2026-11-15T19:12:26.633Z",
+      "elapsedMs": 129080,
+      "end": "2026-11-15T19:12:26.652Z"
+    }
+  ],
+  "chrome": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "modelIdentity": {
+    "reportedName": null,
+    "status": "UNKNOWN_NOT_EXPOSED",
+    "source": "Chrome Prompt API"
+  },
+  "take": {
+    "start": "2026-11-15T19:10:17.553Z",
+    "capture": "ffmpeg live Xvfb x11grab, 15 fps, no audio, no edits",
+    "end": "2026-11-15T19:12:35.354Z",
+    "wallMs": 137802,
+    "cdpFrameCount": 5
+  },
+  "network": {
+    "scope": "page CDP + route; not browser model download traffic",
+    "externalAttempts": [],
+    "requests": [
+      {
+        "at": 60.972033,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Document"
+      },
+      {
+        "at": 60.99969,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Script"
+      },
+      {
+        "at": 61.000314,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Stylesheet"
+      },
+      {
+        "at": 61.06953,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Other"
+      },
+      {
+        "at": 246.375476,
+        "origin": "null",
+        "method": "GET",
+        "type": "Image"
+      }
+    ]
+  },
+  "productSourceHashes": {
+    "src/main.ts": "60cb5d6f9c806a11847380de1b35ef83c60899ae7cd5c9e2d32fcd43aa3ea4d5",
+    "src/nano.ts": "6af9d89f6cc82ad0ffde29358e50d6eb45ddfab300b108a6dee8af69d2ecec79",
+    "src/hybrid.ts": "8ad084f64d064cbad6cfa081a0ab57a2dd0c606dce9526878cfc29ec47250d9b",
+    "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+  },
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 2405,
+      "sha256": "178af62cf0f0848444818ed92a7069109a85a855246e287d12e0945ea6ae8924"
+    },
+    "after-take-events.png": {
+      "bytes": 19046,
+      "sha256": "ddf829b85211c9a637f4eb15f4b8e485fa025a9683eb4e982db4400b42084276"
+    },
+    "03.png": {
+      "bytes": 139383,
+      "sha256": "03c33c82d9a6d958b8c2856b518871b747432d6c3c72b515621e1f39aee981ed"
+    },
+    "prewarm-ready.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "02.png": {
+      "bytes": 132465,
+      "sha256": "3ec168b5f78e386a1321df185ef43dd8809a4d4971d491e99bb890b48532fbc5"
+    },
+    "after-take-components.png": {
+      "bytes": 159086,
+      "sha256": "b461a7f082d3bf0c55362439a5cedd93da9a87591a4a93bf5f678496ed18cc67"
+    },
+    "diagnostics-after-take.json": {
+      "bytes": 94036,
+      "sha256": "95e03737c9f33e780c518a5134f550aef1fdede6af2739c3d014d65b7b6a7293"
+    },
+    "04.png": {
+      "bytes": 145289,
+      "sha256": "48291031c593610af69885666e6a11a298c9c58e6aa8b36fa1818c5771704bc6"
+    },
+    "01.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "07.png": {
+      "bytes": 38265,
+      "sha256": "6cb5549402ec7e6711ea5354f4dc4e342f0ce12168b792fb16dfb1b10f675043"
+    },
+    "synthetic-local-responses.json": {
+      "bytes": 2581,
+      "sha256": "bd701b6725b0ecfb2485c238250fba33edd584f93f17138696981dd48244118c"
+    },
+    "frame-timing.json": {
+      "bytes": 211,
+      "sha256": "052105683737df53ae89ae08bf6cbe348704a3dd2e3d2eabf8d1222add84861b"
+    },
+    "06.png": {
+      "bytes": 144141,
+      "sha256": "1a2eb1aad59a0c4f717946bc843e9f606609d146277d422f1205ec861619d0a6"
+    },
+    "proof.json": {
+      "bytes": 105006,
+      "sha256": "3701168d3f056c6455b7e63f4f44d3a1688748f2f067d7d6490e09b54ec70c31"
+    },
+    "after-take-broker.png": {
+      "bytes": 195069,
+      "sha256": "70971bb63a875648daac8f73f2bdf9e750eb1320d3ec8bd2896c2f3332cf9a2d"
+    },
+    "final-native-ui.png": {
+      "bytes": 38265,
+      "sha256": "6cb5549402ec7e6711ea5354f4dc4e342f0ce12168b792fb16dfb1b10f675043"
+    },
+    "05.png": {
+      "bytes": 153057,
+      "sha256": "7afd5978f715e98a3fa73bfdc8ab8ae9492d552e012f1caeb6c296a7650ae4a4"
+    },
+    "take-raw.mp4": {
+      "bytes": 1314845,
+      "sha256": "a11ac12897ee94b57bc452e90e7f5487e71f76381b12b519c07808bfa4569e0e"
+    }
+  },
+  "componentMetadata": [
+    {
+      "url": "chrome://on-device-internals/",
+      "status": "CAPTURED",
+      "brokerState": {
+        "status": "CAPTURED",
+        "inspected": true,
+        "text": "Broker Properties Broker Type ManifestBrokerState Performance Class GpuBlocked Possible Capabilities Image Manifest Path [local-path] Manifest Loaded true Model crash count (current/maximum): 0 / 3 View global crash reports (chrome://crashes) Manifest Criteria Enabled by feature flag true Enabled by enterprise policy true Enabled by user setting true Enough VRAM false (0 MiB actual, 3000 MiB required) Device Capable true Enough disk space to install true (88423 MiB available, 20480 MiB required) Enough disk space to retain true (88423 MiB available, 5120 MiB required) Assets Name Version State Progress Error laya_en_s512_wfp16_component 2026.10.1.1331 Not Installed 0% None laya_ml_s256_wfp16_component 2026.10.1.1331 Not Installed 0% None nano_v3_cpu_component 2025.8.21.1028 Ready 100% None proofreader_small_expert_model_component 2026.6.3.1603 Not Installed 0% None gemma4_component 2026.8.7.929 Not Installed 0% None summarizer_small_expert_model_component 2026.6.3.1604 Not Installed 0% None laya_en_s256_wint8_component 2026.10.1.1331 Not Installed 0% None Use Cases Name Requested Unavailable Reason compose Not Supported history_query_intent Not Supported history_search Not Supported laya_en_s256_wint8 Pending Usage laya_en_s512_wfp16 Pending Usage laya_ml_s256_wfp16 Pending Usage permissions_ai Not Supported prompt_api Available prompt_api_gemma4 Pending Usage proofreader_api Pending Usage scam_detection Available speech_recognition Not Supported speech_recognition_small_expert_model Not Supported summarizer_api Available summarizer_gemma4 Pending Usage summarizer_small_expert_model Pending Usage test Not Supported writing_assistance_api Available writing_assistance_api_gemma4 Pending Usage Models Name Folder Size Weights Path Backend Type gemma4_cpu_model 0 MiB CPU laya_en_s256_wint8 0 MiB CPU laya_en_s512_wfp16 0 MiB CPU laya_ml_s256_wfp16 0 MiB CPU nano_v3_cpu_model 4,074.77 MiB [local-path] CPU proofreader_small_expert_model 0 MiB CPU summarizer_small_expert_model 0 MiB CPU",
+        "rowCount": 33,
+        "screenshot": "after-take-broker.png"
+      }
+    },
+    {
+      "url": "chrome://components/",
+      "text": "Components Components ( 23 ) No components are installed Actor Safety Lists - Version: 9.8200.9609 Status - Updated Check for update Uninstall Amount Extraction Heuristic Regexes - Version: 4 Status - Updated Check for update Uninstall Captcha Providers - Version: 8.5419.4434 Status - Updated Check for update Uninstall Certificate Error Assistant - Version: 7 Status - Updated Check for update Uninstall CRLSet - Version: 10905 Status - Updated Check for update Uninstall Crowd Deny - Version: 2026.11.12.125 Status - Updated Check for update Uninstall File Type Policies - Version: 159.0.8152.0 Status - Updated Check for update Uninstall Hyphenation - Version: 120.0.6050.0 Status - Updated Check for update Uninstall MEI Preload - Version: 1.1.0.3 Status - Updated Check for update Uninstall OnDeviceHeadSuggest - Version: 20251024.824731831.14 Status - Updated Check for update Uninstall Optimization Guide Manifest Component: nano_v3_cpu_component - Version: 2025.8.21.1028 Status - Up-to-date Check for update Uninstall Optimization Guide On DeviceModels Manifest - Version: 1.20261018.2 Status - Up-to-date Check for update Uninstall Optimization Hints - Version: 778 Status - Updated Check for update Uninstall Origin Trials - Version: 0.0.0.0 Status - Up-to-date Check for update Uninstall PKI Metadata - Version: 1834 Status - Updated Check for update Uninstall Privacy Sandbox Attestations - Version: 2025.6.16.0 Status - Updated Check for update Uninstall Related Website Sets - Version: 2025.7.24.0 Status - Updated Check for update Uninstall Safety Tips - Version: 3092 Status - Updated Check for update Uninstall Subresource Filter Rules - Version: 9.73.1 Status - Updated Check for update Uninstall Trust Token Key Commitments - Version: 2026.10.12.1 Status - Updated Check for update Uninstall WASM TTS Engine - Version: 20261029.1 Status - Updated Check for update Uninstall Widevine Content Decryption Module - Version: 4.10.3112.0 Status - Up-to-date Check for update Uninstall Zxcvbn Data Dictionaries - Version: 3 Status - Updated Check for update Uninstall",
+      "status": "CAPTURED"
+    }
+  ]
+}
