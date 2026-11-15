@@ -1,3 +1,4 @@
+@file:OptIn(com.google.firebase.ai.type.PublicPreviewAPI::class)
 package com.mizzen.safetosend
 
 import androidx.compose.material3.MaterialTheme
@@ -27,10 +28,13 @@ class EmulatorCloudTest {
   val report=JSONObject().put("attestation","REGISTERED_DEBUG_DEVELOPMENT_NOT_PRODUCTION")
    .put("transport","Firebase Android SDK application input; HTTP/TLS bytes NOT observed")
   try {
+   report.put("stage","APP_CHECK_TOKEN")
    val token=Tasks.await(FirebaseAppCheck.getInstance(FirebaseApp.getInstance()).getAppCheckToken(false),60,TimeUnit.SECONDS)
    assertTrue(token.token.isNotBlank()); report.put("appCheckTokenObtained",true)
+   report.put("stage","NANO_STATUS")
    val availability=provider.status(); report.put("nanoStatus",availability)
    assertFalse(availability.startsWith("AVAILABLE;"))
+   report.put("stage","UI_MANUAL_REDACTION")
    compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
    compose.onNodeWithText("Check Nano availability").performClick()
    compose.waitUntil(60000) { !vm.busy }; Thread.sleep(1500)
@@ -44,11 +48,13 @@ class EmulatorCloudTest {
    val exact=Prompts.response(vm.privacy.redacted())
    assertFalse(exact.contains("Alex")); assertTrue(exact.contains("[WRITER]"))
    report.put("exactApprovedApplicationText",exact).put("sha256",sha256(exact)).put("utf8Bytes",exact.toByteArray(Charsets.UTF_8).size)
+   report.put("stage","ACTUAL_SDK_HYBRID_REQUEST")
    compose.onNodeWithText("Run approved hybrid response").performScrollTo().performClick()
    compose.waitUntil(120000) { !vm.busy }
    val ledger=vm.privacy.ledger
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
+   report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE")
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
    report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
