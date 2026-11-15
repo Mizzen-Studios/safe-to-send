@@ -36,3 +36,42 @@ assert not re.search(r'<script|https?://(?!www.w3.org)', source)
 print('PASS SVG XML, exact titles, six directed connectors, no external assets;', count, 'internal links')
 script = (ROOT / 'submission/VIDEO_SCRIPT_AND_SHOTLIST_DRAFT.md').read_text()
 print('Narration words:', sum(len(x.split()) for x in re.findall('“([^”]+)”', script)))
+
+# Evidence is bound to actual bytes; missing captures never acquire invented paths.
+import hashlib
+import json
+import subprocess
+index = json.loads((ROOT / 'submission/EVIDENCE_INDEX.json').read_text())
+assert index['syntheticOnly'] and not index['continuousHybridJourney']
+for item in index['assets']:
+    path = ROOT / item['path']
+    assert path.is_relative_to(ROOT) and path.is_file()
+    assert path.stat().st_size == item['bytes']
+    assert hashlib.sha256(path.read_bytes()).hexdigest() == item['sha256']
+    assert item['sourceCommit'] is None or re.fullmatch('[0-9a-f]{40}', item['sourceCommit'])
+    if item['sourceCommit'] is None:
+        assert item['sourceBinding']
+    if item['kind'] == 'video':
+        probe = json.loads(subprocess.check_output(['ffprobe', '-v', 'error', '-show_entries', 'stream=codec_type:format=duration', '-of', 'json', str(path)]))
+        assert all(x['codec_type'] == 'video' for x in probe['streams'])
+        assert abs(float(probe['format']['duration']) - item['durationSeconds']) < .002
+        subprocess.run(['ffmpeg', '-v', 'error', '-i', str(path), '-f', 'null', '-'], check=True, capture_output=True)
+for missing in index['missing']:
+    assert missing['status'] == 'NOT_CAPTURED' and missing['shotStatus'] == 'EXPECTED_NOT_CAPTURED'
+    assert 'path' not in missing
+cloud = json.loads((ROOT / 'docs/evidence/final-web-real-cloud-2026-11-15.json').read_text())
+assert cloud['exactBodyParity'] and cloud['acceptedAnswer']
+body = cloud['providerPosts'][0]
+assert len(body['body'].encode()) == body['bytes'] == 2515
+assert hashlib.sha256(body['body'].encode()).hexdigest() == body['sha256'] == cloud['ledger'][0]['sha256']
+assert body['body'] == cloud['ledger'][0]['body']
+rows = re.findall(r'^\| (\d+):(\d+)–(\d+):(\d+) \| “([^”]+)”', script, re.M)
+end = 0
+for m, sec, em, es, words in rows:
+    start, stop = int(m)*60+int(sec), int(em)*60+int(es)
+    assert start == end and stop > start
+    assert len(words.split()) / (stop-start) * 60 <= 130, 'Overfull narration slot'
+    end = stop
+assert len(rows) == 8 and end == 180
+print('PASS actual evidence hashes/source fields, video durations/full decode/no audio, SDK body parity; 180s timeline')
+print('Narration estimated words/minute:', round(sum(len(x[4].split()) for x in rows)/3, 1), '; actual rehearsal NOT_CAPTURED')
