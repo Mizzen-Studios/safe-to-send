@@ -1,95 +1,208 @@
 {
   "classification": "PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM",
-  "baseline": "7930eec",
-  "speed": "all real clips 1x; no speedups; complete clips; separate title cards",
+  "baseline": "440ec1e",
   "timeline": [
     {
+      "name": "intro",
       "start": 0,
       "end": 12,
-      "asset": "intro card"
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
     },
     {
+      "name": "detection-start",
       "start": 12,
-      "end": 57.533333,
-      "asset": "desktop full 0..45.533333"
+      "end": 18,
+      "duration": 6,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 6,
+      "speed": 1,
+      "caption": "Synthetic sample. Real detection begins; retained footage at 1x.\nEdited waits omitted; not continuous real time.",
+      "mode": "DESKTOP / ONLY_ON_DEVICE / ACTUAL MODEL ID UNKNOWN"
     },
     {
-      "start": 57.533333,
-      "end": 69.533333,
-      "asset": "failure/separation card"
+      "name": "redaction-review",
+      "start": 18,
+      "end": 36,
+      "duration": 18,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 23,
+      "sourceEnd": 41,
+      "speed": 1,
+      "caption": "Detection + product patterns; human review and redacted payload inspection.\nSource 6-23s omitted. No cloud handoff in this desktop take.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / EDITED WAITS OMITTED"
     },
     {
-      "start": 69.533333,
-      "end": 101.666667,
-      "asset": "emulator full 0..32.134777"
+      "name": "local-output",
+      "start": 36,
+      "end": 47.666667,
+      "duration": 11.666667,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 124,
+      "sourceEnd": 135.666667,
+      "speed": 1,
+      "caption": "Local output appears; checks UNKNOWN, not verified. Reply direction is poor.\nSource 41-124s wait omitted. Actual output preserved; no replacement UI.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / NOT CONTINUOUS REAL TIME"
     },
     {
-      "start": 101.666667,
-      "end": 119.666667,
-      "asset": "limits card"
+      "name": "metadata",
+      "start": 47.666667,
+      "end": 63.666667,
+      "duration": 16,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
     },
     {
-      "start": 119.666667,
-      "end": 133.666667,
-      "asset": "physical Pixel NOT_CAPTURED card"
+      "name": "separation",
+      "start": 63.666667,
+      "end": 75.666667,
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
     },
     {
-      "start": 133.666667,
-      "end": 147.666667,
-      "asset": "outro card"
+      "name": "emulator",
+      "start": 75.666667,
+      "end": 107.8,
+      "duration": 32.133333,
+      "source": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 32.133333,
+      "speed": 1,
+      "caption": "Separate emulator take at 1x. DEVELOPMENT App Check / Nano UNAVAILABLE.\nTEST_ONLY mutation is not cloud or Nano proof; not a physical phone.",
+      "mode": "ANDROID EMULATOR / SEPARATE EXPERIMENT / DEVELOPMENT APP CHECK"
+    },
+    {
+      "name": "limits",
+      "start": 107.8,
+      "end": 123.8,
+      "duration": 16,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "pixel",
+      "start": 123.8,
+      "end": 137.8,
+      "duration": 14,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "outro",
+      "start": 137.8,
+      "end": 149.8,
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
     }
   ],
   "sources": [
     {
-      "path": "docs/evidence/desktop-2026-11-15/take-raw.mp4",
-      "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede",
-      "rawOrEdited": "raw observed screen capture"
+      "path": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sha256": "a11ac12897ee94b57bc452e90e7f5487e71f76381b12b519c07808bfa4569e0e",
+      "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+      "kind": "real raw X11 capture",
+      "probeDuration": 135.666667
     },
     {
       "path": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
       "sha256": "eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05",
-      "rawOrEdited": "genuine observed capture with existing disclosure banner"
+      "sourceCommit": "3968e52",
+      "kind": "genuine emulator capture with existing disclosure banner",
+      "probeDuration": 32.134777
     }
   ],
-  "videoSha256": "271593c065c87a3821d254f9aba8ac8f6830e59b2c91e9f3720d2d08e7b9f94e",
-  "audio": "none",
-  "componentModelIdentity": "UNKNOWN",
-  "physicalPixel": "NOT_CAPTURED",
-  "newDesktopPass": "NOT_INCLUDED_PENDING_PARENT_VERIFICATION",
-  "sourceReceipts": {
-    "desktop": {
-      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
-      "receipt": "docs/evidence/desktop-2026-11-15/receipt.json"
-    },
-    "emulator": {
-      "sourceCommit": "3968e52",
-      "receipt": "android/docs/evidence/emulator-safe-2026-11-15/receipt.json"
-    }
-  },
-  "frameMapping": "30fps documentary-card holds. Desktop t=output-12 in [12,57.533333); emulator t=output-69.533333 in [69.533333,101.666667). Only observed frames duplicated/resampled; no interpolated UI states.",
-  "verification": {
-    "durationSeconds": 147.666667,
-    "codec": "h264",
-    "width": 1920,
-    "height": 1080,
-    "frames": 4430,
-    "audioTracks": 0,
-    "fullDecodeExit": 0,
-    "decodeErrors": 0,
-    "sampleFramesSeconds": [
-      5,
-      16,
-      35,
-      56,
-      62,
-      74,
-      88,
-      98,
-      110,
-      125,
-      140
+  "desktopReceipt": "docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json",
+  "desktopWallDuration": 137.802,
+  "desktopMediaDuration": 135.666667,
+  "durationCaveat": "Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.",
+  "omittedDesktopIntervals": [
+    [
+      6,
+      23
     ],
-    "visualPrivacyReview": "chapter samples inspected; synthetic-only; no tokens/pairing codes/contact data found; not exhaustive pixel-level assurance",
-    "captions": "permanent mode and failure labels readable; original emulator banner retained"
+    [
+      41,
+      124
+    ]
+  ],
+  "frameMapping": "For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.",
+  "videoSha256": "f7897d9c52490f716efb374b46d80c1bd7930582b6c823ee6162e4b931f03151",
+  "actualDuration": 149.8,
+  "audio": "none",
+  "modelIdentity": "UNKNOWN",
+  "componentMetadata": {
+    "name": "nano_v3_cpu_component",
+    "version": "2025.8.21.1028",
+    "notModelIdentity": true
+  },
+  "chrome": "157.0.8103.78",
+  "firebase": "13.2.0",
+  "separateManifestVersion": "1.20261018.2",
+  "localChecks": "UNKNOWN_NOT_VERIFIED",
+  "qualityLimitation": "Wrong reply direction preserved; human rewrite required.",
+  "physicalPixel": "NOT_CAPTURED",
+  "desktopCloud": "NOT_INCLUDED_PENDING_VERIFICATION",
+  "futureInsertPoint": "Replace separation/emulator only after verifying actual desktop-cloud take; no placeholder success footage.",
+  "verification": {
+    "ffprobe": {
+      "duration": 149.8,
+      "codec": "h264",
+      "width": 1920,
+      "height": 1080,
+      "fps": 30,
+      "frames": 4494,
+      "audioStreams": 0,
+      "bytes": 2352195
+    },
+    "fullDecode": "PASS_EXIT_0_ZERO_ERRORS",
+    "reviewFramesSeconds": [
+      5,
+      14,
+      20,
+      28,
+      35,
+      38,
+      41,
+      46,
+      54,
+      69,
+      78,
+      93,
+      105,
+      114,
+      128,
+      142
+    ],
+    "visualReview": "Source/final contact sheets and full-size stage/caption samples inspected. Readable disclosures, genuine UNKNOWN and poor reply preserved. No credentials/pairing/contact in inspected frames. Synthetic-only; sampling not every-pixel guarantee.",
+    "privateFrames": "External private output directory; frame-{seconds}.png and final-contact.png",
+    "noMediaAddedToGit": true
   }
 }
