@@ -10,7 +10,7 @@ export const CSP="default-src 'none'; script-src 'self'; style-src 'self'; conne
 const root=resolve(dirname(fileURLToPath(import.meta.url)),'../..');
 const out=resolve(root,'.openclaw/tmp/device-eval-dist');
 export async function buildCollector(){
- const paths=['src/nano.ts','src/hybrid.ts','src/eval-corpus.ts','operator/device-eval/core.ts','operator/device-eval/native.ts','operator/device-eval/page.ts','operator/device-eval/run.mjs','package-lock.json'];
+ const paths=['shared/nano/contract.json','src/fixed-verdict.ts','src/semantic-evidence.ts','src/typed-evidence.ts','src/manual-suggestions.ts','src/privacy.ts','src/regex.ts','src/nano.ts','src/hybrid.ts','src/eval-corpus.ts','operator/device-eval/core.ts','operator/device-eval/native.ts','operator/device-eval/page.ts','operator/device-eval/run.mjs','package-lock.json'];
  const hashes=Object.fromEntries(await Promise.all(paths.map(async p=>[p,createHash('sha256').update(await readFile(resolve(root,p))).digest('hex')])));
  const source={commit:execFileSync('git',['rev-parse','HEAD'],{cwd:root,encoding:'utf8'}).trim(),dirty:!!execFileSync('git',['status','--porcelain','--untracked-files=no'],{cwd:root,encoding:'utf8'}).trim(),sha256:hashes};
  await build({root,configFile:false,envDir:false,publicDir:false,define:{__EVAL_SOURCE__:JSON.stringify(source)},build:{outDir:out,emptyOutDir:true,rollupOptions:{input:resolve(root,'operator/device-eval/index.html')}}});

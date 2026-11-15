@@ -1,7 +1,8 @@
 import {type PrivacyGate,redact,restore} from './privacy';
 import {parseJourney,reviewedCloudJourney,type Journey} from './journey';
 import {validateDraftRoles} from './roles';
-import {typedAction,sourceSentences} from './typed-evidence';
+import {semanticEvidence} from './semantic-evidence';
+import {typedAction,typedField,sourceSentences} from './typed-evidence';
 import {manualReviewSuggestions} from './manual-suggestions';
 /** Stable UI contract. Model responses are untrusted and evidence never leaves this module. */
 export type Claim={id:string;kind:'deadline'|'amount'|'action'|'explanation'|'draft';value:string};
@@ -76,8 +77,8 @@ export function parseVerification(json:string,original:string,claims:Claim[]):Ve
  const claim=claims.find(c=>c.id===v.id)!;
  // Only a unique full sentence in the tiny typed grammar corroborates mismatch.
  // Whole explanation/draft coverage is unchanged.
- const typed=valid&&claim.kind==='action'?typedAction(claim.value,quotes,original):'unknown';
- const status:Verdict=v.status==='mismatch'?(typed==='mismatch'?'mismatch':'unknown'):v.status==='supported'&&(!valid||!quotes.length||!matchesClaim(claim,quotes,original)&&typed!=='supported')?'unknown':v.status as Verdict;
+ const typed=valid?(claim.kind==='action'?typedAction(claim.value,quotes,original):typedField(claim,quotes,original)):'unknown';
+ const status:Verdict=typed==='mismatch'?'mismatch':v.status==='mismatch'?'unknown':v.status==='supported'&&(!valid||!quotes.length||!matchesClaim(claim,quotes,original)&&typed!=='supported'&&!semanticEvidence(claim,quotes,original))?'unknown':v.status as Verdict;
  return {id:v.id,status};
  });
  const uncheckedFields=(['explanation','draft'] as const).filter(kind=>!claims.some(c=>c.kind===kind));
