@@ -133,4 +133,35 @@ class NativeContractTest {
   compose.runOnIdle { assertEquals("",vm.privacy.source); assertTrue(vm.privacy.ledger.isEmpty()) }
  }
 
+
+ @Test fun testOnlyAcceptedAnswerReviewAndMutationRemainSeparate() {
+  val vm=SessionModel(); val notice="Alex\nPay £20 by Friday."
+  vm.privacy.change(notice); vm.privacy.addSpan(0,4,"WRITER"); vm.privacy.confirmSynthetic(true)
+  val provider=object: AiProvider {
+   override suspend fun status()="TEST_ONLY unavailable"
+   override suspend fun download(update:(String)->Unit) { error("TEST_ONLY") }
+   override suspend fun privateOnly(prompt:String,photo:Bitmap?)=error("TEST_ONLY")
+   override suspend fun approvedHybrid(exactPayload:String):ModelAnswer {
+    assertFalse(exactPayload.contains("Alex"))
+    return ModelAnswer("""{"explanation":[{"text":"Pay £20 by Friday.","evidence":"Pay £20 by Friday."}],"draft":[{"text":"Pay £20 by Friday.","evidence":"Pay £20 by Friday."}],"deadlines":[],"actions":[],"amounts":[]}""","TEST_ONLY accepted fixture — NOT CLOUD")
+   }
+   override suspend fun privateJson(prompt:String,schema:org.json.JSONObject):String {
+    val claims=org.json.JSONObject(prompt.substringAfter('\n')).getJSONArray("claims")
+    return org.json.JSONObject().put("checks",org.json.JSONArray().apply {
+     for(i in 0 until claims.length()) put(org.json.JSONObject().put("id","claim-$i").put("status","supported").put("evidence",org.json.JSONArray().put(org.json.JSONObject().put("quote","Pay £20 by Friday."))))
+    }).toString()
+   }
+  }
+  compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
+  for(label in listOf("Preview exact hybrid payload","Approve this exact payload","Run approved hybrid response","Private two-key review — local only")) compose.onNodeWithText(label).performScrollTo().performClick()
+  compose.waitForIdle()
+  compose.onNodeWithText("Two-key conservative verbatim checks passed locally. Not a truth guarantee; review before use.").assertExists()
+  val base=vm.privacy.currentAnswer()
+  compose.onNodeWithText("TEST_ONLY plant wrong deadline").performScrollTo().performClick()
+  compose.onNodeWithText("TEST_ONLY planted mutation — NOT CLOUD").assertExists()
+  compose.onNodeWithText("Review TEST_ONLY mutation — local only").performScrollTo().performClick()
+  compose.waitForIdle()
+  compose.onNodeWithText("Exact-evidence guard WARNING",substring=true).assertExists()
+  compose.runOnIdle { assertSame(base,vm.privacy.currentAnswer()); assertEquals(2,vm.privacy.ledger.size) }
+ }
 }

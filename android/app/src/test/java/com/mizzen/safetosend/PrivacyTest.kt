@@ -32,4 +32,21 @@ class PrivacyTest {
   assertNull(p.currentAnswer()); assertEquals("TEST_ONLY newer synthetic notice",p.source)
  }
 
+
+ @Test fun removalInvalidatesApprovalAndResponse() {
+  val p=session(); p.approve(Prompts.response(p.redacted())); p.removeSpan("WRITER")
+  assertFalse(p.isApproved()); assertTrue(p.redacted().contains("Alex")); assertEquals(1,p.selections().size)
+ }
+ @Test fun plantedMutationCannotMintAcceptedResponse() {
+  val p=session(); val a=Answer(listOf(Claim("pay £20","pay £20")),listOf(Claim("pay £20","pay £20")),emptyList(),emptyList(),emptyList()); val r=Any()
+  p.accept(p.revision,a,r); val m=DemoReview.plantDeadline(p.revision,r,a)
+  assertSame(a,p.currentAnswer()); assertTrue(m.provenance.startsWith("TEST_ONLY")); assertTrue(DemoReview.bound(m,p.revision,r))
+  assertFalse(DemoReview.bound(m,p.revision,Any())); assertFalse(DemoReview.bound(m,p.revision+1,r))
+  assertTrue(DemoReview.missingEvidence(p.source,m.answer)); assertFalse(p.validate(p.revision,m.answer,r,m.answer.claims().map { it.evidence }))
+ }
+ @Test fun localReviewRestoresClaimsButPreservesAcceptedIdentity() {
+  val p=session(); val a=Answer(listOf(Claim("Dear [WRITER]","Dear [WRITER]")),emptyList(),emptyList(),emptyList(),emptyList()); val r=Any()
+  p.accept(p.revision,a,r); val local=DemoReview.restored(p,a)
+  assertEquals("Dear Alex",local.explanation.single().text); assertSame(a,p.currentAnswer()); assertFalse(p.validate(p.revision,local,r,listOf("Dear Alex")))
+ }
 }

@@ -114,7 +114,7 @@ test('runbook binds every current button to a literal visible label', () => {
  assert.ok(plan.includes('10-minute')); assert.ok(plan.includes('45-minute'));
  assert.ok(plan.includes('**BLOCKED — HTTP transport proof.**'));
  assert.ok(plan.includes('No ledger/response/modelinput export button exists'));
- assert.ok(plan.includes('no planted wrong-deadline UI exists'));
+ assert.ok(plan.includes('planted wrong-deadline UI is explicitly TEST_ONLY'));
 });
 
 test('instrumentation remains explicitly simulated handoff/UI evidence, not inference', () => {
