@@ -1,0 +1,147 @@
+{
+  "classification": "GENUINE_HEADED_DESKTOP_SEPARATE_CLOUD_TAKE_PRIVATE_DEVELOPMENT_APPCHECK_NOT_PRODUCTION_ATTESTATION",
+  "source": "3ba79d8abd38b6539b1652a2f717de5f8d1a8219",
+  "productSource": "440ec1e0aa70644ecde8288e8dc2d6f93e302b2f",
+  "checkedAt": "2026-11-15T19:22:39.079Z",
+  "nanoInference": "NOT_RUN_THIS_TAKE",
+  "normalProductionAttestation": "NOT_PROVEN",
+  "staticServing": "EXACT_LOCAL_CANDIDATE_BYTES_AT_REAL_ORIGINS",
+  "providerPosts": [
+    {
+      "sha256": "06dad11392ade0633a1c28c9e3f9723d93a9c05b3c09c586da66fea5e8483bd0",
+      "bytes": 2515
+    }
+  ],
+  "leaks": [],
+  "pageErrors": [],
+  "events": [
+    {
+      "stage": "CAPTURE_STARTED",
+      "elapsedMs": 10999
+    },
+    {
+      "stage": "MANUAL_LOCAL_REDACTION_REVIEW",
+      "elapsedMs": 13721
+    },
+    {
+      "stage": "IMMUTABLE_PAYLOAD_APPROVED_NOT_SENT",
+      "elapsedMs": 19345
+    },
+    {
+      "stage": "EXPLICIT_SEND_CLICK",
+      "elapsedMs": 21947
+    },
+    {
+      "stage": "REAL_CLOUD_RESULT",
+      "elapsedMs": 24100
+    },
+    {
+      "stage": "SDK_BODY_LEDGER_DISPLAYED",
+      "elapsedMs": 38492
+    },
+    {
+      "stage": "REVISION_INVALIDATES_RESULT_AND_APPROVAL",
+      "elapsedMs": 45225
+    },
+    {
+      "stage": "CAPTURE_STOPPED",
+      "elapsedMs": 49305
+    }
+  ],
+  "browser": "157.0.8103.50",
+  "approvedApplicationPayloadSha256": "ab9db3205d2b608a6b3540984e1991b17604f70e959d48bb80a1b12dffd90c5b",
+  "zeroProviderPostsBeforeApproval": true,
+  "appCheckExchangeStatus": 200,
+  "providerStatus": 200,
+  "acceptedAnswer": true,
+  "status": "Cloud AI returned a structured response. Check it against the original. No anonymity or legal accuracy guarantee.",
+  "ledger": [
+    {
+      "utf8Bytes": 2515,
+      "sha256": "06dad11392ade0633a1c28c9e3f9723d93a9c05b3c09c586da66fea5e8483bd0",
+      "time": "2026-11-15T19:23:01.618Z",
+      "model": "gemini-3.5-flash-lite"
+    }
+  ],
+  "approvedPayloadMatchesSdkContents": true,
+  "exactBodyParity": true,
+  "verifierStatus": "On-device verifier unavailable; no fallback.",
+  "editInvalidatesChecks": true,
+  "revisionInvalidates": true,
+  "pass": true,
+  "runUrl": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43752018291",
+  "video": {
+    "raw": {
+      "sha256": "02352d8e4744dccfd02a2ee985cf1c832304078edcaf5491c609b063066bbfc8",
+      "bytes": 1775309,
+      "duration": "38.066667",
+      "streams": [
+        {
+          "type": "video",
+          "width": 1600,
+          "height": 1000,
+          "frames": "571",
+          "rate": "15/1",
+          "codec": "h264"
+        }
+      ],
+      "decodeErrorsBytes": 0,
+      "rawTokenAndEncryptionKeyAbsentFromReceiptAndActionsLog": true,
+      "pass": true
+    },
+    "captioned": {
+      "sha256": "a20827120d3be368474023afbaf49fd93a7934c3b696ff78d93ebe4f2ad3c8c2",
+      "bytes": 1003541,
+      "duration": "38.066667",
+      "width": 1920,
+      "height": 1080,
+      "audioStreams": 0,
+      "decodeErrorsBytes": 0
+    },
+    "privacy": "Private workspace only; ciphertext-only Actions transport removed after authenticated decryption. No public MP4 or media URL."
+  },
+  "actualDraftSha256": "1eb4e72732a5e0f50921939f65326f022c2956b1ae007cc9c5c13338b9019996",
+  "recordingRelativeEventOffsetsMs": [
+    {
+      "stage": "CAPTURE_STARTED",
+      "offsetMs": 0
+    },
+    {
+      "stage": "MANUAL_LOCAL_REDACTION_REVIEW",
+      "offsetMs": 2722
+    },
+    {
+      "stage": "IMMUTABLE_PAYLOAD_APPROVED_NOT_SENT",
+      "offsetMs": 8346
+    },
+    {
+      "stage": "EXPLICIT_SEND_CLICK",
+      "offsetMs": 10948
+    },
+    {
+      "stage": "REAL_CLOUD_RESULT",
+      "offsetMs": 13101
+    },
+    {
+      "stage": "SDK_BODY_LEDGER_DISPLAYED",
+      "offsetMs": 27493
+    },
+    {
+      "stage": "REVISION_INVALIDATES_RESULT_AND_APPROVAL",
+      "offsetMs": 34226
+    },
+    {
+      "stage": "CAPTURE_STOPPED",
+      "offsetMs": 38306
+    }
+  ],
+  "timingNote": "Wall-clock observation offsets from recorder spawn, approximate video positions; no retiming/cuts.",
+  "providerModelIdentity": "NOT_CAPTURED_THIS_TAKE; ledger model is requested model, not independently observed response metadata",
+  "localModelIdentity": "UNKNOWN_NOT_EXPOSED; previous genuine local take remains separate",
+  "review": {
+    "everySecondContactSheetInspected": true,
+    "fullResolutionResponseAndLedgerInspected": true,
+    "captionedResponseFrameInspected": true,
+    "semanticAccuracyNotCertified": true
+  }
+}
