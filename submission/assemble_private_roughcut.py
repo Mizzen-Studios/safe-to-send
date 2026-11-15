@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Host-only edit of genuine existing footage. Output MUST remain outside Git."""
+"""Private host-only edit. Real retained segments remain 1x; no fabricated UI."""
 import argparse, pathlib, subprocess, json, hashlib, textwrap
 from PIL import Image, ImageDraw, ImageFont
 p=argparse.ArgumentParser();p.add_argument('--output-dir',required=True);a=p.parse_args()
@@ -8,66 +8,80 @@ assert R not in D.parents and D!=R, 'Output must be outside product repository'
 D.mkdir(parents=True,exist_ok=True);D.chmod(0o700)
 font='/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf'
 def run(args):subprocess.run(args,check=True)
+def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
+def probe(path):return json.loads(subprocess.check_output(['ffprobe','-v','error','-show_format','-show_streams','-of','json',str(path)]))
 def card(name,title,lines):
  im=Image.new('RGB',(1920,1080),'#101e2d');d=ImageDraw.Draw(im)
- d.text((90,65),'SAFE TO SEND  /  PRIVATE SILENT ROUGHCUT',font=ImageFont.truetype(font,32),fill='#85daca')
- d.text((90,170),title,font=ImageFont.truetype(font,60),fill='white')
- y=300
+ d.text((80,55),'SAFE TO SEND / PRIVATE EXPERIMENTAL ROUGHCUT',font=ImageFont.truetype(font,32),fill='#85daca')
+ d.text((80,145),title,font=ImageFont.truetype(font,54),fill='white');y=255
  for line in lines:
-  for row in textwrap.wrap(line,65):
-   d.text((90,y),row,font=ImageFont.truetype(font,38),fill='#e4eaf0');y+=58
-  y+=25
+  for row in textwrap.wrap(line,71):
+   d.text((80,y),row,font=ImageFont.truetype(font,36),fill='#e4eaf0');y+=51
+  y+=20
+ assert y<1050, (name,y)
  im.save(D/(name+'.png'))
-def encode(name,duration,source=None,caption='',mode='',still=False):
- idx=len(segments);out=D/('%02d-%s.mp4'%(idx,name));txt=D/(name+'.txt');txt.write_text(caption)
+segments=[];timeline=[]
+def encode(name,duration,source=None,start=0,caption='',mode=''):
+ out=D/('%02d-%s.mp4'%(len(segments),name));txt=D/(name+'.txt');txt.write_text(caption)
  base=['ffmpeg','-nostdin','-y','-v','error','-threads','2']
- if source is None:base+=['-loop','1','-i',str(D/(name+'.png'))];vf='scale=1920:1080,fps=30'
+ if source is None:
+  base+=['-loop','1','-i',str(D/(name+'.png'))];vf='scale=1920:1080,fps=30'
  else:
-  base+=['-i',str(R/source)]
-  vf='scale=1760:900:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:110:color=0x101e2d,fps=30'
-  # Banners occupy reserved margins, never replace the observed result.
-  vf+=",drawtext=fontfile="+font+":text='"+mode+"':fontsize=32:fontcolor=0x85daca:x=55:y=25"
-  vf+=",drawtext=fontfile="+font+":textfile="+str(txt)+":fontsize=29:fontcolor=white:x=55:y=1010"
+  base+=['-ss',str(start),'-i',str(R/source)]
+  vf='scale=1760:880:force_original_aspect_ratio=decrease,pad=1920:1080:(ow-iw)/2:100:color=0x101e2d,fps=30'
+  vf+=",drawtext=fontfile="+font+":text='"+mode+"':fontsize=30:fontcolor=0x85daca:x=55:y=24"
+  vf+=",drawtext=fontfile="+font+":textfile="+str(txt)+":fontsize=28:fontcolor=white:x=55:y=994:line_spacing=9"
  base+=['-t',str(duration),'-vf',vf,'-an','-c:v','libx264','-preset','veryfast','-crf','21','-pix_fmt','yuv420p','-threads','2',str(out)]
- run(base);segments.append(out)
-segments=[]
-card('intro','Two separate real experiments',[
- 'Synthetic letters only. Human review before any cloud handoff.',
- 'Desktop: genuine on-device detection; local explanation FAILS.',
- 'Android emulator: manual redaction and accepted cloud response.',
- 'Not a continuous hybrid success. Not a finished narrated film.'])
+ run(base);actual=float(probe(out)['format']['duration']);begin=sum(x['duration'] for x in timeline)
+ timeline.append({'name':name,'start':round(begin,6),'end':round(begin+actual,6),'duration':actual,'source':source,'sourceStart':start if source else None,'sourceEnd':round(start+actual,6) if source else None,'speed':1 if source else None,'caption':caption,'mode':mode});segments.append(out)
+local='docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4'
+emu='docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4'
+card('intro','A real local execution, not verification',[
+ 'Synthetic letters only. Experimental assistance; human review required.',
+ 'Real desktop ONLY_ON_DEVICE detection, redaction review and local output.',
+ 'Edited: waits omitted. Retained footage is 1x, not continuous real time.',
+ 'Checks UNKNOWN. The generated reply has a direction error.'])
 encode('intro',12)
-encode('desktop',45.533333,'docs/evidence/desktop-2026-11-15/take-raw.mp4','Real desktop take, full length at 1x. Detection plus patterns; local answer unavailable / invalid.','DESKTOP / REAL TAKE / MODEL ID UNKNOWN / NO CLOUD SEND')
-card('separation','The local answer failed closed',[
- 'LOCAL ANSWER FAIL: unavailable or invalid. No fallback reply.',
- 'Five known synthetic values were highlighted by detection + patterns; model contribution is not isolated.',
- 'The next clip is a separate Android emulator experiment.',
- 'Development App Check is NOT normal production attestation.'])
+encode('detection-start',6,local,0,'Synthetic sample. Real detection begins; retained footage at 1x.\nEdited waits omitted; not continuous real time.','DESKTOP / ONLY_ON_DEVICE / ACTUAL MODEL ID UNKNOWN')
+encode('redaction-review',18,local,23,'Detection + product patterns; human review and redacted payload inspection.\nSource 6-23s omitted. No cloud handoff in this desktop take.','DESKTOP / REAL RAW SEGMENT 1x / EDITED WAITS OMITTED')
+encode('local-output',11.666667,local,124,'Local output appears; checks UNKNOWN, not verified. Reply direction is poor.\nSource 41-124s wait omitted. Actual output preserved; no replacement UI.','DESKTOP / REAL RAW SEGMENT 1x / NOT CONTINUOUS REAL TIME')
+card('metadata','Component metadata is not model identity',[
+ 'nano_v3_cpu_component 2025.8.21.1028: Ready (component metadata).',
+ 'Actual model identity: UNKNOWN / not exposed by the Prompt API.',
+ 'Browser: Chrome 157.0.8103.78. SDK: Firebase 13.2.0.',
+ 'Separate manifest version: 1.20261018.2. Not a model name.'])
+encode('metadata',16)
+card('separation','A separate emulator cloud experiment',[
+ 'Next: genuine Android emulator footage, NOT the desktop local journey.',
+ 'DEVELOPMENT App Check; Nano UNAVAILABLE. Not production attestation.',
+ 'Manual redaction and approved payload; accepted cloud response.',
+ 'TEST_ONLY mutation is not cloud provenance or Nano verification.'])
 encode('separation',12)
-encode('emulator',32.134777,'docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4','Full take at 1x: manual redaction, accepted cloud. TEST_ONLY mutation is NOT cloud or Nano proof.','ANDROID EMULATOR / NANO UNAVAILABLE / DEVELOPMENT APP CHECK')
-card('limits','Evidence is partial, not a guarantee',[
- 'SDK application ledger is not captured HTTP transport.',
- 'Actual component/model identity: UNKNOWN. No physical Nano inference shown.',
- 'Detection evaluation: 90.02% recall / 69.58% precision (synthetic).',
- 'Verifier: 14/128 planned decided; 72 attempted, 57 unknown, 1 aborted, 56 not run. Target FAILED.'])
-encode('limits',18)
-card('pixel','Physical Pixel slots - NOT CAPTURED',[
- 'Awaiting authorized recording slots; these are placeholders, not footage.',
- 'Normal production App Check token and enforced cloud acceptance: NOT_RUN.',
+encode('emulator',32.133333,emu,0,'Separate emulator take at 1x. DEVELOPMENT App Check / Nano UNAVAILABLE.\nTEST_ONLY mutation is not cloud or Nano proof; not a physical phone.','ANDROID EMULATOR / SEPARATE EXPERIMENT / DEVELOPMENT APP CHECK')
+card('limits','Useful execution evidence, limited quality',[
+ 'Local checks UNKNOWN: no truth or reliable-verification guarantee.',
+ 'Actual draft tells the sender to correct their tax return: wrong direction.',
+ 'Human must check and rewrite; original poor output remains in the cut.',
+ 'SDK ledger is not captured HTTP transport. Synthetic-only evidence.'])
+encode('limits',16)
+card('pixel','Physical Pixel slots - NOT_CAPTURED',[
+ 'Normal production App Check token + enforced cloud acceptance: NOT_RUN.',
  'Physical Nano text/photo and planted-error review: NOT_RUN.',
- 'No emulator or development token substitutes for those gates.'])
+ 'These are explicit placeholders, not phone footage.',
+ 'No emulator/development-token substitute for physical gates.'])
 encode('pixel',14)
 card('outro','Private draft - owner review only',[
- 'Solo entrant Olly, using AI coding assistance; November 9 preparatory spike disclosed.',
- 'Explores inspectable control, not guaranteed privacy, legal accuracy or reliable verification.',
- 'New desktop pass may replace the old take only after real success is verified.',
- 'Silent captioned roughcut. No filmed outro. No upload or public release.'])
-encode('outro',14)
+ 'Solo entrant Olly; AI coding assistance and Nov 9 preparatory spike disclosed.',
+ 'Experimental, synthetic-only, human review required. No filmed outro.',
+ 'Future desktop-cloud insert point: NOT INCLUDED / pending verification.',
+ 'Silent captioned edit. No upload, public release or finished-film claim.'])
+encode('outro',12)
 (D/'concat.txt').write_text(''.join("file '"+str(x)+"'\n" for x in segments))
-run(['ffmpeg','-nostdin','-y','-v','error','-f','concat','-safe','0','-i',str(D/'concat.txt'),'-c','copy','-movflags','+faststart',str(D/'safe-to-send-private-roughcut.mp4')])
-def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
-manifest={'classification':'PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM','baseline':'7930eec','speed':'all real clips 1x; no speedups; complete clips; separate title cards','timeline':[{'start':0,'end':12,'asset':'intro card'},{'start':12,'end':57.533333,'asset':'desktop full 0..45.533333'},{'start':57.533333,'end':69.533333,'asset':'failure/separation card'},{'start':69.533333,'end':101.668110,'asset':'emulator full 0..32.134777'},{'start':101.668110,'end':119.668110,'asset':'limits card'},{'start':119.668110,'end':133.668110,'asset':'physical Pixel NOT_CAPTURED card'},{'start':133.668110,'end':147.668110,'asset':'outro card'}],'sources':[{'path':s,'sha256':sha(R/s),'rawOrEdited':kind} for s,kind in [('docs/evidence/desktop-2026-11-15/take-raw.mp4','raw observed screen capture'),('docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4','genuine observed capture with existing disclosure banner')]],'videoSha256':sha(D/'safe-to-send-private-roughcut.mp4'),'audio':'none','componentModelIdentity':'UNKNOWN','physicalPixel':'NOT_CAPTURED','newDesktopPass':'NOT_INCLUDED_PENDING_PARENT_VERIFICATION'}
-manifest['sourceReceipts']={'desktop':{'sourceCommit':'a383e70785d81a06b7fd821aa46e70839aa60fda','receipt':'docs/evidence/desktop-2026-11-15/receipt.json','capture':'real X11 screen recording; ONLY_ON_DEVICE detector plus product pattern union; local answer failure'},'emulator':{'sourceCommit':'3968e52','receipt':'android/docs/evidence/emulator-safe-2026-11-15/receipt.json','capture':'real emulator capture; pre-existing truthful banner; development App Check; Nano unavailable'}}
-manifest['frameMapping']='At 30fps title cards hold their generated document. Desktop output [12,57.533333) maps source t=output-12; emulator [69.533333,101.666667) maps source t=output-69.533333. fps resampling may duplicate observed frames, never infer new UI states.'
+final=D/'safe-to-send-private-roughcut.mp4'
+run(['ffmpeg','-nostdin','-y','-v','error','-f','concat','-safe','0','-i',str(D/'concat.txt'),'-c','copy','-movflags','+faststart',str(final)])
+info=probe(final);assert float(info['format']['duration'])<=180
+manifest={'classification':'PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM','baseline':'440ec1e','timeline':timeline,'sources':[{'path':s,'sha256':sha(R/s),'sourceCommit':c,'kind':k,'probeDuration':float(probe(R/s)['format']['duration'])} for s,c,k in [(local,'04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be','real raw X11 capture'),(emu,'3968e52','genuine emulator capture with existing disclosure banner')]],'desktopReceipt':'docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json','desktopWallDuration':137.802,'desktopMediaDuration':135.666667,'durationCaveat':'Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.','omittedDesktopIntervals':[[6,23],[41,124]],'frameMapping':'For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.','videoSha256':sha(final),'actualDuration':float(info['format']['duration']),'audio':'none','modelIdentity':'UNKNOWN','componentMetadata':{'name':'nano_v3_cpu_component','version':'2025.8.21.1028','notModelIdentity':True},'chrome':'157.0.8103.78','firebase':'13.2.0','separateManifestVersion':'1.20261018.2','localChecks':'UNKNOWN_NOT_VERIFIED','qualityLimitation':'Wrong reply direction preserved; human rewrite required.','physicalPixel':'NOT_CAPTURED','desktopCloud':'NOT_INCLUDED_PENDING_VERIFICATION','futureInsertPoint':'Replace separation/emulator only after verifying actual desktop-cloud take; no placeholder success footage.'}
 (D/'shot-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+(D/'ffprobe.json').write_text(json.dumps(info,indent=2)+'\n')
+final.chmod(0o600)
 print(json.dumps(manifest,indent=2))
