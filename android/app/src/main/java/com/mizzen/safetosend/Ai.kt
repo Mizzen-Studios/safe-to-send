@@ -52,7 +52,7 @@ class FirebaseProvider : AiProvider {
   responseModelVersion=response.modelVersion
   return response.text ?: error("No local response")
  }
- override suspend fun status(): String { identity(local); val availability=try { local.onDeviceExtension?.checkStatus().toString() } catch (_:Exception) { "UNKNOWN / unavailable" }; return "$availability; requested STABLE; device-reported model: $reportedModelName; queried: $modelQueryTime" }
+ override suspend fun status(): String { identity(local); val availability=try { when(local.onDeviceExtension?.checkStatus()) { com.google.firebase.ai.ondevice.OnDeviceModelStatus.UNAVAILABLE -> "UNAVAILABLE"; com.google.firebase.ai.ondevice.OnDeviceModelStatus.AVAILABLE -> "AVAILABLE"; com.google.firebase.ai.ondevice.OnDeviceModelStatus.DOWNLOADABLE -> "DOWNLOADABLE"; com.google.firebase.ai.ondevice.OnDeviceModelStatus.DOWNLOADING -> "DOWNLOADING"; else -> "UNKNOWN / unavailable" } } catch (_:Exception) { "UNKNOWN / unavailable" }; return "$availability; requested STABLE; device-reported model: $reportedModelName; queried: $modelQueryTime" }
  override suspend fun download(update: (String)->Unit) { val extension=local.onDeviceExtension ?: error("On-device extension unavailable"); extension.download().collect { update(it.javaClass.simpleName) } }
  override suspend fun privateOnly(prompt: String, photo: Bitmap?): String {
   identity(local)

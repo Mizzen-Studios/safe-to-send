@@ -19,6 +19,8 @@ jobs:
           distribution: temurin
           java-version: '17'
       - uses: android-actions/setup-android@v3
+        with:
+          packages: platform-tools
       - name: Configure public client and build WITHOUT runtime secret
         run: |
           python3 android/scripts/configure-public-client.py
