@@ -25,3 +25,15 @@ Source screen values are explicitly synthetic; localhost is retained as genuine 
 Verified final: 149.800s, H264 1920x1080, 30fps, 4494 frames, no audio, 2352195 bytes. Full ffmpeg decode exit0, zero errors. SHA256 f7897d9c52490f716efb374b46d80c1bd7930582b6c823ee6162e4b931f03151.
 
 Actual chapters: intro 0–12; detection start 12–18; redaction review 18–36; local output 36–47.666667; metadata 47.666667–63.666667; separation 63.666667–75.666667; emulator 75.666667–107.8; limitations 107.8–123.8; Pixel placeholders 123.8–137.8; outro 137.8–149.8.
+
+
+## Updated desktop cloud insert
+
+The final edit recipe accepts `--desktop-cloud` pointing to the privately retained, captioned desktop cloud take described in [DESKTOP_CLOUD_TAKE_2026-11-15](../docs/submission/DESKTOP_CLOUD_TAKE_2026-11-15.md). It replaces the emulator section with a separate genuine desktop cloud take at 1x. Development App Check and unavailable local verifier are disclosed; this is not a continuous local-to-cloud session or production-attestation proof. Pixel slots stay NOT_CAPTURED. No video is committed or uploaded. Final private render receipts supersede earlier cut hashes; earlier manifests remain historical.
+
+The configured signed Android candidate is refreshed from deployed product source `440ec1e`; see [current release receipt](../android/docs/SIGNED_PRIVATE_REFRESH_2026-11-15.md). Physical production-token acceptance remains NOT_RUN.
+
+
+### Final private desktop local + separate cloud edit
+
+Rendered and decoded successfully: **155.733333 seconds (2:35.73)**, silent H264, 1920×1080. SHA256 `892e057e455a8bb157b8277620281fb0666a5454a762f40e2d4d7901f9c5c018`. Private file: workspace `.openclaw/tmp/safe-send-roughcut-final/safe-to-send-private-roughcut.mp4`. No upload or public media commit. Cloud and Pixel-placeholder frames visually inspected. [Sanitized final timeline](PRIVATE_ROUGHCUT_FINAL_2026-11-15.json) binds exact sources; raw local output quality and UNKNOWN checks remain disclosed.

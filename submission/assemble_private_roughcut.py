@@ -2,7 +2,7 @@
 """Private host-only edit. Real retained segments remain 1x; no fabricated UI."""
 import argparse, pathlib, subprocess, json, hashlib, textwrap
 from PIL import Image, ImageDraw, ImageFont
-p=argparse.ArgumentParser();p.add_argument('--output-dir',required=True);a=p.parse_args()
+p=argparse.ArgumentParser();p.add_argument('--output-dir',required=True);p.add_argument('--desktop-cloud',type=pathlib.Path);a=p.parse_args()
 R=pathlib.Path(__file__).resolve().parents[1];D=pathlib.Path(a.output_dir).resolve()
 assert R not in D.parents and D!=R, 'Output must be outside product repository'
 D.mkdir(parents=True,exist_ok=True);D.chmod(0o700)
@@ -35,7 +35,7 @@ def encode(name,duration,source=None,start=0,caption='',mode=''):
  run(base);actual=float(probe(out)['format']['duration']);begin=sum(x['duration'] for x in timeline)
  timeline.append({'name':name,'start':round(begin,6),'end':round(begin+actual,6),'duration':actual,'source':source,'sourceStart':start if source else None,'sourceEnd':round(start+actual,6) if source else None,'speed':1 if source else None,'caption':caption,'mode':mode});segments.append(out)
 local='docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4'
-emu='docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4'
+emu=str(a.desktop_cloud.resolve()) if a.desktop_cloud else 'docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4'
 card('intro','A real local execution, not verification',[
  'Synthetic letters only. Experimental assistance; human review required.',
  'Real desktop ONLY_ON_DEVICE detection, redaction review and local output.',
@@ -51,13 +51,13 @@ card('metadata','Component metadata is not model identity',[
  'Browser: Chrome 157.0.8103.78. SDK: Firebase 13.2.0.',
  'Separate manifest version: 1.20261018.2. Not a model name.'])
 encode('metadata',16)
-card('separation','A separate emulator cloud experiment',[
- 'Next: genuine Android emulator footage, NOT the desktop local journey.',
- 'DEVELOPMENT App Check; Nano UNAVAILABLE. Not production attestation.',
+card('separation','A separate desktop cloud experiment' if a.desktop_cloud else 'A separate emulator cloud experiment',[
+ 'Next: separate desktop cloud take, NOT a continuous hybrid journey.' if a.desktop_cloud else 'Next: genuine Android emulator footage, NOT the desktop local journey.',
+ 'DEVELOPMENT App Check; local verifier unavailable in this take. Not production attestation.' if a.desktop_cloud else 'DEVELOPMENT App Check; Nano UNAVAILABLE. Not production attestation.',
  'Manual redaction and approved payload; accepted cloud response.',
  'TEST_ONLY mutation is not cloud provenance or Nano verification.'])
 encode('separation',12)
-encode('emulator',32.133333,emu,0,'Separate emulator take at 1x. DEVELOPMENT App Check / Nano UNAVAILABLE.\nTEST_ONLY mutation is not cloud or Nano proof; not a physical phone.','ANDROID EMULATOR / SEPARATE EXPERIMENT / DEVELOPMENT APP CHECK')
+encode('desktop-cloud' if a.desktop_cloud else 'emulator',38.066667 if a.desktop_cloud else 32.133333,emu,0,'Separate desktop take at 1x. DEVELOPMENT App Check; local verifier unavailable.\nExact approved payload / SDK contents / ledger parity; not production attestation.' if a.desktop_cloud else 'Separate emulator take at 1x. DEVELOPMENT App Check / Nano UNAVAILABLE.\nTEST_ONLY mutation is not cloud or Nano proof; not a physical phone.','DESKTOP CLOUD / SEPARATE TAKE / DEVELOPMENT APP CHECK' if a.desktop_cloud else 'ANDROID EMULATOR / SEPARATE EXPERIMENT / DEVELOPMENT APP CHECK')
 card('limits','Useful execution evidence, limited quality',[
  'Local checks UNKNOWN: no truth or reliable-verification guarantee.',
  'Actual draft tells the sender to correct their tax return: wrong direction.',
@@ -73,14 +73,14 @@ encode('pixel',14)
 card('outro','Private draft - owner review only',[
  'Solo entrant Olly; AI coding assistance and Nov 9 preparatory spike disclosed.',
  'Experimental, synthetic-only, human review required. No filmed outro.',
- 'Future desktop-cloud insert point: NOT INCLUDED / pending verification.',
+ 'Separate desktop cloud footage included; not continuous local-to-cloud proof.' if a.desktop_cloud else 'Future desktop-cloud insert point: NOT INCLUDED / pending verification.',
  'Silent captioned edit. No upload, public release or finished-film claim.'])
 encode('outro',12)
 (D/'concat.txt').write_text(''.join("file '"+str(x)+"'\n" for x in segments))
 final=D/'safe-to-send-private-roughcut.mp4'
 run(['ffmpeg','-nostdin','-y','-v','error','-f','concat','-safe','0','-i',str(D/'concat.txt'),'-c','copy','-movflags','+faststart',str(final)])
 info=probe(final);assert float(info['format']['duration'])<=180
-manifest={'classification':'PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM','baseline':'440ec1e','timeline':timeline,'sources':[{'path':s,'sha256':sha(R/s),'sourceCommit':c,'kind':k,'probeDuration':float(probe(R/s)['format']['duration'])} for s,c,k in [(local,'04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be','real raw X11 capture'),(emu,'3968e52','genuine emulator capture with existing disclosure banner')]],'desktopReceipt':'docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json','desktopWallDuration':137.802,'desktopMediaDuration':135.666667,'durationCaveat':'Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.','omittedDesktopIntervals':[[6,23],[41,124]],'frameMapping':'For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.','videoSha256':sha(final),'actualDuration':float(info['format']['duration']),'audio':'none','modelIdentity':'UNKNOWN','componentMetadata':{'name':'nano_v3_cpu_component','version':'2025.8.21.1028','notModelIdentity':True},'chrome':'157.0.8103.78','firebase':'13.2.0','separateManifestVersion':'1.20261018.2','localChecks':'UNKNOWN_NOT_VERIFIED','qualityLimitation':'Wrong reply direction preserved; human rewrite required.','physicalPixel':'NOT_CAPTURED','desktopCloud':'NOT_INCLUDED_PENDING_VERIFICATION','futureInsertPoint':'Replace separation/emulator only after verifying actual desktop-cloud take; no placeholder success footage.'}
+manifest={'classification':'PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM','baseline':'440ec1e','timeline':timeline,'sources':[{'path':s,'sha256':sha(R/s),'sourceCommit':c,'kind':k,'probeDuration':float(probe(R/s)['format']['duration'])} for s,c,k in [(local,'04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be','real raw X11 capture'),(emu,'3ba79d8' if a.desktop_cloud else '3968e52','separate actual desktop DEVELOPMENT cloud take' if a.desktop_cloud else 'genuine emulator capture with existing disclosure banner')]],'desktopReceipt':'docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json','desktopWallDuration':137.802,'desktopMediaDuration':135.666667,'durationCaveat':'Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.','omittedDesktopIntervals':[[6,23],[41,124]],'frameMapping':'For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.','videoSha256':sha(final),'actualDuration':float(info['format']['duration']),'audio':'none','modelIdentity':'UNKNOWN','componentMetadata':{'name':'nano_v3_cpu_component','version':'2025.8.21.1028','notModelIdentity':True},'chrome':'157.0.8103.78','firebase':'13.2.0','separateManifestVersion':'1.20261018.2','localChecks':'UNKNOWN_NOT_VERIFIED','qualityLimitation':'Wrong reply direction preserved; human rewrite required.','physicalPixel':'NOT_CAPTURED','desktopCloud':'INCLUDED_SEPARATE_DEVELOPMENT_TAKE' if a.desktop_cloud else 'NOT_INCLUDED_PENDING_VERIFICATION','futureInsertPoint':'Replace separation/emulator only after verifying actual desktop-cloud take; no placeholder success footage.'}
 (D/'shot-manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
 (D/'ffprobe.json').write_text(json.dumps(info,indent=2)+'\n')
 final.chmod(0o600)

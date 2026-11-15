@@ -1,0 +1,174 @@
+{
+  "classification": "PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM",
+  "baseline": "440ec1e",
+  "timeline": [
+    {
+      "name": "intro",
+      "start": 0,
+      "end": 12,
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "detection-start",
+      "start": 12,
+      "end": 18,
+      "duration": 6,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 6,
+      "speed": 1,
+      "caption": "Synthetic sample. Real detection begins; retained footage at 1x.\nEdited waits omitted; not continuous real time.",
+      "mode": "DESKTOP / ONLY_ON_DEVICE / ACTUAL MODEL ID UNKNOWN"
+    },
+    {
+      "name": "redaction-review",
+      "start": 18,
+      "end": 36,
+      "duration": 18,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 23,
+      "sourceEnd": 41,
+      "speed": 1,
+      "caption": "Detection + product patterns; human review and redacted payload inspection.\nSource 6-23s omitted. No cloud handoff in this desktop take.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / EDITED WAITS OMITTED"
+    },
+    {
+      "name": "local-output",
+      "start": 36,
+      "end": 47.666667,
+      "duration": 11.666667,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 124,
+      "sourceEnd": 135.666667,
+      "speed": 1,
+      "caption": "Local output appears; checks UNKNOWN, not verified. Reply direction is poor.\nSource 41-124s wait omitted. Actual output preserved; no replacement UI.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / NOT CONTINUOUS REAL TIME"
+    },
+    {
+      "name": "metadata",
+      "start": 47.666667,
+      "end": 63.666667,
+      "duration": 16,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "separation",
+      "start": 63.666667,
+      "end": 75.666667,
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "desktop-cloud",
+      "start": 75.666667,
+      "end": 113.733334,
+      "duration": 38.066667,
+      "source": "PRIVATE:desktop-cloud-private-captioned.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 38.066667,
+      "speed": 1,
+      "caption": "Separate desktop take at 1x. DEVELOPMENT App Check; local verifier unavailable.\nExact approved payload / SDK contents / ledger parity; not production attestation.",
+      "mode": "DESKTOP CLOUD / SEPARATE TAKE / DEVELOPMENT APP CHECK"
+    },
+    {
+      "name": "limits",
+      "start": 113.733334,
+      "end": 129.733334,
+      "duration": 16,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "pixel",
+      "start": 129.733334,
+      "end": 143.733334,
+      "duration": 14,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "outro",
+      "start": 143.733334,
+      "end": 155.733334,
+      "duration": 12,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    }
+  ],
+  "sources": [
+    {
+      "path": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sha256": "a11ac12897ee94b57bc452e90e7f5487e71f76381b12b519c07808bfa4569e0e",
+      "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+      "kind": "real raw X11 capture",
+      "probeDuration": 135.666667
+    },
+    {
+      "path": "PRIVATE:desktop-cloud-private-captioned.mp4",
+      "sha256": "a20827120d3be368474023afbaf49fd93a7934c3b696ff78d93ebe4f2ad3c8c2",
+      "sourceCommit": "3ba79d8",
+      "kind": "separate actual desktop DEVELOPMENT cloud take",
+      "probeDuration": 38.066667
+    }
+  ],
+  "desktopReceipt": "docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json",
+  "desktopWallDuration": 137.802,
+  "desktopMediaDuration": 135.666667,
+  "durationCaveat": "Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.",
+  "omittedDesktopIntervals": [
+    [
+      6,
+      23
+    ],
+    [
+      41,
+      124
+    ]
+  ],
+  "frameMapping": "For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.",
+  "videoSha256": "892e057e455a8bb157b8277620281fb0666a5454a762f40e2d4d7901f9c5c018",
+  "actualDuration": 155.733333,
+  "audio": "none",
+  "modelIdentity": "UNKNOWN",
+  "componentMetadata": {
+    "name": "nano_v3_cpu_component",
+    "version": "2025.8.21.1028",
+    "notModelIdentity": true
+  },
+  "chrome": "157.0.8103.78",
+  "firebase": "13.2.0",
+  "separateManifestVersion": "1.20261018.2",
+  "localChecks": "UNKNOWN_NOT_VERIFIED",
+  "qualityLimitation": "Wrong reply direction preserved; human rewrite required.",
+  "physicalPixel": "NOT_CAPTURED",
+  "desktopCloud": "INCLUDED_SEPARATE_DEVELOPMENT_TAKE",
+  "futureInsertPoint": "Physical Pixel slots remain NOT_CAPTURED; separate desktop cloud take included."
+}
