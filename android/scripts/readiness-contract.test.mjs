@@ -94,7 +94,7 @@ test('source privacy boundaries and conservative Android semantics remain explic
  assert.ok(privacy.includes('approval = null; return a.revision to a.payload'));
  assert.ok(privacy.includes('accepted.receipt === receipt'));
  assert.ok(quote.includes('original.lineSequence().any { it==claims[index].text }'));
- assert.ok(quote.includes('status=="unsupported" -> "unknown"'));
+ assert.ok(quote.includes('status=="UNSURE" -> "unknown"'));
  assert.ok(privacy.includes('explanation + draft + deadlines + actions + amounts'));
  assert.ok(plan.includes('Android semantics differ from web typed actions'));
  assert.ok(plan.includes('do NOT establish semantic or accuracy parity'));

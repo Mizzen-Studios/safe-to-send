@@ -79,7 +79,7 @@ class SessionModel : ViewModel() {
   Text("Safe to Send",style=MaterialTheme.typography.headlineLarge)
   Text("Synthetic notices only • originals stay local • never auto-send")
   Text("Review revision $tick",style=MaterialTheme.typography.bodySmall)
-  Text("Android experimental preview. Production attestation UNVERIFIED. No phone/Nano inference claimed.",style=MaterialTheme.typography.bodySmall)
+  Text("Android experimental preview; web remains primary. Native accuracy/parity NOT validated. Production attestation and phone/Nano inference NOT_RUN.",style=MaterialTheme.typography.bodySmall)
   Text(status)
   Button(enabled=!busy,onClick={ task { current -> val availability=provider.status(); current(); status="Nano: "+availability } }) { Text("Check Nano availability") }
   OutlinedButton(enabled=!busy,onClick={ task { current -> provider.download { current(); status="Model download: $it" }; current(); status="Download finished; check availability" } }) { Text("Download local model (explicit)") }

@@ -4,6 +4,11 @@ on:
     branches: [council/android-app]
     paths: ['android/**', 'shared/nano/**', '.github/workflows/android-build.yml']
   workflow_dispatch:
+    inputs:
+      android_client_config:
+        description: Embed allowlisted public Firebase Android client configuration (no secrets)
+        type: boolean
+        default: false
 permissions:
   contents: read
 concurrency:
@@ -24,6 +29,9 @@ jobs:
       - uses: android-actions/setup-android@v3
         with:
           packages: platform-tools
+      - name: Configure public Android client metadata (never signing or debug secrets)
+        if: inputs.android_client_config
+        run: python3 android/scripts/configure-public-client.py
       - name: Verify official wrapper checksum
         working-directory: android
         run: echo "$(cat gradle/wrapper/wrapper.sha256)  gradle/wrapper/gradle-wrapper.jar" | sha256sum -c -
@@ -46,6 +54,10 @@ jobs:
           disable-animations: true
           working-directory: android
           script: ./gradlew --no-daemon :app:connectedDebugAndroidTest
+      - name: Inspect release package metadata
+        run: |
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump badging android/app/build/outputs/apk/release/app-release-unsigned.apk > android/app/build/release-package.txt
+          "$ANDROID_HOME/build-tools/36.0.0/aapt" dump xmltree android/app/build/outputs/apk/release/app-release-unsigned.apk AndroidManifest.xml > android/app/build/release-manifest.txt
       - name: Scan unsigned release artifact (never publish)
         run: |
           mkdir -p android/app/build/release-preparation
@@ -59,6 +71,8 @@ jobs:
           path: |
             android/app/build/outputs/apk/debug/app-debug.apk
             android/app/build/release-preparation/
+            android/app/build/release-package.txt
+            android/app/build/release-manifest.txt
             android/app/build/reports/tests/
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/
