@@ -1,0 +1,57 @@
+name: Private-development emulator cloud recording
+on:
+  workflow_dispatch:
+  push:
+    branches: [council/emulator-full-demo]
+    paths: [android/**, .github/workflows/emulator-cloud-demo.yml]
+permissions:
+  contents: read
+jobs:
+  record:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: android-actions/setup-android@v3
+      - name: Configure public client and build WITHOUT runtime secret
+        run: |
+          python3 android/scripts/configure-public-client.py
+          cd android
+          ./gradlew --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:assembleRelease
+      - name: Release marker scan
+        run: python3 android/scripts/scan-release-apk.py android/app/build/outputs/apk/release/app-release-unsigned.apk --sha "${{ github.sha }}" > /dev/null
+      - name: Enable free runner KVM
+        run: sudo chmod a+rw /dev/kvm
+      - name: Actual emulator SDK cloud response, no normal-token claim
+        uses: reactivecircus/android-emulator-runner@v2
+        env:
+          SAFE_SEND_EMULATOR_DEBUG_TOKEN: ${{ secrets.SAFE_SEND_EMULATOR_DEBUG_TOKEN }}
+        with:
+          api-level: 35
+          arch: x86_64
+          target: google_apis
+          disable-animations: true
+          disable-linux-hw-accel: false
+          script: python3 android/scripts/emulator-cloud-record.py
+      - name: Label actual emulator footage
+        if: always()
+        run: |
+          if test -f emulator-evidence/raw-emulator.mp4; then
+            ffmpeg -y -i emulator-evidence/raw-emulator.mp4 -vf "pad=iw:ih+100:0:100:color=black,drawtext=fontcolor=white:fontsize=20:x=12:y=12:text='ACTUAL ANDROID EMULATOR - NANO UNAVAILABLE',drawtext=fontcolor=white:fontsize=17:x=12:y=45:text='Manual redaction - development DEBUG App Check',drawtext=fontcolor=white:fontsize=16:x=12:y=72:text='SDK input ledger only - NOT HTTP or production attestation'" -c:v libx264 -crf 23 -pix_fmt yuv420p emulator-evidence/labelled-emulator.mp4
+            rm emulator-evidence/raw-emulator.mp4
+          fi
+      - name: Only sanitized receipt and labelled MP4, NEVER APK logs or test reports
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: labelled-emulator-development-${{ github.sha }}
+          path: |
+            emulator-evidence/receipt.json
+            emulator-evidence/labelled-emulator.mp4
+          retention-days: 7

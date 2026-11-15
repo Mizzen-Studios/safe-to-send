@@ -1,0 +1,70 @@
+package com.mizzen.safetosend
+
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.ui.test.*
+import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.test.ext.junit.runners.AndroidJUnit4
+import androidx.test.platform.app.InstrumentationRegistry
+import com.google.android.gms.tasks.Tasks
+import com.google.firebase.FirebaseApp
+import com.google.firebase.appcheck.FirebaseAppCheck
+import kotlinx.coroutines.runBlocking
+import org.json.JSONObject
+import org.junit.*
+import org.junit.Assert.*
+import org.junit.runner.RunWith
+import java.io.File
+import java.util.concurrent.TimeUnit
+
+/** Opt-in REAL SDK request, development debug attestation, NOT production-device proof. */
+@RunWith(AndroidJUnit4::class)
+class EmulatorCloudTest {
+ @get:Rule val compose=createComposeRule()
+ @Test fun actualManualRedactedCloudAndUnavailableNano()=runBlocking {
+  Assume.assumeTrue(InstrumentationRegistry.getArguments().getString("realEmulatorCloud")=="true")
+  val ctx=InstrumentationRegistry.getInstrumentation().targetContext
+  val provider=FirebaseProvider(); val vm=SessionModel()
+  val report=JSONObject().put("attestation","REGISTERED_DEBUG_DEVELOPMENT_NOT_PRODUCTION")
+   .put("transport","Firebase Android SDK application input; HTTP/TLS bytes NOT observed")
+  try {
+   val token=Tasks.await(FirebaseAppCheck.getInstance(FirebaseApp.getInstance()).getAppCheckToken(false),60,TimeUnit.SECONDS)
+   assertTrue(token.token.isNotBlank()); report.put("appCheckTokenObtained",true)
+   val availability=provider.status(); report.put("nanoStatus",availability)
+   assertFalse(availability.startsWith("AVAILABLE;"))
+   compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
+   compose.onNodeWithText("Check Nano availability").performClick()
+   compose.waitUntil(60000) { !vm.busy }; Thread.sleep(1500)
+   compose.onNodeWithText("Original synthetic notice (select sensitive text)").performScrollTo().performTextInput("Alex\nPay £20 by Friday.")
+   compose.onNodeWithText("Original synthetic notice (select sensitive text)").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetSelection) { it(0,4,false) }
+   compose.onNodeWithText("Redact selected range").performScrollTo().performClick()
+   compose.onNode(isToggleable()).performScrollTo().performClick()
+   for(label in listOf("Preview exact hybrid payload","Approve this exact payload")) {
+    compose.onNodeWithText(label).performScrollTo().performClick(); Thread.sleep(1700)
+   }
+   val exact=Prompts.response(vm.privacy.redacted())
+   assertFalse(exact.contains("Alex")); assertTrue(exact.contains("[WRITER]"))
+   report.put("exactApprovedApplicationText",exact).put("sha256",sha256(exact)).put("utf8Bytes",exact.toByteArray(Charsets.UTF_8).size)
+   compose.onNodeWithText("Run approved hybrid response").performScrollTo().performClick()
+   compose.waitUntil(120000) { !vm.busy }
+   val ledger=vm.privacy.ledger
+   assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
+   report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
+   assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
+   report.put("inferenceSource",ledger.last().source); assertEquals("IN_CLOUD",ledger.last().source)
+   report.put("actualCloudResponseAccepted",true)
+   compose.onNodeWithText("Hybrid response: IN_CLOUD; NOT yet private-verified").performScrollTo(); Thread.sleep(2500)
+   compose.onNodeWithText("Private two-key review — local only").performScrollTo().performClick()
+   compose.waitUntil(60000) { !vm.busy }
+   report.put("localReview","UNAVAILABLE_EMULATOR_NO_NANO_PROOF")
+   compose.onNodeWithText("TEST_ONLY plant wrong deadline").performScrollTo().performClick()
+   compose.onNodeWithText("TEST_ONLY planted mutation — NOT CLOUD").performScrollTo(); Thread.sleep(2300)
+   compose.onNodeWithText("Privacy ledger — in-memory application bytes, not TLS packets").performScrollTo(); Thread.sleep(2300)
+   compose.onNodeWithText("Clear session").performScrollTo().performClick()
+   assertTrue(vm.privacy.ledger.isEmpty()); assertEquals("",vm.privacy.source)
+   report.put("clearSession",true).put("result","PASS"); Thread.sleep(1500)
+  } catch(_:Throwable) {
+   report.put("result","BLOCKED_OR_FAILED_NO_PROVIDER_ERROR_LOGGED")
+   throw AssertionError("Real emulator cloud path failed; inspect sanitized receipt")
+  } finally { File(ctx.filesDir,"emulator-cloud-receipt.json").writeText(report.toString(2)) }
+ }
+}
