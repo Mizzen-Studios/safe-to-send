@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-15T12:58:18.236Z",
+  "os": "linux",
+  "release": "7.0.0-1019-azure",
+  "arch": "x64",
+  "cpu": [
+    "AMD EPYC 9V74 80-Core Processor",
+    "AMD EPYC 9V74 80-Core Processor",
+    "AMD EPYC 9V74 80-Core Processor",
+    "AMD EPYC 9V74 80-Core Processor"
+  ],
+  "logicalCpus": 4,
+  "totalRamBytes": 16759439360,
+  "freeRamBytes": 15397306368,
+  "diskAvailableBytes": 93097779200,
+  "gpu": [],
+  "runnerImage": "ubuntu26",
+  "runnerImageVersion": "20261111.196.1"
+}

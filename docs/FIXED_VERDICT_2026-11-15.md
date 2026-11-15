@@ -1,6 +1,6 @@
 # Fixed verdict implementation — 15 November 2026
 
-Source milestone only. Real measurement remains pending until the single authorized free workflow produces a receipt. No accuracy, deadline-catch or release guarantee.
+Implementation milestone below; the single authorized workflow is now complete. See [15 November measured failure](FIXED_VERDICT_EVALUATION_2026-11-15.md): 3/128 decided, 125 unknown; one typed deadline catch, not a reliable verifier. No accuracy, deadline-catch or release guarantee.
 
 Read first: the actual failed receipt and [13 November report](NEXT_QUOTE_EVALUATION_2026-11-13.md): 29/32 valid detections, 839/955 recall and 839/1271 precision on that subset; 0/128 verifier decisions, 20 attempted, 108 not run. Those receipts are unchanged.
 
