@@ -31,7 +31,7 @@ try{
  await page.locator('#synthetic-confirm').focus();await page.keyboard.press('Space');assert.equal(await page.locator('#approve').isDisabled(),true);
  await page.locator('#review-confirm').focus();await page.keyboard.press('Space');await page.locator('#approve').focus();await page.keyboard.press('Enter');assert.equal(await page.locator('#cloud-explain').isEnabled(),true);
  assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth),false);
- await page.getByRole('button',{name:/^Remove PERSONAL /}).click();assert.equal(await page.locator('#cloud-explain').isDisabled(),true);assert.equal(await page.locator('#approve').isDisabled(),true);
+ await page.getByRole('button',{name:/^Remove /}).first().click();assert.equal(await page.locator('#cloud-explain').isDisabled(),true);assert.equal(await page.locator('#approve').isDisabled(),true);
  // No redactions can never approve whole original.
  await page.locator('#letter').fill('Entirely invented text without patterns');await page.locator('#regex').click();await page.locator('#synthetic-confirm').check();await page.locator('#review-confirm').check();await page.locator('#approve').click();assert.equal(await page.locator('#cloud-explain').isDisabled(),true);
  // Local template is explicitly not inference. Save edited result to actual IndexedDB.
