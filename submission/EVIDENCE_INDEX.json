@@ -1,0 +1,118 @@
+{
+  "baseline": "67d5bfe",
+  "syntheticOnly": true,
+  "continuousHybridJourney": false,
+  "assets": [
+    {
+      "path": "docs/evidence/desktop-2026-11-15/take-raw.mp4",
+      "bytes": 476361,
+      "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede",
+      "kind": "video",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
+      "durationSeconds": 45.533333,
+      "audio": false,
+      "status": "LOCAL_DETECTION_THEN_FAIL_CLOSED",
+      "edited": false,
+      "modelIdentity": "UNKNOWN_NOT_EXPOSED",
+      "cloud": "NOT_RUN",
+      "receipt": "docs/evidence/desktop-2026-11-15/proof.json"
+    },
+    {
+      "path": "docs/evidence/desktop-2026-11-15/02.png",
+      "bytes": 132466,
+      "sha256": "610b6fe43a9d44087beef9547cc2aa07e571e8718325b5c6b2442982cd2318f8",
+      "kind": "still",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda"
+    },
+    {
+      "path": "docs/evidence/desktop-2026-11-15/05.png",
+      "bytes": 152016,
+      "sha256": "64d5b943ad097e82a80425e8d9397db8d3546d3f566dd0d2aa7e36db52bda77a",
+      "kind": "still",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda"
+    },
+    {
+      "path": "docs/evidence/desktop-2026-11-15/video-frame-44s.png",
+      "bytes": 426230,
+      "sha256": "6840c6c56d1007c0558e43abe8c335683b9cc4a84fc8a8c25dc988e125826703",
+      "kind": "still",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda"
+    },
+    {
+      "path": "docs/evidence/desktop-2026-11-15/proof.json",
+      "bytes": 9186,
+      "sha256": "574dd83beeb9fea895b6a28214a7d06b028f21417f8cd9dbc1c187d3c79b2306",
+      "kind": "proof",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda"
+    },
+    {
+      "path": "docs/evidence/desktop-2026-11-15/receipt.json",
+      "bytes": 3133,
+      "sha256": "dec0442b9f6ded761d27f3b4e8d79662297361e23a43ade6011d4a6c57ef3372",
+      "kind": "proof",
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda"
+    },
+    {
+      "path": "docs/evidence/emulator-2026-11-15/labelled-emulator.mp4",
+      "bytes": 539493,
+      "sha256": "27a8759fd3e43d6e5393ef9b90d4309681bdd90567de18a3f3e1bc25d0d48678",
+      "kind": "video",
+      "sourceCommit": "be37a2d498284ad51c9ce5aae185b02eb76f280e",
+      "durationSeconds": 38.002995,
+      "audio": false,
+      "width": 720,
+      "height": 1410,
+      "status": "PARTIAL_MANUAL_REDACTION_PREVIEW_REQUEST_ATTEMPT",
+      "exactSource": "labelled-emulator-development-be37a2d498284ad51c9ce5aae185b02eb76f280e/labelled-emulator.mp4",
+      "acceptedCloudInVideo": false,
+      "nano": "UNAVAILABLE_NOT_PROVEN",
+      "physicalPixel": false,
+      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay \u00a320 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
+    },
+    {
+      "path": "docs/evidence/final-web-real-cloud-2026-11-15.json",
+      "bytes": 6873,
+      "sha256": "887a17260e174fe621a8927b4c413dc1aa5cdef44b6a7ffe85a17d629b547951",
+      "kind": "proof",
+      "sourceCommit": null,
+      "sourceBinding": "Receipt lacks sourceCommit; candidate UI attribution only, not exact-source attestation",
+      "status": "SEPARATE_ACCEPTED_WEB_CLOUD_DEVELOPMENT_APPCHECK",
+      "httpBodyBytes": 2515,
+      "exactBodyParity": true
+    },
+    {
+      "path": "docs/FINAL_WEB_VERDICT_2026-11-15.md",
+      "bytes": 3916,
+      "sha256": "11565bdb6e3df2629fb01494fcee636e01dc457607dcd98ad82160ba325ea246",
+      "kind": "report",
+      "sourceCommit": "9ccf4aab94122b682b630f2a25553099f7809221"
+    }
+  ],
+  "missing": [
+    {
+      "id": "worker93aad-full-emulator-take",
+      "status": "NOT_CAPTURED",
+      "shotStatus": "EXPECTED_NOT_CAPTURED"
+    },
+    {
+      "id": "normal-production-attestation",
+      "status": "NOT_CAPTURED",
+      "shotStatus": "EXPECTED_NOT_CAPTURED"
+    },
+    {
+      "id": "physical-pixel-hybrid-journey",
+      "status": "NOT_CAPTURED",
+      "shotStatus": "EXPECTED_NOT_CAPTURED"
+    },
+    {
+      "id": "live-web-cloud-video",
+      "status": "NOT_CAPTURED",
+      "shotStatus": "EXPECTED_NOT_CAPTURED"
+    },
+    {
+      "id": "finished-narration-and-edit",
+      "status": "NOT_CAPTURED",
+      "shotStatus": "EXPECTED_NOT_CAPTURED"
+    }
+  ]
+}
