@@ -26,9 +26,10 @@ class EmulatorCloudTest {
   val ctx=InstrumentationRegistry.getInstrumentation().targetContext
   val actual=FirebaseProvider(); val vm=SessionModel()
   var cloudFailure="NONE"
+  var sdkResponse:ModelAnswer?=null
   val provider=object: AiProvider by actual {
    override suspend fun approvedHybrid(exactPayload:String):ModelAnswer {
-    try { return actual.approvedHybrid(exactPayload) }
+    try { return actual.approvedHybrid(exactPayload).also { sdkResponse=it } }
     catch(e:Exception) {
      // Only allowlisted categories, never provider text/token/exception dumps.
      val message=e.message.orEmpty().lowercase()
@@ -76,7 +77,8 @@ class EmulatorCloudTest {
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
    report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE").put("cloudFailureCategory",cloudFailure)
-   report.put("busyAtAcceptance",vm.busy)
+   report.put("busyAtAcceptance",vm.busy).put("sdkResponseReturned",sdkResponse!=null)
+   sdkResponse?.let { report.put("sdkInferenceSource",it.source).put("responseSha256",sha256(it.text)).put("responseFenced",it.text.trim().startsWith("```")) }
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
    report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
