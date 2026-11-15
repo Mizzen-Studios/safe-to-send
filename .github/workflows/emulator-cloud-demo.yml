@@ -28,8 +28,11 @@ jobs:
           ./gradlew --no-daemon :app:assembleDebug :app:assembleDebugAndroidTest :app:testDebugUnitTest :app:assembleRelease
       - name: Release marker scan
         run: python3 android/scripts/scan-release-apk.py android/app/build/outputs/apk/release/app-release-unsigned.apk --sha "${{ github.sha }}" > /dev/null
-      - name: Enable free runner KVM
-        run: sudo chmod a+rw /dev/kvm
+      - name: Enable free runner KVM and recording encoder
+        run: |
+          sudo chmod a+rw /dev/kvm
+          sudo apt-get update -qq
+          sudo apt-get install -y ffmpeg
       - name: Actual emulator SDK cloud response, no normal-token claim
         uses: reactivecircus/android-emulator-runner@v2
         env:

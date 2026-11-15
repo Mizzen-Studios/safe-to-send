@@ -24,7 +24,26 @@ class EmulatorCloudTest {
  @Test fun actualManualRedactedCloudAndUnavailableNano()=runBlocking {
   Assume.assumeTrue(InstrumentationRegistry.getArguments().getString("realEmulatorCloud")=="true")
   val ctx=InstrumentationRegistry.getInstrumentation().targetContext
-  val provider=FirebaseProvider(); val vm=SessionModel()
+  val actual=FirebaseProvider(); val vm=SessionModel()
+  var cloudFailure="NONE"
+  val provider=object: AiProvider by actual {
+   override suspend fun approvedHybrid(exactPayload:String):ModelAnswer {
+    try { return actual.approvedHybrid(exactPayload) }
+    catch(e:Exception) {
+     // Only allowlisted categories, never provider text/token/exception dumps.
+     val message=e.message.orEmpty().lowercase()
+     cloudFailure=when {
+      "app check" in message || "appcheck" in message -> "APPCHECK_REJECTED"
+      "quota" in message || "resource_exhausted" in message -> "QUOTA_OR_RATE_LIMIT"
+      "not found" in message || "not_found" in message -> "MODEL_OR_ENDPOINT_NOT_FOUND"
+      "permission" in message || "403" in message -> "PERMISSION_DENIED"
+      "billing" in message -> "BILLING_REQUIRED_STOP"
+      else -> "PROVIDER_REQUEST_REJECTED"
+     }
+     throw IllegalStateException("Classified provider rejection")
+    }
+   }
+  }
   val report=JSONObject().put("attestation","REGISTERED_DEBUG_DEVELOPMENT_NOT_PRODUCTION")
    .put("transport","Firebase Android SDK application input; HTTP/TLS bytes NOT observed")
   try {
@@ -54,7 +73,7 @@ class EmulatorCloudTest {
    val ledger=vm.privacy.ledger
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
-   report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE")
+   report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE").put("cloudFailureCategory",cloudFailure)
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
    report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
