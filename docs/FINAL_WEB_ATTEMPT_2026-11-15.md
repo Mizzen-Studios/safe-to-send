@@ -13,3 +13,9 @@ Target: at least 64/128 trials decidable, with all missing/error/unknown counts 
 Two earlier real cloud calls returned a recipient-as-addressee draft and were correctly refused with no result shown. Strengthened approved instruction with explicit literal sender envelope; the next call passed existing strict role validation. No validation was weakened and no response repaired. This is one accepted synthetic example, not reliability/general safety proof. Sanitized evidence: `docs/evidence/final-web-real-cloud-2026-11-15.json`. No headers, HAR, tokens, response IDs or thought signatures retained in committed proof.
 
 Single final Ubuntu run dispatched on measured source `9ccf4aa`: https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43729893443 . No further inference dispatch is authorized by this document.
+
+## Candidate gates
+
+254/254 unit tests, 9/9 operator tests, 3/3 collector wiring checks, product/operator TypeScript and both Vite builds passed. Four existing browser suites passed: hybrid wiring, product IndexedDB/file/manual workflow, reviewed journey, isolated real-SDK/mocked-provider handoff. Browser proofs remain explicitly mocked/template-only except the separately identified real cloud proof. Mobile 390/768/1440 screenshots inspected; no horizontal overflow. Two stale browser expectations were repaired: ungrounded model MISMATCH remains unknown, and overlapping manual/name redactions may merge kinds rather than create PERSONAL label 1. No production validator weakened.
+
+Gitleaks scanned both candidate commits since 6edd07a (23 KB), zero findings. Exact private debug token absence checked across every changed tracked file. Full-output claim coverage, fake quote rejection and appended-admission/negation regressions remain green. Candidate files contain no new shared wire schema/Kotlin edits. Hosting remains parent-owned and was not deployed.
