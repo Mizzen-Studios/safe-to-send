@@ -32,7 +32,7 @@ canary='00000000-0000-4000-8000-000000000000'
 adb('logcat','-c')
 try:
     seed(canary)
-    instrument('EmulatorLoggingTest')
+    instrument('EmulatorLoggingTest','-e','loggingCanary','true')
     logs=adb('logcat','-d','-b','all')
     assert b'PUBLIC_LOG_BUFFER_LIVENESS_CANARY' in logs, 'Guard cannot observe live logs'
     assert canary.encode() not in logs, 'Public SDK canary leaked; secret never loaded'

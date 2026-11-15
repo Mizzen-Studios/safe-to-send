@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit
 @RunWith(AndroidJUnit4::class)
 class EmulatorLoggingTest {
  @Test fun unregisteredCanaryCannotEnterLogBuffer() {
+  org.junit.Assume.assumeTrue(InstrumentationRegistry.getArguments().getString("loggingCanary")=="true")
   val tag="com.google.firebase.appcheck.debug.internal.DebugAppCheckProvider"
   val report=JSONObject().put("registeredSecretUsed",false)
   try {
@@ -34,6 +35,25 @@ class EmulatorLoggingTest {
     })
    }
    assertTrue(rejected)
+   // Disposable instrumentation process only: supply NO token, never bypass enforcement.
+   FirebaseAppCheck.getInstance().installAppCheckProviderFactory { _ ->
+    com.google.firebase.appcheck.AppCheckProvider {
+     Tasks.forException<com.google.firebase.appcheck.AppCheckToken>(IllegalStateException("PUBLIC_NO_TOKEN_NEGATIVE_CONTROL"))
+    }
+   }
+   var cloudRejected=false
+   try { kotlinx.coroutines.runBlocking { FirebaseProvider().approvedHybrid("PUBLIC SYNTHETIC NEGATIVE CONTROL: reply OK") } }
+   catch (e:Exception) {
+    cloudRejected=true
+    val messages=generateSequence(e as Throwable?) { it.cause }.map { it.message.orEmpty().lowercase() }.joinToString(" ")
+    report.put("noTokenCloudCategory",when {
+     "app check" in messages || "appcheck" in messages || "401" in messages -> "APPCHECK_REJECTED"
+     "403" in messages -> "PERMISSION_DENIED_NOT_APPCHECK_SPECIFIC"
+     else -> "OTHER_ERROR_NOT_REJECTION_PROOF"
+    })
+   }
+   report.put("noTokenCloudRequestRejected",cloudRejected)
+   assertTrue(cloudRejected)
    report.put("invalidDebugTokenExchangeRejected",true).put("debugIsLoggable",false).put("result","PASS")
   } finally {
    File(InstrumentationRegistry.getInstrumentation().targetContext.filesDir,"emulator-logging-receipt.json").writeText(report.toString())
