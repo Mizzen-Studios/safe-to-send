@@ -1,0 +1,96 @@
+{
+  "checkedAt": "2026-11-15T12:49:46.876Z",
+  "classification": "CONFIGURATION_READBACK_ONLY_NOT_TOKEN_ACCEPTANCE",
+  "sourceBaseline": "7843304",
+  "projectId": "safe-to-send-2026",
+  "projectNumber": "794092402064",
+  "androidApp": "projects/safe-to-send-2026/androidApps/1:794092402064:android:fd7223549ef6ecf5a8af15",
+  "appId": "1:794092402064:android:fd7223549ef6ecf5a8af15",
+  "packageName": "com.mizzen.safetosend",
+  "apiKeyResourceId": "c5e53fd0-8b9f-46f4-af43-0557ce110d39",
+  "androidKey": {
+    "name": "projects/794092402064/keys/6LeIciEuAAAAAIEYGD-hchOsfTZevc_TRAvSJN4O",
+    "displayName": "Safe to Send native Android App Check",
+    "androidSettings": {
+      "allowAllPackageNames": false,
+      "allowedPackageNames": [
+        "com.mizzen.safetosend"
+      ],
+      "supportNonGoogleAppStoreDistribution": true
+    },
+    "labels": {},
+    "createTime": "2026-11-15T12:48:50Z"
+  },
+  "provider": {
+    "name": "projects/794092402064/apps/1:794092402064:android:fd7223549ef6ecf5a8af15/recaptchaEnterpriseConfig",
+    "tokenTtl": "3600s",
+    "siteKey": "6LeIciEuAAAAAIEYGD-hchOsfTZevc_TRAvSJN4O",
+    "riskAnalysis": {
+      "minValidScore": 0.5
+    }
+  },
+  "billingBefore": {
+    "name": "projects/safe-to-send-2026/billingInfo",
+    "projectId": "safe-to-send-2026",
+    "billingAccountName": "",
+    "billingEnabled": false
+  },
+  "billingAfter": {
+    "name": "projects/safe-to-send-2026/billingInfo",
+    "projectId": "safe-to-send-2026",
+    "billingAccountName": "",
+    "billingEnabled": false
+  },
+  "appCheckServicesBefore": {
+    "services": [
+      {
+        "name": "projects/794092402064/services/firebaseml.googleapis.com",
+        "enforcementMode": "ENFORCED",
+        "updateTime": "2026-11-12T18:19:25.615535Z",
+        "etag": "\"H7iHMtgM7k40fxg=\""
+      }
+    ]
+  },
+  "appCheckServicesAfter": {
+    "services": [
+      {
+        "name": "projects/794092402064/services/firebaseml.googleapis.com",
+        "enforcementMode": "ENFORCED",
+        "updateTime": "2026-11-12T18:19:25.615535Z",
+        "etag": "\"H7iHMtgM7k40fxg=\""
+      }
+    ]
+  },
+  "gates": {
+    "noExistingAndroidRegistrationBefore": true,
+    "exactlyOneMatchingAndroidKeyAfter": true,
+    "webKeyUnchanged": true,
+    "webProviderReadback": {
+      "name": "projects/794092402064/apps/1:794092402064:web:4e263548738bdb75a8af15/recaptchaEnterpriseConfig",
+      "tokenTtl": "3600s",
+      "siteKey": "6LdCJB0uAAAAAKdtLy_Bs4DDa8sNeVlz0YjkcBer",
+      "riskAnalysis": {
+        "minValidScore": 0.5
+      }
+    },
+    "enabledApiSetUnchanged": true,
+    "billingUnlinkedBeforeAndAfter": true,
+    "aiEnforcementUnchanged": true,
+    "packageVerificationEnabled": true,
+    "noTestingOptions": true,
+    "normalTokenAcceptance": "NOT_RUN",
+    "firebaseAiCloudCall": "NOT_RUN",
+    "nanoInference": "NOT_RUN",
+    "physicalDevice": "NOT_USED",
+    "emulatorAttestation": "NOT_RUN",
+    "deployments": "NONE"
+  },
+  "privateClientConfigStored": "android-google-services.json and android-private.properties, owner-only 0600; not committed",
+  "officialSources": [
+    "https://firebase.google.com/docs/app-check/android/recaptcha-enterprise-provider",
+    "https://firebase.google.com/docs/app-check/recaptcha-keys",
+    "https://firebaseappcheck.googleapis.com/$discovery/rest?version=v1",
+    "https://recaptchaenterprise.googleapis.com/$discovery/rest?version=v1",
+    "https://firebase.googleapis.com/$discovery/rest?version=v1beta1"
+  ]
+}
