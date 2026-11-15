@@ -32,11 +32,6 @@ jobs:
       - name: Compile real Firebase SDK signatures and run unit tests
         working-directory: android
         run: ./gradlew --no-daemon :app:assembleDebug :app:testDebugUnitTest :app:assembleDebugAndroidTest :app:assembleRelease
-      - name: Scan unsigned release artifact (never publish)
-        run: |
-          mkdir -p android/app/build/release-preparation
-          python3 android/scripts/scan-release-apk.py android/app/build/outputs/apk/release/app-release-unsigned.apk --sha "${{ github.sha }}" > android/app/build/release-preparation/manifest.json
-          cp android/app/build/outputs/apk/release/app-release-unsigned.apk "android/app/build/release-preparation/safe-to-send-0.1.0-${{ github.sha }}-unsigned.apk"
       - name: Enable ephemeral runner KVM access
         run: |
           test -c /dev/kvm
@@ -51,6 +46,11 @@ jobs:
           disable-animations: true
           working-directory: android
           script: ./gradlew --no-daemon :app:connectedDebugAndroidTest
+      - name: Scan unsigned release artifact (never publish)
+        run: |
+          mkdir -p android/app/build/release-preparation
+          cp android/app/build/outputs/apk/release/app-release-unsigned.apk "android/app/build/release-preparation/safe-to-send-0.1.0-${{ github.sha }}-unsigned.apk"
+          python3 android/scripts/scan-release-apk.py android/app/build/outputs/apk/release/app-release-unsigned.apk --sha "${{ github.sha }}" > android/app/build/release-preparation/manifest.json
       - name: Preserve APK and test reports (no logcat)
         if: always()
         uses: actions/upload-artifact@v4
