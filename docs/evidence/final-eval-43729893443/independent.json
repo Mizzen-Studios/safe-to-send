@@ -1,0 +1,2303 @@
+{
+  "run": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43729893443",
+  "source": "9ccf4aab94122b682b630f2a25553099f7809221",
+  "sourceHashes": {
+    "shared/nano/contract.json": "faec5df849675cd64efe3089eac5070d4e35d169ef969ed8e879bd2956f94354",
+    "src/fixed-verdict.ts": "0c347a9271b79bd4ebfc17ae662571a383262815fb78bde591d73f917095dcb4",
+    "src/semantic-evidence.ts": "0bf1425b25cdaecfc934d98cd50c762dc35375798b053949d09c2df4c86a3d94",
+    "src/typed-evidence.ts": "d1c53e043c51ad07c254ad3fd76adffc0e380b714ada6146fe934c1123aa908f",
+    "src/manual-suggestions.ts": "fb48a0fa7ab398bcc3c0729b309c2b4a5b79298ea1892e002aa286eb3902887c",
+    "src/privacy.ts": "953147bc0f6616e81678bafee29b858ab7edcd1f8737e8261d2e2bd25108bd53",
+    "src/regex.ts": "8980f12214929ac0692cf4bcb8dce9819fee528e9920f2ab61521ad3dc9cf091",
+    "src/nano.ts": "e05cb412c3f90a23a9535c1f6108bcc2077e36d7fba099296e47f6939734c960",
+    "src/hybrid.ts": "3ef4e4322077d2db7cb6034017ec274ff06caf448aec0a4d124fb1061930135a",
+    "src/eval-corpus.ts": "b33ed0991e70158f2c72eb8aa55bda4c7aaaed04b6376c19690c8d6ab0123ee3",
+    "operator/device-eval/core.ts": "e74ada3755c164a89e4198b9824d45293051fea002e94b96756b280195cf2514",
+    "operator/device-eval/native.ts": "d9ceab622c8f068e2811bb52dfec77c7e46fdbc03c735eadf02991091d52bff5",
+    "operator/device-eval/page.ts": "a6cf80a265cf8012fa04cd1beaed3f99f9fa4dff0474601c8035d5ac0aeeb08d",
+    "operator/device-eval/run.mjs": "817c7279ea1ef324b9e0b95cba73444cc000030d0bc58c67ce5079ddb473cc11",
+    "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+  },
+  "receipt": {
+    "sha256": "5a2dc3a8eb46fa438fb0d5a91cf05404e2ac2cc08faf58119aa28805efe2c967",
+    "bytes": 1731293,
+    "manifestCount": 103
+  },
+  "modelIdentity": {
+    "status": "UNKNOWN",
+    "reportedName": null,
+    "operatorLabel": "Browser-managed Gemini Nano; version not exposed/attested by SDK",
+    "reason": "No actual API-reported model name/revision in receipt; operator label is not identity."
+  },
+  "browser": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "proofStatus": "PARTIAL_OR_NOT_RUN",
+  "proofErrors": [],
+  "pageNetwork": {
+    "CSP": "default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'none'; img-src 'none'; font-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'; frame-src 'none'; frame-ancestors 'none'; worker-src 'none'",
+    "blockedPageRequests": []
+  },
+  "promptInspection": {
+    "prompts": 246,
+    "nativeErrors": 1,
+    "abortedNativePrompts": 1,
+    "reconstructedVerifierPrompts": 214,
+    "batchHistogram": {
+      "0": 56,
+      "1": 1,
+      "3": 71
+    },
+    "exactProductionPromptsAndSchemas": true,
+    "expectedLabelsSent": false
+  },
+  "detectors": {
+    "planned": 32,
+    "success": 32,
+    "accepted": 0,
+    "rejected": 0,
+    "unknown": 0,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 0,
+    "not_run": 0,
+    "noticesWithInvalidFindings": [
+      {
+        "id": "hmrc-03",
+        "invalidFindings": 1
+      },
+      {
+        "id": "tenancy-05",
+        "invalidFindings": 1
+      }
+    ],
+    "invalidFindingCount": 2,
+    "validAdapterNoticeCount": 32,
+    "fullTruthCharacters": 1052,
+    "adapter": {
+      "tp": 947,
+      "actual": 1052,
+      "predicted": 1361,
+      "fp": 414,
+      "fn": 105,
+      "recall": 0.9001901140684411,
+      "precision": 0.6958119030124909
+    },
+    "strictCleanSubset": {
+      "noticeCount": 30,
+      "tp": 888,
+      "actual": 980,
+      "predicted": 1302,
+      "fp": 414,
+      "fn": 92,
+      "recall": 0.9061224489795918,
+      "precision": 0.6820276497695853
+    },
+    "prior29NoticeSubset": {
+      "excludedIds": [
+        "hmrc-04",
+        "nhs-02",
+        "council-04"
+      ],
+      "noticeCount": 29,
+      "tp": 870,
+      "actual": 955,
+      "predicted": 1262,
+      "fp": 392,
+      "fn": 85,
+      "recall": 0.9109947643979057,
+      "precision": 0.6893819334389857
+    },
+    "regexSameSubset": {
+      "tp": 406,
+      "actual": 1052,
+      "predicted": 730,
+      "fp": 324,
+      "fn": 646,
+      "recall": 0.38593155893536124,
+      "precision": 0.5561643835616439
+    },
+    "combinedOfflineUnion": {
+      "tp": 974,
+      "actual": 1052,
+      "predicted": 1597,
+      "fp": 623,
+      "fn": 78,
+      "recall": 0.9258555133079848,
+      "precision": 0.6098935504070131
+    },
+    "regexFullCorpus": {
+      "tp": 406,
+      "actual": 1052,
+      "predicted": 730,
+      "fp": 324,
+      "fn": 646,
+      "recall": 0.38593155893536124,
+      "precision": 0.5561643835616439
+    },
+    "rows": [
+      {
+        "id": "hmrc-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 46,
+          "actual": 46,
+          "predicted": 52
+        },
+        "regex": {
+          "tp": 17,
+          "actual": 46,
+          "predicted": 37
+        },
+        "combined": {
+          "tp": 46,
+          "actual": 46,
+          "predicted": 68
+        }
+      },
+      {
+        "id": "hmrc-02",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 24,
+          "actual": 26,
+          "predicted": 28
+        },
+        "regex": {
+          "tp": 8,
+          "actual": 26,
+          "predicted": 8
+        },
+        "combined": {
+          "tp": 24,
+          "actual": 26,
+          "predicted": 28
+        }
+      },
+      {
+        "id": "hmrc-03",
+        "invalidFindings": 1,
+        "adapter": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 35
+        },
+        "regex": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 50
+        },
+        "combined": {
+          "tp": 35,
+          "actual": 48,
+          "predicted": 50
+        }
+      },
+      {
+        "id": "hmrc-04",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 16,
+          "actual": 26,
+          "predicted": 16
+        },
+        "regex": {
+          "tp": 10,
+          "actual": 26,
+          "predicted": 18
+        },
+        "combined": {
+          "tp": 26,
+          "actual": 26,
+          "predicted": 34
+        }
+      },
+      {
+        "id": "hmrc-05",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 36,
+          "actual": 36,
+          "predicted": 55
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 36,
+          "predicted": 0
+        },
+        "combined": {
+          "tp": 36,
+          "actual": 36,
+          "predicted": 55
+        }
+      },
+      {
+        "id": "hmrc-06",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 39
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 29,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 47
+        }
+      },
+      {
+        "id": "dwp-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 26
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 23,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 36
+        }
+      },
+      {
+        "id": "dwp-02",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 36,
+          "actual": 45,
+          "predicted": 46
+        },
+        "regex": {
+          "tp": 17,
+          "actual": 45,
+          "predicted": 42
+        },
+        "combined": {
+          "tp": 36,
+          "actual": 45,
+          "predicted": 61
+        }
+      },
+      {
+        "id": "dwp-03",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 28,
+          "actual": 40,
+          "predicted": 28
+        },
+        "regex": {
+          "tp": 28,
+          "actual": 40,
+          "predicted": 28
+        },
+        "combined": {
+          "tp": 28,
+          "actual": 40,
+          "predicted": 28
+        }
+      },
+      {
+        "id": "dwp-04",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 37,
+          "actual": 37,
+          "predicted": 64
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 37,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 37,
+          "actual": 37,
+          "predicted": 74
+        }
+      },
+      {
+        "id": "dwp-05",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 26,
+          "actual": 26,
+          "predicted": 53
+        },
+        "regex": {
+          "tp": 11,
+          "actual": 26,
+          "predicted": 21
+        },
+        "combined": {
+          "tp": 26,
+          "actual": 26,
+          "predicted": 53
+        }
+      },
+      {
+        "id": "dwp-06",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 32,
+          "actual": 32,
+          "predicted": 53
+        },
+        "regex": {
+          "tp": 20,
+          "actual": 32,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 32,
+          "actual": 32,
+          "predicted": 63
+        }
+      },
+      {
+        "id": "nhs-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 27,
+          "actual": 27,
+          "predicted": 38
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 27,
+          "predicted": 37
+        },
+        "combined": {
+          "tp": 27,
+          "actual": 27,
+          "predicted": 53
+        }
+      },
+      {
+        "id": "nhs-02",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 27,
+          "actual": 37,
+          "predicted": 42
+        },
+        "regex": {
+          "tp": 25,
+          "actual": 37,
+          "predicted": 25
+        },
+        "combined": {
+          "tp": 37,
+          "actual": 37,
+          "predicted": 52
+        }
+      },
+      {
+        "id": "nhs-03",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 39
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 29,
+          "predicted": 18
+        },
+        "combined": {
+          "tp": 29,
+          "actual": 29,
+          "predicted": 49
+        }
+      },
+      {
+        "id": "nhs-04",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 43,
+          "actual": 43,
+          "predicted": 46
+        },
+        "regex": {
+          "tp": 27,
+          "actual": 43,
+          "predicted": 27
+        },
+        "combined": {
+          "tp": 43,
+          "actual": 43,
+          "predicted": 46
+        }
+      },
+      {
+        "id": "nhs-05",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 31
+        },
+        "regex": {
+          "tp": 10,
+          "actual": 23,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 23,
+          "actual": 23,
+          "predicted": 31
+        }
+      },
+      {
+        "id": "nhs-06",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 41,
+          "actual": 41,
+          "predicted": 52
+        },
+        "regex": {
+          "tp": 7,
+          "actual": 41,
+          "predicted": 7
+        },
+        "combined": {
+          "tp": 41,
+          "actual": 41,
+          "predicted": 52
+        }
+      },
+      {
+        "id": "council-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 19,
+          "actual": 19,
+          "predicted": 59
+        },
+        "regex": {
+          "tp": 8,
+          "actual": 19,
+          "predicted": 18
+        },
+        "combined": {
+          "tp": 19,
+          "actual": 19,
+          "predicted": 69
+        }
+      },
+      {
+        "id": "council-02",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 33,
+          "actual": 40,
+          "predicted": 33
+        },
+        "regex": {
+          "tp": 7,
+          "actual": 40,
+          "predicted": 23
+        },
+        "combined": {
+          "tp": 40,
+          "actual": 40,
+          "predicted": 56
+        }
+      },
+      {
+        "id": "council-03",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 14,
+          "actual": 29,
+          "predicted": 24
+        },
+        "regex": {
+          "tp": 14,
+          "actual": 29,
+          "predicted": 24
+        },
+        "combined": {
+          "tp": 14,
+          "actual": 29,
+          "predicted": 24
+        }
+      },
+      {
+        "id": "council-04",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 34,
+          "actual": 34,
+          "predicted": 41
+        },
+        "regex": {
+          "tp": 21,
+          "actual": 34,
+          "predicted": 28
+        },
+        "combined": {
+          "tp": 34,
+          "actual": 34,
+          "predicted": 41
+        }
+      },
+      {
+        "id": "council-05",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 25,
+          "actual": 25,
+          "predicted": 40
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 25,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 25,
+          "actual": 25,
+          "predicted": 50
+        }
+      },
+      {
+        "id": "council-06",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 28,
+          "actual": 28,
+          "predicted": 28
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 28,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 28,
+          "actual": 28,
+          "predicted": 38
+        }
+      },
+      {
+        "id": "tenancy-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 15,
+          "actual": 15,
+          "predicted": 15
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 15,
+          "predicted": 16
+        },
+        "combined": {
+          "tp": 15,
+          "actual": 15,
+          "predicted": 31
+        }
+      },
+      {
+        "id": "tenancy-02",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 70,
+          "actual": 72,
+          "predicted": 77
+        },
+        "regex": {
+          "tp": 30,
+          "actual": 72,
+          "predicted": 30
+        },
+        "combined": {
+          "tp": 70,
+          "actual": 72,
+          "predicted": 77
+        }
+      },
+      {
+        "id": "tenancy-03",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 30,
+          "actual": 30,
+          "predicted": 83
+        },
+        "regex": {
+          "tp": 16,
+          "actual": 30,
+          "predicted": 16
+        },
+        "combined": {
+          "tp": 30,
+          "actual": 30,
+          "predicted": 83
+        }
+      },
+      {
+        "id": "tenancy-04",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 7,
+          "actual": 16,
+          "predicted": 7
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 16,
+          "predicted": 10
+        },
+        "combined": {
+          "tp": 7,
+          "actual": 16,
+          "predicted": 17
+        }
+      },
+      {
+        "id": "tenancy-05",
+        "invalidFindings": 1,
+        "adapter": {
+          "tp": 24,
+          "actual": 24,
+          "predicted": 24
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 24,
+          "predicted": 22
+        },
+        "combined": {
+          "tp": 24,
+          "actual": 24,
+          "predicted": 34
+        }
+      },
+      {
+        "id": "tenancy-06",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 12,
+          "actual": 28,
+          "predicted": 22
+        },
+        "regex": {
+          "tp": 12,
+          "actual": 28,
+          "predicted": 32
+        },
+        "combined": {
+          "tp": 12,
+          "actual": 28,
+          "predicted": 32
+        }
+      },
+      {
+        "id": "nonuk-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 78,
+          "actual": 78,
+          "predicted": 87
+        },
+        "regex": {
+          "tp": 23,
+          "actual": 78,
+          "predicted": 23
+        },
+        "combined": {
+          "tp": 78,
+          "actual": 78,
+          "predicted": 87
+        }
+      },
+      {
+        "id": "negative-01",
+        "invalidFindings": 0,
+        "adapter": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 78
+        },
+        "regex": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 36
+        },
+        "combined": {
+          "tp": 0,
+          "actual": 0,
+          "predicted": 78
+        }
+      }
+    ],
+    "falsePositiveExamples": [
+      {
+        "id": "hmrc-01",
+        "quote": "1 Imaginary Lane, ZZ1 1ZZ",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 2
+      },
+      {
+        "id": "hmrc-01",
+        "quote": "UTR 0000000000",
+        "kind": "NI",
+        "falsePositiveCharacters": 4
+      },
+      {
+        "id": "hmrc-02",
+        "quote": "NI: QQ 00 00 00",
+        "kind": "NI",
+        "falsePositiveCharacters": 4
+      },
+      {
+        "id": "hmrc-05",
+        "quote": "Repayment £1,234.56",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 19
+      },
+      {
+        "id": "hmrc-06",
+        "quote": "reference DEMO/HMRC/06",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "dwp-01",
+        "quote": "NI QQ000000A",
+        "kind": "NI",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "dwp-02",
+        "quote": "Reference DWP-SYN002",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "dwp-04",
+        "quote": "Riley Imaginary.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "dwp-04",
+        "quote": "1980-05-04.",
+        "kind": "DATE",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "dwp-04",
+        "quote": "outstanding amount £9.99.",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 25
+      },
+      {
+        "id": "dwp-05",
+        "quote": "account DWP:DEMO005",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "dwp-05",
+        "quote": "Guide ID 1234567890",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 19
+      },
+      {
+        "id": "dwp-06",
+        "quote": "Drew Fiction: repayment £100.00.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 20
+      },
+      {
+        "id": "dwp-06",
+        "quote": "drew@example.invalid.",
+        "kind": "EMAIL",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "nhs-01",
+        "quote": "NHS number 000 000 0000",
+        "kind": "NHS",
+        "falsePositiveCharacters": 11
+      },
+      {
+        "id": "nhs-02",
+        "quote": "Patient: Finley Fable",
+        "kind": "NAME",
+        "falsePositiveCharacters": 9
+      },
+      {
+        "id": "nhs-02",
+        "quote": "Phone +44 7700 900456",
+        "kind": "PHONE",
+        "falsePositiveCharacters": 6
+      },
+      {
+        "id": "nhs-03",
+        "quote": "Rowan Imaginary, 5 Nowhere Mews",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 2
+      },
+      {
+        "id": "nhs-03",
+        "quote": "12345678",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "nhs-04",
+        "quote": "Skyler Synthetic <skyler.test@example.invalid>",
+        "kind": "EMAIL",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "nhs-05",
+        "quote": "NHS no. 0000000000",
+        "kind": "NHS",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "nhs-06",
+        "quote": "Patient Sage Invented",
+        "kind": "NAME",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "nhs-06",
+        "quote": "Unit 6, Example House, ZZ3 3ZZ.",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 3
+      },
+      {
+        "id": "council-01",
+        "quote": "Dear Reese Fable",
+        "kind": "NAME",
+        "falsePositiveCharacters": 5
+      },
+      {
+        "id": "council-01",
+        "quote": "account 00000000",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "council-01",
+        "quote": "Council tax balance £250.10",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 27
+      },
+      {
+        "id": "council-03",
+        "quote": "reference COUNCIL-DEMO03",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "council-04",
+        "quote": "ZZ9 9ZZ",
+        "kind": "ADDRESS",
+        "falsePositiveCharacters": 7
+      },
+      {
+        "id": "council-05",
+        "quote": "Dear Remy Invented.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 6
+      },
+      {
+        "id": "council-05",
+        "quote": "Contact 07700-900789.",
+        "kind": "PHONE",
+        "falsePositiveCharacters": 9
+      },
+      {
+        "id": "tenancy-02",
+        "quote": "Tenant Phoenix Synthetic",
+        "kind": "NAME",
+        "falsePositiveCharacters": 7
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "Shiloh Fiction.",
+        "kind": "NAME",
+        "falsePositiveCharacters": 1
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "sort code 00-00-00",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "account 00000000",
+        "kind": "ACCOUNT",
+        "falsePositiveCharacters": 8
+      },
+      {
+        "id": "tenancy-03",
+        "quote": "Verify payment instructions first.",
+        "kind": "EMAIL",
+        "falsePositiveCharacters": 34
+      },
+      {
+        "id": "tenancy-06",
+        "quote": "Reference RENT/DEMO/06",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 10
+      },
+      {
+        "id": "nonuk-01",
+        "quote": "USD 12.00",
+        "kind": "SORT_CODE",
+        "falsePositiveCharacters": 9
+      },
+      {
+        "id": "negative-01",
+        "quote": "Form 12345678, version 1234567890, example code 12-34-56, published 18/12/2026",
+        "kind": "REFERENCE",
+        "falsePositiveCharacters": 78
+      }
+    ],
+    "falseNegativeExamples": [
+      {
+        "id": "hmrc-02",
+        "quote": "QQ 00 00 00 C",
+        "kind": "NI",
+        "missedCharacters": 2
+      },
+      {
+        "id": "hmrc-03",
+        "quote": "Sam Synthetic",
+        "kind": "NAME",
+        "missedCharacters": 13
+      },
+      {
+        "id": "hmrc-04",
+        "quote": "04.05.1980",
+        "kind": "DATE",
+        "missedCharacters": 10
+      },
+      {
+        "id": "dwp-02",
+        "quote": "Avery Invented",
+        "kind": "NAME",
+        "missedCharacters": 9
+      },
+      {
+        "id": "dwp-03",
+        "quote": "Jordan Fable",
+        "kind": "NAME",
+        "missedCharacters": 12
+      },
+      {
+        "id": "nhs-02",
+        "quote": "09/08/1970",
+        "kind": "DATE",
+        "missedCharacters": 10
+      },
+      {
+        "id": "council-02",
+        "quote": "ZZ4 4ZZ",
+        "kind": "POSTCODE",
+        "missedCharacters": 7
+      },
+      {
+        "id": "council-03",
+        "quote": "Ellis Synthetic",
+        "kind": "NAME",
+        "missedCharacters": 15
+      },
+      {
+        "id": "tenancy-02",
+        "quote": "Flat 10, 2 Imaginary Road",
+        "kind": "ADDRESS",
+        "missedCharacters": 2
+      },
+      {
+        "id": "tenancy-04",
+        "quote": "Kendall Invented",
+        "kind": "NAME",
+        "missedCharacters": 9
+      },
+      {
+        "id": "tenancy-06",
+        "quote": "Dakota Imaginary",
+        "kind": "NAME",
+        "missedCharacters": 16
+      }
+    ]
+  },
+  "verifiers": {
+    "rawStatusCounts": {
+      "MISMATCH": 57,
+      "MATCH": 135,
+      "UNSURE": 21
+    },
+    "normalizedStatusCounts": {
+      "mismatch": 47,
+      "supported": 122,
+      "unknown": 44
+    },
+    "invalidEvidenceCheckCount": 30,
+    "missingCheckCount": 0,
+    "planned": 128,
+    "attempted": 72,
+    "success": 0,
+    "accepted": 3,
+    "rejected": 11,
+    "unknown": 57,
+    "error": 0,
+    "timeout": 0,
+    "aborted": 1,
+    "not_run": 56,
+    "mutations": {
+      "planned": 96,
+      "attempted": 53,
+      "success": 0,
+      "accepted": 0,
+      "rejected": 11,
+      "unknown": 42,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 0,
+      "not_run": 43,
+      "decided": 11,
+      "decidedOverPlanned": 0.11458333333333333,
+      "decidedOverAttempted": 0.20754716981132076,
+      "trueDecisions": 11,
+      "falseDecisions": 0,
+      "decidedSubsetCorrectRate": 1
+    },
+    "controls": {
+      "planned": 32,
+      "attempted": 19,
+      "success": 0,
+      "accepted": 3,
+      "rejected": 0,
+      "unknown": 15,
+      "error": 0,
+      "timeout": 0,
+      "aborted": 1,
+      "not_run": 13,
+      "decided": 3,
+      "decidedOverPlanned": 0.09375,
+      "decidedOverAttempted": 0.15789473684210525,
+      "trueDecisions": 3,
+      "falseDecisions": 0,
+      "decidedSubsetCorrectRate": 1
+    },
+    "byVariant": {
+      "deadline": {
+        "planned": 32,
+        "attempted": 18,
+        "success": 0,
+        "accepted": 0,
+        "rejected": 7,
+        "unknown": 11,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "not_run": 14,
+        "decided": 7,
+        "decidedOverPlanned": 0.21875,
+        "decidedOverAttempted": 0.3888888888888889,
+        "trueDecisions": 7,
+        "falseDecisions": 0,
+        "decidedSubsetCorrectRate": 1
+      },
+      "amountPence": {
+        "planned": 32,
+        "attempted": 20,
+        "success": 0,
+        "accepted": 0,
+        "rejected": 4,
+        "unknown": 16,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "not_run": 12,
+        "decided": 4,
+        "decidedOverPlanned": 0.125,
+        "decidedOverAttempted": 0.2,
+        "trueDecisions": 4,
+        "falseDecisions": 0,
+        "decidedSubsetCorrectRate": 1
+      },
+      "action": {
+        "planned": 32,
+        "attempted": 15,
+        "success": 0,
+        "accepted": 0,
+        "rejected": 0,
+        "unknown": 15,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 0,
+        "not_run": 17,
+        "decided": 0,
+        "decidedOverPlanned": 0,
+        "decidedOverAttempted": 0,
+        "trueDecisions": 0,
+        "falseDecisions": 0,
+        "decidedSubsetCorrectRate": null
+      },
+      "control": {
+        "planned": 32,
+        "attempted": 19,
+        "success": 0,
+        "accepted": 3,
+        "rejected": 0,
+        "unknown": 15,
+        "error": 0,
+        "timeout": 0,
+        "aborted": 1,
+        "not_run": 13,
+        "decided": 3,
+        "decidedOverPlanned": 0.09375,
+        "decidedOverAttempted": 0.15789473684210525,
+        "trueDecisions": 3,
+        "falseDecisions": 0,
+        "decidedSubsetCorrectRate": 1
+      }
+    },
+    "checkStatusCounts": {
+      "supported": 81,
+      "mismatch": 16,
+      "unsupported": 0,
+      "unknown": 116
+    },
+    "errors": [
+      {
+        "trialId": "trial-071",
+        "id": "dwp-06",
+        "status": "aborted",
+        "error": "Error: aborted"
+      }
+    ],
+    "unknownTrials": [
+      {
+        "trialId": "trial-000",
+        "id": "hmrc-02",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-001",
+        "id": "nhs-05",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-004",
+        "id": "council-03",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-005",
+        "id": "tenancy-03",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-007",
+        "id": "hmrc-04",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-008",
+        "id": "dwp-06",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "mismatch"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-011",
+        "id": "council-05",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "mismatch"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-012",
+        "id": "nhs-01",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-014",
+        "id": "negative-01",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-015",
+        "id": "nhs-05",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-016",
+        "id": "tenancy-02",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-017",
+        "id": "council-06",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-018",
+        "id": "tenancy-05",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-019",
+        "id": "nhs-04",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-020",
+        "id": "hmrc-02",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-022",
+        "id": "nhs-06",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-024",
+        "id": "nhs-06",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-025",
+        "id": "council-04",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-027",
+        "id": "nhs-03",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-028",
+        "id": "negative-01",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-029",
+        "id": "negative-01",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "mismatch"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-030",
+        "id": "nhs-02",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-031",
+        "id": "nonuk-01",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-032",
+        "id": "dwp-04",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "mismatch"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-033",
+        "id": "tenancy-05",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-034",
+        "id": "dwp-03",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-035",
+        "id": "nhs-06",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-036",
+        "id": "tenancy-05",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-037",
+        "id": "dwp-01",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-038",
+        "id": "nhs-02",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-040",
+        "id": "nhs-02",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-041",
+        "id": "tenancy-03",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-042",
+        "id": "council-04",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-043",
+        "id": "dwp-04",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-044",
+        "id": "tenancy-03",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-045",
+        "id": "dwp-05",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-047",
+        "id": "dwp-03",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-048",
+        "id": "nonuk-01",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-049",
+        "id": "council-04",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-050",
+        "id": "tenancy-04",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-051",
+        "id": "tenancy-03",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-052",
+        "id": "nhs-01",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "mismatch"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-053",
+        "id": "hmrc-03",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-054",
+        "id": "nhs-02",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-055",
+        "id": "tenancy-01",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-056",
+        "id": "hmrc-06",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-057",
+        "id": "hmrc-01",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-058",
+        "id": "nonuk-01",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-059",
+        "id": "hmrc-04",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-060",
+        "id": "nhs-04",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-061",
+        "id": "tenancy-02",
+        "variant": "amountPence",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-064",
+        "id": "council-01",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-065",
+        "id": "council-05",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "supported"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-067",
+        "id": "nhs-04",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-068",
+        "id": "council-02",
+        "variant": "control",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "supported"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-069",
+        "id": "hmrc-04",
+        "variant": "deadline",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "supported"
+          }
+        ]
+      },
+      {
+        "trialId": "trial-070",
+        "id": "nonuk-01",
+        "variant": "action",
+        "checks": [
+          {
+            "id": "c0",
+            "status": "unknown"
+          },
+          {
+            "id": "c1",
+            "status": "unknown"
+          },
+          {
+            "id": "c2",
+            "status": "unknown"
+          }
+        ]
+      }
+    ]
+  },
+  "timing": {
+    "initializationMs": 65160.4,
+    "detectorSuccessful": {
+      "n": 32,
+      "p50Ms": 10871.699999999983,
+      "p95Ms": 16280.299999999988
+    },
+    "detectorAttempted": {
+      "n": 32,
+      "p50Ms": 10871.699999999983,
+      "p95Ms": 16280.299999999988
+    },
+    "verifierAttempted": {
+      "n": 72,
+      "p50Ms": 31599.5,
+      "p95Ms": 35741.10000000009
+    }
+  },
+  "limitations": "Authored synthetic 32 notices, 96 mutations and 32 controls, three submitted fields only; not whole product explanation/draft/cloud-generated answers, real letters, images/OCR, Android or device attestation. Character scoring is coverage, not kind correctness. Invalid exact findings are omitted with diagnostics and false negatives retained. No retries or truth labels supplied. Unknown/error/timeout/aborted/not_run are never counted as rejection or accuracy."
+}
