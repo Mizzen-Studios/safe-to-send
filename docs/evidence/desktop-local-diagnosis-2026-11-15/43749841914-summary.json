@@ -1,0 +1,166 @@
+{
+  "status": "TAKE_FAILED_NOT_RELEASE_FOOTAGE",
+  "sourceCommit": "fbdf63ca8b539eb587832146e8e4575160abd0d6",
+  "errors": [
+    "Local answer unavailable or invalid; no fallback. [MODEL_GENERATE]"
+  ],
+  "localAnswerStatus": "Local answer unavailable or invalid; no fallback. [MODEL_GENERATE]",
+  "steps": [
+    {
+      "name": "original synthetic sample",
+      "start": "2026-11-15T19:02:41.227Z",
+      "elapsedMs": 101,
+      "end": "2026-11-15T19:02:41.390Z"
+    },
+    {
+      "name": "real Nano detection plus product regex union",
+      "start": "2026-11-15T19:02:43.905Z",
+      "elapsedMs": 2779,
+      "end": "2026-11-15T19:03:04.310Z"
+    },
+    {
+      "name": "inspect highlights and manually correct any known synthetic details missed by detectors",
+      "start": "2026-11-15T19:03:06.587Z",
+      "elapsedMs": 25461,
+      "end": "2026-11-15T19:03:06.648Z"
+    },
+    {
+      "name": "inspect redacted application preview and require review",
+      "start": "2026-11-15T19:03:08.932Z",
+      "elapsedMs": 27806,
+      "end": "2026-11-15T19:03:08.959Z"
+    },
+    {
+      "name": "confirm synthetic original and exact payload reviewed",
+      "start": "2026-11-15T19:03:11.243Z",
+      "elapsedMs": 30117,
+      "end": "2026-11-15T19:03:11.343Z"
+    },
+    {
+      "name": "Explain on this device with original local input",
+      "start": "2026-11-15T19:03:13.628Z",
+      "elapsedMs": 32502
+    }
+  ],
+  "chrome": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "modelIdentity": {
+    "reportedName": null,
+    "status": "UNKNOWN_NOT_EXPOSED",
+    "source": "Chrome Prompt API"
+  },
+  "take": {
+    "start": "2026-11-15T19:02:41.126Z",
+    "capture": "ffmpeg live Xvfb x11grab, 15 fps, no audio, no edits",
+    "end": "2026-11-15T19:03:35.343Z",
+    "wallMs": 54217,
+    "cdpFrameCount": 3
+  },
+  "network": {
+    "scope": "page CDP + route; not browser model download traffic",
+    "externalAttempts": [],
+    "requests": [
+      {
+        "at": 125.407044,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Document"
+      },
+      {
+        "at": 125.423831,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Script"
+      },
+      {
+        "at": 125.424099,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Stylesheet"
+      },
+      {
+        "at": 125.473888,
+        "origin": "http://127.0.0.1:5192",
+        "method": "GET",
+        "type": "Other"
+      }
+    ]
+  },
+  "productSourceHashes": {
+    "src/main.ts": "60cb5d6f9c806a11847380de1b35ef83c60899ae7cd5c9e2d32fcd43aa3ea4d5",
+    "src/nano.ts": "150952651abae59da73f93310d675b58ac183062c1dda09cb391ae72a1fbfaa1",
+    "src/hybrid.ts": "8ad084f64d064cbad6cfa081a0ab57a2dd0c606dce9526878cfc29ec47250d9b",
+    "package-lock.json": "2e33af27e84e2710cf47aeff3079cb6c92ddae3f9cf6c865ea1163d55c09df17"
+  },
+  "artifacts": {
+    "manifest.json": {
+      "bytes": 2147,
+      "sha256": "5fc7396f755baf6edf5558ec4213905e57bcd87d66b0143c65756e643f4891b7"
+    },
+    "after-take-events.png": {
+      "bytes": 19046,
+      "sha256": "ddf829b85211c9a637f4eb15f4b8e485fa025a9683eb4e982db4400b42084276"
+    },
+    "03.png": {
+      "bytes": 122647,
+      "sha256": "b602c19e33e5eb9cf7cdb62fd7f979736d97a495659dc21ad170047acec4050c"
+    },
+    "prewarm-ready.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "02.png": {
+      "bytes": 132465,
+      "sha256": "3ec168b5f78e386a1321df185ef43dd8809a4d4971d491e99bb890b48532fbc5"
+    },
+    "after-take-components.png": {
+      "bytes": 159086,
+      "sha256": "b461a7f082d3bf0c55362439a5cedd93da9a87591a4a93bf5f678496ed18cc67"
+    },
+    "diagnostics-after-take.json": {
+      "bytes": 94037,
+      "sha256": "b8b7c3c0e4f1beb2111698b141fceb8ece683b5dbf96331882406b164c5d63c7"
+    },
+    "04.png": {
+      "bytes": 160246,
+      "sha256": "4c10a627a66a27f0ab0b9c740b4e1d5d1059914ebcb4efdca27367c89e525cb9"
+    },
+    "01.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "synthetic-local-responses.json": {
+      "bytes": 266,
+      "sha256": "633857b304d56f600a17247e23ae922f1b0fd470dd8e190e76ac179a6b586157"
+    },
+    "frame-timing.json": {
+      "bytes": 127,
+      "sha256": "ac577f530c414744c2af4b4bf69bc8a0a33c921dbc55b48fa31e750eeddc7a5d"
+    },
+    "proof.json": {
+      "bytes": 103688,
+      "sha256": "6bd5c91c73b3bc631edbb0b8455eaa2a5662a83442269e44670069bec12faf25"
+    },
+    "after-take-broker.png": {
+      "bytes": 194992,
+      "sha256": "9f17c15f85dbadadccab227bd8e67cea5cb98444cf09e522ac62c36fd3fed5e8"
+    },
+    "final-native-ui.png": {
+      "bytes": 164976,
+      "sha256": "9bd6fab3fe81e0b3c4ede2c49faece131949b0d9f8e9cfae35f00eaa85d80867"
+    },
+    "05.png": {
+      "bytes": 163292,
+      "sha256": "795e7b2b348c705604a246380e7cb14503b8f98ca0538789d000eb105c3bedd7"
+    },
+    "take-raw.mp4": {
+      "bytes": 507379,
+      "sha256": "de1d8c9c4600fe7f1d12c25dac2d088e3d074e2b1f1155b1cb28e09f18e61c32"
+    }
+  }
+}

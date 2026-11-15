@@ -6,4 +6,4 @@ export function localExceptionCode(error:unknown){const name=error&&typeof error
 type Diagnostic={operation:string;stage:string;raw?:string;exception?:string};
 let observer:((value:Diagnostic)=>void)|undefined;
 export function observeLocalDiagnostics(listener:(value:Diagnostic)=>void){observer=listener;return()=>{observer=undefined;};}
-export function emitLocalDiagnostic(value:Diagnostic){observer?.({...value,raw:value.raw?.slice(0,100000)});}
+export function emitLocalDiagnostic(value:Diagnostic){try{observer?.({...value,raw:value.raw?.slice(0,100000)});}catch{/* Diagnostics must never change inference or its outcome. */}}
