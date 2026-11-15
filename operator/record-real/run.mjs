@@ -16,7 +16,7 @@ export const DEVICE_CONFIG={apiKey:'operator-local-only-not-a-credential',projec
 export const allowed=url=>new URL(url).origin===ORIGIN||/^(data|blob):/.test(url);
 export async function buildProduct(){
  // Not the normal config: envDir false, no private config, no broker bundle or stub.
- await build({plugins:[{name:'operator-memory-observer',transformIndexHtml(html){return html.replace('</head>','<script type="module">import {observeLocalDiagnostics} from "/src/local-diagnostics.ts";globalThis.__operatorLocalDiagnostics=[];observeLocalDiagnostics(v=>globalThis.__operatorLocalDiagnostics.push(v));</script></head>');}}],configFile:false,envDir:false,publicDir:false,define:{__DEVICE_CONFIG__:JSON.stringify(DEVICE_CONFIG),__BROKER_CONFIG__:'null'},build:{outDir:'.openclaw/tmp/record-real-dist',emptyOutDir:true}});
+ await build({plugins:[{name:'operator-memory-observer',transformIndexHtml:{order:'pre',handler(html){return html.replace('</head>','<script type="module">import {observeLocalDiagnostics} from "/src/local-diagnostics.ts";globalThis.__operatorLocalDiagnostics=[];observeLocalDiagnostics(v=>globalThis.__operatorLocalDiagnostics.push(v));</script></head>');}}}],configFile:false,envDir:false,publicDir:false,define:{__DEVICE_CONFIG__:JSON.stringify(DEVICE_CONFIG),__BROKER_CONFIG__:'null'},build:{outDir:'.openclaw/tmp/record-real-dist',emptyOutDir:true}});
 }
 export function handler(headers){return async(req,res)=>{
  const path=new URL(req.url,ORIGIN).pathname;
