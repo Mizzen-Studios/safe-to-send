@@ -1,0 +1,45 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Safe to Send — reviewed hybrid boundary</title>
+<style>
+body{margin:0;background:#f8fafc;color:#172033;font:16px/1.5 system-ui,sans-serif}main{max-width:1180px;margin:28px auto;padding:20px}svg{display:block;width:100%;height:auto}.heading{font-size:25px;font-weight:700}.label{font-size:18px;font-weight:650}.small{font-size:15px}.zone{fill:none;stroke:#64748b;stroke-dasharray:7 5}.edge{fill:none;stroke:#475569;stroke-width:2}.node{stroke:#64748b;stroke-width:1}p{max-width:950px}
+</style>
+<main>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1180 720" role="img" aria-labelledby="title desc">
+<title id="title">Safe to Send — reviewed hybrid boundary</title>
+<desc id="desc">Raw synthetic text stays in the local browser origin. Local detection or manual review leads to exact redacted payload approval. Only approved redacted bytes cross to the separate cloud broker and Firebase AI Logic. Returned results are restored and edited locally. Local checking is experimental and mostly unknown.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#475569"/></marker></defs>
+<text x="30" y="38" class="heading">Safe to Send: inspect before sending</text>
+<rect x="20" y="70" width="760" height="580" rx="12" class="zone"/>
+<rect x="810" y="70" width="350" height="580" rx="12" class="zone"/>
+<text x="44" y="106" class="label">LOCAL BROWSER ORIGIN</text>
+<text x="834" y="106" class="label">CLOUD BOUNDARY</text>
+<!-- Directed connectors precede nodes. -->
+<path d="M335 175 H400" class="edge" marker-end="url(#arrow)"/>
+<path d="M575 225 V290" class="edge" marker-end="url(#arrow)"/>
+<path d="M750 340 H840" class="edge" marker-end="url(#arrow)"/>
+<path d="M985 390 V455" class="edge" marker-end="url(#arrow)"/>
+<path d="M840 505 H750" class="edge" marker-end="url(#arrow)"/>
+<path d="M400 505 H335" class="edge" marker-end="url(#arrow)"/>
+<rect x="45" y="125" width="290" height="100" rx="9" fill="#bfdbfe" class="node"/>
+<text x="69" y="162" class="label">Synthetic original</text><text x="69" y="192" class="small">No raw cloud fallback</text>
+<rect x="400" y="125" width="350" height="100" rx="9" fill="#c7d2fe" class="node"/>
+<text x="424" y="162" class="label">Local suggestions + review</text><text x="424" y="192" class="small">ONLY_ON_DEVICE / manual</text>
+<rect x="400" y="290" width="350" height="100" rx="9" fill="#99f6e4" class="node"/>
+<text x="424" y="327" class="label">Exact redacted approval</text><text x="424" y="357" class="small">Edits revoke approval</text>
+<text x="776" y="274" text-anchor="middle" class="small">Approved redacted only</text>
+<rect x="840" y="290" width="290" height="100" rx="9" fill="#fde68a" class="node"/>
+<text x="864" y="327" class="label">Separate broker origin</text><text x="864" y="357" class="small">App Check + body ledger</text>
+<rect x="840" y="455" width="290" height="100" rx="9" fill="#fde68a" class="node"/>
+<text x="864" y="492" class="label">Firebase AI Logic</text><text x="864" y="522" class="small">ONLY_IN_CLOUD</text>
+<rect x="400" y="455" width="350" height="100" rx="9" fill="#99f6e4" class="node"/>
+<text x="424" y="492" class="label">Restore + edit locally</text><text x="424" y="522" class="small">Explanation / dates / reply</text>
+<rect x="45" y="455" width="290" height="100" rx="9" fill="#fecaca" class="node"/>
+<text x="69" y="492" class="label">Experimental checks</text><text x="69" y="522" class="small">Warnings or unknown</text>
+<text x="45" y="605" class="small">Human review required. No guarantee of anonymity, correctness or complete detection.</text>
+<text x="30" y="687" class="small">Implemented design ≠ proven end-to-end execution. Synthetic-only. Physical Pixel: NOT_RUN.</text>
+</svg>
+<p><strong>Evidence boundary:</strong> local UI, separate genuine desktop inference, and a separate debug-App-Check cloud test are documented independently. This diagram is architecture source, not a claim that one recording proves the entire model journey. Local checks decided only 3/128 authored trials; 125 stayed unknown.</p>
+<p><a href="../docs/CLOUD_HANDOFF.md">Cloud handoff</a> · <a href="../docs/FIXED_VERDICT_EVALUATION_2026-11-15.md">Full evaluation</a> · <a href="DEVPOST_DESCRIPTION_DRAFT.md">Submission draft</a></p>
+</main>
