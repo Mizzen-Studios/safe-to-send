@@ -1,6 +1,11 @@
 name: Private-development emulator cloud recording
 on:
   workflow_dispatch:
+    inputs:
+      logging_proof_only:
+        type: boolean
+        default: true
+        description: Public unregistered SDK canary only before enrollment
 permissions:
   contents: read
 jobs:
@@ -33,6 +38,7 @@ jobs:
       - name: Actual emulator SDK cloud response, no normal-token claim
         uses: reactivecircus/android-emulator-runner@v2
         env:
+          SAFE_SEND_LOGGING_PROOF_ONLY: ${{ inputs.logging_proof_only }}
           SAFE_SEND_EMULATOR_DEBUG_TOKEN: ${{ secrets.SAFE_SEND_EMULATOR_DEBUG_TOKEN }}
         with:
           api-level: 35
@@ -55,6 +61,7 @@ jobs:
         with:
           name: labelled-emulator-development-${{ github.sha }}
           path: |
+            emulator-evidence/logging-proof.json
             emulator-evidence/receipt.json
             emulator-evidence/labelled-emulator.mp4
           retention-days: 7
