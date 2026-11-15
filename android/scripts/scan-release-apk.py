@@ -7,6 +7,7 @@ if not re.fullmatch(r'[0-9a-f]{40}', args.sha): raise SystemExit('Full source SH
 # Android App Check debug enrollment tokens are UUID-shaped; conservative false positives block publication.
 patterns=[rb'DebugAppCheckProvider',rb'FIREBASE_APPCHECK_DEBUG_TOKEN',rb'(?i)[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}',rb'-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----',rb'AIzaSyDEBUG',rb'gh[pousr]_[A-Za-z0-9]{20,}']
 with zipfile.ZipFile(path) as z:
+ if sum(i.file_size for i in z.infolist())>500_000_000: raise SystemExit('Oversized APK rejected')
  for info in z.infolist():
   if info.file_size>100_000_000: raise SystemExit('Oversized APK entry rejected')
   data=z.read(info)
