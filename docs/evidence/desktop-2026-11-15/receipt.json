@@ -1,0 +1,60 @@
+{
+  "classification": "REAL_DESKTOP_TEXT_DETECTION_AND_LOCAL_ANSWER_FAILURE_NOT_SUCCESS_DEMO",
+  "runId": 43729661808,
+  "runUrl": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43729661808",
+  "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
+  "baseCommit": "6edd07a",
+  "productionSourceChanged": false,
+  "chrome": {
+    "protocolVersion": "1.3",
+    "product": "Chrome/157.0.8103.78",
+    "revision": "@4b3d0dabb8250b6f152d2d85d79e7706e309d087",
+    "userAgent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/157.0.0.0 Safari/537.36",
+    "jsVersion": "15.7.112.43"
+  },
+  "modelIdentity": {
+    "reportedName": null,
+    "status": "UNKNOWN_NOT_EXPOSED",
+    "source": "Chrome Prompt API"
+  },
+  "requestedBrowserChannel": "stable",
+  "sdkMode": "firebase/ai InferenceMode.ONLY_ON_DEVICE; src/nano.ts rejects non-ON_DEVICE detector responses",
+  "video": {
+    "file": "take-raw.mp4",
+    "bytes": 476361,
+    "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede",
+    "durationSeconds": 45.533333,
+    "geometry": "1280x1024",
+    "framerate": 15,
+    "capture": "Live Xvfb X11 desktop via ffmpeg x11grab; silent raw unedited recording, not screenshot sequence",
+    "prewarmIncluded": false
+  },
+  "outcomes": {
+    "textDetection": "Real SDK detection completed, followed by unchanged product regex union. Highlighted synthetic name, street, postcode, NI and UTR; deadline remained visible. No manual correction was needed for the five known private values.",
+    "localAnswer": "Attempted through real product; UI refused: Local answer unavailable or invalid; no fallback. No draft rendered. Exact underlying model/validator error not exposed by production UI.",
+    "imageDetection": "NOT_RUN: workspace explicitly does not support image uploads; five-letter image diagnostics not run in this text recording.",
+    "cloud": "NOT_RUN",
+    "corpusEvaluation": "NOT_RUN; separate owner"
+  },
+  "pageEgress": {
+    "externalAttempts": 0,
+    "requests": 4,
+    "origins": [
+      "http://127.0.0.1:5192"
+    ],
+    "scope": "Page CDP and route only, not Chrome model/component download traffic",
+    "csp": "default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; connect-src data:; font-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'; form-action 'none'; frame-src https://safe-to-send-cloud-2026.web.app"
+  },
+  "verification": {
+    "artifactManifest": "Every downloaded entry SHA256 and byte size matched original manifest",
+    "fullDecode": "ffmpeg -v error -i take-raw.mp4 -f null - passed",
+    "nativeVideoFramesInspectedSeconds": [
+      1,
+      22,
+      28,
+      44
+    ],
+    "visualReview": "Readable Chrome UI/address bar and synthetic content; live scroll/state changes; failure text visible at 44s. Black desktop strip below 900px Chrome window remains, no crop/edit. No claim of successful local answer or release-ready demo.",
+    "localTests": "254 production tests + 6 operator contract tests pass; typecheck and operator build pass. Tests do not prove inference."
+  }
+}
