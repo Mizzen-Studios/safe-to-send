@@ -1,0 +1,57 @@
+{
+  "checkedAt": "2026-11-15T18:50:40.485641+00:00",
+  "classification": "READ_ONLY_CONFIGURATION_AND_ARTIFACT_NOT_RUNTIME_ACCEPTANCE",
+  "provider": {
+    "name": "projects/794092402064/apps/1:794092402064:android:fd7223549ef6ecf5a8af15/recaptchaEnterpriseConfig",
+    "tokenTtl": "3600s",
+    "siteKey": "6LeIciEuAAAAAIEYGD-hchOsfTZevc_TRAvSJN4O",
+    "riskAnalysis": {
+      "minValidScore": 0.5
+    }
+  },
+  "service": {
+    "name": "projects/794092402064/services/firebaseml.googleapis.com",
+    "enforcementMode": "ENFORCED",
+    "updateTime": "2026-11-12T18:19:25.615535Z",
+    "etag": "\"H7iHMtgM7k40fxg=\""
+  },
+  "androidKey": {
+    "name": "projects/794092402064/keys/6LeIciEuAAAAAIEYGD-hchOsfTZevc_TRAvSJN4O",
+    "displayName": "Safe to Send native Android App Check",
+    "androidSettings": {
+      "allowAllPackageNames": false,
+      "allowedPackageNames": [
+        "com.mizzen.safetosend"
+      ],
+      "supportNonGoogleAppStoreDistribution": true
+    },
+    "labels": {},
+    "createTime": "2026-11-15T12:48:50Z"
+  },
+  "billing": {
+    "billingAccountName": "",
+    "billingEnabled": false,
+    "name": "projects/safe-to-send-2026/billingInfo",
+    "projectId": "safe-to-send-2026"
+  },
+  "androidApp": {
+    "appId": "1:794092402064:android:fd7223549ef6ecf5a8af15",
+    "packageName": "com.mizzen.safetosend",
+    "name": "projects/safe-to-send-2026/androidApps/1:794092402064:android:fd7223549ef6ecf5a8af15"
+  },
+  "artifact": {
+    "sourceSha": "c441d021a8cfaf2fa9e88e009d1479193056b88f",
+    "apkSha256": "8783e39d6864755889945688b23182cdec4dc18a2a89e86607c2012d551daa34",
+    "certificateSha256": "74c8f082a40849d3edd6d40ad41972dd0861895541c776cdf0c72f1585213d19",
+    "package": "com.mizzen.safetosend",
+    "versionCode": 1,
+    "versionName": "0.1.0"
+  },
+  "embeddedClientConfigMatches": true,
+  "nativeReleaseProviderPresent": true,
+  "debugProviderAbsent": true,
+  "normalProductionTokenAcceptance": "NOT_RUN",
+  "physicalPixel": "NOT_RUN",
+  "modelIdentity": "UNKNOWN",
+  "rebuildRequiredForCurrentSource": true
+}

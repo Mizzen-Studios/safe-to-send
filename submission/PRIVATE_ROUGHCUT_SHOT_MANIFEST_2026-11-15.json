@@ -1,0 +1,95 @@
+{
+  "classification": "PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM",
+  "baseline": "7930eec",
+  "speed": "all real clips 1x; no speedups; complete clips; separate title cards",
+  "timeline": [
+    {
+      "start": 0,
+      "end": 12,
+      "asset": "intro card"
+    },
+    {
+      "start": 12,
+      "end": 57.533333,
+      "asset": "desktop full 0..45.533333"
+    },
+    {
+      "start": 57.533333,
+      "end": 69.533333,
+      "asset": "failure/separation card"
+    },
+    {
+      "start": 69.533333,
+      "end": 101.666667,
+      "asset": "emulator full 0..32.134777"
+    },
+    {
+      "start": 101.666667,
+      "end": 119.666667,
+      "asset": "limits card"
+    },
+    {
+      "start": 119.666667,
+      "end": 133.666667,
+      "asset": "physical Pixel NOT_CAPTURED card"
+    },
+    {
+      "start": 133.666667,
+      "end": 147.666667,
+      "asset": "outro card"
+    }
+  ],
+  "sources": [
+    {
+      "path": "docs/evidence/desktop-2026-11-15/take-raw.mp4",
+      "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede",
+      "rawOrEdited": "raw observed screen capture"
+    },
+    {
+      "path": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
+      "sha256": "eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05",
+      "rawOrEdited": "genuine observed capture with existing disclosure banner"
+    }
+  ],
+  "videoSha256": "271593c065c87a3821d254f9aba8ac8f6830e59b2c91e9f3720d2d08e7b9f94e",
+  "audio": "none",
+  "componentModelIdentity": "UNKNOWN",
+  "physicalPixel": "NOT_CAPTURED",
+  "newDesktopPass": "NOT_INCLUDED_PENDING_PARENT_VERIFICATION",
+  "sourceReceipts": {
+    "desktop": {
+      "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
+      "receipt": "docs/evidence/desktop-2026-11-15/receipt.json"
+    },
+    "emulator": {
+      "sourceCommit": "3968e52",
+      "receipt": "android/docs/evidence/emulator-safe-2026-11-15/receipt.json"
+    }
+  },
+  "frameMapping": "30fps documentary-card holds. Desktop t=output-12 in [12,57.533333); emulator t=output-69.533333 in [69.533333,101.666667). Only observed frames duplicated/resampled; no interpolated UI states.",
+  "verification": {
+    "durationSeconds": 147.666667,
+    "codec": "h264",
+    "width": 1920,
+    "height": 1080,
+    "frames": 4430,
+    "audioTracks": 0,
+    "fullDecodeExit": 0,
+    "decodeErrors": 0,
+    "sampleFramesSeconds": [
+      5,
+      16,
+      35,
+      56,
+      62,
+      74,
+      88,
+      98,
+      110,
+      125,
+      140
+    ],
+    "visualPrivacyReview": "chapter samples inspected; synthetic-only; no tokens/pairing codes/contact data found; not exhaustive pixel-level assurance",
+    "captions": "permanent mode and failure labels readable; original emulator banner retained"
+  }
+}
