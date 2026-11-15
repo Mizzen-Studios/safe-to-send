@@ -50,9 +50,9 @@ class EmulatorCloudTest {
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
-   report.put("inferenceSource",ledger.last().source); assertEquals("IN_CLOUD",ledger.last().source)
+   report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
-   compose.onNodeWithText("Hybrid response: IN_CLOUD; NOT yet private-verified").performScrollTo(); Thread.sleep(2500)
+   compose.onNodeWithText("Hybrid response: In Cloud; NOT yet private-verified").performScrollTo(); Thread.sleep(2500)
    compose.onNodeWithText("Private two-key review — local only").performScrollTo().performClick()
    compose.waitUntil(60000) { !vm.busy }
    report.put("localReview","UNAVAILABLE_EMULATOR_NO_NANO_PROOF")
