@@ -6,13 +6,13 @@ A stressful tax, benefits, NHS or housing letter should not require pasting your
 
 **[Try the live synthetic build](https://safe-to-send-2026.web.app)** · [Measured evaluation](docs/EVALUATION.md) · [Real cloud evidence](docs/evidence/deployed-cloud-cdp-ledger.json)
 
-> **Synthetic letters only.** Real Nano text and image/schema inference now passed on free Ubuntu Stable, including Firebase ONLY_ON_DEVICE. The product GIF still shows explicitly labelled templates—not AI; the measured full-corpus text baseline exposed incorrect offsets and mostly invalid verification. Source repairs are not evidence of improved model accuracy. End-to-end Nano journey proof remains pending. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
+> **Synthetic letters only.** Real Nano text and image/schema inference now passed on free Ubuntu Stable, including Firebase ONLY_ON_DEVICE. The product GIF shows explicitly labelled templates—not AI. Latest [fixed-answer evaluation](docs/FIXED_VERDICT_EVALUATION_2026-11-15.md): redaction adapter recall 94.11% and precision 71.58% across 32 synthetic notices, including one partial response; only 3/128 verifier trials were decidable. The one deadline catch was deterministic grounding, not a correct Nano verdict. Local checks remain experimental, not reliable verification. End-to-end Nano journey proof remains pending. The separate real cloud milestone used registered private debug App Check; it does not prove non-debug Enterprise attestation or a complete on-device-to-cloud journey. Do not enter real personal information.
 
 ![Actual local product flow: synthetic templates, not Nano or cloud inference](docs/media/product-preview.gif)
 
 *Captured from the real local UI; the response is an explicitly labelled deterministic synthetic template, not model inference. [Capture receipt](docs/evidence/product-preview.json).*
 
-**Deployment status:** source is ahead of the live link. Hosting remains held pending explicit owner approval overriding the no-publishing hold. [Gated release command and remaining checks](docs/DEPLOYMENT.md); preparing it is not permission to deploy.
+**Deployment status:** owner-authorized Spark Hosting releases follow passing tests and artifact/token scans. See [release gates](docs/DEPLOYMENT.md). Native App Check is configured, but normal-token acceptance and physical-device inference remain unverified.
 
 ## Try it in under five minutes
 
@@ -25,7 +25,7 @@ npm ci
 npm run dev
 ```
 
-Open http://localhost:5192. Choose a synthetic sample, select **Use sample annotations (not AI)** or **Review redactions manually**, edit the marked details, confirm synthetic input and exact-payload review, approve the redacted JSON, then choose the labelled local example. Edit/download the draft. Changing the source or redactions invalidates approval. Local preview needs no Firebase configuration. Release builds bundle strictly allowlisted public Firebase metadata without a config-paste screen; private input files and debug tokens are never committed. Configured release builds need no judge setup; the currently hosted release predates this integration. Source checkout uses a key-free local preview unless release metadata is supplied. Supported-device model initialization/download is a separate research step, not part of the five-minute preview.
+Open http://localhost:5192. Choose a synthetic sample, select **Use sample annotations (not AI)** or **Review redactions manually**, edit the marked details, confirm synthetic input and exact-payload review, approve the redacted JSON, then choose the labelled local example. Edit/download the draft. Changing the source or redactions invalidates approval. Local preview needs no Firebase configuration. Release builds bundle strictly allowlisted public Firebase metadata without a config-paste screen; private input files and debug tokens are never committed. Configured release builds need no judge setup; the deployed commit is reported with each verified Hosting release. Source checkout uses a key-free local preview unless release metadata is supplied. Supported-device model initialization/download is a separate research step, not part of the five-minute preview.
 
 ## Why hybrid, not “upload and hope”?
 
