@@ -1,31 +1,52 @@
 # Actual Android emulator results — 2026-11-15
 
-**PARTIAL / BLOCKED, not full cloud E2E success. No release.**
+**PASS for the actual emulator cloud subset; PARTIAL overall, NOT full local Nano E2E. No release.**
 
-## Source and verification
+## Latest source-bound proof
 
-Branch council/emulator-full-demo, based on 6edd07a. Actual builds cf809b0 and earlier are source-bound by their Actions runs. Latest cf809b0 run43732816968 compiled debug/release/instrumentation and passed unit-test build step plus release marker scan. Added two parser regression tests (38 total source unit tests versus prior36). Offline 12 source/recording guards,6 scanner fixtures,26 USB guards pass; no physical adb. Gitleaks nine-commit branch scan through cf809b0: zero findings. Normal release provider/configuration and shared canonical bytes unchanged.
+Branch `council/emulator-safe-completion`, tested source `3968e529dd6ace3a74bf1f88ebc25794b222234c`. [Actions 43737161647](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43737161647) completed SUCCESS. Debug/release/instrumentation builds, unit-test task and normal-release marker scan passed. There are 40 source unit-test methods; raw test reports/APKs were deliberately not exported from the runtime-secret workflow. Offline 13 source/recording guards, 6 scanner fixtures and 26 USB guards pass, ZERO physical adb operations. Normal Enterprise release provider/configuration and shared canonical bytes are unchanged. The common response prompt now explicitly requests the existing strict parser contract; no predicate was relaxed and no claims were repaired.
 
-Fixed real defects: SDK OnDeviceModelStatus default object string now mapped to explicit labels; malformed control-character Markdown fence literals in Prompts.parse replaced with real backticks, with regression tests. No claim/evidence normalization or relaxed validation.
+Sanitized receipts and source/media manifest: [evidence/emulator-safe-2026-11-15/](evidence/emulator-safe-2026-11-15/). The receipt is a synthetic test record, not personal notice content or a token.
 
-## Actual cloud boundary reached
+## Logging blocker resolved before real-secret reuse
 
-Runs [43730528349](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43730528349), [43731259129](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43731259129), [43731989397](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43731989397) obtained an actual Firebase App Check SDK token using a temporary registered **debug-development provider**, not native Enterprise production attestation. Actual emulator Nano reported UNKNOWN / unavailable, device model UNKNOWN; no fabricated Nano inference.
+Examined the exact Maven 20.1.0 debug SDK source and compiled bytecode: `DebugAppCheckProvider` unconditionally calls `Log.d(TAG,message)` with the secret after resolution. Source JAR SHA256 `ebd1831a4bae4fed3036fbc28cb29a3136a317578fb6cd5ef58b3f2b2901c75d`. There is no provider-level supported switch around that call.
 
-Manual synthetic redaction UI approved [WRITER] / Pay £20 by Friday. Exact application input375 UTF-8 bytes, SHA256 8b893bf43ac8d6a8638e603701e2ab2c75fe4a4e5ec27214bd08110a99dc163c. Original Alex absent from input. Approval consumed, one ATTEMPT ledger entry. **No parsed Accepted Answer or successful second cloud ledger entry was proven.** Safe classification reported NONE in the provider wrapper, but this is insufficient to assert a successful cloud response; parser failure suspected and fixed, never retroactively called proof. No missing/invalid-token native negative control was completed.
+Per-tag-only ERROR controls still failed the PUBLIC unregistered SDK canary in [43734781091](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43734781091); NO registered secret was used. Do not assume a tag control worked just because setprop succeeded.
 
-Final cf809b0 run43732816968 stopped on runner privacy guard: SDK secret detected in private in-memory logcat despite attempted per-tag SUPPRESS. No raw logcat, APKs, test reports or token were exported; only labelled screen video. Therefore actual latest cloud receipt unavailable; do not infer acceptance from unit/build success. Future CI secret runs held until logging can be reliably prevented or private emulator used. Workflow now manual-only; safe receipt preservation improved but not rerun.
+Supported Android liblog ERROR thresholds for both global defaults and explicit App Check tags, in BOTH `log.tag` and `persist.log.tag` namespaces, passed actual public-canary [43735526662](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43735526662) BEFORE new enrollment. Exact per-tag failure origin was not retained and is not claimed. Controls affect only the disposable runner emulator; no production logging/provider configuration was changed.
 
-## Footage
+Every real run repeats the canary first: actual SDK construction and invalid-token exchange; `Log.isLoggable(DEBUG)==false`; public canary absent from ALL logcat buffers; positive ERROR-level liveness marker present. Only then is the registered secret read and injected through private stdin into preferences. The registered-token all-buffer privacy tripwire remains mandatory, unfiltered and checked before receipt export. Latest receipt proves `sdkSecretLogDetectedInPrivateMemory=false`. No raw logs, APKs, preferences, instrumentation output or Gradle device reports were exported.
 
-- Run43731989397 artifact labelled-emulator-development-be37a2d498284ad51c9ce5aae185b02eb76f280e: **38.003s**,720px wide, continuous actual-emulator/debug-development/SDK-not-HTTP labels. Real UI manual selection, redaction, exact preview and request attempt. This is usable **partial-flow** footage, not successful cloud or full-flow verification.
-- Run43731259129:32.747s but default320px emulator, labels clipped; superseded for presentation, retained as historical failure.
-- Run43732816968:11.920s latest partial recording, not cloud success. No fabricated fixture response.
+## Actual parsed acceptance and exact SDK ledger
 
-Private downloaded media/receipts: workspace .openclaw/tmp/safe-send-emulator-evidence-be37/ and -cf809/. Do not publish a full-flow claim. Judge/operator draft and release notes remain drafts.
+Actual registered **debug-development** App Check SDK token obtained, NOT native Enterprise production attestation. Actual Firebase Android hybrid SDK returned `In Cloud`. The unmodified strict parser accepted the response, the application stored an Accepted answer, and two ledger entries match the exact approved application string: ATTEMPT then In Cloud. Approval consumed once; session clear emptied source and ledger.
 
-## Cleanup verified 16:05:14 UTC
+- Synthetic manual selection redacted Alex to [WRITER]; Alex is absent from SDK input.
+- Approved input: **665 UTF-8 bytes**, SHA256 `4d5271a0b2e68dacc6dc5eae2349b8b38fec77478dc459e64a186c94792e1b0b`.
+- Parsed explanation: “The notice instructs [WRITER] to pay £20 by Friday.”
+- Parsed draft: “[WRITER], pay £20 by Friday.”
+- Both cite exact evidence “Pay £20 by Friday.” Deadlines/actions/amounts arrays were empty. This is NOT completeness or accuracy validation.
+- Full exact approved string, accepted structured answer and both entries are in `receipt.json`. These are application SDK-input bytes, NOT HTTP/TLS packets.
 
-Temporary Android debug enrollment deleted; exact registration GET returned404. GitHub encrypted SAFE_SEND_EMULATOR_DEBUG_TOKEN deleted (secret list empty). SDK/app preferences and logcat cleared in runner finally; ephemeral runner discarded. App Check firebaseml.googleapis.com remains ENFORCED; Enterprise threshold0.5/TTL3600 unchanged; billingEnabled false. No billing/card/Play Console, physical devices, Mac, deploy or public release.
+## Negative controls and earlier failure diagnosis
 
-Remaining blockers: safe private emulator logging path; parsed actual cloud acceptance plus negative controls; supported Nano hardware for local text/photo, private two-key review, semantic wrong-deadline and full-flow recording. Owner need not run tests; operator owns future authorized hardware/session prerequisites.
+Actual SDK invalid public-debug-token exchange rejected with allowlisted APPCHECK_REJECTED category. In a separate disposable instrumentation process, a test-only provider supplied NO token (never an enforcement bypass); an actual Firebase AI SDK request was rejected with APPCHECK_REJECTED. Both receipts contain booleans/categories only, not backend error text. The override never enters normal application source and is cleared before registered-token use.
+
+Earlier actual [43736187989](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43736187989) safely returned a real In Cloud SDK response but strict parsing rejected it: STRICT_KEYS_OR_EMPTY_CLAIM, one ATTEMPT entry, no Accepted answer. This proves the failure was at the strict shape/nonempty guard, not cloud transport; the exact narrower predicate was not captured, so none is invented. The prompt was ambiguous about exact fields/nonempty required arrays. It now explicitly requests them. Parser predicates are unchanged; public error codes ANSWER_ROOT_KEY_SET / ANSWER_CLAIM_KEY_SET / ANSWER_EMPTY_CLAIM / ANSWER_EMPTY_REQUIRED_ARRAY plus regression tests distinguish future failures without raw response logging. Latest run reports PASS_STRICT_UNMODIFIED, not a normalized or fixture answer.
+
+Historical cf809b0 run43732816968 stopped on a real-secret privacy tripwire; earlier be37 footage showed only an attempt. Those are failures/partial evidence, not retroactively successful.
+
+## Footage — explicitly PARTIAL
+
+Latest artifact `labelled-emulator-development-3968e529dd6ace3a74bf1f88ebc25794b222234c` contains a continuous **32.134777s,720×1410** MP4. Labels state PARTIAL EMULATOR FLOW, Nano unavailable, development DEBUG App Check, SDK ledger NOT HTTP/production attestation. Sample frames were inspected: labels are unclipped, manual-redaction UI and actual accepted synthetic answer/TEST_ONLY mutation are visible. No fixture cloud reply.
+
+MP4 SHA256 `eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05`. Media is not committed or publicly released. Private downloaded copy: workspace `.openclaw/tmp/safe-send-safe-evidence-final/labelled-emulator-development-3968e529dd6ace3a74bf1f88ebc25794b222234c/labelled-emulator.mp4`. Artifact retention 7 days.
+
+## Cleanup verified 16:51:28 UTC
+
+Temporary Android debug enrollment deleted, exact registration GET404. GitHub SAFE_SEND_EMULATOR_DEBUG_TOKEN deleted and secret list empty; revoked local registration file removed. Runner finally force-stopped and cleared app/preferences and logcat, then emulator terminated and ephemeral runner completed/discarded. App Check firebaseml.googleapis.com ENFORCED; Enterprise threshold0.5/TTL3600 unchanged; billing readback HTTP200, billingEnabled=false. An earlier transient billing readback403 was reconciled to HTTP200/false; token deletion had already succeeded.
+
+## Still blocked / not claimed
+
+Nano actually reported UNKNOWN / unavailable, device model UNKNOWN. No local text/photo inference, private two-key verification/unredaction, semantic wrong-deadline detection or full-flow recording is proven. The planted wrong-deadline object is TEST_ONLY, separate from Accepted, NOT Nano evidence. Normal-release Enterprise token acceptance, supported physical hardware and native accuracy/parity remain NOT_RUN. Owner need not run tests; these remaining operator-owned hardware prerequisites are outside this emulator's capability. No physical adb, Mac, phone/network/Tailscale change, billing/card, Hosting deploy, public release or organizer contact occurred.

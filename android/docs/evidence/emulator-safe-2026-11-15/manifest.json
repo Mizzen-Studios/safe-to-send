@@ -1,0 +1,18 @@
+{
+  "runId": 43737161647,
+  "sourceSha": "3968e529dd6ace3a74bf1f88ebc25794b222234c",
+  "runUrl": "https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43737161647",
+  "videoArtifact": "labelled-emulator-development-3968e529dd6ace3a74bf1f88ebc25794b222234c",
+  "videoFilename": "labelled-emulator.mp4",
+  "videoSha256": "eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05",
+  "durationSeconds": 32.134777,
+  "width": 720,
+  "height": 1410,
+  "classification": "PARTIAL_EMULATOR_CLOUD_FLOW_NOT_FULL_LOCAL_NANO_E2E",
+  "videoCommitted": false,
+  "unitTaskPassed": true,
+  "sourceUnitTestMethods": 40,
+  "normalReleaseMarkerScanPassed": true,
+  "normalEnterpriseProviderAndConfigUnchanged": true,
+  "sharedCanonicalBytesUnchanged": true
+}

@@ -1,0 +1,11 @@
+{
+  "registeredSecretUsed": false,
+  "negativeExchangeCategory": "APPCHECK_REJECTED",
+  "noTokenCloudCategory": "APPCHECK_REJECTED",
+  "noTokenCloudRequestRejected": true,
+  "invalidDebugTokenExchangeRejected": true,
+  "debugIsLoggable": false,
+  "result": "PASS",
+  "allLogBuffersCanaryAbsent": true,
+  "logBufferLivenessProven": true
+}
