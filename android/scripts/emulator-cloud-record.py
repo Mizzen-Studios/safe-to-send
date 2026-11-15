@@ -10,7 +10,10 @@ def adb(*args, **kw): return cmd(['adb','-s','emulator-5554',*args], **kw)
 out=pathlib.Path('emulator-evidence'); out.mkdir(exist_ok=True)
 # Supported liblog ERROR threshold, before construction, disposable emulator only.
 # Cover both namespaces: persist.log.tag.<tag> takes precedence on Android.
-for tag in ['com.google.firebase.appcheck.debug.internal.DebugAppCheckProvider','DebugAppCheckProvider']:
+for prefix in ['log.tag','persist.log.tag']:
+    adb('shell','setprop',prefix,'ERROR')
+    assert adb('shell','getprop',prefix).strip()==b'ERROR'
+for tag in ['com.google.firebase.appcheck.debug.internal.DebugAppCheckProvider','DebugAppCheckProvider','FirebaseAppCheck']:
     for prefix in ['log.tag.','persist.log.tag.']:
         adb('shell','setprop',prefix+tag,'ERROR')
         assert adb('shell','getprop',prefix+tag).strip()==b'ERROR'
@@ -35,7 +38,11 @@ try:
     instrument('EmulatorLoggingTest','-e','loggingCanary','true')
     logs=adb('logcat','-d','-b','all')
     assert b'PUBLIC_LOG_BUFFER_LIVENESS_CANARY' in logs, 'Guard cannot observe live logs'
-    assert canary.encode() not in logs, 'Public SDK canary leaked; secret never loaded'
+    if canary.encode() in logs:
+        # Public-canary metadata only: no message bodies, prompts, or real secrets.
+        origins=sorted(set(line.split(b': ',1)[0].decode(errors='replace')[-180:] for line in logs.splitlines() if canary.encode() in line))
+        (out/'logging-proof.json').write_text(json.dumps({'result':'BLOCKED_PUBLIC_CANARY_LEAK','registeredSecretUsed':False,'publicCanaryOrigins':origins},indent=2))
+        raise AssertionError('Public SDK canary leaked; secret never loaded')
     proof=json.loads(adb('exec-out','run-as',app,'cat','files/emulator-logging-receipt.json'))
     assert proof['result']=='PASS'
     proof['allLogBuffersCanaryAbsent']=True

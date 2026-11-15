@@ -21,6 +21,6 @@ test('actual cloud harness cannot silently substitute fixtures or local review s
 });
 test('canary proof precedes secret read and guard observes live unfiltered buffers',()=>{
  assert.ok(runner.indexOf("instrument('EmulatorLoggingTest',")<runner.indexOf("os.environ.pop('SAFE_SEND_EMULATOR_DEBUG_TOKEN')"));
- for(const text of ["'persist.log.tag.'","'ERROR'","'logcat','-d','-b','all'","PUBLIC_LOG_BUFFER_LIVENESS_CANARY","assert canary.encode() not in logs","assert not sdk_secret_log_detected"]) assert.ok(runner.includes(text));
+ for(const text of ["'persist.log.tag.'","'ERROR'","'logcat','-d','-b','all'","PUBLIC_LOG_BUFFER_LIVENESS_CANARY","if canary.encode() in logs","assert not sdk_secret_log_detected"]) assert.ok(runner.includes(text));
  assert.ok(workflow.includes('default: true'));
 });
