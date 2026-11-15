@@ -1,9 +1,6 @@
 name: Private-development emulator cloud recording
 on:
   workflow_dispatch:
-  push:
-    branches: [council/emulator-full-demo]
-    paths: [android/**, .github/workflows/emulator-cloud-demo.yml]
 permissions:
   contents: read
 jobs:

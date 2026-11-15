@@ -28,11 +28,11 @@ try:
     result=subprocess.run(['adb','-s','emulator-5554','shell','am','instrument','-w','-e','class','com.mizzen.safetosend.EmulatorCloudTest','-e','realEmulatorCloud','true',app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=220)
     # Console output and instrumentation raw results deliberately not uploaded.
     private_logs=adb('logcat','-d')
-    if token.encode() in private_logs:
-        raise RuntimeError('SDK secret-log suppression failed; raw logs retained only in memory')
+    sdk_secret_log_detected=token.encode() in private_logs
     receipt=adb('exec-out','run-as',app,'cat','files/emulator-cloud-receipt.json')
     assert token.encode() not in receipt
     data=json.loads(receipt)
+    data['sdkSecretLogDetectedInPrivateMemory']=sdk_secret_log_detected
     (out/'receipt.json').write_text(json.dumps(data,indent=2))
 finally:
     if record:
@@ -43,4 +43,5 @@ finally:
     adb('shell','am','force-stop',app)
     adb('shell','pm','clear',app)
     adb('logcat','-c')
+assert not sdk_secret_log_detected, 'SDK secret-log suppression failed; raw logs never exported'
 assert data['result']=='PASS', 'Sanitized cloud receipt reports failure'
