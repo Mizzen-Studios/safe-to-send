@@ -41,6 +41,7 @@ jobs:
           api-level: 35
           arch: x86_64
           target: google_apis
+          profile: pixel_2
           disable-animations: true
           disable-linux-hw-accel: false
           script: python3 android/scripts/emulator-cloud-record.py
@@ -48,7 +49,7 @@ jobs:
         if: always()
         run: |
           if test -f emulator-evidence/raw-emulator.mp4; then
-            ffmpeg -y -i emulator-evidence/raw-emulator.mp4 -vf "pad=iw:ih+100:0:100:color=black,drawtext=fontcolor=white:fontsize=20:x=12:y=12:text='ACTUAL ANDROID EMULATOR - NANO UNAVAILABLE',drawtext=fontcolor=white:fontsize=17:x=12:y=45:text='Manual redaction - development DEBUG App Check',drawtext=fontcolor=white:fontsize=16:x=12:y=72:text='SDK input ledger only - NOT HTTP or production attestation'" -c:v libx264 -crf 23 -pix_fmt yuv420p emulator-evidence/labelled-emulator.mp4
+            ffmpeg -y -i emulator-evidence/raw-emulator.mp4 -vf "scale=720:-2,pad=iw:ih+130:0:130:color=black,drawtext=fontcolor=white:fontsize=20:x=12:y=12:text='ACTUAL EMULATOR - NANO NOT AVAILABLE',drawtext=fontcolor=white:fontsize=20:x=12:y=44:text='Manual redaction - development DEBUG App Check',drawtext=fontcolor=white:fontsize=20:x=12:y=76:text='SDK ledger - NOT HTTP or production attestation'" -c:v libx264 -crf 23 -pix_fmt yuv420p emulator-evidence/labelled-emulator.mp4
             rm emulator-evidence/raw-emulator.mp4
           fi
       - name: Only sanitized receipt and labelled MP4, NEVER APK logs or test reports

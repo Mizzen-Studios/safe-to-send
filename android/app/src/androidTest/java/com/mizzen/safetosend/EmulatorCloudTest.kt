@@ -56,6 +56,7 @@ class EmulatorCloudTest {
    report.put("stage","UI_MANUAL_REDACTION")
    compose.setContent { MaterialTheme { SafeScreen(provider,vm) } }
    compose.onNodeWithText("Check Nano availability").performClick()
+   compose.waitForIdle()
    compose.waitUntil(60000) { !vm.busy }; Thread.sleep(1500)
    compose.onNodeWithText("Original synthetic notice (select sensitive text)").performScrollTo().performTextInput("Alex\nPay £20 by Friday.")
    compose.onNodeWithText("Original synthetic notice (select sensitive text)").performSemanticsAction(androidx.compose.ui.semantics.SemanticsActions.SetSelection) { it(0,4,false) }
@@ -69,16 +70,19 @@ class EmulatorCloudTest {
    report.put("exactApprovedApplicationText",exact).put("sha256",sha256(exact)).put("utf8Bytes",exact.toByteArray(Charsets.UTF_8).size)
    report.put("stage","ACTUAL_SDK_HYBRID_REQUEST")
    compose.onNodeWithText("Run approved hybrid response").performScrollTo().performClick()
+   compose.waitForIdle()
    compose.waitUntil(120000) { !vm.busy }
    val ledger=vm.privacy.ledger
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
    report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE").put("cloudFailureCategory",cloudFailure)
+   report.put("busyAtAcceptance",vm.busy)
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
    report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
    compose.onNodeWithText("Hybrid response: In Cloud; NOT yet private-verified").performScrollTo(); Thread.sleep(2500)
    compose.onNodeWithText("Private two-key review — local only").performScrollTo().performClick()
+   compose.waitForIdle()
    compose.waitUntil(60000) { !vm.busy }
    report.put("localReview","UNAVAILABLE_EMULATOR_NO_NANO_PROOF")
    compose.onNodeWithText("TEST_ONLY plant wrong deadline").performScrollTo().performClick()
