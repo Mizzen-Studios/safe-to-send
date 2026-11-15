@@ -1,5 +1,7 @@
 # Release recheck — 2026-11-15
 
+> Later same-day update: current source rebuilt and privately signed; see [refreshed candidate](SIGNED_PRIVATE_REFRESH_2026-11-15.md). This document preserves the historical artifact/recheck and its then-current limitations.
+
 **HOLD PRIVATE / REBUILD REQUIRED. Configuration and artifact verification, not production acceptance.** Baseline 7930eec; isolated council/release-roughcut. Parent owns integration and any later build.
 
 Authenticated GET readback confirms the existing native Android app 1:794092402064:android:fd7223549ef6ecf5a8af15, exact package com.mizzen.safetosend, existing Android Enterprise key/provider, score threshold 0.5 and TTL 3600s. Package verification enabled, exact package allowlist, non-Google-store distribution enabled, no testingOptions. Firebase AI service remains ENFORCED. Authenticated gcloud billing projects describe confirms billingEnabled=false and empty account. REST billing with project quota override returned403; the existing CLI read succeeded. No API enablement/configuration write, new resource, debug registration, billing change or token exchange occurred.

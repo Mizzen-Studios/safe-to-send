@@ -1,5 +1,7 @@
 # Configured signed private Android candidate — 2026-11-15
 
+> Later same-day update: current source rebuilt and privately signed; see [refreshed candidate](SIGNED_PRIVATE_REFRESH_2026-11-15.md). This document preserves the historical artifact/recheck and its then-current limitations.
+
 **HOLD PRIVATE. Preparation only; no release, install, phone operation or inference claim.**
 
 ## Exact build and tests
