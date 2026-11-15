@@ -1,0 +1,49 @@
+{
+  "index_sha256": "adb1c01115c3b11d2a5cde43b17ce3c53fa7cc48f834b930f63910d2c7dc74f5",
+  "index_bytes": 72105605,
+  "inrelease_key": "F6ECB3762474EDA9D21B7022871920D1991BC93C",
+  "packages": [
+    {
+      "package": "adb",
+      "version": "1:34.0.4-1build3",
+      "architecture": "arm64",
+      "sha256": "17433097fd151c47a95de2f7b45c3b683cde0a14d2b1e21251744075e71a1bcd",
+      "archive_path": "pool/universe/a/android-platform-tools/adb_34.0.4-1build3_arm64.deb"
+    },
+    {
+      "package": "android-libbase",
+      "version": "1:34.0.4-1build3",
+      "architecture": "arm64",
+      "sha256": "0d764f726449e35b4a861b056d661da6526ef8b7d3403fc8d11836e63a9ac6d6",
+      "archive_path": "pool/universe/a/android-platform-tools/android-libbase_34.0.4-1build3_arm64.deb"
+    },
+    {
+      "package": "android-libboringssl",
+      "version": "14.0.0+r11-4build1",
+      "architecture": "arm64",
+      "sha256": "ebf7531fe6347a2c802b8f861872d7a2d0322d3102ea7fadf06977f66ae2653a",
+      "archive_path": "pool/universe/a/android-platform-external-boringssl/android-libboringssl_14.0.0+r11-4build1_arm64.deb"
+    },
+    {
+      "package": "android-libcutils",
+      "version": "1:34.0.4-1build3",
+      "architecture": "arm64",
+      "sha256": "6888e9ed1722b63e1c8dd4656927da299b291ad83d141451f6e6394f9d7b0071",
+      "archive_path": "pool/universe/a/android-platform-tools/android-libcutils_34.0.4-1build3_arm64.deb"
+    },
+    {
+      "package": "android-liblog",
+      "version": "1:34.0.4-1build3",
+      "architecture": "arm64",
+      "sha256": "81e9bcec0986b8111f63617fc226d3690ed90cca61af27b57750fd1ec65e994b",
+      "archive_path": "pool/universe/a/android-platform-tools/android-liblog_34.0.4-1build3_arm64.deb"
+    },
+    {
+      "package": "android-libziparchive",
+      "version": "1:34.0.4-1build3",
+      "architecture": "arm64",
+      "sha256": "c924e3e4fd363cb0889ce977d2f1716c63532b17bc5f55f8a78d20496b4014a6",
+      "archive_path": "pool/universe/a/android-platform-tools/android-libziparchive_34.0.4-1build3_arm64.deb"
+    }
+  ]
+}
