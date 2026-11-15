@@ -11,5 +11,6 @@ with zipfile.ZipFile(path) as z:
  for info in z.infolist():
   if info.file_size>100_000_000: raise SystemExit('Oversized APK entry rejected')
   data=z.read(info)
-  if any(re.search(pattern,data) for pattern in patterns): raise SystemExit('BLOCKED: forbidden debug/credential marker in release APK (value withheld)')
+  for index,pattern in enumerate(patterns):
+   if re.search(pattern,data): raise SystemExit(f'BLOCKED: forbidden release marker rule {index}; value withheld')
 print(json.dumps({'sourceSha':args.sha,'apk':path.name,'sha256':hashlib.sha256(path.read_bytes()).hexdigest(),'releaseMarkerScan':'PASS','signed':'UNVERIFIED; use apksigner verify --print-certs separately'}))
