@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """Runner-private debug secret, never compiled or passed in adb/Gradle arguments."""
-import os, subprocess, json, base64, pathlib, hashlib, time, signal
+import os, subprocess, json, base64, pathlib
 
 def cmd(args, **kw):
     return subprocess.run(args, check=True, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, **kw).stdout
@@ -27,6 +27,9 @@ try:
     record=subprocess.Popen(['adb','-s','emulator-5554','shell','screenrecord','--time-limit','180','/sdcard/emulator-demo.mp4'],stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL)
     result=subprocess.run(['adb','-s','emulator-5554','shell','am','instrument','-w','-e','class','com.mizzen.safetosend.EmulatorCloudTest','-e','realEmulatorCloud','true',app+'.test/androidx.test.runner.AndroidJUnitRunner'],stdout=subprocess.PIPE,stderr=subprocess.DEVNULL,timeout=220)
     # Console output and instrumentation raw results deliberately not uploaded.
+    private_logs=adb('logcat','-d')
+    if token.encode() in private_logs:
+        raise RuntimeError('SDK secret-log suppression failed; raw logs retained only in memory')
     receipt=adb('exec-out','run-as',app,'cat','files/emulator-cloud-receipt.json')
     assert token.encode() not in receipt
     data=json.loads(receipt)
