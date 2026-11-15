@@ -1,4 +1,4 @@
-import {LocalOperationError,emitLocalDiagnostic} from './local-diagnostics';
+import {LocalOperationError,emitLocalDiagnostic,localExceptionCode} from './local-diagnostics';
 import {initializeApp,type FirebaseOptions} from 'firebase/app';
 import {getAI,getGenerativeModel,GoogleAIBackend,InferenceMode,InferenceSource,type Part} from 'firebase/ai';
 import {validateSpans,type Span,cloudInstruction} from './privacy';
@@ -115,7 +115,7 @@ export function createNano(config:FirebaseOptions){
  stage='MODEL_GENERATE';emitLocalDiagnostic({operation,stage});const result=await local.generateContent([{type:'text',text:prompt}]);
  stage='INFERENCE_SOURCE';if(result.response.inferenceSource!==InferenceSource.ON_DEVICE)throw Error('Non-device response');
  stage='RESPONSE_TEXT';const raw=result.response.text();emitLocalDiagnostic({operation,stage:'RESPONSE_TEXT',raw});return raw;
- }catch{emitLocalDiagnostic({operation,stage});throw new LocalOperationError(stage);}
+ }catch(error){emitLocalDiagnostic({operation,stage,exception:localExceptionCode(error)});throw new LocalOperationError(stage);}
  }
  return {
  get modelIdentity(){return browserModelIdentity();},
