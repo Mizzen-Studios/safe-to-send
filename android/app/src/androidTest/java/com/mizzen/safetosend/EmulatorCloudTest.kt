@@ -34,7 +34,9 @@ class EmulatorCloudTest {
      sdkResponse=answer
      parserCategory=try { Prompts.parse(answer.text); "PASS_STRICT_UNMODIFIED" }
      catch (_:org.json.JSONException) { "JSON_SYNTAX_OR_FIELD_TYPE" }
-     catch (_:IllegalArgumentException) { "STRICT_KEYS_OR_EMPTY_CLAIM" }
+     catch (e:IllegalArgumentException) {
+      e.message?.takeIf { it in setOf("ANSWER_ROOT_KEY_SET","ANSWER_CLAIM_KEY_SET","ANSWER_EMPTY_CLAIM","ANSWER_EMPTY_REQUIRED_ARRAY") } ?: "OTHER_STRICT_REJECTION"
+     }
      catch (_:Exception) { "OTHER_PARSE_REJECTION" }
     } }
     catch(e:Exception) {
