@@ -16,4 +16,5 @@ class QuoteContractTest {
  @Test fun wholeVerbatimClaimCanPass() { assertEquals(listOf("supported"),QuoteContract.review(wire("supported"),"Pay £20",answer)) }
  @Test(expected=IllegalArgumentException::class) fun inventedEvidenceFails() { QuoteContract.review(wire("supported","Pay £30"),"Pay £20",answer) }
  @Test(expected=IllegalArgumentException::class) fun missingClaimsFails() { QuoteContract.review("""{"checks":[]}""","Pay £20",answer) }
+ @Test fun acceptedEvidenceMustMatchVerifierQuote() { val a=answer.copy(explanation=listOf(Claim("Pay £20","Hello"))); assertEquals(listOf("unknown"),QuoteContract.review(wire("supported"),"Hello\nPay £20",a)) }
 }
