@@ -49,10 +49,11 @@ class SessionModel : ViewModel() {
  var role by remember { mutableStateOf("WRITER") }
  var result by remember { mutableStateOf("") }
  var accepted by remember { mutableStateOf<ModelAnswer?>(null) }
+ var planted by remember { mutableStateOf<TestOnlyMutation?>(null) }
  var acceptedRevision by remember { mutableLongStateOf(-1) }
  var cameraFile by remember { mutableStateOf<File?>(null) }
  var photoRequestRevision by remember { mutableLongStateOf(-1) }
- fun reset() { payload=""; result=""; accepted=null; tick++ }
+ fun reset() { payload=""; result=""; accepted=null; planted=null; tick++ }
  fun loadPhoto(bitmap: Bitmap?) { if(vm.busy || !vm.isOpen() || p.revision!=photoRequestRevision) { bitmap?.recycle(); return }; vm.photo?.recycle(); vm.photo=bitmap; p.change(""); input=TextFieldValue(); reset(); status="Photo in memory. OCR uses ONLY_ON_DEVICE; no cloud fallback." }
  val gallery=rememberLauncherForActivityResult(ActivityResultContracts.PickVisualMedia()) { uri ->
   if(uri!=null && !vm.busy && vm.isOpen() && p.revision==photoRequestRevision) { val bitmap=try { context.contentResolver.openInputStream(uri)?.use { BitmapFactory.decodeStream(it) } } catch (_:Exception) { null }; loadPhoto(bitmap) }
@@ -108,9 +109,17 @@ class SessionModel : ViewModel() {
    result=QuoteContract.detection(raw,p.source,allowed).joinToString("\n") { "${it.second}: ${it.first}" }
    status="Local suggestions only; select and redact manually"
   }}) { Text("Detect sensitive text — local only") }
+  p.selections().forEach { span ->
+   OutlinedButton(enabled=!busy,onClick={ if(vm.busy) return@OutlinedButton; p.removeSpan(span.role); reset() }) { Text("Remove redaction: "+span.role) }
+  }
   Text("Redacted notice",style=MaterialTheme.typography.titleMedium)
   Text(p.redacted())
-  OutlinedButton(enabled=!busy,onClick={ if(vm.busy) return@OutlinedButton; payload=Prompts.response(p.redacted()); accepted=null; result=""; tick++ }) { Text("Preview exact hybrid payload") }
+  Button(enabled=!busy && p.source.isNotBlank(),onClick={task { current ->
+   val raw=provider.privateOnly(Prompts.response(p.source),null)
+   current(); Prompts.parse(raw); result=raw; accepted=null; planted=null
+   status="Local-only explanation; no cloud handoff. Not private-verified."
+  }}) { Text("Explain original — local only") }
+  OutlinedButton(enabled=!busy,onClick={ if(vm.busy) return@OutlinedButton; payload=Prompts.response(p.redacted()); accepted=null; planted=null; result=""; tick++ }) { Text("Preview exact hybrid payload") }
   if(payload.isNotEmpty()) {
    Text("Exact application text passed to Firebase SDK (NOT HTTP/TLS wire bytes)",style=MaterialTheme.typography.titleMedium)
    Text(payload)
@@ -123,7 +132,7 @@ class SessionModel : ViewModel() {
    val answer=provider.approvedHybrid(exact)
    current(); check(p.revision==rev)
    val parsed=Prompts.parse(answer.text)
-   p.accept(rev,parsed,answer.receipt); accepted=answer; acceptedRevision=rev
+   p.accept(rev,parsed,answer.receipt); accepted=answer; planted=null; acceptedRevision=rev
    p.record(exact,answer.source); result=answer.text
    status="Hybrid response: ${answer.source}; NOT yet private-verified"
   }}) { Text("Run approved hybrid response") }
@@ -131,15 +140,36 @@ class SessionModel : ViewModel() {
   Button(enabled=!busy && accepted!=null,onClick={task { current ->
    val bound=accepted!!; val answer=p.currentAnswer() ?: error("Stale")
    val claims=answer.claims()
+   val localAnswer=DemoReview.restored(p,answer)
    val contract=SafeApplication.contract
-   val raw=provider.privateJson(contract.getString("verificationPrompt")+"\n"+org.json.JSONObject().put("original",p.source).put("claims",QuoteContract.claims(answer)),contract.getJSONObject("verifierSchema"))
+   val raw=provider.privateJson(contract.getString("verificationPrompt")+"\n"+org.json.JSONObject().put("original",p.source).put("claims",QuoteContract.claims(localAnswer)),contract.getJSONObject("verifierSchema"))
    current()
-   val verdicts=QuoteContract.review(raw,p.source,answer)
+   val verdicts=QuoteContract.review(raw,p.source,localAnswer)
    val evidence=claims.map { p.restore(it.evidence) }
    val pass=verdicts.all { it=="supported" } && p.validate(acceptedRevision,answer,bound.receipt,evidence)
    status=if(pass) "Two-key conservative verbatim checks passed locally. Not a truth guarantee; review before use." else "Two-key UNKNOWN/unsupported: unproven claims remain locked; no deterministic mismatch claimed"
    if(pass) result=p.restore(bound.text)
   }}) { Text("Private two-key review — local only") }
+  Button(enabled=!busy && accepted!=null,onClick={ if(vm.busy) return@Button
+   val bound=accepted ?: return@Button; val answer=p.currentAnswer() ?: return@Button
+   planted=DemoReview.plantDeadline(p.revision,bound.receipt,answer)
+   status="TEST_ONLY planted mutation created separately. Accepted response unchanged."
+  }) { Text("TEST_ONLY plant wrong deadline") }
+  planted?.let { mutation ->
+   Text(mutation.provenance)
+   Text(mutation.answer.deadlines.joinToString("\n") { it.text+" • evidence: "+it.evidence })
+   Button(enabled=!busy,onClick={task { current ->
+    val bound=accepted ?: error("Missing base response")
+    check(DemoReview.bound(mutation,p.revision,bound.receipt))
+    val localAnswer=DemoReview.restored(p,mutation.answer)
+    val contract=SafeApplication.contract
+    val raw=provider.privateJson(contract.getString("verificationPrompt")+"\n"+org.json.JSONObject().put("original",p.source).put("claims",QuoteContract.claims(localAnswer)),contract.getJSONObject("verifierSchema"))
+    current(); check(DemoReview.bound(mutation,p.revision,bound.receipt))
+    val verdicts=QuoteContract.review(raw,p.source,localAnswer)
+    status="TEST_ONLY local model review: "+verdicts.joinToString()+". "+
+     (if(DemoReview.missingEvidence(p.source,localAnswer)) "Exact-evidence guard WARNING: planted quote absent. NOT proof Nano detected a wrong deadline; semantic verdict UNKNOWN." else "Semantic wrong-deadline verdict UNKNOWN.")
+   }}) { Text("Review TEST_ONLY mutation — local only") }
+  }
   Text("Privacy ledger — in-memory application bytes, not TLS packets",style=MaterialTheme.typography.titleMedium)
   p.ledger.forEach { Text("${it.source} • ${it.utf8Bytes} UTF-8 bytes • ${it.time}\nSHA-256 ${it.sha256}\n${it.applicationText}",style=MaterialTheme.typography.bodySmall) }
   OutlinedButton(enabled=!busy,onClick={ if(vm.busy) return@OutlinedButton; vm.photo?.recycle(); vm.photo=null; p.clear(); input=TextFieldValue(); reset(); status="Cleared in-memory session" }) { Text("Clear session") }

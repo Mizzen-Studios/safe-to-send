@@ -32,6 +32,8 @@ class PrivacySession {
   require(spans.none { start < it.end && end > it.start || role == it.role })
   spans.add(Span(start,end,role)); invalidate()
  }
+ fun selections(): List<Span> = spans.toList()
+ fun removeSpan(role: String) { require(spans.removeAll { it.role == role }); invalidate() }
  fun redacted(): String { var s = source; spans.sortedByDescending { it.start }.forEach { s = s.replaceRange(it.start,it.end,"[${it.role}]") }; return s }
  fun approve(exactVisiblePayload: String) {
   require(synthetic && spans.isNotEmpty() && exactVisiblePayload == Prompts.response(redacted()) && exactVisiblePayload != source)
@@ -51,4 +53,18 @@ class PrivacySession {
  }
  fun restore(text: String): String { var s = text; spans.forEach { s = s.replace("[${it.role}]",source.substring(it.start,it.end)) }; return s }
  fun clear() { source=""; spans.clear(); synthetic=false; ledger.clear(); invalidate() }
+}
+
+/** Explicit local experiment, never an Accepted response or cloud receipt. */
+data class TestOnlyMutation(val baseRevision: Long, val baseReceipt: Any, val answer: Answer,
+ val provenance: String = "TEST_ONLY planted mutation — NOT CLOUD")
+object DemoReview {
+ fun plantDeadline(revision: Long, receipt: Any, answer: Answer): TestOnlyMutation =
+  TestOnlyMutation(revision,receipt,answer.copy(deadlines=listOf(Claim("Payment deadline: Monday 30 November 2026", "Monday 30 November 2026"))))
+ fun bound(mutation: TestOnlyMutation, revision: Long, receipt: Any) = mutation.baseRevision==revision && mutation.baseReceipt===receipt
+ fun missingEvidence(original: String, answer: Answer) = answer.claims().any { it.evidence.isBlank() || !original.contains(it.evidence) }
+ fun restored(session: PrivacySession, answer: Answer): Answer {
+  fun local(claims: List<Claim>) = claims.map { Claim(session.restore(it.text),session.restore(it.evidence)) }
+  return Answer(local(answer.explanation),local(answer.draft),local(answer.deadlines),local(answer.actions),local(answer.amounts))
+ }
 }
