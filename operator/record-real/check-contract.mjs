@@ -28,3 +28,5 @@ test('TEST_ONLY recording visibly selects missed details rather than faking dete
  await reviewMisses(fake);assert.deepEqual(selected,SAMPLE_PRIVATE_VALUES);
  for(const value of SAMPLE_PRIVATE_VALUES)assert(!payload.includes(value));
 });
+
+test('failure evidence preserves real rendered output and unknown identity',async()=>{const run=await readFile('operator/record-real/run.mjs','utf8');for(const fragment of ['UNKNOWN_NOT_EXPOSED','final-native-ui.png','proof.visibleUI','proof.renderedDraft','productSourceHashes'])assert(run.includes(fragment));});
