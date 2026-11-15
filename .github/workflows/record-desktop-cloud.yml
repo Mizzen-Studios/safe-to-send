@@ -1,0 +1,55 @@
+name: Operator encrypted separate desktop cloud take
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: record-desktop-cloud
+  cancel-in-progress: false
+jobs:
+  capture:
+    if: github.event.repository.private == false
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
+      - name: Build exact candidate using public metadata only
+        env:
+          CLOUD_RECORD_PUBLIC_METADATA: ${{ secrets.CLOUD_RECORD_PUBLIC_METADATA }}
+        run: |
+          mkdir -p .openclaw/tmp
+          node -e "require('fs').writeFileSync('.openclaw/tmp/public-metadata.json',process.env.CLOUD_RECORD_PUBLIC_METADATA,{mode:0o600})"
+          SAFE_TO_SEND_BROKER_CONFIG=.openclaw/tmp/public-metadata.json npm run build
+      - name: Free distro capture dependencies
+        run: |
+          test -x /usr/bin/google-chrome
+          if ! command -v ffmpeg >/dev/null || ! command -v xvfb-run >/dev/null; then
+            sudo apt-get update
+            sudo apt-get install -y --no-install-recommends ffmpeg xvfb xauth
+          fi
+      - name: Genuine sandboxed headed desktop UI and real provider
+        env:
+          CLOUD_RECORD_DEBUG_JSON: ${{ secrets.CLOUD_RECORD_DEBUG_JSON }}
+        run: xvfb-run -a -s '-screen 0 1600x1000x24' node operator/record-cloud/run.mjs
+      - name: Encrypt private capture before any upload
+        if: always()
+        env:
+          CLOUD_RECORD_ENCRYPTION_KEY: ${{ secrets.CLOUD_RECORD_ENCRYPTION_KEY }}
+        run: node operator/record-cloud/encrypt.mjs
+      - name: Retain authenticated ciphertext only
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: encrypted-desktop-cloud-${{ github.run_id }}
+          path: .openclaw/tmp/record-cloud-encrypted/capture.aes256gcm
+          include-hidden-files: true
+          retention-days: 2
+          if-no-files-found: error
