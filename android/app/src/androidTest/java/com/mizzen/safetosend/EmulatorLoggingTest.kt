@@ -24,7 +24,15 @@ class EmulatorLoggingTest {
    Log.e("SafeSendPrivacyGuard","PUBLIC_LOG_BUFFER_LIVENESS_CANARY")
    var rejected=false
    try { Tasks.await(FirebaseAppCheck.getInstance().getAppCheckToken(true),60,TimeUnit.SECONDS) }
-   catch (_:Exception) { rejected=true }
+   catch (e:Exception) {
+    val messages=generateSequence(e as Throwable?) { it.cause }.map { it.message.orEmpty().lowercase() }.joinToString(" ")
+    rejected=true
+    report.put("negativeExchangeCategory",when {
+     "403" in messages || "attestation failed" in messages || "app attestation" in messages -> "APPCHECK_REJECTED"
+     "network" in messages -> "NETWORK_FAILURE_NOT_REJECTION_PROOF"
+     else -> "OTHER_ERROR_NOT_REJECTION_PROOF"
+    })
+   }
    assertTrue(rejected)
    report.put("invalidDebugTokenExchangeRejected",true).put("debugIsLoggable",false).put("result","PASS")
   } finally {

@@ -27,9 +27,16 @@ class EmulatorCloudTest {
   val actual=FirebaseProvider(); val vm=SessionModel()
   var cloudFailure="NONE"
   var sdkResponse:ModelAnswer?=null
+  var parserCategory="NOT_RUN"
   val provider=object: AiProvider by actual {
    override suspend fun approvedHybrid(exactPayload:String):ModelAnswer {
-    try { return actual.approvedHybrid(exactPayload).also { sdkResponse=it } }
+    try { return actual.approvedHybrid(exactPayload).also { answer ->
+     sdkResponse=answer
+     parserCategory=try { Prompts.parse(answer.text); "PASS_STRICT_UNMODIFIED" }
+     catch (_:org.json.JSONException) { "JSON_SYNTAX_OR_FIELD_TYPE" }
+     catch (_:IllegalArgumentException) { "STRICT_KEYS_OR_EMPTY_CLAIM" }
+     catch (_:Exception) { "OTHER_PARSE_REJECTION" }
+    } }
     catch(e:Exception) {
      // Only allowlisted categories, never provider text/token/exception dumps.
      val message=e.message.orEmpty().lowercase()
@@ -77,11 +84,15 @@ class EmulatorCloudTest {
    assertTrue(ledger.isNotEmpty()); assertEquals(exact,ledger.first().applicationText)
    report.put("ledgerEntries",ledger.size).put("approvalConsumed",!vm.privacy.isApproved())
    report.put("stage","PARSED_ACCEPTED_CLOUD_RESPONSE").put("cloudFailureCategory",cloudFailure)
-   report.put("busyAtAcceptance",vm.busy).put("sdkResponseReturned",sdkResponse!=null)
+   report.put("busyAtAcceptance",vm.busy).put("sdkResponseReturned",sdkResponse!=null).put("strictParserCategory",parserCategory)
    sdkResponse?.let { report.put("sdkInferenceSource",it.source).put("responseSha256",sha256(it.text)).put("responseFenced",it.text.trim().startsWith("```")) }
    assertNotNull(vm.privacy.currentAnswer()); assertEquals(exact,ledger.last().applicationText)
    report.put("inferenceSource",ledger.last().source); assertEquals(com.google.firebase.ai.InferenceSource.IN_CLOUD.toString(),ledger.last().source)
    report.put("actualCloudResponseAccepted",true)
+   val accepted=vm.privacy.currentAnswer()!!
+   fun claims(values:List<Claim>)=org.json.JSONArray().also { array -> values.forEach { array.put(JSONObject().put("text",it.text).put("evidence",it.evidence)) } }
+   report.put("acceptedSyntheticAnswer",JSONObject().put("explanation",claims(accepted.explanation)).put("draft",claims(accepted.draft)).put("deadlines",claims(accepted.deadlines)).put("actions",claims(accepted.actions)).put("amounts",claims(accepted.amounts)))
+   report.put("applicationLedger",org.json.JSONArray().also { array -> ledger.forEach { array.put(JSONObject().put("applicationText",it.applicationText).put("utf8Bytes",it.utf8Bytes).put("sha256",it.sha256).put("source",it.source)) } })
    compose.onNodeWithText("Hybrid response: In Cloud; NOT yet private-verified").performScrollTo(); Thread.sleep(2500)
    compose.onNodeWithText("Private two-key review — local only").performScrollTo().performClick()
    compose.waitForIdle()
