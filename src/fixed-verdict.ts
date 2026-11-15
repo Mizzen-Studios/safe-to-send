@@ -21,10 +21,5 @@ export function fixedChecks(raw:string,original:string,claims:Claim[]):string {
  for(const c of claims)if(!seen.has(c.id))checks.push({id:c.id,status:'unknown',evidence:[]});
  return JSON.stringify({checks});
 }
-/** Small bounded requests: at most four short claims / 1600 claim characters.
- * Long explanation/draft fields stay intact, alone, never silently truncated. */
-export function claimBatches(claims:Claim[]):Claim[][] {
- const batches:Claim[][]=[];
- for(const c of claims){const last=batches.at(-1);if(!last||last.length>=4||last.reduce((n,x)=>n+x.value.length,0)+c.value.length>1600)batches.push([c]);else last.push(c);}
- return batches;
-}
+/** One complete hypothesis per request; never truncate explanation/draft. */
+export function claimBatches(claims:Claim[]):Claim[][] {return claims.map(c=>[c]);}

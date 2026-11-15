@@ -22,7 +22,7 @@ const server=await createServer({configFile:false,envDir:false,publicDir:false,l
 try {
  const {evalCorpus,characterCounts}=await server.ssrLoadModule('/src/eval-corpus.ts');
  const {regexSpans}=await server.ssrLoadModule('/src/regex.ts');
- const {partialTextDetection,validateQuoteVerification,verifierSchemaFor,piiSchema}=await server.ssrLoadModule('/src/nano.ts');
+ const {partialTextDetection,validateQuoteVerification,verifierSchemaFor,verificationPromptFor,piiSchema}=await server.ssrLoadModule('/src/nano.ts');
  const {automaticReviewSpans}=await server.ssrLoadModule('/src/manual-suggestions.ts');
  const {fixedChecks,claimBatches,responseJSON}=await server.ssrLoadModule('/src/fixed-verdict.ts');
  const {trials,decision}=await server.ssrLoadModule('/operator/device-eval/core.ts');
@@ -58,7 +58,7 @@ try {
   const calls=nativeCalls(row),batches=claimBatches(t.claims),checks=[];batchHistogram[calls.length]=(batchHistogram[calls.length]??0)+1;
   for(let i=0;i<calls.length;i++){
    assert.ok(i<batches.length);const claims=batches[i];
-   assert.equal(nativeText(calls[i]),contract.verificationPrompt+'\n'+JSON.stringify({original:t.original,claims}));assert.deepEqual(calls[i].schema,verifierSchemaFor(claims));reconstructedVerifierPrompts++;
+   assert.equal(nativeText(calls[i]),verificationPromptFor(t.original,claims));assert.deepEqual(calls[i].schema,verifierSchemaFor(claims));reconstructedVerifierPrompts++;
    if(calls[i].status!=='success'){assert.ok(['error','timeout','aborted'].includes(row.status));continue;}
    try{const wire=responseJSON(row.capture.rawOutputs[i]);missingCheckCount+=claims.length-wire.checks.length;for(const c of wire.checks){rawStatusCounts[c.status]=(rawStatusCounts[c.status]??0)+1;if(c.evidence.some(e=>!t.original.includes(e.quote)))invalidEvidenceCheckCount++;}const normalized=fixedChecks(row.capture.rawOutputs[i],t.original,claims);for(const c of JSON.parse(normalized).checks)normalizedStatusCounts[c.status]=(normalizedStatusCounts[c.status]??0)+1;validateQuoteVerification(normalized,t.original,claims);checks.push(...JSON.parse(normalized).checks);}catch(e){assert.equal(row.status,'error');assert.equal(i,calls.length-1);}
   }

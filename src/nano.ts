@@ -4,6 +4,7 @@ import {validateSpans,type Span,cloudInstruction} from './privacy';
 import {parseVerification,type Claim} from './hybrid';
 import {fixedChecks,claimBatches,responseJSON} from './fixed-verdict';
 import contract from '../shared/nano/contract.json';
+import {sourceSentences} from './typed-evidence';
 import {automaticReviewSpans} from './manual-suggestions';
 export const localAnswerSchema={type:'object',additionalProperties:false,properties:{explanation:{type:'string'},deadlines:{type:'array',items:{type:'object',additionalProperties:false,properties:{date:{type:['string','null']},evidence:{type:'string'},action:{type:'string'}},required:['date','evidence','action']}},actions:{type:'array',items:{type:'string'}},draft:{type:'string'}},required:['explanation','deadlines','actions','draft']};
 /** Shared quote-only wire contract. Internal spans are derived locally. */
@@ -79,6 +80,10 @@ export function indexedOriginal(original:string){
  return {original,length:original.length,tokens,lines};
 }
 /** Request-specific cardinality and ID domain; strict runtime parsing remains authoritative. */
+/** Mechanical source units, never labels or inferred facts. */
+export function verificationPromptFor(original:string,claims:Claim[]){
+ return contract.verificationPrompt+' Check only the single submitted hypothesis. sourceSentences contains mechanical copies to help locate complete evidence; it is not a list of facts or expected answers. Copy the complete relevant sentence, not a greeting or isolated value. For absence quote original in full.\n'+JSON.stringify({original,sourceSentences:sourceSentences(original),claims});
+}
 export function verifierSchemaFor(claims:Claim[]){
  return {...localVerifierSchema,properties:{checks:{...localVerifierSchema.properties.checks,minItems:claims.length,maxItems:claims.length,items:{...localVerifierSchema.properties.checks.items,properties:{...localVerifierSchema.properties.checks.items.properties,id:{type:'string',enum:claims.map(c=>c.id)}}}}}};
 }
@@ -119,7 +124,7 @@ export function createNano(config:FirebaseOptions){
  // Small bounded requests; explanation and draft remain complete.
  const checks:unknown[]=[];
  for(const batch of claimBatches(claims)){
- const raw=await localJSON(verifierSchemaFor(batch),contract.verificationPrompt+'\n'+JSON.stringify({original,claims:batch}));
+ const raw=await localJSON(verifierSchemaFor(batch),verificationPromptFor(original,batch));
  const json=fixedChecks(raw,original,batch);
  validateQuoteVerification(json,original,batch);
  checks.push(...JSON.parse(json).checks);

@@ -48,7 +48,7 @@ it('TEST_ONLY: actual production adapter prompts/schemas recorded; raw invalid o
  const recorder=recordNativeProvider();
  const nano=createNano({apiKey:'TEST_ONLY',projectId:'test-only',appId:'test-only'});
  const run=await hashCaptures(await collect(nano,recorder,TEST_ONLY));
- expect(run.initialization.status,JSON.stringify(run.initialization)).toBe('success');expect(run.provenance).toBe('TEST_ONLY');expect(promptCount,JSON.stringify({detector:run.detectors[0],verifier:run.verifiers[0]})).toBe(160);expect(run.results).toHaveLength(30);expect(run.detectors[1].capture.nativeErrors).toEqual([{operation:'prompt',error:'Error: TEST_ONLY native failure'}]);expect(run.detectors[0].capture.rawOutputs).toEqual(['TEST_ONLY malformed detection']);expect(run.detectors[0].status).toBe('error');expect(run.verifiers.every((r:any)=>r.status==='unknown')).toBe(true);expect(run.twoKeyDecisions).toEqual([]);expect(destroyed).toBeGreaterThanOrEqual(160);expect((globalThis as any).LanguageModel).toBe(fake);
+ expect(run.initialization.status,JSON.stringify(run.initialization)).toBe('success');expect(run.provenance).toBe('TEST_ONLY');expect(promptCount,JSON.stringify({detector:run.detectors[0],verifier:run.verifiers[0]})).toBe(416);expect(run.results).toHaveLength(30);expect(run.detectors[1].capture.nativeErrors).toEqual([{operation:'prompt',error:'Error: TEST_ONLY native failure'}]);expect(run.detectors[0].capture.rawOutputs).toEqual(['TEST_ONLY malformed detection']);expect(run.detectors[0].status).toBe('error');expect(run.verifiers.every((r:any)=>r.status==='unknown')).toBe(true);expect(run.twoKeyDecisions).toEqual([]);expect(destroyed).toBeGreaterThanOrEqual(416);expect((globalThis as any).LanguageModel).toBe(fake);
  expect(fetch).not.toHaveBeenCalled();
  expect(nativeInputs[0].options.responseConstraint).toEqual(piiSchema);
  for(let i=0;i<32;i++){
@@ -59,14 +59,14 @@ it('TEST_ONLY: actual production adapter prompts/schemas recorded; raw invalid o
  }
  for(let i=0;i<128;i++){
   const trial=trials()[i],calls=run.verifiers[i].capture.nativeCalls.filter((c:any)=>c.operation==='prompt') as any[];
-  expect(calls).toHaveLength(1);expect(run.verifiers[i].capture.rawOutputs).toHaveLength(1);
+  expect(calls).toHaveLength(3);expect(run.verifiers[i].capture.rawOutputs).toHaveLength(3);
   expect(JSON.parse(run.verifiers[i].rawJson as string).checks.map((c:any)=>c.id)).toEqual(['c0','c1','c2']);
-  for(let j=0;j<1;j++){
-   const native=nativeInputs[32+i+j],call=calls[j];
+  for(let j=0;j<3;j++){
+   const native=nativeInputs[32+i*3+j],call=calls[j];
    const prompt=native.input[0].content[0].value;
    const data=JSON.parse(prompt.slice(prompt.indexOf(String.fromCharCode(10))+1));
-   expect(data).toEqual({original:trial.original,claims:trial.claims});
-   expect(native.options.responseConstraint).toEqual(verifierSchemaFor(trial.claims));
+   expect(data).toEqual({original:trial.original,sourceSentences:trial.original.split(/(?<=[.!?])\s+|[\r\n]+/u).map(s=>s.trim()).filter(Boolean),claims:[trial.claims[j]]});
+   expect(native.options.responseConstraint).toEqual(verifierSchemaFor([trial.claims[j]]));
    expect(JSON.stringify(data)).not.toMatch(/"(truth|annotations|mutations|variant|trialId|expected|rejected)"/);
    expect(call.promptSha256).toMatch(/^[a-f0-9]{64}$/);expect(call.schemaSha256).toMatch(/^[a-f0-9]{64}$/);
    expect(call.input).toEqual(native.input);expect(call.schema).toEqual(native.options.responseConstraint);
@@ -98,12 +98,12 @@ it('TEST_ONLY: missing batch IDs are explicitly unknown, never inferred decision
  vi.stubGlobal('window',globalThis);vi.stubGlobal('document',{});vi.stubGlobal('isSecureContext',true);
  const recorder=recordNativeProvider(),nano=createNano({apiKey:'TEST_ONLY',projectId:'test-only',appId:'test-only'});
  const run=await hashCaptures(await collect(nano,recorder,TEST_ONLY));
- expect(prompts).toBe(160);expect(run.provenance).toBe('TEST_ONLY');expect(run.twoKeyDecisions).toEqual([]);
+ expect(prompts).toBe(416);expect(run.provenance).toBe('TEST_ONLY');expect(run.twoKeyDecisions).toEqual([]);
  expect(run.coverage.verifiers).toMatchObject({planned:128,error:0,accepted:0,rejected:0,unknown:128});
  for(const row of run.verifiers){
-  expect(row.capture.rawOutputs).toEqual(['{"checks":[]}']);
+  expect(row.capture.rawOutputs).toEqual(Array(3).fill('{"checks":[]}'));
   const calls=row.capture.nativeCalls.filter((c:any)=>c.operation==='prompt') as any[];
-  expect(calls).toHaveLength(1);expect(calls[0].schema.properties.checks).toMatchObject({minItems:3,maxItems:3});
+  expect(calls).toHaveLength(3);expect(calls[0].schema.properties.checks).toMatchObject({minItems:1,maxItems:1});
   expect(calls[0].schemaSha256).toMatch(/^[a-f0-9]{64}$/);
  }
 });

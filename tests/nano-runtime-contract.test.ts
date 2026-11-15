@@ -76,19 +76,19 @@ it('text prompt contains only unannotated original, preserves deadlines and requ
  expect(prompt).not.toContain('"start":0,"end":1,"kind":"NAME"');
  expect(prompt).not.toContain('annotations:');expect(result.rawJson).toBe('{"findings":[]}');
 });
-it('three short claims use one bounded batch and preserve all IDs (SDK MOCK)',async()=>{
+it('three short claims use isolated single-claim requests and preserve all IDs (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  const claims=[claim('a'),claim('b'),claim('c')];
- sdk.generate.mockResolvedValueOnce(response(claims.map(c=>({id:c.id,status:'UNSURE',evidence:[]}))));
+ for(const c of claims)sdk.generate.mockResolvedValueOnce(response([{id:c.id,status:'UNSURE',evidence:[]}]));
  const json=await nano.verify('Call Maya',claims);
- expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(['a','b','c']);expect(sdk.generate).toHaveBeenCalledTimes(1);
- expect(JSON.parse(sdk.generate.mock.calls[0][0][0].text.split('\n').at(-1)).claims).toEqual(claims);
+ expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(['a','b','c']);expect(sdk.generate).toHaveBeenCalledTimes(3);
+ expect(sdk.generate.mock.calls.map(c=>JSON.parse(c[0][0].text.split('\n').at(-1)).claims)).toEqual(claims.map(c=>[c]));
 });
 it('larger requests preserve complete explanation/draft and every ID in bounded batches (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
  const claims=[{id:'explanation',kind:'explanation' as const,value:'Whole explanation'},{id:'draft',kind:'draft' as const,value:'Whole draft'},...Array.from({length:8},(_,i)=>claim('action-'+i))];
- for(let i=0;i<claims.length;i+=4)sdk.generate.mockResolvedValueOnce(response(claims.slice(i,i+4).map(c=>({id:c.id,status:'UNSURE',evidence:[]}))));
- const json=await nano.verify('Call Maya',claims);expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(claims.map(c=>c.id));expect(sdk.generate).toHaveBeenCalledTimes(3);
+ for(const c of claims)sdk.generate.mockResolvedValueOnce(response([{id:c.id,status:'UNSURE',evidence:[]}]));
+ const json=await nano.verify('Call Maya',claims);expect(JSON.parse(json).checks.map((c:{id:string})=>c.id)).toEqual(claims.map(c=>c.id));expect(sdk.generate).toHaveBeenCalledTimes(10);
 });
 it.each([
  [{id:'other',status:'unknown',evidence:[]}],
@@ -121,7 +121,7 @@ it('returns quote-only verifier evidence unchanged, uses matching whole-claim gu
  const prompt=sdk.generate.mock.calls[0][0][0].text;
  expect(prompt).toContain('A real but unrelated quote is NOT support or contradiction');
  expect(prompt).toContain('ENTIRE claim');expect(prompt).toContain('Whole explanation and draft');
- expect(JSON.parse(prompt.slice(prompt.lastIndexOf('\n')+1))).toEqual({original:'Call Maya',claims:[{id:'a',kind:'action',value:'Call Maya'}]});
+ expect(JSON.parse(prompt.slice(prompt.lastIndexOf('\n')+1))).toEqual({original:'Call Maya',sourceSentences:['Call Maya'],claims:[{id:'a',kind:'action',value:'Call Maya'}]});
 });
 it('image quote parsing is exact and fails closed on absent quotes and legacy finding text (SDK MOCK)',async()=>{
  browser();const nano=createNano({});await nano.initialize(()=>{});
