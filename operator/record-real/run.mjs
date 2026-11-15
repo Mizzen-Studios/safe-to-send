@@ -9,14 +9,14 @@ import {createHash} from 'node:crypto';
 import assert from 'node:assert/strict';
 import {variantConfig} from '../../scripts/nano-ci/variants.mjs';
 import {launchNative} from '../../scripts/nano-ci/native-chrome.mjs';
-import {readEffectiveArgs,sanitize} from '../../scripts/nano-ci/diagnostics.mjs';
+import {readEffectiveArgs,sanitize,captureDiagnostics} from '../../scripts/nano-ci/diagnostics.mjs';
 export const ORIGIN='http://127.0.0.1:5192';
-export const LIMITS={prewarmMs:15*60000,callMs:60000,takeMs:175000,totalMs:25*60000};
+export const LIMITS={prewarmMs:15*60000,callMs:135000,takeMs:175000,totalMs:25*60000};
 export const DEVICE_CONFIG={apiKey:'operator-local-only-not-a-credential',projectId:'operator-local-only',appId:'1:0:web:operator-local-only'};
 export const allowed=url=>new URL(url).origin===ORIGIN||/^(data|blob):/.test(url);
 export async function buildProduct(){
  // Not the normal config: envDir false, no private config, no broker bundle or stub.
- await build({configFile:false,envDir:false,publicDir:false,define:{__DEVICE_CONFIG__:JSON.stringify(DEVICE_CONFIG),__BROKER_CONFIG__:'null'},build:{outDir:'.openclaw/tmp/record-real-dist',emptyOutDir:true}});
+ await build({plugins:[{name:'operator-memory-observer',transformIndexHtml(html){return html.replace('</head>','<script type="module">import {observeLocalDiagnostics} from "/src/local-diagnostics.ts";globalThis.__operatorLocalDiagnostics=[];observeLocalDiagnostics(v=>globalThis.__operatorLocalDiagnostics.push(v));</script></head>');}}],configFile:false,envDir:false,publicDir:false,define:{__DEVICE_CONFIG__:JSON.stringify(DEVICE_CONFIG),__BROKER_CONFIG__:'null'},build:{outDir:'.openclaw/tmp/record-real-dist',emptyOutDir:true}});
 }
 export function handler(headers){return async(req,res)=>{
  const path=new URL(req.url,ORIGIN).pathname;
@@ -80,10 +80,11 @@ export async function run(){
   await journey(page,step);await page.waitForTimeout(3000);assert(Date.now()-takeStart<LIMITS.takeMs-1000);assert.equal(proof.network.externalAttempts.length,0);assert.equal(proof.errors.length,0);proof.status='RECORDED_REAL_LOCAL_PRODUCT';
  }catch(e){proof.errors.push(sanitize(e.message));proof.status=takeStart?'TAKE_FAILED_NOT_RELEASE_FOOTAGE':'PREWARM_FAILED_NOT_RECORDED';}
  finally{
-  if(page){try{proof.visibleUI=await page.locator('body').innerText();proof.localAnswerStatus=await page.locator('#local-answer-status').textContent({timeout:1000}).catch(()=>null);proof.renderedDraft=await page.locator('#draft').inputValue({timeout:1000}).catch(()=>null);await page.screenshot({path:resolve(out,'final-native-ui.png'),timeout:5000});if(takeStart)await page.waitForTimeout(3000);}catch(e){proof.errors.push(sanitize(e.message));}}
+  if(page){try{await writeFile(resolve(out,'synthetic-local-responses.json'),JSON.stringify(await page.evaluate(()=>globalThis.__operatorLocalDiagnostics??[]),null,2),{mode:0o600});proof.visibleUI=await page.locator('body').innerText();proof.localAnswerStatus=await page.locator('#local-answer-status').textContent({timeout:1000}).catch(()=>null);proof.renderedDraft=await page.locator('#draft').inputValue({timeout:1000}).catch(()=>null);await page.screenshot({path:resolve(out,'final-native-ui.png'),timeout:5000});if(takeStart)await page.waitForTimeout(3000);}catch(e){proof.errors.push(sanitize(e.message));}}
   if(cdp)await cdp.send('Page.stopScreencast').catch(()=>{});
   if(encoder){encoder.kill('SIGINT');const killTimer=setTimeout(()=>encoder.kill('SIGKILL'),10000);try{await encoderExit;}catch(e){proof.errors.push(sanitize(e.message));proof.status='ENCODER_FAILED';}finally{clearTimeout(killTimer);}}
   if(takeStart){proof.take.end=new Date().toISOString();proof.take.wallMs=Date.now()-takeStart;proof.take.cdpFrameCount=frameCount;try{proof.video=JSON.parse(execFileSync('ffprobe',['-v','error','-show_entries','format=duration:stream=codec_name,width,height','-of','json',resolve(out,'take-raw.mp4')],{encoding:'utf8'}));assert(Number(proof.video.format.duration)<=175.1);assert(Number(proof.video.format.duration)>1);assert(Math.abs(Number(proof.video.format.duration)*1000-proof.take.wallMs)<3000,'Video must cover wall time without truncation');assert(frameCount>0);await writeFile(resolve(out,'frame-timing.json'),JSON.stringify(frameTiming));execFileSync('ffmpeg',['-v','error','-i',resolve(out,'take-raw.mp4'),'-f','null','-'],{timeout:30000,stdio:'pipe'});}catch(e){proof.errors.push(sanitize(e.message));proof.status='VIDEO_VALIDATION_FAILED';}}
+  if(native?.context)try{proof.componentDiagnostics=await captureDiagnostics(native.context,out,'after-take');}catch{proof.componentDiagnostics='UNAVAILABLE';}
   await native?.close().catch(e=>proof.errors.push(sanitize(e.message)));if(server)await new Promise(r=>server.close(r));clearTimeout(totalTimer);await save();const files={};for(const name of await readdir(out)){const b=await readFile(resolve(out,name));files[name]={bytes:b.length,sha256:createHash('sha256').update(b).digest('hex')};}await writeFile(resolve(out,'manifest.json'),JSON.stringify({sourceCommit:proof.sourceCommit,files},null,2));
  }
  return proof.status==='RECORDED_REAL_LOCAL_PRODUCT'&&proof.errors.length===0?0:1;

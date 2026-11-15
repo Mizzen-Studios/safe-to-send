@@ -1,3 +1,4 @@
+import {localFailureCode} from './local-diagnostics';
 import {type PrivacyGate,redact,restore} from './privacy';
 import {parseJourney,reviewedCloudJourney,type Journey} from './journey';
 import {validateDraftRoles} from './roles';
@@ -92,20 +93,25 @@ function current(gate:PrivacyGate,revision:number,operation:number){if(gate.curr
 export async function runLocalAnswer(gate:PrivacyGate,nano:LocalNano|null):Promise<LocalAnswerResult>{
  const revision=gate.currentRevision,operation=begin(gate);
  if(!nano)return {status:'unavailable',revision,reason:'On-device model unavailable; no fallback.'};
+ let stage='REVIEW_REQUIRED';
  try{
  const original=gate.text,spans=gate.highlights;
  if(!spans.length||!['review','approved','done'].includes(gate.phase))throw Error('Reviewed redactions required');
- const j=parseJourney(await nano.answer(original));current(gate,revision,operation);
+ stage='ANSWER_GENERATION';const rawAnswer=await nano.answer(original);stage='ANSWER_SCHEMA';
+ const j=parseJourney(rawAnswer);current(gate,revision,operation);
+ stage='ANSWER_EVIDENCE';
  if(JSON.stringify(j).includes(JSON.stringify(original).slice(1,-1)))throw Error('Whole original echo refused');
  for(const d of j.deadlines)if(!original.includes(d.evidence))throw Error('Invalid local evidence');
  const claims=claimsFromJourney(j);
- const verification=parseVerification(await nano.verify(original,claims),original,claims);current(gate,revision,operation);
+ stage='VERIFICATION_GENERATION';const rawChecks=await nano.verify(original,claims);stage='VERIFICATION_SCHEMA';
+ const verification=parseVerification(rawChecks,original,claims);current(gate,revision,operation);
+ stage='ANSWER_REDACTION';
  const mapping=redact(original,spans).mapping;
  const safe=(value:string)=>{for(const [token,raw]of Object.entries(mapping).sort((a,b)=>b[1].length-a[1].length))value=value.split(raw).join(token);return value;};
  const result={explanation:safe(j.explanation),draft:safe(j.draft),actions:j.actions.map(safe),deadlines:j.deadlines.map(d=>({...d,evidence:safe(d.evidence),action:safe(d.action)}))};
- validateDraftRoles(result.draft,redact(original,spans).text);
+ stage='ANSWER_REPLY_ENVELOPE';validateDraftRoles(result.draft,redact(original,spans).text);
  return {status:'complete',revision,result,checked:true,verification};
- }catch{current(gate,revision,operation);return {status:'unavailable',revision,reason:'Local answer unavailable or invalid; no fallback.'};}
+ }catch(e){current(gate,revision,operation);return {status:'unavailable',revision,reason:'Local answer unavailable or invalid; no fallback. ['+localFailureCode(e,stage)+']'};}
 }
 /** Two keys: approved redacted cloud answer + separate ONLY_ON_DEVICE evidence check.
  * Input journey must still be redacted. No cloud provider/transport is accepted here. */
