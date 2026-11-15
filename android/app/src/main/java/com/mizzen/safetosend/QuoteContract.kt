@@ -26,7 +26,7 @@ object QuoteContract {
   val j=responseJSON(raw); keys(j,"checks"); val checks=j.getJSONArray("checks"); val claims=answer.claims(); require(checks.length()<=1000)
   val seen=mutableSetOf<String>(); val result=MutableList(claims.size){"unknown"}
   for(i in 0 until checks.length()) {
-   val c=checks.getJSONObject(i); keys(c,"id","status","evidence"); val id=c.getString("id"); val index=claims.indices.singleOrNull { id=="claim-$it" } ?: error("Unknown claim")
+   val c=checks.getJSONObject(i); keys(c,"id","status","evidence"); val id=c.getString("id"); val index=claims.indices.singleOrNull { id=="claim-$it" } ?: throw IllegalArgumentException("Unknown claim")
    require(seen.add(id)); val status=c.getString("status").uppercase(java.util.Locale.ROOT); require(status in setOf("MATCH","MISMATCH","UNSURE"))
    val evidence=c.getJSONArray("evidence"); require(evidence.length()<=10)
    val quotes=try { (0 until evidence.length()).map { val e=evidence.getJSONObject(it); keys(e,"quote"); quote(e.get("quote"),original) } } catch(_:Exception) { emptyList() }
