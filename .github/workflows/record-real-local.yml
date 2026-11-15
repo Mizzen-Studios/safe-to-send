@@ -1,16 +1,21 @@
-name: Operator encrypted separate desktop cloud take
+name: Operator genuine local product recording (free Ubuntu Stable)
 on:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: record-desktop-cloud
+  group: record-real-local
   cancel-in-progress: false
 jobs:
-  capture:
+  record:
     if: github.event.repository.private == false
+    strategy:
+      max-parallel: 1
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 30
+    env:
+      NANO_CHANNEL: stable
+      GITHUB_REPOSITORY_VISIBILITY: public
     steps:
       - uses: actions/checkout@v4
         with:
@@ -20,36 +25,33 @@ jobs:
           node-version: '24'
           cache: npm
       - run: npm ci --ignore-scripts
-      - run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
-      - name: Build exact candidate using public metadata only
-        env:
-          CLOUD_RECORD_PUBLIC_METADATA: ${{ secrets.CLOUD_RECORD_PUBLIC_METADATA }}
+      - name: Install attach-only driver, never Playwright browser launch
+        run: npm install --prefix scripts/nano-ci/.driver --no-package-lock --ignore-scripts playwright@1.65.0
+      - name: Contract tests and production typecheck
         run: |
-          mkdir -p .openclaw/tmp
-          node -e "require('fs').writeFileSync('.openclaw/tmp/public-metadata.json',process.env.CLOUD_RECORD_PUBLIC_METADATA,{mode:0o600})"
-          SAFE_TO_SEND_BROKER_CONFIG=.openclaw/tmp/public-metadata.json npm run build
-      - name: Free distro capture dependencies
+          node --test operator/record-real/check-contract.mjs
+          node node_modules/typescript/bin/tsc --noEmit
+      - name: Inventory and genuine Chrome Stable installation
         run: |
-          test -x /usr/bin/google-chrome
-          if ! command -v ffmpeg >/dev/null || ! command -v xvfb-run >/dev/null; then
+          node scripts/nano-ci/hardware.mjs
+          node scripts/nano-ci/install-chrome.mjs
+      - name: Distro free capture tools only if missing
+        run: |
+          if ! command -v ffmpeg >/dev/null || ! command -v ffprobe >/dev/null || ! command -v xdpyinfo >/dev/null || ! command -v xvfb-run >/dev/null; then
             sudo apt-get update
-            sudo apt-get install -y --no-install-recommends ffmpeg xvfb xauth
+            sudo apt-get install -y --no-install-recommends ffmpeg xvfb xauth x11-utils
           fi
-      - name: Genuine sandboxed headed desktop UI and real provider
-        env:
-          CLOUD_RECORD_DEBUG_JSON: ${{ secrets.CLOUD_RECORD_DEBUG_JSON }}
-        run: xvfb-run -a -s '-screen 0 1600x1000x24' node operator/record-cloud/run.mjs
-      - name: Encrypt private capture before any upload
-        if: always()
-        env:
-          CLOUD_RECORD_ENCRYPTION_KEY: ${{ secrets.CLOUD_RECORD_ENCRYPTION_KEY }}
-        run: node operator/record-cloud/encrypt.mjs
-      - name: Retain authenticated ciphertext only
+      - name: Prewarm separately then bounded real product take
+        run: xvfb-run -a -s '-screen 0 1280x1024x24' node operator/record-real/run.mjs
+      - name: Retain raw footage and failure evidence, never profile or credentials
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: encrypted-desktop-cloud-${{ github.run_id }}
-          path: .openclaw/tmp/record-cloud-encrypted/capture.aes256gcm
+          name: real-local-product-${{ github.run_id }}
+          path: |
+            .openclaw/tmp/record-real-artifacts/
+            scripts/nano-ci/artifacts/hardware.json
+            scripts/nano-ci/artifacts/installation.json
           include-hidden-files: true
-          retention-days: 2
-          if-no-files-found: error
+          if-no-files-found: warn
+          retention-days: 7
