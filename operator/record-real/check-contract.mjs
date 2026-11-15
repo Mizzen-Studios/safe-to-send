@@ -30,3 +30,5 @@ test('TEST_ONLY recording visibly selects missed details rather than faking dete
 });
 
 test('failure evidence preserves real rendered output and unknown identity',async()=>{const run=await readFile('operator/record-real/run.mjs','utf8');for(const fragment of ['UNKNOWN_NOT_EXPOSED','final-native-ui.png','proof.visibleUI','proof.renderedDraft','productSourceHashes'])assert(run.includes(fragment));});
+
+test('operator raw response observer is bundled before HTML transform and never logs payloads',async()=>{const run=await readFile('operator/record-real/run.mjs','utf8');assert(run.includes("order:'pre'"));assert(run.includes('synthetic-local-responses.json'));assert(run.includes('mode:0o600'));const main=await readFile('src/main.ts','utf8');assert(!main.includes('observeLocalDiagnostics'));});
