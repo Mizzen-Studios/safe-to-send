@@ -1,0 +1,45 @@
+{
+  "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
+  "files": {
+    "01.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "02.png": {
+      "bytes": 132466,
+      "sha256": "610b6fe43a9d44087beef9547cc2aa07e571e8718325b5c6b2442982cd2318f8"
+    },
+    "03.png": {
+      "bytes": 122700,
+      "sha256": "9ca9b1dbbfb8c664ce63801e5db7b1a018bb7193f2c6e6e4b4b566c6f5660bfb"
+    },
+    "04.png": {
+      "bytes": 149249,
+      "sha256": "bb53bdc6582c7d7de468c7e8b4ad6eb49daed4fc48e4f05ea60d42fd08cf8826"
+    },
+    "05.png": {
+      "bytes": 152016,
+      "sha256": "64d5b943ad097e82a80425e8d9397db8d3546d3f566dd0d2aa7e36db52bda77a"
+    },
+    "final-native-ui.png": {
+      "bytes": 151202,
+      "sha256": "4aa81be897367352c2104cdaebacb7e61216b74461e7b8b87e3e62ffeeb8cd0f"
+    },
+    "frame-timing.json": {
+      "bytes": 127,
+      "sha256": "cc0cfcc7bde430063f4885bb243ffe2a2119ac6981fdfa64368a75af9759e437"
+    },
+    "prewarm-ready.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "proof.json": {
+      "bytes": 9186,
+      "sha256": "574dd83beeb9fea895b6a28214a7d06b028f21417f8cd9dbc1c187d3c79b2306"
+    },
+    "take-raw.mp4": {
+      "bytes": 476361,
+      "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "sourceCommit": "a383e70785d81a06b7fd821aa46e70839aa60fda",
+  "files": {
+    "manifest.json": {
+      "bytes": 1411,
+      "sha256": "932fd51b9b8bd6dfc324fdaf81392b201e39b512f0259380106ed491d2b715d3"
+    },
+    "video-frame-1s.png": {
+      "bytes": 291531,
+      "sha256": "ed2e6a3475333e9fe034b5daf7f5c649c2b27d0d53187776b8e509ca31c1960a"
+    },
+    "hardware.json": {
+      "bytes": 452,
+      "sha256": "73c7e08c106e9908229e3cd32150176012dd6f4f5994072cf673b2da02d0b4c8"
+    },
+    "prewarm-ready.png": {
+      "bytes": 119313,
+      "sha256": "7331f66949c4180097daf20abf2b0f8874297b9a1585b4e4e352b4e4f71a2199"
+    },
+    "02.png": {
+      "bytes": 132466,
+      "sha256": "610b6fe43a9d44087beef9547cc2aa07e571e8718325b5c6b2442982cd2318f8"
+    },
+    "video-frame-22s.png": {
+      "bytes": 300231,
+      "sha256": "09404725ab6fc075647952ef1a53271037adbb95c272ea82e3063f12e9940651"
+    },
+    "frame-timing.json": {
+      "bytes": 127,
+      "sha256": "cc0cfcc7bde430063f4885bb243ffe2a2119ac6981fdfa64368a75af9759e437"
+    },
+    "receipt.json": {
+      "bytes": 3133,
+      "sha256": "dec0442b9f6ded761d27f3b4e8d79662297361e23a43ade6011d4a6c57ef3372"
+    },
+    "proof.json": {
+      "bytes": 9186,
+      "sha256": "574dd83beeb9fea895b6a28214a7d06b028f21417f8cd9dbc1c187d3c79b2306"
+    },
+    "video-frame-44s.png": {
+      "bytes": 426230,
+      "sha256": "6840c6c56d1007c0558e43abe8c335683b9cc4a84fc8a8c25dc988e125826703"
+    },
+    "video-frame-28s.png": {
+      "bytes": 428985,
+      "sha256": "401fbe76de235611c83537955b5d6a19effe68de38b36572b5003fc88cdb1991"
+    },
+    "final-native-ui.png": {
+      "bytes": 151202,
+      "sha256": "4aa81be897367352c2104cdaebacb7e61216b74461e7b8b87e3e62ffeeb8cd0f"
+    },
+    "05.png": {
+      "bytes": 152016,
+      "sha256": "64d5b943ad097e82a80425e8d9397db8d3546d3f566dd0d2aa7e36db52bda77a"
+    },
+    "take-raw.mp4": {
+      "bytes": 476361,
+      "sha256": "b86cf4659d15e13ee73171023813472d21787a5e52e2d014ef6d148539371ede"
+    },
+    "installation.json": {
+      "bytes": 253,
+      "sha256": "c036b553425bc0a3897c5939b2a91191729c81c47e61aefb640a71d5b55016e2"
+    }
+  }
+}

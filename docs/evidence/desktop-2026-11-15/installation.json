@@ -1,0 +1,6 @@
+{
+  "channel": "stable",
+  "source": "https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb",
+  "executable": "/opt/google/chrome/chrome",
+  "distribution": "Google Chrome, not Chrome for Testing; runtime version recorded by probe"
+}

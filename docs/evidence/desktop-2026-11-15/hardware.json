@@ -1,0 +1,19 @@
+{
+  "at": "2026-11-15T15:24:17.679Z",
+  "os": "linux",
+  "release": "7.0.0-1019-azure",
+  "arch": "x64",
+  "cpu": [
+    "Intel(R) Xeon(R) 6973P-C",
+    "Intel(R) Xeon(R) 6973P-C",
+    "Intel(R) Xeon(R) 6973P-C",
+    "Intel(R) Xeon(R) 6973P-C"
+  ],
+  "logicalCpus": 4,
+  "totalRamBytes": 16758403072,
+  "freeRamBytes": 15526739968,
+  "diskAvailableBytes": 93096480768,
+  "gpu": [],
+  "runnerImage": "ubuntu26",
+  "runnerImageVersion": "20261111.196.1"
+}

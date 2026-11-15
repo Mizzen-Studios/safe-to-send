@@ -1,7 +1,8 @@
-# Operator genuine local product take — NOT YET RECORDED
+# Operator genuine local product take
 
-Prepared from 291947e. No dispatch, push, deployment or paid runner is performed
-by preparation. Parent reviews and integrates this isolated branch before dispatch.
+Historical preparation was from 291947e. Current desktop recording branch starts
+from main 6edd07a; run-specific receipts in docs/evidence and docs/submission bind
+the actual footage to its exact source SHA. No production source is changed here.
 Existing native smoke receipt: docs/evidence/nano-native-smoke-result.json
 (run 43337348269, Ubuntu Stable 157.0.8103.78 real 3/3 smoke).
 Corpus run 43339470805 is separate; this work neither modifies nor evaluates it.
@@ -77,3 +78,14 @@ pending dispatch. If SDK initialization unexpectedly requires registered metadat
 stop and report that exact validation error; do not read secrets or enable a cloud
 fallback. No core production patch is currently needed: the operator-only build
 can define the existing __DEVICE_CONFIG__ without changing production config.
+
+## Output identity and failures
+
+The requested **Stable** channel labels the browser, not the model version. Exact
+model identity remains UNKNOWN_NOT_EXPOSED; component filenames are not identities.
+The final native UI screenshot and rendered text/draft are retained for both success
+and failure. A local answer refused as invalid stays refused; no template, fake
+SDK result, edited response or cloud fallback is inserted. This route currently
+records the text product workflow only. Image input is not a supported workspace
+feature; the separate image diagnostics button runs five research letters, not a
+one-letter product upload. Do not describe text footage as image detection proof.
