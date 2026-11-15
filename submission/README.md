@@ -21,6 +21,11 @@ Separate genuine web cloud JSON proves accepted structured output, 2,515-byte SD
 
 Final metrics replace stale current claims, preserving the prior 3/128 run as cited history: 128 planned /72 attempted /14 decided /57 unknown /1 aborted /56 not run; target failed. All32 character recall90.02% /precision69.58%. Detector varies; not controlled improvement, reliable verification or Nano amount accuracy.
 
-Full emulator worker93aad take remains **NOT_CAPTURED / EXPECTED_NOT_CAPTURED**, outside this task. Physical Pixel, normal production attestation, continuous hybrid journey and live cloud video remain missing. No waiting, fabricated footage, public release, deployment, video upload, submission, organizer contact, Mac/phone/network changes or install occurred.
+The accepted-cloud emulator take is now captured and indexed below; it is still a partial manual/cloud flow, not a full Nano hybrid take. Physical Pixel, normal production attestation, continuous hybrid journey and live cloud video remain missing. No waiting, fabricated footage, public release, deployment, video upload, submission, organizer contact, Mac/phone/network changes or install occurred.
 
 Official AOSP/Tailscale references were previously retrieved for the retained wireless research. Hackathon rules require current owner review; no eligibility clearance or challenge bypass.
+
+
+## Verified emulator cloud update
+
+The [32-second labelled emulator take](../docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4) now shows an accepted cloud answer after manual synthetic redaction and exact approval. [Receipt and negative controls](../android/docs/evidence/emulator-safe-2026-11-15/receipt.json) bind it to source `3968e52`. Use this instead of the earlier request-only clip for the Android cloud shot. It remains PARTIAL: development debug App Check, SDK ledger rather than captured HTTP, Nano unavailable, no production attestation or continuous local-to-cloud two-key demonstration. Earlier pending worker93aad references are superseded by this evidence; physical Nano/full hybrid footage remains absent.

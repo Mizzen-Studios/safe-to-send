@@ -18,3 +18,8 @@
 ## Assembly gates
 
 Keep true mode labels, failure states, denominators and payload text readable. No fabricated overlays, re-enactments passed off as inference, continuous-hybrid implication, real correspondence, private addresses, pairing codes or App Check secrets. Actual narration/rehearsal and finished 180-second edit **NOT_CAPTURED**. Read at the validator's reported rate, allowing pauses; shorten rather than fake missing shots. No upload, public release, submission, organizer contact or deployment authorized.
+
+
+## Verified emulator cloud update
+
+The [32-second labelled emulator take](../docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4) now shows an accepted cloud answer after manual synthetic redaction and exact approval. [Receipt and negative controls](../android/docs/evidence/emulator-safe-2026-11-15/receipt.json) bind it to source `3968e52`. Use this instead of the earlier request-only clip for the Android cloud shot. It remains PARTIAL: development debug App Check, SDK ledger rather than captured HTTP, Nano unavailable, no production attestation or continuous local-to-cloud two-key demonstration. Earlier pending worker93aad references are superseded by this evidence; physical Nano/full hybrid footage remains absent.

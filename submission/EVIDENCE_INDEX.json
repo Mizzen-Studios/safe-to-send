@@ -67,7 +67,7 @@
       "acceptedCloudInVideo": false,
       "nano": "UNAVAILABLE_NOT_PROVEN",
       "physicalPixel": false,
-      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay \u00a320 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
+      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay £20 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
     },
     {
       "path": "docs/evidence/final-web-real-cloud-2026-11-15.json",
@@ -86,14 +86,23 @@
       "sha256": "11565bdb6e3df2629fb01494fcee636e01dc457607dcd98ad82160ba325ea246",
       "kind": "report",
       "sourceCommit": "9ccf4aab94122b682b630f2a25553099f7809221"
+    },
+    {
+      "path": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
+      "sha256": "eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05",
+      "kind": "video",
+      "sourceCommit": "3968e529dd6ace3a74bf1f88ebc25794b222234c",
+      "durationSeconds": 32.134777,
+      "audio": false,
+      "width": 720,
+      "height": 1410,
+      "status": "PARTIAL_MANUAL_REDACTION_ACCEPTED_CLOUD_DEVELOPMENT_APPCHECK",
+      "modelIdentity": "UNKNOWN",
+      "receipt": "android/docs/evidence/emulator-safe-2026-11-15/receipt.json",
+      "bytes": 890363
     }
   ],
   "missing": [
-    {
-      "id": "worker93aad-full-emulator-take",
-      "status": "NOT_CAPTURED",
-      "shotStatus": "EXPECTED_NOT_CAPTURED"
-    },
     {
       "id": "normal-production-attestation",
       "status": "NOT_CAPTURED",
