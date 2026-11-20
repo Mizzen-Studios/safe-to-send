@@ -74,4 +74,4 @@ for m, sec, em, es, words in rows:
     end = stop
 assert len(rows) == 8 and end == 180
 print('PASS actual evidence hashes/source fields, video durations/full decode/no audio, SDK body parity; 180s timeline')
-print('Narration estimated words/minute:', round(sum(len(x[4].split()) for x in rows)/3, 1), '; actual rehearsal NOT_CAPTURED')
+print('Narration estimated words/minute:', round(sum(len(x[4].split()) for x in rows)/3, 1), '; actual rehearsal NOT_RECORDED')

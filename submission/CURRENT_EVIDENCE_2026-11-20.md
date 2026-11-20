@@ -19,11 +19,11 @@ Rechecked existing durable files, SHA256 and ffprobe on 20 November; neither fil
 
 ## Explicit pending gates — not complete
 
-- Physical Pixel connection/pairing: **NOT_RUN by this draft worker**; parent owns current attempt. No inferred connection success or failure.
-- Physical Pixel on-device text inference and photo behaviour: **NOT_RUN**; requires actual authorized device receipts.
-- Normal production App Check token plus enforced cloud acceptance on the physical candidate: **NOT_RUN**. Development receipts do not substitute.
-- Genuine physical local-to-cloud journey, planted-error review and captured phone footage: **NOT_RUN / NOT_CAPTURED**.
-- Finished narrated edit/rehearsal and owner approval: **NOT_CAPTURED / PENDING**. Current silent roughcut is not a finished film.
+- Host ADB: **WORKING**, per parent coordination; earlier binary incompatibility resolved. Pixel connection/pairing remains parent-owned; no app acceptance inferred.
+- Physical Pixel on-device text inference and photo behaviour: **PENDING_PIXEL_RUN**; requires actual authorized device receipts.
+- Normal production App Check token plus enforced cloud acceptance on the physical candidate: **PENDING_PIXEL_RUN**. Development receipts do not substitute.
+- Genuine physical local-to-cloud journey, planted-error review and captured phone footage: **PENDING_PIXEL_RUN**.
+- Recorded narration/rehearsal: **NOT_RECORDED**, independent of Pixel. Finished narrated edit: **NOT_CAPTURED**; owner approval **PENDING**. Current silent roughcut is not a finished film.
 - Public video URL, Devpost entry and submission: **NOT_PUBLISHED / NOT_SUBMITTED**; no publication authorized. Owner rules/eligibility review remains required.
 
 Phone acceptance cannot repair weak verifier coverage or poor desktop reply quality. Preserve unknowns and failures even if device gates later pass.
