@@ -1,5 +1,5 @@
 {
-  "baseline": "67d5bfe",
+  "baseline": "5d5a247",
   "syntheticOnly": true,
   "continuousHybridJourney": false,
   "assets": [
@@ -67,7 +67,7 @@
       "acceptedCloudInVideo": false,
       "nano": "UNAVAILABLE_NOT_PROVEN",
       "physicalPixel": false,
-      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay £20 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
+      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay \u00a320 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
     },
     {
       "path": "docs/evidence/final-web-real-cloud-2026-11-15.json",
@@ -100,6 +100,32 @@
       "modelIdentity": "UNKNOWN",
       "receipt": "android/docs/evidence/emulator-safe-2026-11-15/receipt.json",
       "bytes": 890363
+    },
+    {
+      "path": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "kind": "video",
+      "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+      "bytes": 1314845,
+      "sha256": "a11ac12897ee94b57bc452e90e7f5487e71f76381b12b519c07808bfa4569e0e",
+      "durationSeconds": 135.666667,
+      "audio": false,
+      "status": "LOCAL_EXECUTION_CHECKS_UNKNOWN_POOR_REPLY_DIRECTION",
+      "modelIdentity": "UNKNOWN_NOT_EXPOSED",
+      "cloud": "NOT_RUN"
+    },
+    {
+      "path": "docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json",
+      "kind": "proof",
+      "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+      "bytes": 10442,
+      "sha256": "a5a46e8f07c7cfac8be3ad08154c908177ca6acc0cf110921217399f3ec927b1"
+    },
+    {
+      "path": "docs/evidence/desktop-cloud-take-2026-11-15.json",
+      "kind": "proof",
+      "sourceCommit": "3ba79d8abd38b6539b1652a2f717de5f8d1a8219",
+      "bytes": 4431,
+      "sha256": "41de18b74b14ded00e96cb7732c03e78cd672432d8bda0baea24bbc119d23b80"
     }
   ],
   "missing": [
@@ -114,14 +140,33 @@
       "shotStatus": "EXPECTED_NOT_CAPTURED"
     },
     {
-      "id": "live-web-cloud-video",
+      "id": "currently-available-desktop-cloud-video",
       "status": "NOT_CAPTURED",
-      "shotStatus": "EXPECTED_NOT_CAPTURED"
+      "shotStatus": "EXPECTED_NOT_CAPTURED",
+      "history": "Previously captured; currently absent. Sanitized historical receipt retained."
     },
     {
       "id": "finished-narration-and-edit",
       "status": "NOT_CAPTURED",
       "shotStatus": "EXPECTED_NOT_CAPTURED"
     }
-  ]
+  ],
+  "currentAsOf": "2026-11-20",
+  "productSource": "440ec1e0aa70644ecde8288e8dc2d6f93e302b2f",
+  "privateRecovery": {
+    "receipt": "docs/PRIVATE_RECOVERY_2026-11-18.md",
+    "roughcut": {
+      "status": "VERIFIED_PRIVATE_NOT_UPLOADED",
+      "durationSeconds": 149.8,
+      "sha256": "f7897d9c52490f716efb374b46d80c1bd7930582b6c823ee6162e4b931f03151",
+      "sources": "desktop local plus separate emulator development cloud; not continuous"
+    },
+    "signedApk": {
+      "status": "VERIFIED_PRIVATE_NOT_UPLOADED",
+      "sha256": "106b8d58e9aa2cd31dd08da7ad562f44102dfcd691b36ed4d93cc082971ba5c3",
+      "sourceCommit": "440ec1e0aa70644ecde8288e8dc2d6f93e302b2f"
+    },
+    "desktopCloudClip": "HISTORICALLY_CAPTURED_CURRENTLY_ABSENT",
+    "desktopCloud155SecondEdit": "HISTORICALLY_CAPTURED_CURRENTLY_ABSENT"
+  }
 }

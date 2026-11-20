@@ -1,15 +1,17 @@
 # Submission assets — private drafting handoff
 
-Baseline: **67d5bfe**. Isolated council/refresh-assets worktree; drafts only, not a submission or finished recording.
+Draft refresh: **20 November 2026**, based on `5d5a247`; product `440ec1e` unchanged. Isolated `council/nov20-submission` worktree; drafts only.
+
+Start with [current measured evidence and pending gates](CURRENT_EVIDENCE_2026-11-20.md). This summary supersedes older availability statements below; original receipts remain historical.
 
 - [Devpost description — draft, not submitted](DEVPOST_DESCRIPTION_DRAFT.md)
 - [Three-minute narration and shot list](VIDEO_SCRIPT_AND_SHOTLIST_DRAFT.md)
 - [Safe to Send — reviewed hybrid boundary](ARCHITECTURE.html) — inline SVG, no remote assets
-- [VM → Pixel wireless debugging plan](../docs/VM_PIXEL_WIRELESS_PLAN.md) — unchanged, ARM64/x86-64 adb blocker; no install or phone changes
+- [VM → Pixel wireless debugging plan](../docs/VM_PIXEL_WIRELESS_PLAN.md) — historical plan/adb diagnosis; current connection attempt belongs to the parent
 - [Bound actual evidence index](EVIDENCE_INDEX.json)
 - [Final measured verdict](../docs/FINAL_WEB_VERDICT_2026-11-15.md)
 
-## Verification — 15 November 2026
+## Historical verification — 15 November 2026
 
 Run `python3 submission/validate_drafts.py` then `git diff --check`. Validator checks internal relative destinations/heading anchors, XML-parses inline SVG, checks exact titles and six directed connectors, rejects external graphic assets/private IPv4 patterns. It also verifies evidence byte counts/SHA256/source fields, both MP4 durations and full decode, no audio, separate web SDK-body/hash parity, missing-capture fields and contiguous 180-second shot timing. Narration is **303 words / 101 words per minute overall**, each slot <=130 words/minute; rehearsal, recorded voice and final edit remain **NOT_CAPTURED**. Artifact validation is not a new model/device/cloud run. No runtime source changed; no application build or inference rerun needed.
 
@@ -21,7 +23,7 @@ Separate genuine web cloud JSON proves accepted structured output, 2,515-byte SD
 
 Final metrics replace stale current claims, preserving the prior 3/128 run as cited history: 128 planned /72 attempted /14 decided /57 unknown /1 aborted /56 not run; target failed. All32 character recall90.02% /precision69.58%. Detector varies; not controlled improvement, reliable verification or Nano amount accuracy.
 
-The accepted-cloud emulator take is now captured and indexed below; it is still a partial manual/cloud flow, not a full Nano hybrid take. Physical Pixel, normal production attestation, continuous hybrid journey and live cloud video remain missing. No waiting, fabricated footage, public release, deployment, video upload, submission, organizer contact, Mac/phone/network changes or install occurred.
+The accepted-cloud emulator take is now captured and indexed below; it is still a partial manual/cloud flow, not a full Nano hybrid take. Physical Pixel, normal production attestation and continuous hybrid journey remain missing. Separate desktop-cloud media was captured historically but is currently absent; the restored edit uses the separate emulator cloud clip. No waiting, fabricated footage, public release, deployment, video upload, submission, organizer contact, Mac/phone/network changes or install occurred.
 
 Official AOSP/Tailscale references were previously retrieved for the retained wireless research. Hackathon rules require current owner review; no eligibility clearance or challenge bypass.
 

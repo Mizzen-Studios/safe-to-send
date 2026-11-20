@@ -1,8 +1,10 @@
 # Three-minute narration and shot list — draft
 
+**Historical 180-second narration proposal, not the current edit.** The current verified private edit is the [149.8-second silent roughcut](CURRENT_EVIDENCE_2026-11-20.md), with later local-answer execution and separate accepted emulator cloud footage. The earlier failure and request-only shots below are retained as historical alternatives, not current outcomes. No physical phone result is inferred.
+
 **Not a finished video.** Timeline totals 180 seconds, not a captured continuous journey. All content synthetic_only. Source assets are indexed in EVIDENCE_INDEX.json; original desktop clip is silent, unedited 45.533333s. Editorial excerpts below are proposed cuts, not a claim of an existing edit. Keep desktop/emulator/cloud separators visible. Still cards are documents, not inference footage.
 
-## Timed narration and shots
+## Historical timed narration and shots — not current measured edit
 
 | Time | Narration | Actual asset / honest gap |
 |---|---|---|

@@ -1,5 +1,7 @@
 # Separate genuine desktop cloud take — PRIVATE video
 
+**Availability recheck, 20 November 2026:** historical capture receipt, not currently deliverable media. The separate desktop-cloud MP4 is absent and its encrypted CI artifact was deleted. The restored 149.8-second private roughcut instead includes separate emulator development-cloud footage. No continuous hybrid or physical-device proof.
+
 Completed real headed sandboxed Chrome / Xvfb screen capture on the free standard public Ubuntu runner. Run [43752018291](https://github.com/Mizzen-Studios/safe-to-send/actions/runs/43752018291), recording source 3ba79d8abd38b6539b1652a2f717de5f8d1a8219. Product src/broker/shared bytes unchanged from 440ec1e0aa70644ecde8288e8dc2d6f93e302b2f. Candidate static assets alone were served by the driver at the two existing HTTPS origins; App Check and Firebase AI Logic requests/responses were real, not routed fixtures. This is candidate verification, not independent deployed-hosting byte verification.
 
 This is **a separate cloud take**, NOT continuous footage of the prior 137.8-second local run. No expensive local generation was repeated. Prior local evidence remains execution success with UNKNOWN checks, exact-quote downgrade and poor reply direction; none is repaired or promoted here. Nano is unprepared/unavailable in this cloud take, and experimental local verification says unavailable with no fallback.
@@ -17,7 +19,7 @@ This is **a separate cloud take**, NOT continuous footage of the prior 137.8-sec
 
 Raw capture: 38.066667s, 1600x1000 H264, 571 frames / 15fps, no audio, 1,775,309 bytes. SHA256 **02352d8e4744dccfd02a2ee985cf1c832304078edcaf5491c609b063066bbfc8**.
 
-Captioned separate-take clip: 1920x1080, same whole capture at 1x, scale/pad plus explicit DEVELOPMENT/not-production banner only. No cuts, substituted frames, synthetic answers or claimed continuity. SHA256 **a20827120d3be368474023afbaf49fd93a7934c3b696ff78d93ebe4f2ad3c8c2**. Private workspace files are supplied directly in operator handoff, not linked from this public repository.
+Captioned separate-take clip: 1920x1080, same whole capture at 1x, scale/pad plus explicit DEVELOPMENT/not-production banner only. No cuts, substituted frames, synthetic answers or claimed continuity. SHA256 **a20827120d3be368474023afbaf49fd93a7934c3b696ff78d93ebe4f2ad3c8c2**. Private workspace files were supplied in the historical handoff; they are currently absent and not linked from this repository.
 
 Approximate recording offsets: review 2.7s; approve 8.3s; Send 10.9s; accepted answer 13.1s; ledger 27.5s; revision invalidation 34.2s. These are recorder-spawn wall-clock observations, not exact frame synchronization. Both videos fully decoded with zero errors. Every-second contact sheet plus full-resolution response/ledger and captioned frame inspected: only made-up sample details/app UI, no token/pairing/account information observed. This sampling is not a mathematical all-pixel guarantee.
 
