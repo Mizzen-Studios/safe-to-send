@@ -19,7 +19,7 @@ Rechecked existing durable files, SHA256 and ffprobe on 20 November; neither fil
 
 ## Explicit pending gates — not complete
 
-- Physical Pixel connection/pairing: **NOT_RUN by this draft worker**; parent owns current attempt. No inferred connection success or failure.
+- Physical Pixel connection/pairing: parent attempted the previously observed connect port on 20 November; connection failed and the adb device list was empty. Awaiting current pairing code and both ports together. **PENDING_PIXEL_RUN**; no installation or physical inference claimed.
 - Physical Pixel on-device text inference and photo behaviour: **NOT_RUN**; requires actual authorized device receipts.
 - Normal production App Check token plus enforced cloud acceptance on the physical candidate: **NOT_RUN**. Development receipts do not substitute.
 - Genuine physical local-to-cloud journey, planted-error review and captured phone footage: **NOT_RUN / NOT_CAPTURED**.
