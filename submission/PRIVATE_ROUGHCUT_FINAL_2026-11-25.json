@@ -1,0 +1,309 @@
+{
+  "classification": "PRIVATE_SILENT_CAPTIONED_ROUGHCUT_NOT_FINISHED_FILM",
+  "baseline": "440ec1e",
+  "packageBaseline": "2f00548",
+  "assemblyDate": "2026-11-25",
+  "timeline": [
+    {
+      "name": "intro",
+      "start": 0,
+      "end": 12.0,
+      "duration": 12.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "detection-start",
+      "start": 12.0,
+      "end": 18.0,
+      "duration": 6.0,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 6.0,
+      "speed": 1,
+      "caption": "Synthetic sample. Real detection begins; retained footage at 1x.\nEdited waits omitted; not continuous real time.",
+      "mode": "DESKTOP / ONLY_ON_DEVICE / ACTUAL MODEL ID UNKNOWN"
+    },
+    {
+      "name": "redaction-review",
+      "start": 18.0,
+      "end": 36.0,
+      "duration": 18.0,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 23,
+      "sourceEnd": 41.0,
+      "speed": 1,
+      "caption": "Detection + product patterns; human review and redacted payload inspection.\nSource 6-23s omitted. No cloud handoff in this desktop take.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / EDITED WAITS OMITTED"
+    },
+    {
+      "name": "local-output",
+      "start": 36.0,
+      "end": 47.666667,
+      "duration": 11.666667,
+      "source": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sourceStart": 124,
+      "sourceEnd": 135.666667,
+      "speed": 1,
+      "caption": "Local output appears; checks UNKNOWN, not verified. Reply direction is poor.\nSource 41-124s wait omitted. Actual output preserved; no replacement UI.",
+      "mode": "DESKTOP / REAL RAW SEGMENT 1x / NOT CONTINUOUS REAL TIME"
+    },
+    {
+      "name": "metadata",
+      "start": 47.666667,
+      "end": 63.666667,
+      "duration": 16.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "separation",
+      "start": 63.666667,
+      "end": 75.666667,
+      "duration": 12.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "emulator",
+      "start": 75.666667,
+      "end": 107.8,
+      "duration": 32.133333,
+      "source": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
+      "sourceStart": 0,
+      "sourceEnd": 32.133333,
+      "speed": 1,
+      "caption": "Separate emulator take at 1x. DEVELOPMENT App Check / Nano UNAVAILABLE.\nTEST_ONLY mutation is not cloud or Nano proof; not a physical phone.",
+      "mode": "ANDROID EMULATOR / SEPARATE EXPERIMENT / DEVELOPMENT APP CHECK"
+    },
+    {
+      "name": "limits",
+      "start": 107.8,
+      "end": 123.8,
+      "duration": 16.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "measured",
+      "start": 123.8,
+      "end": 137.8,
+      "duration": 14.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    },
+    {
+      "name": "outro",
+      "start": 137.8,
+      "end": 149.8,
+      "duration": 12.0,
+      "source": null,
+      "sourceStart": null,
+      "sourceEnd": null,
+      "speed": null,
+      "caption": "",
+      "mode": ""
+    }
+  ],
+  "sources": [
+    {
+      "path": "docs/evidence/desktop-local-diagnosis-2026-11-15/success/take-raw.mp4",
+      "sha256": "a11ac12897ee94b57bc452e90e7f5487e71f76381b12b519c07808bfa4569e0e",
+      "sourceCommit": "04ad3bfdb3dc0f5627cc5d1b43cbfd415c1967be",
+      "kind": "real raw X11 capture",
+      "probeDuration": 135.666667
+    },
+    {
+      "path": "docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4",
+      "sha256": "eccbd41e59144623397edcd3ed0dd71a0acc98fb3cf61beb17886f09e53cdf05",
+      "sourceCommit": "3968e52",
+      "kind": "genuine emulator capture with existing disclosure banner",
+      "probeDuration": 32.134777
+    }
+  ],
+  "desktopReceipt": "docs/evidence/desktop-local-diagnosis-2026-11-15/43750733786-summary.json",
+  "desktopWallDuration": 137.802,
+  "desktopMediaDuration": 135.666667,
+  "durationCaveat": "Receipt wall clock and encoded duration differ; cuts use actual encoded PTS, not wall-clock promise.",
+  "omittedDesktopIntervals": [
+    [
+      6,
+      23
+    ],
+    [
+      41,
+      124
+    ]
+  ],
+  "frameMapping": "For footage, source time = sourceStart + outputTime - chapter start, at 1x. 15-to-30fps duplicates observed frames; cards are document holds, not UI footage.",
+  "videoSha256": "84b7eea995d2c5b0333132e21cb3259b57d40e08bc00dedd2ac3030a2cdf6947",
+  "actualDuration": 149.8,
+  "audio": "none",
+  "modelIdentity": "UNKNOWN_NOT_EXPOSED",
+  "componentMetadata": {
+    "name": "nano_v3_cpu_component",
+    "version": "2025.8.21.1028",
+    "notModelIdentity": true
+  },
+  "chrome": "157.0.8103.78",
+  "firebase": "13.2.0",
+  "separateManifestVersion": "1.20261018.2",
+  "localChecks": "UNKNOWN_NOT_VERIFIED",
+  "qualityLimitation": "Wrong reply direction preserved; human rewrite required.",
+  "physicalDevices": "NOT_EVALUATED_OUT_OF_SCOPE",
+  "desktopCloud": "HISTORICAL_ACCEPTED_RECORD_VIDEO_UNAVAILABLE",
+  "scope": "FINAL_NO_PIXEL_EVIDENCE_PACKAGE_NOT_FINISHED_NARRATED_FILM",
+  "videoBytes": 2333723,
+  "frameCount": 4494,
+  "resolution": [
+    1920,
+    1080
+  ],
+  "fullDecode": "PASS",
+  "productionAppCheck": "NOT_PROVEN",
+  "narration": "NOT_RECORDED",
+  "ownerReview": "REQUIRED",
+  "upload": "NOT_AUTHORIZED",
+  "sampleFrames": [
+    {
+      "seconds": 0,
+      "file": "sample-000.png",
+      "sha256": "67f6841b8c7794391ccf85c500a9f3eccdfa0bde988f94519af289e2d970e512"
+    },
+    {
+      "seconds": 12,
+      "file": "sample-012.png",
+      "sha256": "e97999404865f9199e3c1f36b1931751591ce0a0563b16e893ad5ff0071c54eb"
+    },
+    {
+      "seconds": 18,
+      "file": "sample-018.png",
+      "sha256": "a0e2a59a50441870d387fbc2200372bbc0d3efa8af9b57f70fad9046dbcb9d8f"
+    },
+    {
+      "seconds": 35,
+      "file": "sample-035.png",
+      "sha256": "8ff7367f93b7ac0976f6ca885746de79857dd15bb6fa1cc61afd218d1789d7b3"
+    },
+    {
+      "seconds": 36,
+      "file": "sample-036.png",
+      "sha256": "b17d6118b5ad37b8a9c131e8c0c3b538fc3169ec7e9faeddfe8d908c0411640e"
+    },
+    {
+      "seconds": 44,
+      "file": "sample-044.png",
+      "sha256": "434a978abaa797d1049d50c9ca766086f0aa8aae47182b8a0dbeadd3bd1b459f"
+    },
+    {
+      "seconds": 48,
+      "file": "sample-048.png",
+      "sha256": "1111e9592a068ceff9990c65b8ac1fd093be6bca9605c767c6af3254a327016c"
+    },
+    {
+      "seconds": 64,
+      "file": "sample-064.png",
+      "sha256": "9bf16360e705a6d9bdf55287bd548aff9781f62f910bdb6dbd46f065e7d0fb59"
+    },
+    {
+      "seconds": 76,
+      "file": "sample-076.png",
+      "sha256": "1d58e42ef3d50ef1c199eab72bd834c772626f5b51ba94e82a15bff9df4eaa35"
+    },
+    {
+      "seconds": 94,
+      "file": "sample-094.png",
+      "sha256": "05e173a2e81fe920f7fd1db793b51469809714c839808351592efb0d220f33a7"
+    },
+    {
+      "seconds": 107,
+      "file": "sample-107.png",
+      "sha256": "464176b38305a280def19e7b4187987681a566b628d4553f7bf8e997a644dc02"
+    },
+    {
+      "seconds": 108,
+      "file": "sample-108.png",
+      "sha256": "ea11fc5e4962b4faccd3f62c2879c8ebba3a74f0b97302949e935e0424dad052"
+    },
+    {
+      "seconds": 124,
+      "file": "sample-124.png",
+      "sha256": "cb3dbc1e7b3f02c0354e2bc860aa9b7e95f209a290b13291c332029acc0bb716"
+    },
+    {
+      "seconds": 138,
+      "file": "sample-138.png",
+      "sha256": "42f11a88854265cb6d7bcadb3b9387d98547d2b0302cad32bd49a139228cf4aa"
+    },
+    {
+      "seconds": 149,
+      "file": "sample-149.png",
+      "sha256": "a57ed79db02d9019828f8ec01aa94d05bea1504a794f49cd85da102b2471fee8"
+    },
+    {
+      "seconds": 39,
+      "file": "detail-039.png",
+      "sha256": "cec8d7f24f174eec329ab01ea9633bf2be1e8fdfb4d3b205a6e116db0c62ef59"
+    },
+    {
+      "seconds": 40,
+      "file": "detail-040.png",
+      "sha256": "50c32c8ce7a9ec553f194470a36f679ddaf51b6d3e2e4e9bd20d0542f57362ad"
+    },
+    {
+      "seconds": 99,
+      "file": "detail-099.png",
+      "sha256": "f848621aa92d2a8cde57ccbb20ede5cf9e605a3f3efb5a695a16e46815f4ecda"
+    },
+    {
+      "seconds": 100,
+      "file": "detail-100.png",
+      "sha256": "b1588f63d460be94d2e87673fa9633bfd561c46b5b97beb4f7ad43fc7ac716c3"
+    },
+    {
+      "seconds": 101,
+      "file": "detail-101.png",
+      "sha256": "d1be6b3fc7e97ac06a09002278098f4e6585510a63ac9e79a544f99312f8baab"
+    },
+    {
+      "seconds": 102,
+      "file": "detail-102.png",
+      "sha256": "83e2d84255c10af957674dab9efd4dd05f2db71321c27512399cc9c94fadfcb1"
+    },
+    {
+      "seconds": 103,
+      "file": "detail-103.png",
+      "sha256": "ea4bd33ff58d100fc1d8f68b74977bb753738512eaf8872e3c13d192f31e0c2f"
+    },
+    {
+      "seconds": 104,
+      "file": "detail-104.png",
+      "sha256": "7a45be848c413f84e72d70b4c3f0d90a9e9ebe5400fce3d44a5e2332abc646af"
+    }
+  ],
+  "visualReview": {
+    "status": "PASS_BOUNDED_STAGE_AND_JOIN_SAMPLES",
+    "sampleCount": 23,
+    "findings": "Readable editorial captions and metadata/limits cards; original poor reply retained. Synthetic originals only; no credentials or pairing details in reviewed frames. Small portrait source text is not all readable at reduced playback size; use original 1080p and receipts for exact SDK bytes. Not exhaustive frame-by-frame privacy certification. Additional detail samples show actual local unknown status, accepted emulator JSON and explicitly NOT CLOUD TEST_ONLY mutation."
+  }
+}

@@ -1,6 +1,6 @@
 # Three-minute narration and shot list — current draft
 
-Draft only: this proposed 180-second narration has not been recorded. The [current private rough cut](CURRENT_EVIDENCE_2026-11-20.md) is a different, silent 149.8-second edit. All examples are synthetic. Takes are separate, not continuous hybrid proof.
+Draft only: this proposed 180-second narration has not been recorded. The [current private rough cut](CURRENT_EVIDENCE_2026-11-25.md) is a different, silent 149.8-second edit. All examples are synthetic. Takes are separate, not continuous hybrid proof.
 
 | Time | Narration | Actual asset / honest gap |
 |---|---|---|
@@ -9,10 +9,12 @@ Draft only: this proposed 180-second narration has not been recorded. The [curre
 | 0:42–1:07 | “Chrome exposed component metadata, not the actual inference model identity. That identity remains unknown. The earlier failed local-answer take stays in the evidence history; the later successful execution does not make these checks reliable.” | Component nano_v3_cpu_component 2025.8.21.1028 and Chrome 157.0.8103.78, separately labelled metadata. No invented Nano version. |
 | 1:07–1:32 | “Desktop cloud acceptance was tested separately. The recorded approved SDK body and ledger matched exactly: two thousand five hundred fifteen bytes. Private development App Check is not production attestation. That private desktop cloud clip is currently missing.” | Historical receipt: ../docs/evidence/desktop-cloud-take-2026-11-15.json; evidence card, not live footage. Source proof is not an available video. |
 | 1:32–1:52 | “This separate emulator take shows manual redaction and an accepted cloud answer. It uses development App Check, with Nano unavailable. It is neither physical Pixel footage nor normal production attestation.” | Actual accepted clip: ../docs/evidence/emulator-2026-11-15/accepted-cloud-labelled.mp4. Preserve PARTIAL/development labels; no implied desktop continuation. |
-| 1:52–2:17 | “The architecture keeps the private original apart from approved redacted cloud content. Human review is mandatory. The native ARM client works, but physical Pixel validation remains pending. The diagram explains design, not completion.” | ARCHITECTURE.html; working adb 1.0.41 / 34.0.4-debian. Pairing, Pixel model identity, physical text/photo and production-token acceptance: PENDING_PIXEL_RUN. |
+| 1:52–2:17 | “The architecture keeps the private original apart from approved redacted cloud content. Human review is mandatory. Physical devices were not evaluated and are outside this entry’s scope. The diagram explains design, not completion.” | ARCHITECTURE.html; Physical devices not evaluated / out of scope. No normal production App Check acceptance claimed. |
 | 2:17–2:43 | “Final synthetic detection measured ninety point zero two percent character recall and sixty nine point five eight percent precision. The verifier decided fourteen of one hundred twenty eight planned trials. Its target failed. These are experimental checks, not reliable verification or a privacy guarantee.” | ../docs/FINAL_WEB_VERDICT_2026-11-15.md: all32 adapter character metrics; 72 attempted, 14 decided, 57 unknown, 1 aborted, 56 not run. Not real-letter or standalone-model accuracy. |
-| 2:43–3:00 | “I am Olly, a solo entrant using AI coding assistance. A November ninth preparatory spike is disclosed. Safe to Send needs human review. Physical validation and finished narration remain pending.” | Provenance/licence card. Pixel footage: PENDING_PIXEL_RUN. Narration/rehearsal and owner approval: NOT_RECORDED / PENDING_OWNER_REVIEW, not phone-dependent. |
+| 2:43–3:00 | “I am Olly, a solo entrant using AI coding assistance. A November ninth preparatory spike is disclosed. Safe to Send needs human review. This evidence package is limited; finished narration still requires recording.” | Provenance/licence card. Physical devices not evaluated / out of scope for this entry. Narration/rehearsal and owner approval: NOT_RECORDED / PENDING_OWNER_REVIEW, not phone-dependent. |
 
 ## Assembly gates
 
 No fabricated outputs, hidden failure states, invented identity, real correspondence, private device addresses, pairing codes or App Check credentials. Keep mode labels and denominators readable. No video publishing, upload, submission or organizer contact is authorized. This script updates stale planning claims; it is not a new inference/device run or a finished narrated edit.
+
+Exact narration count: **277 whitespace-delimited words / 92.3 words per minute** over the proposed 180 seconds. This is not a measured rehearsal.

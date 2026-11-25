@@ -4,7 +4,7 @@ import re
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parent.parent
-paths = [ROOT / 'docs/VM_PIXEL_WIRELESS_PLAN.md', *sorted((ROOT / 'submission').glob('*.md')), ROOT / 'submission/ARCHITECTURE.html']
+paths = [ROOT / 'README.md', *sorted((ROOT / 'submission').glob('*.md')), ROOT / 'submission/ARCHITECTURE.html']
 count = 0
 for path in paths:
     source = path.read_text()
@@ -75,3 +75,26 @@ for m, sec, em, es, words in rows:
 assert len(rows) == 8 and end == 180
 print('PASS actual evidence hashes/source fields, video durations/full decode/no audio, SDK body parity; 180s timeline')
 print('Narration estimated words/minute:', round(sum(len(x[4].split()) for x in rows)/3, 1), '; actual rehearsal NOT_CAPTURED')
+
+# Final scope regression: current prose cannot turn physical devices into blockers.
+current = ['README.md','submission/README.md','submission/DEVPOST_DESCRIPTION_DRAFT.md','submission/VIDEO_SCRIPT_AND_SHOTLIST_DRAFT.md','submission/ARCHITECTURE.html','submission/CURRENT_EVIDENCE_2026-11-25.md']
+for name in current:
+    prose=(ROOT/name).read_text()
+    assert 'PENDING_PIXEL_RUN' not in prose and 'awaiting Pixel' not in prose
+    assert 'out of scope' in prose or 'outside this entry' in prose
+proposal_words=sum(len(x[4].split()) for x in rows)
+assert proposal_words == 277, proposal_words
+m=json.loads((ROOT/'submission/PRIVATE_ROUGHCUT_FINAL_2026-11-25.json').read_text())
+assert m['physicalDevices']=='NOT_EVALUATED_OUT_OF_SCOPE'
+assert m['productionAppCheck']=='NOT_PROVEN'
+assert m['modelIdentity']=='UNKNOWN_NOT_EXPOSED'
+assert m['desktopCloud']=='HISTORICAL_ACCEPTED_RECORD_VIDEO_UNAVAILABLE'
+assert m['fullDecode']=='PASS' and m['audio']=='none'
+assert m['actualDuration']==149.8 and m['frameCount']==4494 and m['videoBytes']>0
+assert len(m['videoSha256'])==64
+assert not any('pixel' in x['name'].lower() for x in m['timeline'])
+assert all(x['speed']==1 for x in m['timeline'] if x['source'])
+assert m['localChecks']=='UNKNOWN_NOT_VERIFIED'
+recipe=(ROOT/'submission/assemble_private_roughcut.py').read_text()
+assert 'futureInsertPoint' not in recipe and 'pending verification' not in recipe
+print('PASS final no-Pixel scope, preserved UNKNOWN, production limits, silent measured cut distinct from 180s proposal')
