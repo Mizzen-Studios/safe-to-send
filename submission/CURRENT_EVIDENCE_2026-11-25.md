@@ -17,8 +17,11 @@ Authoritative current submission scope; supersedes the [20 November handoff](CUR
 
 New final-scope silent captioned edit: workspace-relative artifacts/private/safe-to-send-no-pixel-final/roughcut/safe-to-send-private-roughcut.mp4. See [sanitized measured manifest](PRIVATE_ROUGHCUT_FINAL_2026-11-25.json) for exact hash, size and duration. Retained real footage is 1x; source desktop waits 6–23s and 41–124s omitted explicitly. Cards summarize evidence, not simulated UI. Poor reply and UNKNOWN checks remain visible. No physical placeholders or future insertion slots. This is final **scope**, not a finished narrated film.
 
-Parent owns verified atomic replacement of the requested private recovery-copy path. This child has not replaced it. Signed private APK remains a separate source-440ec1e handoff; parent verifies its actual file/hash. No APK or MP4 is committed/uploaded.
+The verified private watching copy has been installed atomically at workspace-relative `artifacts/private/safe-to-send-recovery/roughcut/safe-to-send-private-roughcut.mp4`: **2,333,723 bytes**, SHA256 `84b7eea995d2c5b0333132e21cb3259b57d40e08bc00dedd2ac3030a2cdf6947`. Full decode passed; previous edit retained privately. Signed private APK remains a separate source-440ec1e handoff; parent verifies its actual file/hash. No APK or MP4 is committed/uploaded.
 
 ## Remaining non-device gates
 
 Narration/rehearsal **NOT_RECORDED**; owner editorial/privacy and rules/eligibility/provenance review required; any upload/publication/submission requires consent. The separate eight-row **180-second proposal** is not the measured **149.8-second silent cut**. No public video URL or Devpost submission claimed.
+
+
+[Fresh live-byte verification](../docs/NO_PIXEL_LIVE_VERIFICATION_2026-11-25.json): 5/5 artifacts match the deployed source `440ec1e`; subsequent main commits are documentation/recording helpers, not changed product code. Missing desktop-cloud clip cannot currently be safely re-recorded on this VM: a fresh sandbox-enabled Chromium launch failed at the host namespace restriction, before any cloud request. No sandbox relaxation or upload was performed. This clip is not needed for the measured no-Pixel scope.

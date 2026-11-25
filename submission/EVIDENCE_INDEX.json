@@ -67,7 +67,7 @@
       "acceptedCloudInVideo": false,
       "nano": "UNAVAILABLE_NOT_PROVEN",
       "physicalPixel": false,
-      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay \u00a320 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
+      "privacyReview": "1 fps contact sheet across all38 seconds: synthetic WRITER / Pay £20 by Friday only; no credential, pairing code or real personal information observed; full decode clean; video-only stream"
     },
     {
       "path": "docs/evidence/final-web-real-cloud-2026-11-15.json",
@@ -168,5 +168,14 @@
     },
     "desktopCloudClip": "HISTORICALLY_CAPTURED_CURRENTLY_ABSENT",
     "desktopCloud155SecondEdit": "HISTORICALLY_CAPTURED_CURRENTLY_ABSENT"
+  },
+  "currentPackage": {
+    "scope": "FINAL_NO_PIXEL",
+    "asOf": "2026-11-25",
+    "authority": "CURRENT_EVIDENCE_2026-11-25.md",
+    "cutManifest": "PRIVATE_ROUGHCUT_FINAL_2026-11-25.json",
+    "physicalDeviceEvaluation": "NOT_EVALUATED_OUT_OF_SCOPE",
+    "historicalMissingEntries": "Retained as dated history, not required for this no-Pixel entry",
+    "productionAppCheck": "NOT_PROVEN"
   }
 }

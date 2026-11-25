@@ -1,0 +1,33 @@
+{
+  "checkedAt": "2026-11-25T21:42:55.514Z",
+  "repository": "Mizzen-Studios/safe-to-send",
+  "observedMain": "2f00548a76d76b7bf74518c6b0bc93d46f9a438b",
+  "deployedApplicationSource": "440ec1e0aa70644ecde8288e8dc2d6f93e302b2f",
+  "applicationSourceDiffSinceDeployed": "NONE_IN_SRC_BROKER_PACKAGE_LOCK",
+  "liveSites": [
+    "https://safe-to-send-2026.web.app",
+    "https://safe-to-send-cloud-2026.web.app"
+  ],
+  "artifactComparison": {
+    "checked": 5,
+    "matching": 5,
+    "http200": 5,
+    "privateDebugTokenLeaks": 0
+  },
+  "redeployPerformed": false,
+  "browserRecordingCheck": {
+    "scope": "VM_ARM64_CACHED_CHROMIUM_SANDBOX_ENABLED_NO_CREDENTIALS_NO_CLOUD_REQUEST",
+    "result": "BLOCKED_HOST_SANDBOX_NAMESPACE_RESTRICTION",
+    "sandboxDisabled": false
+  },
+  "desktopCloudVideo": {
+    "availability": "MISSING",
+    "historicalAcceptanceEvidence": "docs/evidence/desktop-cloud-take-2026-11-15.json",
+    "neededForNoPixelCut": false
+  },
+  "limits": [
+    "This verifies deployed bytes, not a fresh Nano or cloud inference.",
+    "Repository documentation commits differ from deployed application-source label; product code is unchanged.",
+    "No physical Pixel evidence is claimed."
+  ]
+}
